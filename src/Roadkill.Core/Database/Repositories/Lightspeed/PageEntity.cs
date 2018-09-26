@@ -24,10 +24,19 @@ namespace Roadkill.Core.Database.LightSpeed
 		[Column("tags")]
 		private string _tags;
 
-		[Column("islocked")]
-		private bool _isLocked;
+        [Column("islocked")]
+        private bool _isLocked;
 
-		[ReverseAssociation("PageContents")]
+        [Column("nbrating")]
+        private long _nbRating;
+
+        [Column("nbview")]
+        private long _nbView;
+
+        [Column("totalrating")]
+        private long _totalRating;
+
+        [ReverseAssociation("PageContents")]
 		private readonly EntityCollection<PageContentEntity> _pageContents = new EntityCollection<PageContentEntity>();
 
 		public EntityCollection<PageContentEntity> PageContents
@@ -118,5 +127,41 @@ namespace Roadkill.Core.Database.LightSpeed
 				Set<bool>(ref _isLocked, value);
 			}
 		}
-	}
+
+        public long NbView
+        {
+            get
+            {
+                return _nbView;
+            }
+            set
+            {
+                Set<long>(ref _nbView, value);
+            }
+        }
+
+        public long NbRating
+        {
+            get
+            {
+                return _nbRating;
+            }
+            set
+            {
+                Set<long>(ref _nbRating, value);
+            }
+        }
+
+        public long TotalRating
+        {
+            get
+            {
+                return _totalRating;
+            }
+            set
+            {
+                Set<long>(ref _totalRating, value);
+            }
+        }
+    }
 }

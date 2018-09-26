@@ -7,7 +7,10 @@ CREATE TABLE roadkill_pages
 	[createdon] DATETIME, 
 	[islocked] BOOL, 
 	[modifiedby] TEXT, 
-	[modifiedon] DATETIME
+	[modifiedon] DATETIME,
+	[nbrating] integer,
+	[totalrating] integer,
+	[nbview] integer
 );
 
 CREATE TABLE roadkill_pagecontent 

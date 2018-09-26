@@ -31,11 +31,14 @@
 
 		<!-- Main content -->
 		@RenderSection("PluginPreContainer", false)
-		<div id="container">
-			<div id="content">
-				@RenderBody()
-			</div>
-		</div>
+        <div id="container">
+            <div id="content">
+                @RenderBody()
+            </div>
+            <div id="comments">
+                @RenderSection("PluginComments", false);
+            </div>
+        </div>
 		@RenderSection("PluginPostContainer", false)
 
 		<!-- Footer -->

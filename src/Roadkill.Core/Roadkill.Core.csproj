@@ -595,7 +595,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Database\Schema\Postgres\Create.sql" />
+    <None Include="Database\Schema\Postgres\Create.sql" />
     <EmbeddedResource Include="Database\Schema\Postgres\Drop.sql" />
     <EmbeddedResource Include="Database\Schema\Sqlite\Create.sql" />
     <EmbeddedResource Include="Database\Schema\Sqlite\Drop.sql" />

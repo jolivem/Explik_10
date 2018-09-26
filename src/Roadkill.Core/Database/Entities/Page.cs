@@ -74,10 +74,25 @@ namespace Roadkill.Core.Database
 		/// </summary>
 		public bool IsLocked { get; set; }
 
-		/// <summary>
-		/// The unique id for this object - for use with document stores that require a unique id for storage.
-		/// </summary>
-		public Guid ObjectId
+        /// <summary>
+        /// 
+        /// </summary>
+        public long NbRating { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public long TotalRating { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public long NbView  { get; set; }
+    
+        /// <summary>
+        /// The unique id for this object - for use with document stores that require a unique id for storage.
+        /// </summary>
+        public Guid ObjectId
 		{
 			get { return _objectId; }
 			set { _objectId = value; }

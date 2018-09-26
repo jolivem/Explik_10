@@ -178,8 +178,10 @@ namespace Roadkill.Core.Database.Export
 			sql += string.Format("'{0}',", page.ModifiedBy.ReplaceSingleQuotes());
 			sql += string.Format("'{0}',", page.ModifiedOn.ToString("yyyy-MM-dd HH:mm:ss"));
 			sql += string.Format("'{0}',", page.Tags.ReplaceSingleQuotes());
-			sql += string.Format("'{0}'",  page.IsLocked ? "1" : "0");
-
+			sql += string.Format("'{0}',", page.IsLocked);
+            sql += string.Format("'{0},'", page.NbRating);
+            sql += string.Format("'{0}',", page.TotalRating);
+            sql += string.Format("'{0}'", page.NbView);
 			sql += ");";
 
 			return sql;

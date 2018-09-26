@@ -153,8 +153,10 @@ namespace Roadkill.Core.Converters
 			// Text plugins after parse
 			html = runner.AfterParse(html);
 
-			// Text plugins pre and post #container HTML
-			pageHtml.PreContainerHtml = runner.PreContainerHtml();
+            pageHtml.CommentsHtml = runner.CommentsHtml();
+
+            // Text plugins pre and post #container HTML
+            pageHtml.PreContainerHtml = runner.PreContainerHtml();
 			pageHtml.PostContainerHtml = runner.PostContainerHtml();
 			
 			pageHtml.IsCacheable = runner.IsCacheable;

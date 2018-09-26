@@ -198,9 +198,12 @@ namespace Roadkill.Core.Services
 						document.Add(new Field("tags", pageModel.SpaceDelimitedTags(), Field.Store.YES, Field.Index.ANALYZED));
 						document.Add(new Field("createdby", pageModel.CreatedBy, Field.Store.YES, Field.Index.NOT_ANALYZED));
 						document.Add(new Field("createdon", pageModel.CreatedOn.ToShortDateString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-						document.Add(new Field("contentlength", pageModel.Content.Length.ToString(), Field.Store.YES, Field.Index.NO));
+                        document.Add(new Field("contentlength", pageModel.Content.Length.ToString(), Field.Store.YES, Field.Index.NO));
+                        //document.Add(new Field("nbview", pageModel.NbView.ToString(), Field.Store.YES, Field.Index.NO));
+                        //document.Add(new Field("nbrating", pageModel.NbRating.ToString(), Field.Store.YES, Field.Index.NO));
+                        //document.Add(new Field("totalrating", pageModel.TotalRating.ToString(), Field.Store.YES, Field.Index.NO));
 
-						writer.AddDocument(document);
+                        writer.AddDocument(document);
 					}
 
 					writer.Optimize();

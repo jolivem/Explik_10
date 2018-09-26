@@ -26,6 +26,9 @@ namespace Roadkill.Core.Database.LightSpeed
 			page.ModifiedOn = entity.ModifiedOn;
 			page.Tags = entity.Tags;
 			page.Title = entity.Title;
+            page.NbRating = entity.NbRating;
+            page.NbView = entity.NbView;
+            page.TotalRating = entity.TotalRating;
 
 			return page;
 		}

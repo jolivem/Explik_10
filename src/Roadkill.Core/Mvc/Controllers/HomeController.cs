@@ -56,6 +56,9 @@ namespace Roadkill.Core.Mvc.Controllers
 				model.RawTags = "homepage";
 				model.ModifiedOn = DateTime.UtcNow;
 				model.ModifiedBy = "";
+                model.NbRating = 0;
+                model.NbView = 0;
+                model.TotalRating = 0;
 			}
 
 			return View(model);

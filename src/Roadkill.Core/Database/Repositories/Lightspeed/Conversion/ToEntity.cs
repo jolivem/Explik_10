@@ -30,8 +30,11 @@ namespace Roadkill.Core.Database.LightSpeed
 
 		public static void FromPage(Page page, PageEntity entity)
 		{
-			entity.CreatedBy = page.CreatedBy;
-			entity.CreatedOn = page.CreatedOn;
+            entity.NbRating = page.NbRating;
+            entity.NbView = page.NbView;
+            entity.TotalRating = page.TotalRating;
+            entity.CreatedBy = page.CreatedBy;
+            entity.CreatedOn = page.CreatedOn;
 			entity.IsLocked = page.IsLocked;
 			entity.ModifiedOn = page.ModifiedOn;
 			entity.ModifiedBy = page.ModifiedBy;

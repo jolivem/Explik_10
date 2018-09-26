@@ -8,6 +8,9 @@
   "islocked" BOOLEAN NOT NULL, 
   "modifiedby" TEXT, 
   "modifiedon" TIMESTAMP(20) WITHOUT TIME ZONE, 
+  "NbRating" INTEGER,
+  "TotalRating" INTEGER,
+  "NbView" INTEGER,
   PRIMARY KEY("id")
 );
 

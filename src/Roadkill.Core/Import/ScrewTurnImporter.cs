@@ -123,9 +123,12 @@ namespace Roadkill.Core.Import
 								page.CreatedBy = reader["User"].ToString();
 								page.CreatedOn = (DateTime)reader["CreationDateTime"];
 								page.ModifiedBy = reader["User"].ToString();
-								page.ModifiedOn = (DateTime)reader["LastModified"];
+                                page.ModifiedOn = (DateTime)reader["LastModified"];
+                                page.NbView = (long)reader["NbView"];
+                                page.NbRating = (long)reader["NbRating"];
+                                page.TotalRating = (long)reader["TotalRating"];
 
-								string categories = GetCategories(pageName);
+                                string categories = GetCategories(pageName);
 								if (!string.IsNullOrWhiteSpace(categories))
 									categories += ";";
 								page.Tags = categories;

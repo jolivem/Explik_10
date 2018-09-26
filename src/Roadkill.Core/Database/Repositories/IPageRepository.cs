@@ -7,6 +7,7 @@ namespace Roadkill.Core.Database
 {
 	public interface IPageRepository
 	{
+        //TODO add ini of NbRatings... in AddNewPage...
 		PageContent AddNewPage(Page page, string text, string editedBy, DateTime editedOn);
 		PageContent AddNewPageContentVersion(Page page, string text, string editedBy, DateTime editedOn, int version);
 		/// <summary>
