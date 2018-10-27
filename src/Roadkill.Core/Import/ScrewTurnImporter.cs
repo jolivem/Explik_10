@@ -119,15 +119,17 @@ namespace Roadkill.Core.Import
 								string pageName = reader["Name"].ToString();
 
 								Page page = new Page();
-								page.Title = reader["Title"].ToString();
-								page.CreatedBy = reader["User"].ToString();
+                                page.Title = reader["Title"].ToString();
+                                page.Summary = reader["Summary"].ToString();
+                                page.CreatedBy = reader["User"].ToString();
 								page.CreatedOn = (DateTime)reader["CreationDateTime"];
 								page.ModifiedBy = reader["User"].ToString();
                                 page.ModifiedOn = (DateTime)reader["LastModified"];
                                 page.NbView = (long)reader["NbView"];
+                                page.NbAlert = (long)reader["NbAlert"];
                                 page.NbRating = (long)reader["NbRating"];
                                 page.TotalRating = (long)reader["TotalRating"];
-
+                                //TODO MJO what's this !!!!
                                 string categories = GetCategories(pageName);
 								if (!string.IsNullOrWhiteSpace(categories))
 									categories += ";";

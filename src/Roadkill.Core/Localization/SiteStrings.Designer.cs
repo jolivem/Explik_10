@@ -115,6 +115,33 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à View Alerts.
+        /// </summary>
+        public static string Alerts_Title {
+            get {
+                return ResourceManager.GetString("Alerts_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à My Pages.
+        /// </summary>
+        public static string AllMyPages_Title {
+            get {
+                return ResourceManager.GetString("AllMyPages_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à New Pages.
+        /// </summary>
+        public static string AllNewPages_Title {
+            get {
+                return ResourceManager.GetString("AllNewPages_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à No pages found..
         /// </summary>
         public static string AllPages_NoPages {
@@ -772,6 +799,24 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Alerts.
+        /// </summary>
+        public static string Navigation_Alerts {
+            get {
+                return ResourceManager.GetString("Navigation_Alerts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à New pages.
+        /// </summary>
+        public static string Navigation_AllNewPages {
+            get {
+                return ResourceManager.GetString("Navigation_AllNewPages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à All pages.
         /// </summary>
         public static string Navigation_AllPages {
@@ -844,7 +889,16 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à New page.
+        ///   Recherche une chaîne localisée semblable à My pages.
+        /// </summary>
+        public static string Navigation_MyPages {
+            get {
+                return ResourceManager.GetString("Navigation_MyPages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à New pages.
         /// </summary>
         public static string Navigation_NewPage {
             get {
@@ -1339,6 +1393,24 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Reject.
+        /// </summary>
+        public static string Shared_RejectLink {
+            get {
+                return ResourceManager.GetString("Shared_RejectLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Remove alerts.
+        /// </summary>
+        public static string Shared_RemoveAlertsLink {
+            get {
+                return ResourceManager.GetString("Shared_RemoveAlertsLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Success!.
         /// </summary>
         public static string Shared_Success {
@@ -1362,6 +1434,15 @@ namespace Roadkill.Core.Localization {
         public static string Shared_Username_Label {
             get {
                 return ResourceManager.GetString("Shared_Username_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Validate.
+        /// </summary>
+        public static string Shared_ValidateLink {
+            get {
+                return ResourceManager.GetString("Shared_ValidateLink", resourceCulture);
             }
         }
         

@@ -20,11 +20,20 @@ namespace Roadkill.Core.Cache
 		/// <summary>"allpages.with.content"</summary>
 		private static readonly string ALLPAGES_WITH_CONTENT = "allpages.with.content";
 
-		/// <summary>"allpages"</summary>
-		private static readonly string ALLPAGES = "allpages";
+        /// <summary>"allpages"</summary>
+        private static readonly string ALLPAGES = "allpages";
 
-		/// <summary>"allpages.createdby.{username}"</summary>
-		private static readonly string ALLPAGES_CREATEDBY = "allpages.createdby.{username}";
+        /// <summary>"allnewpages"</summary>
+        private static readonly string ALLNEWPAGES = "allnewpages";
+
+        /// <summary>"mypages"</summary>
+        private static readonly string MYPAGES = "mypages";
+
+        /// <summary>"Alerts"</summary>
+        private static readonly string ALERTS = "alerts";
+
+        /// <summary>"allpages.createdby.{username}"</summary>
+        private static readonly string ALLPAGES_CREATEDBY = "allpages.createdby.{username}";
 
 		/// <summary>"alltags"</summary>
 		private static readonly string ALLTAGS = "alltags";
@@ -164,11 +173,38 @@ namespace Roadkill.Core.Cache
 			return LIST_CACHE_PREFIX + ALLPAGES;
 		}
 
-		/// <summary>
-		/// Gets the cache key for the list of tags.
-		/// </summary>
-		/// <returns>The cache key.</returns>
-		public static string AllTags()
+        /// <summary>
+        /// Gets the cache key for the list of pages.
+        /// </summary>
+        /// <returns>The cache key.</returns>
+        public static string AllNewPages()
+        {
+            return LIST_CACHE_PREFIX + ALLNEWPAGES;
+        }
+
+        /// <summary>
+        /// Gets the cache key for the list of my pages.
+        /// </summary>
+        /// <returns>The cache key.</returns>
+        public static string MyPages()
+        {
+            return LIST_CACHE_PREFIX + MYPAGES;
+        }
+
+        /// <summary>
+        /// Gets the cache key for the list of my pages.
+        /// </summary>
+        /// <returns>The cache key.</returns>
+        public static string Alerts()
+        {
+            return LIST_CACHE_PREFIX + ALERTS;
+        }
+
+        /// <summary>
+        /// Gets the cache key for the list of tags.
+        /// </summary>
+        /// <returns>The cache key.</returns>
+        public static string AllTags()
 		{
 			return LIST_CACHE_PREFIX + ALLTAGS;
 		}

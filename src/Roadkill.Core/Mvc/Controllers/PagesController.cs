@@ -48,11 +48,60 @@ namespace Roadkill.Core.Mvc.Controllers
 			return View(_pageService.AllPages());
 		}
 
-		/// <summary>
-		/// Displays all tags (categories if you prefer that term) in Roadkill.
-		/// </summary>
-		/// <returns>An <see cref="IEnumerable{TagViewModel}"/> as the model.</returns>
-		[BrowserCache]
+        /// <summary>
+        /// Displays a list of all page titles and ids in Roadkill.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
+        [BrowserCache]
+        public ActionResult AllNewPages()
+        {
+            return View(_pageService.AllNewPages());
+        }
+
+        /// <summary>
+        /// Displays a list of all alerted page titles and ids in Roadkill.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
+        [BrowserCache]
+        public ActionResult Alerts()
+        {
+            return View(_pageService.Alerts());
+        }
+
+        /// <summary>
+        /// Displays a list of current user page titles and ids in Roadkill.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
+        [BrowserCache]
+        public ActionResult MyPages(string id, bool? encoded)
+        {
+
+            string currentUser = Context.CurrentUsername;
+            if (id == Context.CurrentUsername)
+            {
+
+                // Usernames are base64 encoded by roadkill (to cater for usernames like domain\john).
+                // However the URL also supports humanly-readable format, e.g. /ByUser/chris
+                if (encoded == true)
+                {
+                    id = id.FromBase64();
+                }
+
+                ViewData["Username"] = id;
+
+                return View(_pageService.MyPages(id));
+            }
+            else
+            {
+                return View(); // TODO check what is the result
+            }
+        }
+
+        /// <summary>
+        /// Displays all tags (categories if you prefer that term) in Roadkill.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{TagViewModel}"/> as the model.</returns>
+        [BrowserCache]
 		public ActionResult AllTags()
 		{
 			return View(_pageService.AllTags().OrderBy(x => x.Name));
@@ -95,28 +144,71 @@ namespace Roadkill.Core.Mvc.Controllers
 			return View(_pageService.AllPagesCreatedBy(id));
 		}
 
-		/// <summary>
-		/// Deletes a wiki page.
-		/// </summary>
-		/// <param name="id">The id of the page to delete.</param>
-		/// <returns>Redirects to AllPages action.</returns>
-		/// <remarks>This action requires admin rights.</remarks>
-		[AdminRequired]
-		public ActionResult Delete(int id)
-		{
-			_pageService.DeletePage(id);
+        /// <summary>
+        /// Deletes a wiki page.
+        /// </summary>
+        /// <param name="id">The id of the page to delete.</param>
+        /// <returns>Redirects to AllPages action.</returns>
+        /// <remarks>This action requires admin rights.</remarks>
+        [AdminRequired]
+        public ActionResult Delete(int id)
+        {
+            _pageService.DeletePage(id);
 
-			return RedirectToAction("AllPages");
-		}
+            return RedirectToAction("AllPages");
+        }
 
-		/// <summary>
-		/// Displays the edit View for the page provided in the id.
-		/// </summary>
-		/// <param name="id">The ID of the page to edit.</param>
-		/// <returns>An filled <see cref="PageViewModel"/> as the model. If the page id cannot be found, the action
-		/// redirects to the New page.</returns>
-		/// <remarks>This action requires editor rights.</remarks>
-		[EditorRequired]
+        /// <summary>
+        /// Deletes a wiki page.
+        /// </summary>
+        /// <param name="id">The id of the page to validate.</param>
+        /// <returns>Redirects to AllPages action.</returns>
+        /// <remarks>This action requires admin rights.</remarks>
+        [AdminRequired]
+        public ActionResult Validate(int id)
+        {
+            _pageService.ValidatePage(id);
+
+            return RedirectToAction("AllNewPages");
+        }
+
+        /// <summary>
+        /// Deletes a wiki page.
+        /// </summary>
+        /// <param name="id">The id of the page to reject.</param>
+        /// <returns>Redirects to AllPages action.</returns>
+        /// <remarks>This action requires admin rights.</remarks>
+        [AdminRequired]
+        public ActionResult Reject(int id)
+        {
+            _pageService.RejectPage(id);
+
+            return RedirectToAction("AllNewPages");
+        }
+
+        /// <summary>
+        /// Deletes a wiki page.
+        /// </summary>
+        /// <param name="id">The id of the page to reject.</param>
+        /// <returns>Redirects to AllPages action.</returns>
+        /// <remarks>This action requires admin rights.</remarks>
+        [AdminRequired]
+        public ActionResult ResetAlerts(int id)
+        {
+            _pageService.ResetAlertPage(id);
+
+            return RedirectToAction("AllNewPages");
+        }
+
+
+        /// <summary>
+        /// Displays the edit View for the page provided in the id.
+        /// </summary>
+        /// <param name="id">The ID of the page to edit.</param>
+        /// <returns>An filled <see cref="PageViewModel"/> as the model. If the page id cannot be found, the action
+        /// redirects to the New page.</returns>
+        /// <remarks>This action requires editor rights.</remarks>
+        [EditorRequired]
 		public ActionResult Edit(int id)
 		{
 			PageViewModel model = _pageService.GetById(id, true);
@@ -289,5 +381,33 @@ namespace Roadkill.Core.Mvc.Controllers
 			model.Content = diffHtml;
 			return View(model);
 		}
-	}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">The ID of the page to edit.</param>
+        /// <returns>An filled <see cref="PageViewModel"/> as the model. If the page id cannot be found, the action
+        /// redirects to the New page.</returns>
+        /// <remarks>This action requires editor rights.</remarks>
+        [EditorRequired] //TODO controller required
+        public ActionResult Valid(int id)
+        {
+            PageViewModel model = _pageService.GetById(id, true);
+
+            if (model != null)
+            {
+                if (model.IsLocked && !Context.IsAdmin)
+                    return new HttpStatusCodeResult(403, string.Format("The page '{0}' can only be edited by administrators.", model.Title));
+
+                model.AllTags = _pageService.AllTags().ToList();
+
+                return View("Edit", model);
+            }
+            else
+            {
+                return RedirectToAction("New");
+            }
+        }
+
+    }
 }

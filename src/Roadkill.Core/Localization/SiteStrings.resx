@@ -136,7 +136,7 @@
     <value>All pages</value>
   </data>
   <data name="Navigation_NewPage" xml:space="preserve">
-    <value>New page</value>
+    <value>New pages</value>
   </data>
   <data name="Navigation_SiteSettings" xml:space="preserve">
     <value>Site settings</value>
@@ -1013,5 +1013,33 @@
   </data>
   <data name="Page_Info_TotalRating" xml:space="preserve">
     <value>Number of ratings:</value>
+  </data>
+  <data name="Navigation_AllNewPages" xml:space="preserve">
+    <value>New pages</value>
+    <comment>for pages to be controlled</comment>
+  </data>
+  <data name="Shared_RejectLink" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="Shared_ValidateLink" xml:space="preserve">
+    <value>Validate</value>
+  </data>
+  <data name="AllMyPages_Title" xml:space="preserve">
+    <value>My Pages</value>
+  </data>
+  <data name="Alerts_Title" xml:space="preserve">
+    <value>View Alerts</value>
+  </data>
+  <data name="AllNewPages_Title" xml:space="preserve">
+    <value>New Pages</value>
+  </data>
+  <data name="Navigation_MyPages" xml:space="preserve">
+    <value>My pages</value>
+  </data>
+  <data name="Navigation_Alerts" xml:space="preserve">
+    <value>Alerts</value>
+  </data>
+  <data name="Shared_RemoveAlertsLink" xml:space="preserve">
+    <value>Remove alerts</value>
   </data>
 </root>
