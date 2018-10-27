@@ -29,14 +29,17 @@
 		@Html.Action("NavMenu", "Home")
 	</div>
 
-	<div id="container">
-		@RenderSection("PluginPreContainer", false) @*Not outside the container*@
-		@RenderSection("PageToolbar", false)
-		@RenderSection("ViewHistoryLink", false)
-		<div id="content">
-			@RenderBody()
-		</div>
-	</div>
+    <div id="container">
+        @RenderSection("PluginPreContainer", false) @*Not outside the container*@
+        @RenderSection("PageToolbar", false)
+        @RenderSection("ViewHistoryLink", false)
+        <div id="content">
+            @RenderBody()
+        </div>
+        <div id="comments">
+            @RenderSection("PluginComments", false);
+        </div>
+    </div>
 
 	@RenderSection("PluginPostContainer", false)
 

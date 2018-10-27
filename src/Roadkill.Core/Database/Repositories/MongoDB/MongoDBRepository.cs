@@ -206,12 +206,27 @@ namespace Roadkill.Core.Database.MongoDB
 			// TODO
 		}
 
-		public IEnumerable<Page> AllPages()
-		{
-			return Pages.ToList();
-		}
+        public IEnumerable<Page> AllPages()
+        {
+            return Pages.ToList();
+        }
 
-		public Page GetPageById(int id)
+        public IEnumerable<Page> AllNewPages()
+        {
+            return Pages.ToList(); //TODO MJO remove mongodb
+        }
+
+        public IEnumerable<Page> MyPages(string id)
+        {
+            return Pages.ToList(); //TODO MJO remove mongodb
+        }
+
+        public IEnumerable<Page> Alerts()
+        {
+            return Pages.ToList(); //TODO MJO remove mongodb
+        }
+
+        public Page GetPageById(int id)
 		{
 			return Pages.FirstOrDefault(p => p.Id == id);
 		}

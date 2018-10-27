@@ -23,9 +23,10 @@ namespace Roadkill.Tests.Unit.StubsAndMocks
 		public string HeadContent { get; set; }
 		public string FooterContent { get; set; }
 		public string PreContainerHtml { get; set; }
-		public string PostContainerHtml { get; set; }
+        public string PostContainerHtml { get; set; }
+        public string CommentsHtml { get; set; }
 
-		public override string Version
+        public override string Version
 		{
 
 			get
@@ -90,6 +91,11 @@ namespace Roadkill.Tests.Unit.StubsAndMocks
 		{
 			return PostContainerHtml;
 		}
-	}
+
+        public override string GetCommentsHtml()
+        {
+            return CommentsHtml;
+        }
+    }
 }
 		

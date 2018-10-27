@@ -96,62 +96,209 @@ namespace Roadkill.Core.Services
 			}
 		}
 
-		/// <summary>
-		/// Retrieves a list of all pages in the system.
-		/// </summary>
-		/// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
-		/// <exception cref="DatabaseException">An databaseerror occurred while retrieving the list.</exception>
-		public IEnumerable<PageViewModel> AllPages(bool loadPageContent = false)
-		{
-			try
-			{
-				string cacheKey = "";
-				IEnumerable<PageViewModel> pageModels;
+        /// <summary>
+        /// Retrieves a list of all pages in the system.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
+        /// <exception cref="DatabaseException">An databaseerror occurred while retrieving the list.</exception>
+        public IEnumerable<PageViewModel> AllPages(bool loadPageContent = false)
+        {
+            try
+            {
+                string cacheKey = "";
+                IEnumerable<PageViewModel> pageModels;
 
-				if (loadPageContent)
-				{
-					cacheKey = CacheKeys.AllPagesWithContent();
-					pageModels = _listCache.Get<PageViewModel>(cacheKey);
+                if (loadPageContent)
+                {
+                    cacheKey = CacheKeys.AllPagesWithContent();
+                    pageModels = _listCache.Get<PageViewModel>(cacheKey);
 
-					if (pageModels == null)
-					{
-						IEnumerable<Page> pages = Repository.AllPages().OrderBy(p => p.Title);
-						pageModels = from page in pages
-									select new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+                    if (pageModels == null)
+                    {
+                        IEnumerable<Page> pages = Repository.AllPages().OrderBy(p => p.Title);
+                        pageModels = from page in pages
+                                     select new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
 
-						_listCache.Add<PageViewModel>(cacheKey, pageModels);
-					}
-				}
-				else
-				{
-					cacheKey = CacheKeys.AllPages();
-					pageModels = _listCache.Get<PageViewModel>(cacheKey);
+                        _listCache.Add<PageViewModel>(cacheKey, pageModels);
+                    }
+                }
+                else
+                {
+                    cacheKey = CacheKeys.AllPages();
+                    pageModels = _listCache.Get<PageViewModel>(cacheKey);
 
-					if (pageModels == null)
-					{
-						IEnumerable<Page> pages = Repository.AllPages().OrderBy(p => p.Title);
-						pageModels = from page in pages
-									select new PageViewModel() { Id = page.Id, Title = page.Title };
+                    if (pageModels == null)
+                    {
+                        IEnumerable<Page> pages = Repository.AllPages().OrderBy(p => p.Title);
+                        pageModels = from page in pages
+                                     select new PageViewModel() { Id = page.Id, Title = page.Title };
 
-						_listCache.Add<PageViewModel>(cacheKey, pageModels);
-					}
-				}
+                        _listCache.Add<PageViewModel>(cacheKey, pageModels);
+                    }
+                }
 
-				return pageModels;
-			}
-			catch (DatabaseException ex)
-			{
-				throw new DatabaseException(ex, "An error occurred while retrieving all pages from the database");
-			}
-		}
+                return pageModels;
+            }
+            catch (DatabaseException ex)
+            {
+                throw new DatabaseException(ex, "An error occurred while retrieving all pages from the database");
+            }
+        }
 
-		/// <summary>
-		/// Gets alls the pages created by a user.
-		/// </summary>
-		/// <param name="userName">Name of the user.</param>
-		/// <returns>All pages created by the provided user, or an empty list if none are found.</returns>
-		/// <exception cref="DatabaseException">An databaseerror occurred while retrieving the list.</exception>
-		public IEnumerable<PageViewModel> AllPagesCreatedBy(string userName)
+        /// <summary>
+        /// Retrieves a list of all pages in the system.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
+        /// <exception cref="DatabaseException">An databaseerror occurred while retrieving the list.</exception>
+        public IEnumerable<PageViewModel> AllNewPages(bool loadPageContent = false)
+        {
+            try
+            {
+                string cacheKey = "";
+                IEnumerable<PageViewModel> pageModels;
+
+                if (loadPageContent)
+                {
+                    cacheKey = CacheKeys.AllPagesWithContent();
+                    pageModels = _listCache.Get<PageViewModel>(cacheKey);
+
+                    if (pageModels == null)
+                    {
+                        IEnumerable<Page> pages = Repository.AllNewPages().OrderBy(p => p.Title);
+                        pageModels = from page in pages
+                                     select new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+
+                        _listCache.Add<PageViewModel>(cacheKey, pageModels);
+                    }
+                }
+                else
+                {
+                    cacheKey = CacheKeys.AllNewPages();
+                    pageModels = _listCache.Get<PageViewModel>(cacheKey);
+
+                    if (pageModels == null)
+                    {
+                        IEnumerable<Page> pages = Repository.AllNewPages().OrderBy(p => p.Title);
+                        pageModels = from page in pages
+                                     select new PageViewModel() { Id = page.Id, Title = page.Title };
+
+                        _listCache.Add<PageViewModel>(cacheKey, pageModels);
+                    }
+                }
+
+                return pageModels;
+            }
+            catch (DatabaseException ex)
+            {
+                throw new DatabaseException(ex, "An error occurred while retrieving all new pages from the database");
+            }
+        }
+
+        /// <summary>
+        /// Retrieves a list of all pages in the system.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
+        /// <exception cref="DatabaseException">An databaseerror occurred while retrieving the list.</exception>
+        public IEnumerable<PageViewModel> Alerts(bool loadPageContent = false)
+        {
+            try
+            {
+                string cacheKey = "";
+                IEnumerable<PageViewModel> pageModels;
+
+                if (loadPageContent)
+                {
+                    cacheKey = CacheKeys.AllPagesWithContent();
+                    pageModels = _listCache.Get<PageViewModel>(cacheKey);
+
+                    if (pageModels == null)
+                    {
+                        IEnumerable<Page> pages = Repository.Alerts().OrderByDescending(p => p.NbAlert);
+                        pageModels = from page in pages
+                                     select new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+
+                        _listCache.Add<PageViewModel>(cacheKey, pageModels);
+                    }
+                }
+                else
+                {
+                    cacheKey = CacheKeys.AllNewPages();
+                    pageModels = _listCache.Get<PageViewModel>(cacheKey);
+
+                    if (pageModels == null)
+                    {
+                        IEnumerable<Page> pages = Repository.Alerts().OrderByDescending(p => p.NbAlert);
+                        pageModels = from page in pages
+                                     select new PageViewModel() { Id = page.Id, Title = page.Title };
+
+                        _listCache.Add<PageViewModel>(cacheKey, pageModels);
+                    }
+                }
+
+                return pageModels;
+            }
+            catch (DatabaseException ex)
+            {
+                throw new DatabaseException(ex, "An error occurred while retrieving all new pages from the database");
+            }
+        }
+
+        /// <summary>
+        /// Retrieves a list of all pages in the system.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
+        /// <exception cref="DatabaseException">An databaseerror occurred while retrieving the list.</exception>
+        public IEnumerable<PageViewModel> MyPages(string id, bool loadPageContent = false)
+        {
+            try
+            {
+                string cacheKey = "";
+                IEnumerable<PageViewModel> pageModels;
+
+                if (loadPageContent)
+                {
+                    cacheKey = CacheKeys.AllPagesWithContent(); //TODO all pages useless
+                    pageModels = _listCache.Get<PageViewModel>(cacheKey);
+
+                    if (pageModels == null)
+                    {
+                        IEnumerable<Page> pages = Repository.MyPages(id).OrderBy(p => p.Title);
+                        pageModels = from page in pages
+                                     select new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+
+                        _listCache.Add<PageViewModel>(cacheKey, pageModels);
+                    }
+                }
+                else
+                {
+                    cacheKey = CacheKeys.MyPages();
+                    pageModels = _listCache.Get<PageViewModel>(cacheKey);
+
+                    if (pageModels == null)
+                    {
+                        IEnumerable<Page> pages = Repository.MyPages(id).OrderBy(p => p.Title);
+                        pageModels = from page in pages
+                                     select new PageViewModel() { Id = page.Id, Title = page.Title };
+
+                        _listCache.Add<PageViewModel>(cacheKey, pageModels);
+                    }
+                }
+
+                return pageModels;
+            }
+            catch (DatabaseException ex)
+            {
+                throw new DatabaseException(ex, "An error occurred while retrieving my pages from the database");
+            }
+        }
+
+        /// <summary>
+        /// Gets alls the pages created by a user.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns>All pages created by the provided user, or an empty list if none are found.</returns>
+        /// <exception cref="DatabaseException">An databaseerror occurred while retrieving the list.</exception>
+        public IEnumerable<PageViewModel> AllPagesCreatedBy(string userName)
 		{
 			try
 			{
@@ -265,13 +412,72 @@ namespace Roadkill.Core.Services
 			}
 		}
 
-		/// <summary>
-		/// Exports all pages in the database, including content, to an XML format.
-		/// </summary>
-		/// <returns>An XML string.</returns>
-		/// <exception cref="DatabaseException">An databaseerror occurred while getting the list.</exception>
-		/// <exception cref="InvalidOperationException">An XML serialiation occurred exporting the page content.</exception>
-		public string ExportToXml()
+        /// <summary>
+        /// Validates a page from the database.
+        /// </summary>
+        /// <param name="pageId">The id of the page to validate.</param>
+        /// <exception cref="DatabaseException">An databaseerror occurred while deleting the page.</exception>
+        public void ValidatePage(int pageId)
+        {
+            try
+            {
+                Page page = Repository.GetPageById(pageId);
+                page.IsControlled = true;
+                page.IsRejected = false;
+                Repository.SaveOrUpdatePage(page);
+            }
+            catch (DatabaseException ex)
+            {
+                throw new DatabaseException(ex, "An error occurred while validating the page id {0} from the database", pageId);
+            }
+        }
+
+        /// <summary>
+        /// Rejects a page from the database.
+        /// </summary>
+        /// <param name="pageId">The id of the page to reject.</param>
+        /// <exception cref="DatabaseException">An databaseerror occurred while deleting the page.</exception>
+        public void RejectPage(int pageId)
+        {
+            try
+            {
+                Page page = Repository.GetPageById(pageId);
+                page.IsControlled = true;
+                page.IsRejected = true;
+                Repository.SaveOrUpdatePage(page);
+            }
+            catch (DatabaseException ex)
+            {
+                throw new DatabaseException(ex, "An error occurred while rejecting the page id {0} from the database", pageId);
+            }
+        }
+
+        /// <summary>
+        /// Rejects a page from the database.
+        /// </summary>
+        /// <param name="pageId">The id of the page to reject.</param>
+        /// <exception cref="DatabaseException">An databaseerror occurred while deleting the page.</exception>
+        public void ResetAlertPage(int pageId)
+        {
+            try
+            {
+                Page page = Repository.GetPageById(pageId);
+                page.NbAlert = 0;
+                Repository.SaveOrUpdatePage(page);
+            }
+            catch (DatabaseException ex)
+            {
+                throw new DatabaseException(ex, "An error occurred while reseting alerts of the page id {0} from the database", pageId);
+            }
+        }
+
+        /// <summary>
+        /// Exports all pages in the database, including content, to an XML format.
+        /// </summary>
+        /// <returns>An XML string.</returns>
+        /// <exception cref="DatabaseException">An databaseerror occurred while getting the list.</exception>
+        /// <exception cref="InvalidOperationException">An XML serialiation occurred exporting the page content.</exception>
+        public string ExportToXml()
 		{
 			try
 			{

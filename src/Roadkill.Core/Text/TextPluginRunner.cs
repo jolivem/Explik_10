@@ -66,9 +66,10 @@ namespace Roadkill.Core.Text
 					}
 
 					pageHtml.HeadHtml += plugin.GetHeadContent();
-					pageHtml.FooterHtml += plugin.GetFooterContent();
-				}
-				catch (Exception e)
+                    pageHtml.FooterHtml += plugin.GetFooterContent();
+                    pageHtml.CommentsHtml += plugin.GetCommentsHtml();
+                }
+                catch (Exception e)
 				{
 					Log.Error(e, "An exception occurred with the plugin {0} when calling BeforeParse()", plugin.Id);
 				}
@@ -121,7 +122,26 @@ namespace Roadkill.Core.Text
 			return htmlBuilder.ToString();
 		}
 
-		public string PostContainerHtml()
+        public string CommentsHtml()
+        {
+            StringBuilder htmlBuilder = new StringBuilder();
+
+            foreach (TextPlugin plugin in _plugins)
+            {
+                try
+                {
+                    htmlBuilder.Append(plugin.GetCommentsHtml());
+                }
+                catch (Exception e)
+                {
+                    Log.Error(e, "An exception occurred with the plugin {0} when calling GetCommentsHtml()", plugin.Id);
+                }
+            }
+
+            return htmlBuilder.ToString();
+        }
+
+        public string PostContainerHtml()
 		{
 			StringBuilder htmlBuilder = new StringBuilder();
 

@@ -41,37 +41,66 @@ namespace Roadkill.Core.Database
 		/// </value>
 		public string Firstname { get; set; }
 
-		/// <summary>
-		/// Gets or sets a value indicating whether the user has editor rights for pages.
-		/// </summary>
-		/// <value>
-		///   <c>true</c> if they are an editor; otherwise, <c>false</c>.
-		/// </value>
-		public bool IsEditor { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether the user has editor rights for pages.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if they are an editor; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsEditor { get; set; }
 
-		/// <summary>
-		/// Gets or sets a value indicating whether the user has admin rights.
-		/// </summary>
-		/// <value>
-		///   <c>true</c> if they have admin rights (which includes editor rights) otherwise, <c>false</c>.
-		/// </value>
-		public bool IsAdmin { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether the user has been blacklisted for very bad content.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if they are an editor; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsBlackListed { get; set; }
 
-		/// <summary>
-		/// Gets or sets a value indicating whether the account has been activated.
-		/// </summary>
-		/// <value>
-		///   <c>true</c> if the user is activated; otherwise, <c>false</c>.
-		/// </value>
-		public bool IsActivated { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether the user has admin rights.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if they have admin rights (which includes editor rights) otherwise, <c>false</c>.
+        /// </value>
+        public bool IsAdmin { get; set; }
 
-		/// <summary>
-		/// Gets or sets the lastname of the user.
-		/// </summary>
-		/// <value>
-		/// The lastname.
-		/// </value>
-		public string Lastname { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether the user has controller rights.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if they have controller rights (which includes editor rights) otherwise, <c>false</c>.
+        /// </value>
+        public bool IsController { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the account has been activated.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the user is activated; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsActivated { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the user is dummy for any reason.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the user is dummy; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsDummy { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating the teaching level of the editor.
+        /// </summary>
+        public long TeachLevel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the lastname of the user.
+        /// </summary>
+        /// <value>
+        /// The lastname.
+        /// </value>
+        public string Lastname { get; set; }
 
 		/// <summary>
 		/// Gets the hashed password for the user. 

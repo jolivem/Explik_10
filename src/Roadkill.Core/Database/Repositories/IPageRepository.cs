@@ -7,15 +7,19 @@ namespace Roadkill.Core.Database
 {
 	public interface IPageRepository
 	{
+        //TODO add ini of NbRatings... in AddNewPage...
 		PageContent AddNewPage(Page page, string text, string editedBy, DateTime editedOn);
 		PageContent AddNewPageContentVersion(Page page, string text, string editedBy, DateTime editedOn, int version);
-		/// <summary>
-		/// Returns a list of tags for all pages. Each item is a list of tags seperated by ,
-		/// e.g. { "tag1, tag2, tag3", "blah, blah2" } 
-		/// </summary>
-		/// <returns></returns>
-		IEnumerable<Page> AllPages();
-		IEnumerable<PageContent> AllPageContents();
+        /// <summary>
+        /// Returns a list of tags for all pages. Each item is a list of tags seperated by ,
+        /// e.g. { "tag1, tag2, tag3", "blah, blah2" } 
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<Page> AllPages();
+        IEnumerable<Page> AllNewPages();
+        IEnumerable<Page> MyPages(string username);
+        IEnumerable<Page> Alerts();
+        IEnumerable<PageContent> AllPageContents();
 		IEnumerable<string> AllTags();
 		void DeletePage(Page page);
 		/// <summary>

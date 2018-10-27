@@ -315,12 +315,21 @@ namespace Roadkill.Core.Plugins
 			return "";
 		}
 
-		/// <summary>
-		/// Gets the HTML for a javascript link required by the plugin, assuming the javascript is stored in the /Plugins/ID/ folder.
-		/// This will return all Javascript files that are to be added to the page that the plugin adds using the <see cref="AddScript"/> method.
-		/// This method uses Head.JS to load the script so any page loading speed is not effected by the script request.
-		/// </summary>
-		public string GetJavascriptHtml()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Additional HTML.</returns>
+        public virtual string GetCommentsHtml()
+        {
+            return "BABOLAT TODO";
+        }
+
+        /// <summary>
+        /// Gets the HTML for a javascript link required by the plugin, assuming the javascript is stored in the /Plugins/ID/ folder.
+        /// This will return all Javascript files that are to be added to the page that the plugin adds using the <see cref="AddScript"/> method.
+        /// This method uses Head.JS to load the script so any page loading speed is not effected by the script request.
+        /// </summary>
+        public string GetJavascriptHtml()
 		{
 			string headScript = "<script type=\"text/javascript\">";
 			headScript += "head.js(";

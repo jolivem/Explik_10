@@ -30,15 +30,20 @@ namespace Roadkill.Core.Text
 		/// </summary>
 		public string FooterHtml { get; set; }
 
-		/// <summary>
-		///  Any additional HTML that sits before the #container element.
-		/// </summary>
-		public string PreContainerHtml { get; set; }
+        /// <summary>
+        ///  
+        /// </summary>
+        public string CommentsHtml { get; set; }
 
-		/// <summary>
-		///  Any additional HTML that sits before the #container element.
-		/// </summary>
-		public string PostContainerHtml { get; set; }
+        /// <summary>
+        ///  Any additional HTML that sits before the #container element.
+        /// </summary>
+        public string PreContainerHtml { get; set; }
+
+        /// <summary>
+        ///  Any additional HTML that sits before the #container element.
+        /// </summary>
+        public string PostContainerHtml { get; set; }
 
 		public PageHtml() : this("")
 		{
@@ -52,6 +57,7 @@ namespace Roadkill.Core.Text
 			FooterHtml = "";
 			PreContainerHtml = "";
 			PostContainerHtml = "";
+            CommentsHtml = "";
 		}
 
 		/// <summary>

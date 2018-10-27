@@ -77,10 +77,26 @@ namespace Roadkill.Core.Mvc.ViewModels
 		/// </summary>
 		public string Tags { get; internal set; }
 
-		/// <summary>
-		/// The lucene.net score for the search result.
-		/// </summary>
-		public float Score { get; internal set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public long NbView { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public long NbRating { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public long TotalRating { get; internal set; }
+
+
+        /// <summary>
+        /// The lucene.net score for the search result.
+        /// </summary>
+        public float Score { get; internal set; }
 
 		public SearchResultViewModel()
 		{
@@ -102,7 +118,10 @@ namespace Roadkill.Core.Mvc.ViewModels
 			Tags = document.GetField("tags").StringValue;
 			CreatedBy = document.GetField("createdby").StringValue;		
 			ContentLength = int.Parse(document.GetField("contentlength").StringValue);
-			Score = scoreDoc.Score;
+            //NbView = long.Parse(document.GetField("nbview").StringValue);
+            //NbRating = long.Parse(document.GetField("nbrating").StringValue);
+            //TotalRating = long.Parse(document.GetField("totalrating").StringValue);
+            Score = scoreDoc.Score;
 
 			DateTime createdOn = DateTime.UtcNow;
 			if (!DateTime.TryParse(document.GetField("createdon").StringValue, out createdOn))
@@ -120,10 +139,13 @@ namespace Roadkill.Core.Mvc.ViewModels
 			EnsureFieldExists(fields, "tags");
 			EnsureFieldExists(fields, "createdby");
 			EnsureFieldExists(fields, "contentlength");
-			EnsureFieldExists(fields, "createdon");
-		}
+            EnsureFieldExists(fields, "createdon");
+            //EnsureFieldExists(fields, "nbview");
+            //EnsureFieldExists(fields, "nbrating");
+            //EnsureFieldExists(fields, "totalrating");
+        }
 
-		private void EnsureFieldExists(IList<IFieldable> fields, string fieldname)
+        private void EnsureFieldExists(IList<IFieldable> fields, string fieldname)
 		{
 			if (fields.Any(x => x.Name == fieldname) == false)
 				throw new SearchException(null, "The LuceneDocument did not contain the expected field '{0}'", fieldname);

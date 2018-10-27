@@ -9,10 +9,13 @@ namespace Roadkill.Core.Database.LightSpeed
 		[Column("title")]
 		private string _title;
 
-		[Column("createdby")]
-		private string _createdBy;
+        [Column("createdby")]
+        private string _createdBy;
 
-		[Column("createdon")]
+        [Column("summary")]
+        private string _summary;
+
+        [Column("createdon")]
 		private DateTime _createdOnColumn;
 
 		[Column("modifiedby")]
@@ -24,10 +27,34 @@ namespace Roadkill.Core.Database.LightSpeed
 		[Column("tags")]
 		private string _tags;
 
-		[Column("islocked")]
-		private bool _isLocked;
+        [Column("islocked")]
+        private bool _isLocked;
 
-		[ReverseAssociation("PageContents")]
+        [Column("isvideo")]
+        private bool _isVideo;
+
+        [Column("ispublished")]
+        private bool _isPublished;
+
+        [Column("iscontrolled")]
+        private bool _isControlled;
+
+        [Column("isrejected")]
+        private bool _isRejected;
+
+        [Column("nbrating")]
+        private long _nbRating;
+
+        [Column("nbview")]
+        private long _nbView;
+
+        [Column("nbalert")]
+        private long _nbAlert;
+
+        [Column("totalrating")]
+        private long _totalRating;
+
+        [ReverseAssociation("PageContents")]
 		private readonly EntityCollection<PageContentEntity> _pageContents = new EntityCollection<PageContentEntity>();
 
 		public EntityCollection<PageContentEntity> PageContents
@@ -59,7 +86,19 @@ namespace Roadkill.Core.Database.LightSpeed
 			}
 		}
 
-		public DateTime CreatedOn
+        public string Summary
+        {
+            get
+            {
+                return _summary;
+            }
+            set
+            {
+                Set<string>(ref _summary, value);
+            }
+        }
+
+        public DateTime CreatedOn
 		{
 			get
 			{
@@ -107,16 +146,107 @@ namespace Roadkill.Core.Database.LightSpeed
 			}
 		}
 
-		public bool IsLocked
-		{
-			get
-			{
-				return _isLocked;
-			}
-			set
-			{
-				Set<bool>(ref _isLocked, value);
-			}
-		}
-	}
+        public bool IsLocked
+        {
+            get
+            {
+                return _isLocked;
+            }
+            set
+            {
+                Set<bool>(ref _isLocked, value);
+            }
+        }
+        public bool IsRejected
+        {
+            get
+            {
+                return _isRejected;
+            }
+            set
+            {
+                Set<bool>(ref _isRejected, value);
+            }
+        }
+        public bool IsPublished
+        {
+            get
+            {
+                return _isPublished;
+            }
+            set
+            {
+                Set<bool>(ref _isPublished, value);
+            }
+        }
+        public bool IsControlled
+        {
+            get
+            {
+                return _isControlled;
+            }
+            set
+            {
+                Set<bool>(ref _isControlled, value);
+            }
+        }
+        public bool IsVideo
+        {
+            get
+            {
+                return _isVideo;
+            }
+            set
+            {
+                Set<bool>(ref _isVideo, value);
+            }
+        }
+
+        public long NbView
+        {
+            get
+            {
+                return _nbView;
+            }
+            set
+            {
+                Set<long>(ref _nbView, value);
+            }
+        }
+        public long NbAlert
+        {
+            get
+            {
+                return _nbAlert;
+            }
+            set
+            {
+                Set<long>(ref _nbAlert, value);
+            }
+        }
+
+        public long NbRating
+        {
+            get
+            {
+                return _nbRating;
+            }
+            set
+            {
+                Set<long>(ref _nbRating, value);
+            }
+        }
+
+        public long TotalRating
+        {
+            get
+            {
+                return _totalRating;
+            }
+            set
+            {
+                Set<long>(ref _totalRating, value);
+            }
+        }
+    }
 }

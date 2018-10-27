@@ -328,3 +328,6 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/src/Roadkill.Web/App_Data/Attachments
+/src/Roadkill.Web/App_Data/Internal/Search
+/src/Roadkill.Web/App_Data/TempSmtp
