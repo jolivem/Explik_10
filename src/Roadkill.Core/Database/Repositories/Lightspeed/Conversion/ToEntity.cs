@@ -32,17 +32,23 @@ namespace Roadkill.Core.Database.LightSpeed
 		{
             entity.NbRating = page.NbRating;
             entity.NbView = page.NbView;
+            entity.NbAlert = page.NbAlert;
             entity.TotalRating = page.TotalRating;
             entity.CreatedBy = page.CreatedBy;
             entity.CreatedOn = page.CreatedOn;
-			entity.IsLocked = page.IsLocked;
-			entity.ModifiedOn = page.ModifiedOn;
+            entity.IsLocked = page.IsLocked;
+            entity.IsVideo = page.IsVideo;
+            entity.IsPublished = page.IsPublished;
+            entity.IsControlled = page.IsControlled;
+            entity.IsRejected = page.IsRejected;
+            entity.ModifiedOn = page.ModifiedOn;
 			entity.ModifiedBy = page.ModifiedBy;
 			entity.Tags = page.Tags;
-			entity.Title = page.Title;
-		}
+            entity.Summary = page.Summary;
+            entity.Title = page.Title;
+        }
 
-		public static void FromPageContent(PageContent pageContent, PageContentEntity entity)
+        public static void FromPageContent(PageContent pageContent, PageContentEntity entity)
 		{
 			entity.EditedOn = pageContent.EditedOn;
 			entity.EditedBy = pageContent.EditedBy;

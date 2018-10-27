@@ -32,13 +32,21 @@ namespace Roadkill.Core.Database
 		/// </value>
 		public string Title { get; set; }
 
-		/// <summary>
-		/// Gets or sets the user who created the page.
-		/// </summary>
-		/// <value>
-		/// The created by user.
-		/// </value>
-		public string CreatedBy { get; set; }
+        /// <summary>
+        /// Gets or sets the user who last modified the page.
+        /// </summary>
+        /// <value>
+        /// The summary if the page is a video
+        /// </value>
+        public string Summary { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user who created the page.
+        /// </summary>
+        /// <value>
+        /// The created by user.
+        /// </value>
+        public string CreatedBy { get; set; }
 
 		/// <summary>
 		/// Gets or sets the date the page was created on.
@@ -69,26 +77,50 @@ namespace Roadkill.Core.Database
 		/// </summary>
 		public string Tags { get; set; }
 
-		/// <summary>
-		/// Gets or sets whether the page is locked for admin-only editing.
-		/// </summary>
-		public bool IsLocked { get; set; }
+        /// <summary>
+        /// Gets or sets whether the page is locked for admin-only editing.
+        /// </summary>
+        public bool IsLocked { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets whether the page is only a video.
+        /// </summary>
+        public bool IsVideo { get; set; }
+
+        /// <summary>77
+        /// Gets or sets whether the page has been controlled by a controller.
+        /// </summary>
+        public bool IsControlled { get; set; }
+
+        /// Gets or sets whether the page has been controlled by a controller.
+        /// </summary>
+        public bool IsPublished { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the page has been rejected by a controller.
+        /// </summary>
+        public bool IsRejected { get; set; }
+
+        /// <summary>
+        /// Gets or sets the number of time the pages was rated
         /// </summary>
         public long NbRating { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the sum of all rating values
         /// </summary>
         public long TotalRating { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the number of time it was viewed
         /// </summary>
         public long NbView  { get; set; }
-    
+
+        /// <summary>
+        /// Gets or sets the number of time it has been alerted
+        /// </summary>
+        public long NbAlert { get; set; }
+
         /// <summary>
         /// The unique id for this object - for use with document stores that require a unique id for storage.
         /// </summary>

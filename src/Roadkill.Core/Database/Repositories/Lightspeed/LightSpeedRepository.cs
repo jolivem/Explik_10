@@ -322,13 +322,31 @@ namespace Roadkill.Core.Database.LightSpeed
 			return FromEntity.ToPageList(entities);
 		}
 
-		public IEnumerable<PageContent> AllPageContents()
-		{
-			List<PageContentEntity> entities = PageContents.ToList();
-			return FromEntity.ToPageContentList(entities);
-		}
+        public IEnumerable<Page> AllNewPages()
+        {
+            List<PageEntity> entities = Pages.Where(p => p.IsRejected == false && p.IsPublished == true && p.IsControlled == false).ToList();
+            return FromEntity.ToPageList(entities);
+        }
 
-		public IEnumerable<string> AllTags()
+        public IEnumerable<Page> MyPages(string id)
+        {
+            List<PageEntity> entities = Pages.Where(p => p.CreatedBy == id).ToList();
+            return FromEntity.ToPageList(entities);
+        }
+
+        public IEnumerable<Page> Alerts()
+		{
+            List<PageEntity> entities = Pages.Where(p => p.NbAlert > 0).ToList();
+            return FromEntity.ToPageList(entities);
+        }
+
+        public IEnumerable<PageContent> AllPageContents()
+        {
+            List<PageContentEntity> entities = PageContents.ToList();
+            return FromEntity.ToPageContentList(entities);
+        }
+
+        public IEnumerable<string> AllTags()
 		{
 			return new List<string>(Pages.Select(p => p.Tags));
 		}
@@ -349,7 +367,23 @@ namespace Roadkill.Core.Database.LightSpeed
 			UnitOfWork.SaveChanges();
 		}
 
-		public void DeletePageContent(PageContent pageContent)
+        public void ValidatePage(Page page)
+        {
+            PageEntity entity = UnitOfWork.FindById<PageEntity>(page.Id);
+            entity.IsControlled = true;
+            entity.IsRejected = false;
+            UnitOfWork.SaveChanges();
+        }
+        public void RejectPage(Page page)
+        {
+            PageEntity entity = UnitOfWork.FindById<PageEntity>(page.Id);
+            entity.IsControlled = true;
+            entity.IsRejected = true;
+            UnitOfWork.SaveChanges();
+        }
+
+
+        public void DeletePageContent(PageContent pageContent)
 		{
 			PageContentEntity entity = UnitOfWork.FindById<PageContentEntity>(pageContent.Id);
 			UnitOfWork.Remove(entity);

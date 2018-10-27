@@ -176,8 +176,11 @@ namespace Roadkill.Core.Configuration
 		{
 			return "* %mainpage%\r\n" +
 					"* %categories%\r\n" +
-					"* %allpages%\r\n" +
-					"* %newpage%\r\n" +
+                    "* %allpages%\r\n" +
+                    "* %allnewpages%\r\n" +
+                    "* %mypages%\r\n" +
+                    "* %alerts%\r\n" +
+                    "* %newpage%\r\n" +
 					"* %managefiles%\r\n" +
 					"* %sitesettings%\r\n\r\n";
 		}
