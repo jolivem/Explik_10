@@ -23,13 +23,34 @@ namespace Roadkill.Core.Services
 		/// <exception cref="DatabaseException">An database error occurred while retrieving the list.</exception>
 		IEnumerable<PageViewModel> AllPages(bool loadPageContent = false);
 
-		/// <summary>
-		/// Gets alls the pages created by a user.
-		/// </summary>
-		/// <param name="userName">Name of the user.</param>
-		/// <returns>All pages created by the provided user, or an empty list if none are found.</returns>
-		/// <exception cref="DatabaseException">An database error occurred while saving.</exception>
-		IEnumerable<PageViewModel> AllPagesCreatedBy(string userName);
+        /// <summary>
+        /// Retrieves a list of all new pages in the system.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
+        /// <exception cref="DatabaseException">An database error occurred while retrieving the list.</exception>
+        IEnumerable<PageViewModel> AllNewPages(bool loadPageContent = false);
+
+        /// <summary>
+        /// Retrieves a list of all my pages in the system.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
+        /// <exception cref="DatabaseException">An database error occurred while retrieving the list.</exception>
+        IEnumerable<PageViewModel> MyPages(string id, bool loadPageContent = false);
+
+        /// <summary>
+        /// Retrieves the list of pages with alerts.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
+        /// <exception cref="DatabaseException">An database error occurred while retrieving the list.</exception>
+        IEnumerable<PageViewModel> Alerts(bool loadPageContent = false);
+
+        /// <summary>
+        /// Gets alls the pages created by a user.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns>All pages created by the provided user, or an empty list if none are found.</returns>
+        /// <exception cref="DatabaseException">An database error occurred while saving.</exception>
+        IEnumerable<PageViewModel> AllPagesCreatedBy(string userName);
 
 		/// <summary>
 		/// Retrieves a list of all tags in the system.
@@ -38,20 +59,41 @@ namespace Roadkill.Core.Services
 		/// <exception cref="DatabaseException">An database error occurred while getting the tags.</exception>
 		IEnumerable<TagViewModel> AllTags();
 
-		/// <summary>
-		/// Deletes a page from the database.
-		/// </summary>
-		/// <param name="pageId">The id of the page to remove.</param>
-		/// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
-		void DeletePage(int pageId);
+        /// <summary>
+        /// Deletes a page from the database.
+        /// </summary>
+        /// <param name="pageId">The id of the page to remove.</param>
+        /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
+        void DeletePage(int pageId);
 
-		/// <summary>
-		/// Exports all pages in the database, including content, to an XML format.
-		/// </summary>
-		/// <returns>An XML string.</returns>
-		/// <exception cref="DatabaseException">An database error occurred while getting the list.</exception>
-		/// <exception cref="InvalidOperationException">An XML serialiation occurred exporting the page content.</exception>
-		string ExportToXml();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageId">The id of the page to validate.</param>
+        /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
+        void ValidatePage(int pageId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageId">The id of the page to reject.</param>
+        /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
+        void RejectPage(int pageId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageId">The id of the page to reset.</param>
+        /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
+        void ResetAlertPage(int pageId);
+
+        /// <summary>
+        /// Exports all pages in the database, including content, to an XML format.
+        /// </summary>
+        /// <returns>An XML string.</returns>
+        /// <exception cref="DatabaseException">An database error occurred while getting the list.</exception>
+        /// <exception cref="InvalidOperationException">An XML serialiation occurred exporting the page content.</exception>
+        string ExportToXml();
 
 		/// <summary>
 		/// Finds all pages with the given tag.

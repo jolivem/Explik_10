@@ -12,8 +12,9 @@ namespace Roadkill.Tests.Unit
 {
 	public class RepositoryMock : IRepository
 	{
-		public List<Page> Pages { get; set; }
-		public List<PageContent> PageContents { get; set; }
+        public List<Page> Pages { get; set; }
+        public List<Page> NewPages { get; set; }
+        public List<PageContent> PageContents { get; set; }
 		public List<User> Users { get; set; }
 		public SiteSettings SiteSettings { get; set; }
 		public List<TextPlugin> TextPlugins { get; set; }
@@ -218,16 +219,31 @@ namespace Roadkill.Tests.Unit
 
 		}
 
-		#endregion
+        #endregion
 
-		#region IPageRepository Members
+        #region IPageRepository Members
 
-		public IEnumerable<Page> AllPages()
-		{
-			return Pages;
-		}
+        public IEnumerable<Page> AllPages()
+        {
+            return Pages;
+        }
 
-		public Page GetPageById(int id)
+        public IEnumerable<Page> AllNewPages()
+        {
+            return Pages; //TODO MJO repository mock
+        }
+
+        public IEnumerable<Page> Alerts()
+        {
+            return Pages; //TODO MJO repository mock
+        }
+
+        public IEnumerable<Page> MyPages(string id)
+        {
+            return Pages; //TODO MJO repository mock
+        }
+
+        public Page GetPageById(int id)
 		{
 			return Pages.FirstOrDefault(p => p.Id == id);
 		}

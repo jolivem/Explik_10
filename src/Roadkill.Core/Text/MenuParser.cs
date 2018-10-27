@@ -16,8 +16,11 @@ namespace Roadkill.Core.Text
 	public class MenuParser
 	{
 		private static readonly string CATEGORIES_TOKEN = "%categories%";
-		private static readonly string ALLPAGES_TOKEN = "%allpages%";
-		private static readonly string MAINPAGE_TOKEN = "%mainpage%";
+        private static readonly string ALLPAGES_TOKEN = "%allpages%";
+        private static readonly string ALLNEWPAGES_TOKEN = "%allnewpages%";
+        private static readonly string MYPAGES_TOKEN = "%mypages%";
+        private static readonly string ALERTS_TOKEN = "%alerts%";
+        private static readonly string MAINPAGE_TOKEN = "%mainpage%";
 		private static readonly string NEWPAGE_TOKEN = "%newpage%";
 		private static readonly string MANAGEFILES_TOKEN = "%managefiles%";
 		private static readonly string SITESETTINGS_TOKEN = "%sitesettings%";
@@ -84,24 +87,30 @@ namespace Roadkill.Core.Text
 			return html;
 		}
 
-		/// <summary>
-		/// Support for the following tokens:
-		/// 
-		/// [Categories]
-		/// [AllPages]
-		/// [MainPage]
-		/// [NewPage]
-		/// [ManageFiles]
-		/// [SiteSettings]
-		/// </summary>
-		private string ReplaceKnownTokens(string html)
+        /// <summary>
+        /// Support for the following tokens:
+        /// 
+        /// [Categories]
+        /// [AllPages]
+		/// [AllNewPages]
+		/// [MyPages]
+		/// [Alerts]
+        /// [MainPage]
+        /// [NewPage]
+        /// [ManageFiles]
+        /// [SiteSettings]
+        /// </summary>
+        private string ReplaceKnownTokens(string html)
 		{
 			if (string.IsNullOrEmpty(html))
 				return "";
 
 			string categories = CreateAnchorTag("/pages/alltags", SiteStrings.Navigation_Categories);
-			string allPages = CreateAnchorTag("/pages/allpages", SiteStrings.Navigation_AllPages);
-			string mainPage = CreateAnchorTag("/", SiteStrings.Navigation_MainPage);
+            string allPages = CreateAnchorTag("/pages/allpages", SiteStrings.Navigation_AllPages);
+            string allNewPages = CreateAnchorTag("/pages/allnewpages", SiteStrings.Navigation_AllNewPages);
+            string myPages = CreateAnchorTag("/pages/mypages/", SiteStrings.Navigation_MyPages);
+            string alerts = CreateAnchorTag("/pages/alerts/", SiteStrings.Navigation_Alerts);
+            string mainPage = CreateAnchorTag("/", SiteStrings.Navigation_MainPage);
 			string newpage = CreateAnchorTag("/pages/new", SiteStrings.Navigation_NewPage);
 			string manageFiles = CreateAnchorTag("/filemanager", SiteStrings.FileManager_Title);
 			string siteSettings = CreateAnchorTag("/settings", SiteStrings.Navigation_SiteSettings);
@@ -111,8 +120,11 @@ namespace Roadkill.Core.Text
 				UrlHelper urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
 
 				categories = CreateAnchorTag(urlHelper.Action("AllTags", "Pages"), SiteStrings.Navigation_Categories);
-				allPages = CreateAnchorTag(urlHelper.Action("AllPages", "Pages"), SiteStrings.Navigation_AllPages);
-				mainPage = CreateAnchorTag(urlHelper.Action("Index", "Home"), SiteStrings.Navigation_MainPage);
+                allPages = CreateAnchorTag(urlHelper.Action("AllPages", "Pages"), SiteStrings.Navigation_AllPages);
+                allNewPages = CreateAnchorTag(urlHelper.Action("AllNewPages", "Pages"), SiteStrings.Navigation_AllNewPages);
+                allNewPages = CreateAnchorTag(urlHelper.Action("Alerts", "Pages"), SiteStrings.Navigation_Alerts);
+                myPages = CreateAnchorTag(urlHelper.Action("MyPages", "Pages") + "/" + _userContext.CurrentUsername, SiteStrings.Navigation_MyPages);
+                mainPage = CreateAnchorTag(urlHelper.Action("Index", "Home"), SiteStrings.Navigation_MainPage);
 				newpage = CreateAnchorTag(urlHelper.Action("New", "Pages"), SiteStrings.Navigation_NewPage);
 				manageFiles = CreateAnchorTag(urlHelper.Action("Index", "FileManager"), SiteStrings.FileManager_Title);
 				siteSettings = CreateAnchorTag(urlHelper.Action( "Index", "Settings"), SiteStrings.Navigation_SiteSettings);
@@ -130,8 +142,11 @@ namespace Roadkill.Core.Text
 			}
 
 			html = html.Replace(CATEGORIES_TOKEN, categories);
-			html = html.Replace(ALLPAGES_TOKEN, allPages);
-			html = html.Replace(MAINPAGE_TOKEN, mainPage);
+            html = html.Replace(ALLPAGES_TOKEN, allPages);
+            html = html.Replace(ALLNEWPAGES_TOKEN, allNewPages);
+            html = html.Replace(ALERTS_TOKEN, alerts);
+            html = html.Replace(MYPAGES_TOKEN, myPages);
+            html = html.Replace(MAINPAGE_TOKEN, mainPage);
 			html = html.Replace(NEWPAGE_TOKEN, newpage);
 			html = html.Replace(MANAGEFILES_TOKEN, manageFiles);
 			html = html.Replace(SITESETTINGS_TOKEN, siteSettings);

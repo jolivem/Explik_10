@@ -614,6 +614,9 @@
     <Content Include="Views\Install\InstallerJsVars.cshtml" />
     <Content Include="Views\Shared\TagBlocks.cshtml" />
     <Content Include="Views\User\Recaptcha.cshtml" />
+    <Content Include="Views\Pages\AllNewPages.cshtml" />
+    <Content Include="Views\Pages\MyPages.cshtml" />
+    <Content Include="Views\Pages\Alerts.cshtml" />
     <None Include="Web.Mono.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

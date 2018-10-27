@@ -381,6 +381,7 @@
     <Compile Include="Attachments\AttachmentPathUtil.cs" />
     <Compile Include="Attachments\IResponseWrapper.cs" />
     <Compile Include="Attachments\ResponseWrapper.cs" />
+    <Compile Include="Database\Entities\Comment.cs" />
     <Compile Include="Database\Repositories\ISettingsRepository.cs" />
     <Compile Include="Email\EmailClient.cs" />
     <Compile Include="Email\IEmailClient.cs" />
@@ -635,7 +636,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Localization\InstallStrings.ru.resx" />
     <EmbeddedResource Include="Localization\InstallStrings.sv.resx" />
-    <EmbeddedResource Include="Localization\SiteStrings.cs.resx" />
+    <EmbeddedResource Include="Localization\SiteStrings.cs.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Localization\SiteStrings.de.resx" />
     <EmbeddedResource Include="Localization\SiteStrings.es.resx" />
     <EmbeddedResource Include="Localization\SiteStrings.hi.resx" />

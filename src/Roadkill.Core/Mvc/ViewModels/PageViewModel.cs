@@ -161,6 +161,11 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// <summary>
         /// 
         /// </summary>
+        public long NbAlert;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public long NbRating;
 
         /// <summary>
@@ -199,6 +204,11 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// </summary>
         public string PluginComments { get; set; }
 
+        public bool IsVideo;
+        public bool IsPublished;
+        public bool IsControlled;
+        public bool IsRejected;
+
         /// <summary>
         /// Retrieves all tags for all pages in the system. This is empty unless filled by the controller.
         /// </summary>
@@ -227,8 +237,12 @@ namespace Roadkill.Core.Mvc.ViewModels
 			PreviousTitle = page.Title;
 			CreatedBy = page.CreatedBy;
 			CreatedOn = page.CreatedOn;
-			IsLocked = page.IsLocked;
-			ModifiedBy = page.ModifiedBy;
+            IsLocked = page.IsLocked;
+            IsVideo = page.IsVideo;
+            IsPublished = page.IsPublished;
+            IsControlled = page.IsControlled;
+            IsRejected = page.IsRejected;
+            ModifiedBy = page.ModifiedBy;
 			ModifiedOn = page.ModifiedOn;
 			RawTags = page.Tags;
 
@@ -236,6 +250,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 			ModifiedOn = DateTime.SpecifyKind(ModifiedOn, DateTimeKind.Utc);
 			AllTags = new List<TagViewModel>();
 
+            NbAlert = page.NbAlert;
             NbView = page.NbView;
             NbRating = page.NbRating;
             TotalRating = page.TotalRating;
@@ -257,8 +272,12 @@ namespace Roadkill.Core.Mvc.ViewModels
 			PreviousTitle = pageContent.Page.Title;
 			CreatedBy = pageContent.Page.CreatedBy;
 			CreatedOn = pageContent.Page.CreatedOn;
-			IsLocked = pageContent.Page.IsLocked;
-			ModifiedBy = pageContent.Page.ModifiedBy;
+            IsLocked = pageContent.Page.IsLocked;
+            IsVideo = pageContent.Page.IsVideo;
+            IsRejected = pageContent.Page.IsRejected;
+            IsPublished = pageContent.Page.IsPublished;
+            IsControlled = pageContent.Page.IsControlled;
+            ModifiedBy = pageContent.Page.ModifiedBy;
 			ModifiedOn = pageContent.Page.ModifiedOn;
 			RawTags = pageContent.Page.Tags;
 			Content = pageContent.Text;
@@ -266,6 +285,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 
 			ModifiedBy = pageContent.Page.ModifiedBy;
             NbView = pageContent.Page.NbView;
+            NbAlert = pageContent.Page.NbAlert;
             NbRating = pageContent.Page.NbRating;
             TotalRating = pageContent.Page.TotalRating;
 
