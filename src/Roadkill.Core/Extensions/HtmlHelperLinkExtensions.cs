@@ -69,7 +69,10 @@ namespace Roadkill.Core.Extensions
 		public static MvcHtmlString FileManagerLink(this HtmlHelper helper, string prefix, string suffix)
 		{
 			ControllerBase controller = helper.ViewContext.Controller as ControllerBase;
-			if (controller != null && (controller.Context.IsLoggedIn && (controller.Context.IsAdmin || controller.Context.IsEditor)))
+			if (controller != null && 
+                (controller.Context.IsLoggedIn && 
+                (controller.Context.IsAdmin || controller.Context.IsEditor))
+                )
 			{
 				string link = helper.ActionLink(SiteStrings.FileManager_Title, "Index", "FileManager").ToString();
 				return MvcHtmlString.Create(prefix + link + suffix);

@@ -22,7 +22,7 @@ namespace Roadkill.Core.Database.LightSpeed
 			page.CreatedBy = entity.CreatedBy;
 			page.CreatedOn = entity.CreatedOn;
             page.IsLocked = entity.IsLocked;
-            page.IsPublished = entity.IsPublished;
+            page.IsSubmitted = entity.IsSubmitted;
             page.IsControlled = entity.IsControlled;
             page.IsRejected = entity.IsRejected;
             page.IsVideo = entity.IsVideo;
@@ -70,8 +70,9 @@ namespace Roadkill.Core.Database.LightSpeed
 			user.Firstname = entity.Firstname;
 			user.IsActivated = entity.IsActivated;
 			user.IsAdmin = entity.IsAdmin;
-			user.IsEditor = entity.IsEditor;
-			user.Lastname = entity.Lastname;
+            user.IsEditor = entity.IsEditor;
+            user.IsController = entity.IsController;
+            user.Lastname = entity.Lastname;
 			user.Password = entity.Password;
 			user.PasswordResetKey = entity.PasswordResetKey;
 			user.Username = entity.Username;
@@ -80,7 +81,27 @@ namespace Roadkill.Core.Database.LightSpeed
 			return user;
 		}
 
-		public static IEnumerable<PageContent> ToPageContentList(IEnumerable<PageContentEntity> entities)
+        /// <summary>
+        /// Intentionally doesn't populate the User.Password property (as this is only ever stored).
+        /// </summary>
+        public static Comment ToComment(CommentEntity entity)
+        {
+            if (entity == null)
+                return null;
+
+            Comment comment = new Comment();
+            comment.Id = entity.Id;
+            comment.CreatedBy = entity.CreatedBy;
+            comment.CreatedOn = entity.CreatedOn;
+            comment.NbAlert = entity.NbAlert;
+            comment.PageId = entity.PageId;
+            comment.Rating = entity.Rating;
+            comment.Text = entity.Text;
+
+            return comment;
+        }
+
+        public static IEnumerable<PageContent> ToPageContentList(IEnumerable<PageContentEntity> entities)
 		{
 			List<PageContent> list = new List<PageContent>();
 			foreach (PageContentEntity entity in entities)
@@ -109,11 +130,23 @@ namespace Roadkill.Core.Database.LightSpeed
 			List<User> list = new List<User>();
 			foreach (UserEntity entity in entities)
 			{
-				User page = ToUser(entity);
-				list.Add(page);
+				User user = ToUser(entity);
+				list.Add(user);
 			}
 
 			return list;
 		}
-	}
+
+        public static IEnumerable<Comment> ToCommentList(List<CommentEntity> entities)
+        {
+            List<Comment> list = new List<Comment>();
+            foreach (CommentEntity entity in entities)
+            {
+                Comment comment = ToComment(entity);
+                list.Add(comment);
+            }
+
+            return list;
+        }
+    }
 }

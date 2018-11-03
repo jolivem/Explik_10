@@ -103,7 +103,7 @@ namespace Roadkill.Core.Text
 			return html;
 		}
 
-		public string PreContainerHtml()
+        public string CommentsHtml()
 		{
 			StringBuilder htmlBuilder = new StringBuilder();
 
@@ -111,18 +111,18 @@ namespace Roadkill.Core.Text
 			{
 				try
 				{
-					htmlBuilder.Append(plugin.GetPreContainerHtml());
+                    htmlBuilder.Append(plugin.GetCommentsHtml());
 				}
 				catch (Exception e)
 				{
-					Log.Error(e, "An exception occurred with the plugin {0} when calling GetPreContainerHtml()", plugin.Id);
+                    Log.Error(e, "An exception occurred with the plugin {0} when calling GetCommentsHtml()", plugin.Id);
 				}
 			}
 
 			return htmlBuilder.ToString();
 		}
 
-        public string CommentsHtml()
+        public string PreContainerHtml()
         {
             StringBuilder htmlBuilder = new StringBuilder();
 
@@ -130,11 +130,11 @@ namespace Roadkill.Core.Text
             {
                 try
                 {
-                    htmlBuilder.Append(plugin.GetCommentsHtml());
+                    htmlBuilder.Append(plugin.GetPreContainerHtml());
                 }
                 catch (Exception e)
                 {
-                    Log.Error(e, "An exception occurred with the plugin {0} when calling GetCommentsHtml()", plugin.Id);
+                    Log.Error(e, "An exception occurred with the plugin {0} when calling GetPreContainerHtml()", plugin.Id);
                 }
             }
 

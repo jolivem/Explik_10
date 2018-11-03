@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mime;
 using System.Web.Mvc;
 using Roadkill.Core.Diff;
 using Roadkill.Core.Converters;
@@ -12,6 +14,8 @@ using Roadkill.Core.Mvc.ViewModels;
 using System.Web;
 using Roadkill.Core.Text;
 using Roadkill.Core.Extensions;
+using Roadkill.Core.Database;
+using System.IO;
 
 namespace Roadkill.Core.Mvc.Controllers
 {
@@ -63,9 +67,9 @@ namespace Roadkill.Core.Mvc.Controllers
         /// </summary>
         /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
         [BrowserCache]
-        public ActionResult Alerts()
+        public ActionResult AllAlerts()
         {
-            return View(_pageService.Alerts());
+            return View(_pageService.AllPagesWithAlerts());
         }
 
         /// <summary>
@@ -155,7 +159,21 @@ namespace Roadkill.Core.Mvc.Controllers
         {
             _pageService.DeletePage(id);
 
-            return RedirectToAction("AllPages");
+            return RedirectToAction("MyPages");
+        }
+
+        /// <summary>
+        /// Deletes a wiki page.
+        /// </summary>
+        /// <param name="id">The id of the page to delete.</param>
+        /// <returns>Redirects to AllPages action.</returns>
+        /// <remarks>This action requires admin rights.</remarks>
+        [AdminRequired]
+        public ActionResult Submit(int id)
+        {
+            _pageService.SubmitPage(id);
+
+            return RedirectToAction("MyPages");
         }
 
         /// <summary>
@@ -408,6 +426,99 @@ namespace Roadkill.Core.Mvc.Controllers
                 return RedirectToAction("New");
             }
         }
+        /// <summary>
+        /// Displays the edit View for the page provided in the id.
+        /// </summary>
+        /// <param name="id">The ID of the page to edit.</param>
+        /// <returns>An filled <see cref="PageViewModel"/> as the model. If the page id cannot be found, the action
+        /// redirects to the New page.</returns>
+        /// <remarks>This action requires editor rights.</remarks>
+        [EditorRequired]
+        public ActionResult Rate(int id)
+        {
+            var pageViewModel = _pageService.GetById(id, true);
+            RateViewModel model = new RateViewModel(_pageService.GetCurrentContent(id).Page);
 
+            if (model != null)
+            {
+                var view = View("Rate", (Object)model);
+                return view;
+            }
+            else
+            {
+                return RedirectToAction("New");
+            }
+        }
+
+        /// <summary>
+        /// Displays the edit View for the page provided in the id.
+        /// </summary>
+        /// <param name="id">The ID of the page to edit.</param>
+        /// <returns>An filled <see cref="PageViewModel"/> as the model. If the page id cannot be found, the action
+        /// redirects to the New page.</returns>
+        /// <remarks>This action requires editor rights.</remarks>
+        public ActionResult Rating(int id, string text, int rating)
+        {
+            Comment comment = new Comment( id, Context.CurrentUsername, rating, text);
+
+
+            return Content("tout va bien", MediaTypeNames.Text.Plain);
+        }
+        static string path = @"C:\Temp\";
+        public ActionResult UploadCanvas(int ?id, string image)
+        {
+            //Comment comment = new Comment(id, Context.CurrentUsername, string rating);
+            string fileNameWitPath = path + DateTime.Now.ToString().Replace("/", "-").Replace(" ", "- ").Replace(":", "") + ".png";
+            using (FileStream fs = new FileStream(fileNameWitPath, FileMode.Create))
+            {
+                using (BinaryWriter bw = new BinaryWriter(fs))
+                {
+                    byte[] data = Convert.FromBase64String(image);//convert from base64
+                    bw.Write(data);
+                    bw.Close();
+                }
+            }
+
+            return Content("tout va tres bien Madame la Marquise");
+        }
+
+        /// <summary>
+        /// Save an alert for the page
+        /// </summary>
+        /// <param name="id">The ID of the page to edit.</param>
+        /// <returns>An filled <see cref="PageViewModel"/> as the model. If the page id cannot be found, the action
+        /// redirects to the New page.</returns>
+        /// <remarks>This action requires editor rights.</remarks>
+        public ActionResult PageAlert(int id)
+        {
+            _pageService.AddPageAlert(id);
+            return Content("Alert taken into account", MediaTypeNames.Text.Plain);
+        }
+
+        public ActionResult CommentAlert(int id)
+        {
+            _pageService.AddCommentAlert(id);
+            return Content("Alert taken into account", MediaTypeNames.Text.Plain);
+        }
+
+
+        /// <summary>
+        /// Saves all POST'd data for a page edit to the database.
+        /// </summary>
+        /// <param name="model">A filled <see cref="PageViewModel"/> containing the new data.</param>
+        /// <returns>Redirects to /Wiki/{id} using the passed in <see cref="PageViewModel.Id"/>.</returns>
+        /// <remarks>This action requires editor rights.</remarks>
+        [EditorRequired]
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Rate(PageViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View("Rate", model);
+
+            _pageService.UpdatePage(model);
+
+            return RedirectToAction("Index", "Wiki", new { id = model.Id });
+        }
     }
 }

@@ -660,5 +660,10 @@ namespace Roadkill.Core.Security
 
 			return "";
 		}
-	}
+
+        public override bool IsController(string cookieValue)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

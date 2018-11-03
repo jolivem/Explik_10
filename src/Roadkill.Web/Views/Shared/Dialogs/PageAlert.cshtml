@@ -1,0 +1,19 @@
+﻿@model PageViewModel
+
+<div class="modal" role="dialog" aria-describedby="Contains meta information about the current page">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+
+            <div class="modal-body">
+                <div id="pagealert" class="container" pageid="@Model.Id" value="5">
+                    <h4 class="default-header">Could you confirm that the page has an unappropriate content ?</h4>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="buttonpagealert" type="button" data-dismiss="modal" class="btn btn-primary">@SiteStrings.Button_Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>

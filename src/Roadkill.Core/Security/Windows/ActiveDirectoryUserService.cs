@@ -372,6 +372,11 @@ namespace Roadkill.Core.Security.Windows
 		{
 			throw new NotImplementedException();
 		}
-		#endregion
-	}
+
+        public override bool IsController(string cookieValue)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+    }
 }

@@ -114,11 +114,18 @@ namespace Roadkill.Core.Security
 		/// <returns>true if the user is an editor; false otherwise.</returns>
 		public abstract bool IsEditor(string cookieValue);
 
-		/// <summary>
-		/// Lists all admins in the system.
-		/// </summary>
-		/// <returns>A list of email/usernames who are admins.</returns>
-		public abstract IEnumerable<UserViewModel> ListAdmins();
+        /// <summary>
+        /// Determines whether the specified user with the given email/username is an editor.
+        /// </summary>
+        /// <param name="cookieValue">The user id or username of the user.</param>
+        /// <returns>true if the user is an editor; false otherwise.</returns>
+        public abstract bool IsController(string cookieValue);
+
+        /// <summary>
+        /// Lists all admins in the system.
+        /// </summary>
+        /// <returns>A list of email/usernames who are admins.</returns>
+        public abstract IEnumerable<UserViewModel> ListAdmins();
 
 		/// <summary>
 		/// Lists all editors in the system.

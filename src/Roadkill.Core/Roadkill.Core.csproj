@@ -382,7 +382,9 @@
     <Compile Include="Attachments\IResponseWrapper.cs" />
     <Compile Include="Attachments\ResponseWrapper.cs" />
     <Compile Include="Database\Entities\Comment.cs" />
+    <Compile Include="Database\Repositories\ICommentRepository.cs" />
     <Compile Include="Database\Repositories\ISettingsRepository.cs" />
+    <Compile Include="Database\Repositories\LightSpeed\CommentEntity.cs" />
     <Compile Include="Email\EmailClient.cs" />
     <Compile Include="Email\IEmailClient.cs" />
     <Compile Include="Extensions\BootstrapHtmlExtensions.cs" />
@@ -398,8 +400,10 @@
     <Compile Include="Cache\SiteCache.cs" />
     <Compile Include="Export\WikiExporter.cs" />
     <Compile Include="Extensions\UrlHelperExtensions.cs" />
+    <Compile Include="Mvc\Attributes\ControllerRequiredAttribute.cs" />
     <Compile Include="Mvc\Attributes\IAuthorizationAttribute.cs" />
     <Compile Include="Mvc\Controllers\ConfigurationTesterController.cs" />
+    <Compile Include="Mvc\ViewModels\RateViewModel.cs" />
     <Compile Include="Security\AuthorizationProvider.cs" />
     <Compile Include="Security\IAuthorizationProvider.cs" />
     <Compile Include="Security\FormsAuthenticationWrapper.cs" />

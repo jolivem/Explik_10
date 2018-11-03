@@ -62,7 +62,8 @@ namespace Roadkill.Core.Import
 							while (reader.Read())
 							{
 								string username = reader["Username"].ToString();
-								if (!string.IsNullOrEmpty(username) && !string.Equals(username, "admin", StringComparison.OrdinalIgnoreCase))
+								if (!string.IsNullOrEmpty(username) && 
+                                    !string.Equals(username, "admin", StringComparison.OrdinalIgnoreCase))
 								{
 									string email = reader["Email"].ToString();
 

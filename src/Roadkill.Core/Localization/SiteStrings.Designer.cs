@@ -232,6 +232,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Confirm.
+        /// </summary>
+        public static string Button_Confirm {
+            get {
+                return ResourceManager.GetString("Button_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Import.
         /// </summary>
         public static string Button_Import {
@@ -898,7 +907,7 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à New pages.
+        ///   Recherche une chaîne localisée semblable à New page.
         /// </summary>
         public static string Navigation_NewPage {
             get {
@@ -952,6 +961,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Add you comment.
+        /// </summary>
+        public static string Page_Add_Your_Comment {
+            get {
+                return ResourceManager.GetString("Page_Add_Your_Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Created by:.
         /// </summary>
         public static string Page_Info_CreatedBy {
@@ -961,11 +979,29 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Created by.
+        /// </summary>
+        public static string Page_Info_CreatedBy2 {
+            get {
+                return ResourceManager.GetString("Page_Info_CreatedBy2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Created on:.
         /// </summary>
         public static string Page_Info_CreatedOn {
             get {
                 return ResourceManager.GetString("Page_Info_CreatedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Draft.
+        /// </summary>
+        public static string Page_Info_Draft {
+            get {
+                return ResourceManager.GetString("Page_Info_Draft", resourceCulture);
             }
         }
         
@@ -1002,6 +1038,33 @@ namespace Roadkill.Core.Localization {
         public static string Page_Info_NbView {
             get {
                 return ResourceManager.GetString("Page_Info_NbView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à , on:.
+        /// </summary>
+        public static string Page_Info_On {
+            get {
+                return ResourceManager.GetString("Page_Info_On", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Published.
+        /// </summary>
+        public static string Page_Info_Published {
+            get {
+                return ResourceManager.GetString("Page_Info_Published", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Submitted.
+        /// </summary>
+        public static string Page_Info_Submitted {
+            get {
+                return ResourceManager.GetString("Page_Info_Submitted", resourceCulture);
             }
         }
         
@@ -1407,6 +1470,15 @@ namespace Roadkill.Core.Localization {
         public static string Shared_RemoveAlertsLink {
             get {
                 return ResourceManager.GetString("Shared_RemoveAlertsLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Submit.
+        /// </summary>
+        public static string Shared_SubmitLink {
+            get {
+                return ResourceManager.GetString("Shared_SubmitLink", resourceCulture);
             }
         }
         

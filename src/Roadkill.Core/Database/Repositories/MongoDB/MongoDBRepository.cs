@@ -432,6 +432,21 @@ namespace Roadkill.Core.Database.MongoDB
 		{
 			SaveOrUpdate<PageContent>(content);
 		}
-		#endregion
-	}
+
+        public void DeleteComment(int commentId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Comment> FindAllCommentByPage(int pageId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddComment(Comment comment)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+    }
 }

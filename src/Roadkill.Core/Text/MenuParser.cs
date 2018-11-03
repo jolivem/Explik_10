@@ -109,7 +109,7 @@ namespace Roadkill.Core.Text
             string allPages = CreateAnchorTag("/pages/allpages", SiteStrings.Navigation_AllPages);
             string allNewPages = CreateAnchorTag("/pages/allnewpages", SiteStrings.Navigation_AllNewPages);
             string myPages = CreateAnchorTag("/pages/mypages/", SiteStrings.Navigation_MyPages);
-            string alerts = CreateAnchorTag("/pages/alerts/", SiteStrings.Navigation_Alerts);
+            string alerts = CreateAnchorTag("/pages/AllPagesWithAlerts/", SiteStrings.Navigation_Alerts);
             string mainPage = CreateAnchorTag("/", SiteStrings.Navigation_MainPage);
 			string newpage = CreateAnchorTag("/pages/new", SiteStrings.Navigation_NewPage);
 			string manageFiles = CreateAnchorTag("/filemanager", SiteStrings.FileManager_Title);
@@ -122,8 +122,8 @@ namespace Roadkill.Core.Text
 				categories = CreateAnchorTag(urlHelper.Action("AllTags", "Pages"), SiteStrings.Navigation_Categories);
                 allPages = CreateAnchorTag(urlHelper.Action("AllPages", "Pages"), SiteStrings.Navigation_AllPages);
                 allNewPages = CreateAnchorTag(urlHelper.Action("AllNewPages", "Pages"), SiteStrings.Navigation_AllNewPages);
-                allNewPages = CreateAnchorTag(urlHelper.Action("Alerts", "Pages"), SiteStrings.Navigation_Alerts);
                 myPages = CreateAnchorTag(urlHelper.Action("MyPages", "Pages") + "/" + _userContext.CurrentUsername, SiteStrings.Navigation_MyPages);
+                alerts = CreateAnchorTag(urlHelper.Action("AllPagesWithAlerts", "Pages"), SiteStrings.Navigation_Alerts);
                 mainPage = CreateAnchorTag(urlHelper.Action("Index", "Home"), SiteStrings.Navigation_MainPage);
 				newpage = CreateAnchorTag(urlHelper.Action("New", "Pages"), SiteStrings.Navigation_NewPage);
 				manageFiles = CreateAnchorTag(urlHelper.Action("Index", "FileManager"), SiteStrings.FileManager_Title);

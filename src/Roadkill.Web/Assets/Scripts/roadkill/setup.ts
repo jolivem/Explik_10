@@ -27,7 +27,8 @@ module Roadkill.Web
 		public static configureBinds()
 		{
 			this.hideTemporaryAlerts();
-			this.bindInfoButton();
+			/*this.bindInfoButton();*/
+            this.bindRateButton();
 			this.bindTimeAgo();
 		}
 
@@ -49,7 +50,7 @@ module Roadkill.Web
 			$("#lastmodified-on").timeago();
 			$("#historytable .editedon").timeago();
 		}
-
+/*
 		public static bindInfoButton()
 		{
 			// Bind the info icon on each page
@@ -58,6 +59,18 @@ module Roadkill.Web
 				Dialogs.openModal("#pageinformation");
 			});
 		}
+        */
+
+        public static bindRateButton() {
+            // Bind the info icon on each page
+            $("#pagerate-button").click(function () {
+                Dialogs.openModal("#pagerating");
+            });
+        }
+
+        public static bindRateLink() {
+                Dialogs.openModal("#pagerating");
+        }
 
 		/**
 		Sets all links with the .confirm class so they have to click confirm to 

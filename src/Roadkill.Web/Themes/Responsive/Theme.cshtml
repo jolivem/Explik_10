@@ -6,10 +6,206 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	@Html.Partial("HeadContent")
 	@RenderSection("PluginHead", false)
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            // see weblog project
+            // changing rating is not actually working
+
+            //************** begin star rating system *****************
+            function setRating48(span, rating) { // change star display
+                span.find('.rating48.stars48').each(function () {
+                    var value = parseFloat($(this).attr("value"));
+                    var imgSrc = $(this).attr("class");
+                    if (value <= rating) $(this).attr("class", imgSrc.replace("_off", "_on"));
+                    else $(this).attr("class", imgSrc.replace("_on", "_off"));
+                });
+            }
+
+            $(".rating48.stars48.active").mouseover(function () {
+                var span = $(this).parent("span");
+                var newRating = $(this).attr("value");
+                setRating48(span, newRating);
+            });
+
+            $(".rating48.stars48.active").mouseout(function () {
+                
+                var span = $(this).parent("span");
+                var rating = $(this).attr("value");
+                setRating48(span, rating);
+            });
+
+            $(".rating48.stars48.active").click(function () {
+                var newRating = $(this).attr("value");
+                $("#newrating").attr("value", newRating);
+            });
+
+
+
+            function setRating(span, rating) { // change star display
+                span.find('.rating.stars').each(function () {
+                    var value = parseFloat($(this).attr("value"));
+                    var imgSrc = $(this).attr("class");
+                    if (value <= rating) $(this).attr("class", imgSrc.replace("_off", "_on"));
+                    else $(this).attr("class", imgSrc.replace("_on", "_off"));
+                });
+            }
+
+            $(".rating.stars.active").mouseover(function () {
+                var span = $(this).parent("span");
+                var newRating = $(this).attr("value");
+                setRating(span, newRating);
+            });
+
+            $(".rating.stars.active").mouseout(function () {
+
+                var span = $(this).parent("span");
+                var rating = $(this).attr("value");
+                setRating(span, rating);
+            });
+
+            $(".rating.stars.active").click(function () {
+                var newRating = $(this).attr("value");
+                $("#newrating").attr("value", newRating);
+            });
+
+            $("#buttonrating").click(function () {
+                var newRating = $("#newrating").attr("value");
+                var pID = $("#newrating").attr("pageid");
+                var text = $("#commentarea").val();
+
+                $.ajax({
+                    type : "POST",
+                    url : "/Pages/Rating",
+                    data : { id : pID, rating : newRating, comment : text },
+                    success : function (response){
+                        toastr.success("Comment taken into account");
+                    },
+                    failure : function (response){
+                        alert("failure");
+                    },
+                    error : function (response){
+                        alert(response.responseText);
+                    }
+
+                });
+            });
+
+            $("#pagealert-button").click(function () {
+                var pID = $("#pagealert").attr("pageid");
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Pages/PageAlert",
+                    data: { id: pID },
+                    success: function (response) {
+                        toastr.success("Alert taken into account");
+                    },
+                    failure: function (response) {
+                        alert("failure");
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+
+                });
+            });
+
+            $("#buttoncommentalert").click(function () {
+                var pID = $("#commentalert").attr("commentid");
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Pages/CommentAlert",
+                    data: { id: pID },
+                    success: function (response) {
+                        toastr.success("Alert taken into account");
+                    },
+                    failure: function (response) {
+                        alert("failure");
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+
+                });
+            });
+
+            $("#buttoncanvas").click(function () {
+                html2canvas($('#pagecomments')[0], {scale: 0.5}).
+                    //document.querySelector("#pagecomments")).
+                    then(canvas => {
+                        document.body.appendChild(canvas)
+
+                        var pID = $("#pageinfo").attr("pageid");
+                        var dataURL = canvas.toDataURL("image/png");
+                        var dataURL = dataURL.replace('data:image/png;base64,', '');
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/Pages/UploadCanvas",
+                            data: '{ "id" : "' + pID + '", "image" : "' + dataURL + '" }',
+                            contentType: 'application/json; charset=utf-8',
+                            dataType: 'json', 
+                            success: function (response) {
+                                toastr.success("Canvas taken into account");
+                            },
+                            failure: function (response) {
+                                alert("failure");
+                            },
+                            error: function (response) {
+                                alert(response.responseText);
+                            }
+
+                        });
+
+                });
+            });
+        });
+</script>
+
+    <style type="text/css">
+        div#map_canvas {
+            height: 500px;
+            width: 800px;
+            position: absolute !important;
+            left: 500px;
+            top: 0;
+        }
+
+/* star rating system */
+.rating { text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; display: inline-block; width: 8px; height: 16px; }
+.rating.stars { background-image: url('/Assets/CSS/images/star_rating.png');}
+.rating.stars.active {  cursor:pointer;}
+.star-left_off { background-position: -0px -0px; }
+.star-left_on { background-position: -16px -0px; }
+.star-right_off { background-position: -8px -0px; }
+.star-right_on { background-position: -24px -0px; }
+
+.rating48 { text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; display: inline-block; width: 24px; height: 48px; }
+.rating48.stars48 { background-image: url('/Assets/CSS/images/grey-yellow-48.png');}
+.rating48.stars48.active {  cursor:pointer;}
+.star48-left_off { background-position: -0px -0px; }
+.star48-left_on { background-position: -48px -0px; }
+.star48-right_off { background-position: -24px -0px; }
+.star48-right_on { background-position: -72px -0px; }
+
+.post_rating { clear : both; width: 100%; padding: 10px 0px 10px 0px; }
+
+.reviews-user-infos{width:23%;float:left;margin-right:2%}
+.reviews-user-infos .thumbnail{width:65%}
+.reviews-user-infos .meta{width:100%}    
+
+.container {
+  background-color: lightcyan;
+}
+/*.meta-title{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:100%;font-size:.9375rem;font-weight:700;margin-bottom:.3125rem}*/
+    </style>
+
 </head>
 <body>
-	@RenderSection("PageToolbar", false)
-
 	<!-- Header -->
 @using (Html.BeginForm("Search", "Home", FormMethod.Get))
 {
@@ -49,12 +245,10 @@
             <div id="content">
                 @RenderBody()
             </div>
-            <div id="comments">
-                @RenderSection("PluginComments", false);
-            </div>          
         </div>
 
 		@RenderSection("PluginPostContainer", false)
+
 	</div>
 
 

@@ -20,15 +20,27 @@ namespace Roadkill.Core.Database.LightSpeed
 			entity.Firstname = user.Firstname;
 			entity.IsActivated = user.IsActivated;
 			entity.IsAdmin = user.IsAdmin;
-			entity.IsEditor = user.IsEditor;
-			entity.Lastname = user.Lastname;
+            entity.IsEditor = user.IsEditor;
+            entity.IsController = user.IsController;
+            entity.Lastname = user.Lastname;
 			entity.Password = user.Password;
 			entity.PasswordResetKey = user.PasswordResetKey;
 			entity.Salt = user.Salt;
 			entity.Username = user.Username;
 		}
 
-		public static void FromPage(Page page, PageEntity entity)
+        public static void FromComment(Comment comment, CommentEntity entity)
+        {
+            entity.CreatedBy = comment.CreatedBy;
+            entity.CreatedOn = comment.CreatedOn;
+            entity.Id = comment.Id;
+            entity.NbAlert = comment.NbAlert;
+            entity.PageId = comment.PageId;
+            entity.Rating = comment.Rating;
+            entity.Text = comment.Text;
+        }
+
+        public static void FromPage(Page page, PageEntity entity)
 		{
             entity.NbRating = page.NbRating;
             entity.NbView = page.NbView;
@@ -38,7 +50,7 @@ namespace Roadkill.Core.Database.LightSpeed
             entity.CreatedOn = page.CreatedOn;
             entity.IsLocked = page.IsLocked;
             entity.IsVideo = page.IsVideo;
-            entity.IsPublished = page.IsPublished;
+            entity.IsSubmitted = page.IsSubmitted;
             entity.IsControlled = page.IsControlled;
             entity.IsRejected = page.IsRejected;
             entity.ModifiedOn = page.ModifiedOn;

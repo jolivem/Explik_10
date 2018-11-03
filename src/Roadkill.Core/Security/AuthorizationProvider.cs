@@ -72,7 +72,30 @@ namespace Roadkill.Core.Security
 				return false;
 		}
 
-		public virtual bool IsViewer(IPrincipal principal)
+        public virtual bool IsController(IPrincipal principal)
+        {
+            IIdentity identity = principal.Identity;
+
+            if (!identity.IsAuthenticated)
+            {
+                return false;
+            }
+
+            // An empty editor role name implies everyone is an editor - there's no page security.
+            if (string.IsNullOrEmpty(_applicationSettings.EditorRoleName))
+                return true;
+
+            // Same as IsAdmin - for custom IIdentity implementations, check the name (for Windows this should never happen)
+            if (string.IsNullOrEmpty(identity.Name))
+                return false;
+
+            if (_userService.IsAdmin(identity.Name) || _userService.IsController(identity.Name))
+                return true;
+            else
+                return false;
+        }
+
+        public virtual bool IsViewer(IPrincipal principal)
 		{
 			return true;
 		}

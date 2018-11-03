@@ -7,15 +7,13 @@ namespace Roadkill.Core.Database
     /// </summary>
     public class Comment : IDataStoreEntity
     {
-        private Guid _objectId;
-
         /// <summary>
         /// Gets or sets the  uncomment unique ID.
         /// </summary>
         /// <value>
         /// The comment unique id.
         /// </value>
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets the activation key for the user.
@@ -23,7 +21,7 @@ namespace Roadkill.Core.Database
         /// <value>
         /// The activation key.
         /// </value>
-        public long PageId { get; set; }
+        public int PageId { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public int Rating { get; set; }
@@ -31,12 +29,40 @@ namespace Roadkill.Core.Database
         public int NbAlert{ get; set; }
 
         /// <summary>
-        /// The unique id for this object - for use with document stores that require a unique id for storage.
+        /// The unique id for this object, this is the same as the <see cref="Id"/> property.
         /// </summary>
         public Guid ObjectId
         {
-            get { return _objectId; }
-            set { _objectId = value; }
+            get { return Id; }
+            set { Id = value; }
         }
+
+        public Comment()
+        {
+            PageId = 0;
+            CreatedBy = "";
+            Rating = 0;
+            Text = "";
+            CreatedOn = DateTime.Now;
+            NbAlert = 0;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <param name="createdBy"></param>
+        /// <param name="rating"></param>
+        /// <param name="text"></param>
+        public Comment( int pageId, string createdBy, int rating, string text)
+        {
+            PageId = pageId;
+            CreatedBy = createdBy;
+            Rating = rating;
+            Text = text;
+            CreatedOn = DateTime.Now;
+            NbAlert = 0;
+        }
+
     }
 }

@@ -42,7 +42,7 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
         /// <exception cref="DatabaseException">An database error occurred while retrieving the list.</exception>
-        IEnumerable<PageViewModel> Alerts(bool loadPageContent = false);
+        IEnumerable<PageViewModel> AllPagesWithAlerts(bool loadPageContent = false);
 
         /// <summary>
         /// Gets alls the pages created by a user.
@@ -65,6 +65,27 @@ namespace Roadkill.Core.Services
         /// <param name="pageId">The id of the page to remove.</param>
         /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
         void DeletePage(int pageId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageId">The id of the page of the alert.</param>
+        /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
+        void AddPageAlert(int pageId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="commentId"></param>
+        /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
+        void AddCommentAlert(int commentId);
+
+        /// <summary>
+        /// Submit a page from the database.
+        /// </summary>
+        /// <param name="pageId">The id of the page to remove.</param>
+        /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
+        void SubmitPage(int pageId);
 
         /// <summary>
         /// 

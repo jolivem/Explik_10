@@ -94,7 +94,7 @@ namespace Roadkill.Core.Database
 
         /// Gets or sets whether the page has been controlled by a controller.
         /// </summary>
-        public bool IsPublished { get; set; }
+        public bool IsSubmitted { get; set; }
 
         /// <summary>
         /// Gets or sets whether the page has been rejected by a controller.

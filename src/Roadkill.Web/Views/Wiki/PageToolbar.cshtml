@@ -1,7 +1,9 @@
 ﻿@model PageViewModel
 
+
 @if (Model.Id != 0)
 {
+    /* MJO TODO REMOVE, toolbar not used */
 <div id="toolbar" class="btn-toolbar">
 	<div class="btn-group">
 	@if (RoadkillContext.IsLoggedIn)
@@ -16,8 +18,10 @@
         }
     }
         <a id="pageinfo-button" class="btn btn-default btn-sm" href="javascript:;" title="Page information"><span class="glyphicon glyphicon-book"></span></a>
+        @*<a id="pagerate-button" class="btn btn-default btn-sm" href="@Url.Action("Rate", "Pages", new { id = Model.Id})" title="mjorate"><span class="glyphicon glyphicon-star"></span></a>*@
 	</div>
 </div>
 
 @Html.DialogPartial("PageInformation", Model)
+@Html.DialogPartial("PageRating", Model)
 }

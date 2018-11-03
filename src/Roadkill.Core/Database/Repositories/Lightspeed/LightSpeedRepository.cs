@@ -36,15 +36,23 @@ namespace Roadkill.Core.Database.LightSpeed
 			}
 		}
 
-		internal IQueryable<UserEntity> Users
-		{
-			get
-			{
-				return UnitOfWork.Query<UserEntity>();
-			}
-		}
+        internal IQueryable<UserEntity> Users
+        {
+            get
+            {
+                return UnitOfWork.Query<UserEntity>();
+            }
+        }
 
-		public virtual LightSpeedContext Context
+        internal IQueryable<CommentEntity> Comments
+        {
+            get
+            {
+                return UnitOfWork.Query<CommentEntity>();
+            }
+        }
+
+        public virtual LightSpeedContext Context
 		{
 			get
 			{
@@ -324,7 +332,7 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public IEnumerable<Page> AllNewPages()
         {
-            List<PageEntity> entities = Pages.Where(p => p.IsRejected == false && p.IsPublished == true && p.IsControlled == false).ToList();
+            List<PageEntity> entities = Pages.Where(p => p.IsRejected == false && p.IsSubmitted == true && p.IsControlled == false).ToList();
             return FromEntity.ToPageList(entities);
         }
 
@@ -360,18 +368,28 @@ namespace Roadkill.Core.Database.LightSpeed
 			UnitOfWork.SaveChanges();
 		}
 
-		public void DeletePage(Page page)
-		{
-			PageEntity entity = UnitOfWork.FindById<PageEntity>(page.Id);
-			UnitOfWork.Remove(entity);
-			UnitOfWork.SaveChanges();
-		}
+        public void DeletePage(Page page)
+        {
+            PageEntity entity = UnitOfWork.FindById<PageEntity>(page.Id);
+            UnitOfWork.Remove(entity);
+            UnitOfWork.SaveChanges();
+        }
+
+        public void SubmitPage(Page page)
+        {
+            PageEntity entity = UnitOfWork.FindById<PageEntity>(page.Id);
+            entity.IsControlled = false;
+            entity.IsRejected = false;
+            entity.IsSubmitted = true;
+            UnitOfWork.SaveChanges();
+        }
 
         public void ValidatePage(Page page)
         {
             PageEntity entity = UnitOfWork.FindById<PageEntity>(page.Id);
             entity.IsControlled = true;
             entity.IsRejected = false;
+            entity.IsSubmitted = true;
             UnitOfWork.SaveChanges();
         }
         public void RejectPage(Page page)
@@ -575,7 +593,13 @@ namespace Roadkill.Core.Database.LightSpeed
 			return FromEntity.ToUserList(entities);
 		}
 
-		public IEnumerable<User> FindAllAdmins()
+        public IEnumerable<User> FindAllControllers()
+        {
+            List<UserEntity> entities = Users.Where(x => x.IsController).ToList();
+            return FromEntity.ToUserList(entities);
+        }
+
+        public IEnumerable<User> FindAllAdmins()
 		{
 			List<UserEntity> entities = Users.Where(x => x.IsAdmin).ToList();
 			return FromEntity.ToUserList(entities);
@@ -602,11 +626,34 @@ namespace Roadkill.Core.Database.LightSpeed
 
 			return user;
 		}
+        #endregion
 
-		#endregion
+        #region ICommentRepository
+        public void DeleteComment(int commentId)
+        {
 
-		#region IDisposable
-		public void Dispose()
+        }
+
+        public IEnumerable<Comment> FindAllCommentByPage(int pageId)
+        {
+            List<CommentEntity> entities = Comments.Where(x => x.PageId == pageId).ToList();
+            return FromEntity.ToCommentList(entities);
+
+        }
+
+        public void AddComment(Comment comment)
+        {
+                // Turn the domain object into a database entity
+                CommentEntity entity = new CommentEntity();
+                UnitOfWork.Add(entity);
+                UnitOfWork.SaveChanges();
+        }
+
+        #endregion
+
+
+        #region IDisposable
+        public void Dispose()
 		{
 			UnitOfWork.SaveChanges();
 			UnitOfWork.Dispose();
@@ -618,5 +665,5 @@ namespace Roadkill.Core.Database.LightSpeed
 			if (_applicationSettings.Installed && string.IsNullOrEmpty(_applicationSettings.ConnectionString))
 				throw new DatabaseException("The connection string is empty in the web.config file (and the roadkill.config's installed=true).", null);
 		}
-	}
+    }
 }
