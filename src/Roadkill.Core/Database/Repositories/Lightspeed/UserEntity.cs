@@ -25,10 +25,13 @@ namespace Roadkill.Core.Database.LightSpeed
 		[Column("salt")]
 		private string _salt;
 
-		[Column("iseditor")]
-		private bool _isEditor;
+        [Column("iseditor")]
+        private bool _isEditor;
 
-		[Column("isadmin")]
+        [Column("iscontroller")]
+        private bool _isController;
+
+        [Column("isadmin")]
 		private bool _isAdmin;
 
 		[Column("isactivated")]
@@ -112,19 +115,31 @@ namespace Roadkill.Core.Database.LightSpeed
 			}
 		}
 
-		public bool IsEditor
-		{
-			get
-			{
-				return _isEditor;
-			}
-			set
-			{
-				Set<bool>(ref _isEditor, value);
-			}
-		}
+        public bool IsEditor
+        {
+            get
+            {
+                return _isEditor;
+            }
+            set
+            {
+                Set<bool>(ref _isEditor, value);
+            }
+        }
 
-		public bool IsAdmin
+        public bool IsController
+        {
+            get
+            {
+                return _isController;
+            }
+            set
+            {
+                Set<bool>(ref _isController, value);
+            }
+        }
+
+        public bool IsAdmin
 		{
 			get
 			{

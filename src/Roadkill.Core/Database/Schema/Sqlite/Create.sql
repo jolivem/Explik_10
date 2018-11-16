@@ -10,7 +10,7 @@ CREATE TABLE roadkill_pages
 	[modifiedby] TEXT, 
 	[modifiedon] DATETIME,
 	[isvideo] BOOL, 
-	[ispublished] BOOL, 
+	[issubmitted] BOOL, 
 	[iscontrolled] BOOL, 
 	[isrejected] BOOL, 
 	[nbrating] integer,
@@ -41,8 +41,8 @@ CREATE TABLE roadkill_users
 	[firstname] NTEXT, 
 	[isblacklisted] BOOL,
 	[iseditor] BOOL, 
-	[isadmin] BOOL, 
 	[iscontroller] BOOL, 
+	[isadmin] BOOL, 
 	[isdummy] BOOL, 
 	[editorlevel] BOOL, 
 	[isactivated] BOOL, 
@@ -66,12 +66,11 @@ CREATE TABLE [roadkill_siteconfiguration]
 
 CREATE TABLE [roadkill_comments] 
 (
-  [id] integer primary key autoincrement,
+  [id] CHAR(36) not null,
   [pageid] INT, 
   [createdby] NTEXT, 
   [createdon] DATETIME, 
   [rating] INT, 
   [text] NTEXT,
   [nbalert] INT
-
 );

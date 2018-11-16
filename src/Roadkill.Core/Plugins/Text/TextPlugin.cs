@@ -296,6 +296,15 @@ namespace Roadkill.Core.Plugins
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns>Additional HTML.</returns>
+		public virtual string GetCommentsHtml()
+		{
+            return "bibi bibi bibi bibi GetCommentsHtml ";
+		}
+
+        /// <summary>
 		/// When overriden by implementing plugins, gets any HTML that should be added to the current page just before the container 
 		/// (&lt;div id="container&gt;) tag.
 		/// </summary>
@@ -314,15 +323,6 @@ namespace Roadkill.Core.Plugins
 		{
 			return "";
 		}
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>Additional HTML.</returns>
-        public virtual string GetCommentsHtml()
-        {
-            return "BABOLAT TODO";
-        }
 
         /// <summary>
         /// Gets the HTML for a javascript link required by the plugin, assuming the javascript is stored in the /Plugins/ID/ folder.

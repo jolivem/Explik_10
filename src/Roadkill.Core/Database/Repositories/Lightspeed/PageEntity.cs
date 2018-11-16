@@ -33,8 +33,8 @@ namespace Roadkill.Core.Database.LightSpeed
         [Column("isvideo")]
         private bool _isVideo;
 
-        [Column("ispublished")]
-        private bool _isPublished;
+        [Column("issubmitted")]
+        private bool _isSubmitted;
 
         [Column("iscontrolled")]
         private bool _isControlled;
@@ -168,15 +168,15 @@ namespace Roadkill.Core.Database.LightSpeed
                 Set<bool>(ref _isRejected, value);
             }
         }
-        public bool IsPublished
+        public bool IsSubmitted
         {
             get
             {
-                return _isPublished;
+                return _isSubmitted;
             }
             set
             {
-                Set<bool>(ref _isPublished, value);
+                Set<bool>(ref _isSubmitted, value);
             }
         }
         public bool IsControlled

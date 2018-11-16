@@ -112,16 +112,29 @@ namespace Roadkill.Core.Mvc.Controllers
 			if (ModelState.IsValid)
 			{
 				UserService.AddUser(model.NewEmail, model.NewUsername, model.Password, false, true);
-				return RedirectToAction("Index");
 
+                for (int i = 0; i < 10; i++ )
+                {
+                    UserService.AddUser("controller" + i + "@explik.fr", "controller" + i, "controller" + i, false, true);
+                    UserService.AddUser("user" + i + "@explik.fr", "user" + i, "user" + i, false, false);
+                }
+
+                return RedirectToAction("Index");
 			}
 			else
 			{
 				return View(model);
 			}
 		}
+        public ActionResult AddPagesForTests()
+        {
+            _pageService.AddSeveralPagesForTests();
 
-		public ActionResult EditUser(Guid id)
+            return RedirectToAction("Index");
+        }
+
+
+        public ActionResult EditUser(Guid id)
 		{
 			User user = UserService.GetUserById(id);
 			if (user == null)

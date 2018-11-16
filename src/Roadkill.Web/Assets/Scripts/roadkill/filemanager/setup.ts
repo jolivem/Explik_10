@@ -34,8 +34,10 @@ module Roadkill.Web.FileManager
 					if (fileType.search(/^(jpg|png|gif)$/i) == -1)
 						return;
 
-					var imgUrl: string;
-					imgUrl = ROADKILL_ATTACHMENTSPATH + TableEvents.getCurrentPath() + "/";
+                    var imgUrl: string;
+                    var username: string;
+                    username = (document.getElementById("user-name") as HTMLInputElement).title;
+                    imgUrl = ROADKILL_ATTACHMENTSPATH + "/" + username + TableEvents.getCurrentPath();
 					imgUrl = imgUrl.replace("//", "/") + $("td.file", this).text();
 
 					$("body").append("<p id='image-preview'><img src='" + imgUrl + "' alt='Image Preview' /></p>");

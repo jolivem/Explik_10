@@ -43,6 +43,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		[EditorRequired]
 		public ActionResult Index()
 		{
+            ViewBag.username = Context.CurrentUsername;
 			return View();
 		}
 
@@ -56,7 +57,8 @@ namespace Roadkill.Core.Mvc.Controllers
 		[HttpPost]
 		public JsonResult DeleteFile(string filePath, string fileName)
 		{
-			string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath(filePath);
+            string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + "bibi" + filePath);
+            //string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath(filePath);
 			string physicalFilePath = Path.Combine(physicalPath, fileName);
 
 			if (!_attachmentPathUtil.IsAttachmentPathValid(physicalPath))
@@ -91,9 +93,9 @@ namespace Roadkill.Core.Mvc.Controllers
 				return Json(new { status = "error", message = SiteStrings.FileManager_Error_DeleteFolder });
 			}
 
-			string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath(folder);
+            string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + "bibi" + folder);
 
-			if (!_attachmentPathUtil.IsAttachmentPathValid(physicalPath, false))
+            if (!_attachmentPathUtil.IsAttachmentPathValid(physicalPath, false))
 			{
 				throw new SecurityException(null, "Attachment path was invalid when deleting the folder {0}", folder);
 			}
@@ -132,10 +134,19 @@ namespace Roadkill.Core.Mvc.Controllers
 			if (!Directory.Exists(ApplicationSettings.AttachmentsDirectoryPath))
 				return Json(new { status = "error", message = "The attachments directory does not exist - please create it." });
 
-			string folder = dir;
+            string userRootPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + "bibi");
+            if (dir == "/")
+            {
+                if (!Directory.Exists(userRootPath))
+                {
+                    Directory.CreateDirectory(userRootPath);
+                }
+            }
+
+            string folder = dir;
 			folder = Server.UrlDecode(folder);
 
-			string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath(folder);
+			string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + "bibi" + folder);
 
 			if (!_attachmentPathUtil.IsAttachmentPathValid(physicalPath))
 			{
@@ -155,8 +166,9 @@ namespace Roadkill.Core.Mvc.Controllers
 					{
 						DirectoryInfo info = new DirectoryInfo(directory);
 						string fullPath = info.FullName;
-						fullPath = fullPath.Replace(ApplicationSettings.AttachmentsDirectoryPath, "");
-						fullPath = fullPath.Replace(Path.DirectorySeparatorChar.ToString(), "/");
+                        //fullPath = fullPath.Replace(ApplicationSettings.AttachmentsDirectoryPath, "");
+                        fullPath = fullPath.Replace(userRootPath, "");
+                        fullPath = fullPath.Replace(Path.DirectorySeparatorChar.ToString(), "/");
 						fullPath = "/" + fullPath; // removed in the 1st replace
 
 						DirectoryViewModel childModel = new DirectoryViewModel(info.Name, fullPath);
@@ -197,7 +209,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		[HttpPost]
 		public JsonResult NewFolder(string currentFolderPath, string newFolderName)
 		{
-			var physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath(currentFolderPath);
+			var physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + "bibi" + currentFolderPath);
 
 			if (!_attachmentPathUtil.IsAttachmentPathValid(physicalPath))
 			{
@@ -231,9 +243,9 @@ namespace Roadkill.Core.Mvc.Controllers
 		public JsonResult Upload()
 		{
 			string destinationFolder = Request.Form["destination_folder"];
-			string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath(destinationFolder);
+			string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + "bibi" + destinationFolder);
 
-			if (!_attachmentPathUtil.IsAttachmentPathValid(physicalPath))
+            if (!_attachmentPathUtil.IsAttachmentPathValid(physicalPath))
 			{
 				throw new SecurityException("Attachment path was invalid when uploading.", null);
 			}
@@ -299,7 +311,8 @@ namespace Roadkill.Core.Mvc.Controllers
 		[EditorRequired]
 		public ActionResult Select()
 		{
-			return View();
+            ViewBag.username = Context.CurrentUsername;
+            return View();
 		}
 
 		protected override void OnException(ExceptionContext filterContext)

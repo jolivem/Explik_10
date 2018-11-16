@@ -26,7 +26,8 @@ var Roadkill;
             }
             Setup.configureBinds = function () {
                 this.hideTemporaryAlerts();
-                this.bindInfoButton();
+                /*this.bindInfoButton();*/
+                this.bindRateButton();
                 this.bindTimeAgo();
             };
             Setup.hideTemporaryAlerts = function () {
@@ -43,11 +44,24 @@ var Roadkill;
                 $("#lastmodified-on").timeago();
                 $("#historytable .editedon").timeago();
             };
-            Setup.bindInfoButton = function () {
+            /*
+                    public static bindInfoButton()
+                    {
+                        // Bind the info icon on each page
+                        $("#pageinfo-button").click(function ()
+                        {
+                            Dialogs.openModal("#pageinformation");
+                        });
+                    }
+                    */
+            Setup.bindRateButton = function () {
                 // Bind the info icon on each page
-                $("#pageinfo-button").click(function () {
-                    Web.Dialogs.openModal("#pageinformation");
+                $("#pagerate-button").click(function () {
+                    Web.Dialogs.openModal("#pagerating");
                 });
+            };
+            Setup.bindRateLink = function () {
+                Web.Dialogs.openModal("#pagerating");
             };
             /**
             Sets all links with the .confirm class so they have to click confirm to

@@ -323,8 +323,10 @@
     <Content Include="Assets\CSS\htmldiff.css" />
     <Content Include="Assets\CSS\images\animated-overlay.gif" />
     <Content Include="Assets\CSS\images\blank.gif" />
+    <Content Include="Assets\CSS\images\grey-yellow-48.png" />
     <Content Include="Assets\CSS\images\plugin-disabled.png" />
     <Content Include="Assets\CSS\images\plugin-enabled.png" />
+    <Content Include="Assets\CSS\images\star_rating.png" />
     <Content Include="Assets\Images\filemanager\cancel.png" />
     <Content Include="Assets\Images\filemanager\directory.png" />
     <Content Include="Assets\Images\filemanager\file.png" />
@@ -370,13 +372,16 @@
     <Content Include="Assets\opensearch.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Assets\Scripts\Rating.js" />
     <Content Include="Assets\Scripts\shared\bootbox.js" />
     <Content Include="Assets\Scripts\readme.txt" />
     <Content Include="Assets\Scripts\jquery\additional-methods.js" />
     <Content Include="Assets\Scripts\jquery\jquery-1.9.1.js" />
     <Content Include="Assets\Scripts\jquery\jquery-ui-1.10.3.custom.js" />
     <Content Include="Assets\Scripts\jquery\jquery.validate.js" />
+    <Content Include="Assets\Scripts\shared\html2canvas.js" />
     <Content Include="Assets\Scripts\shared\tagmanager.js" />
+    <TypeScriptCompile Include="Assets\Scripts\roadkill\controlpage\controlpage.ts" />
     <TypeScriptCompile Include="Assets\Scripts\roadkill\dialogs.ts" />
     <Content Include="Assets\Scripts\jquery\jquery.fileupload.js" />
     <Content Include="Assets\Scripts\jquery\jquery.iframe-transport.js" />
@@ -617,6 +622,12 @@
     <Content Include="Views\Pages\AllNewPages.cshtml" />
     <Content Include="Views\Pages\MyPages.cshtml" />
     <Content Include="Views\Pages\Alerts.cshtml" />
+    <Content Include="Rate.cshtml" />
+    <Content Include="Views\PageRating.cshtml" />
+    <Content Include="Views\Shared\Dialogs\PageRating.cshtml" />
+    <Content Include="Views\Shared\Dialogs\PageAlert.cshtml" />
+    <Content Include="Views\Shared\Dialogs\CommentAlert.cshtml" />
+    <Content Include="Views\Pages\ControlPage.cshtml" />
     <None Include="Web.Mono.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

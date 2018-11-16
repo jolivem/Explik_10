@@ -170,17 +170,17 @@ namespace Roadkill.Core.Database.Export
 			if (page == null)
 				return "";
 
-			string sql = "INSERT INTO roadkill_pages (id, title, summary, createdby, createdon, modifiedby, modifiedon, tags, islocked, ispublished, iscontrolled, isrejected, isvideo, nbalert, nbrating, totalrating, nbview) VALUES (";
+			string sql = "INSERT INTO roadkill_pages (id, title, summary, createdby, createdon, modifiedby, modifiedon, tags, islocked, issubmitted, iscontrolled, isrejected, isvideo, nbalert, nbrating, totalrating, nbview) VALUES (";
 			sql += string.Format("'{0}',", page.Id);
 			sql += string.Format("'{0}',", page.Title.ReplaceSingleQuotes());
             sql += string.Format("'{0}',", page.Summary.ReplaceSingleQuotes());
             sql += string.Format("'{0}',", page.CreatedBy.ReplaceSingleQuotes());
-            sql += string.Format("'{0}',", page.CreatedOn.ToString("yyyy-MM-dd HH:mm:ss"));
+            sql += string.Format("'{0}',", page.CreatedOn.ToString("yyyy-MM-dd"));
 			sql += string.Format("'{0}',", page.ModifiedBy.ReplaceSingleQuotes());
-			sql += string.Format("'{0}',", page.ModifiedOn.ToString("yyyy-MM-dd HH:mm:ss"));
+			sql += string.Format("'{0}',", page.ModifiedOn.ToString("yyyy-MM-dd"));
 			sql += string.Format("'{0}',", page.Tags.ReplaceSingleQuotes());
             sql += string.Format("'{0}',", page.IsLocked);
-            sql += string.Format("'{0}',", page.IsPublished);
+            sql += string.Format("'{0}',", page.IsSubmitted);
             sql += string.Format("'{0}',", page.IsControlled);
             sql += string.Format("'{0}',", page.IsRejected);
             sql += string.Format("'{0}',", page.IsVideo);
@@ -203,7 +203,7 @@ namespace Roadkill.Core.Database.Export
 			sql += string.Format("'{0}',", content.Page.Id);
 			sql += string.Format("'{0}',", content.Text.ReplaceSingleQuotes());
 			sql += string.Format("'{0}',", content.EditedBy.ReplaceSingleQuotes());
-			sql += string.Format("'{0}',", content.EditedOn.ToString("yyyy-MM-dd HH:mm:ss"));
+			sql += string.Format("'{0}',", content.EditedOn.ToString("yyyy-MM-dd"));
 			sql += string.Format("'{0}'",  content.VersionNumber);
 
 			sql += ");";
@@ -216,13 +216,14 @@ namespace Roadkill.Core.Database.Export
 			if (user == null)
 				return "";
 
-			string sql = "INSERT INTO roadkill_users (id, activationkey, email, firstname, iseditor, isadmin, isactivated, lastname, password, passwordresetkey, salt, username) VALUES (";
+			string sql = "INSERT INTO roadkill_users (id, activationkey, email, firstname, iseditor, iscontroller, isadmin, isactivated, lastname, password, passwordresetkey, salt, username) VALUES (";
 			sql += string.Format("'{0}',", user.Id);
 			sql += string.Format("'{0}',", user.ActivationKey);
 			sql += string.Format("'{0}',", user.Email.ReplaceSingleQuotes());
 			sql += string.Format("'{0}',", user.Firstname.ReplaceSingleQuotes());
-			sql += string.Format("'{0}',", user.IsEditor ? "1" : "0");
-			sql += string.Format("'{0}',", user.IsAdmin ? "1" : "0");
+            sql += string.Format("'{0}',", user.IsEditor ? "1" : "0");
+            sql += string.Format("'{0}',", user.IsController ? "1" : "0");
+            sql += string.Format("'{0}',", user.IsAdmin ? "1" : "0");
 			sql += string.Format("'{0}',", user.IsActivated ? "1" : "0");
 			sql += string.Format("'{0}',", user.Lastname.ReplaceSingleQuotes());
 			sql += string.Format("'{0}',", user.Password.ReplaceSingleQuotes());

@@ -42,6 +42,8 @@ namespace Roadkill.Core.Mvc
 			cssBundle.Include("~/Assets/CSS/roadkill.css");
 			cssBundle.Include("~/Assets/CSS/tagmanager.css");
 			cssBundle.Include("~/Assets/CSS/toastr.css");
+            cssBundle.Include("~/Assets/CSS/spectateurs.css"); //MJO TODO got from allocine.fr
+
 		}
 
 		private static void IncludeJQueryScripts(ScriptBundle jsBundle)
@@ -63,8 +65,9 @@ namespace Roadkill.Core.Mvc
 			jsBundle.Include("~/Assets/Scripts/roadkill/setup.js");
 			jsBundle.Include("~/Assets/Scripts/roadkill/validation.js");
 
-			jsBundle.Include("~/Assets/Scripts/roadkill/editpage/editpage.js");
-			jsBundle.Include("~/Assets/Scripts/roadkill/editpage/wysiwygeditor.js");
+            jsBundle.Include("~/Assets/Scripts/roadkill/editpage/editpage.js");
+            jsBundle.Include("~/Assets/Scripts/roadkill/controlpage/controlpage.js");
+            jsBundle.Include("~/Assets/Scripts/roadkill/editpage/wysiwygeditor.js");
 
 			jsBundle.Include("~/Assets/Scripts/roadkill/filemanager/ajaxrequest.js");
 			jsBundle.Include("~/Assets/Scripts/roadkill/filemanager/breadcrumbtrail.js");
@@ -82,7 +85,8 @@ namespace Roadkill.Core.Mvc
 			jsBundle.Include("~/Assets/Scripts/shared/bootbox.js");
 			jsBundle.Include("~/Assets/Scripts/shared/head.js");
 			jsBundle.Include("~/Assets/Scripts/shared/tagmanager.js");
-			jsBundle.Include("~/Assets/Scripts/shared/toastr.js");
-		}
-	}
+            jsBundle.Include("~/Assets/Scripts/shared/toastr.js");
+            jsBundle.Include("~/Assets/Scripts/shared/html2canvas.js");
+        }
+    }
 }

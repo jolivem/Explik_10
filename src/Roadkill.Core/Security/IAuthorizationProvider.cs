@@ -6,7 +6,8 @@ namespace Roadkill.Core.Security
 	public interface IAuthorizationProvider
 	{
 		bool IsAdmin(IPrincipal principal);
-		bool IsEditor(IPrincipal principal);
-		bool IsViewer(IPrincipal principal);
+        bool IsEditor(IPrincipal principal);
+        bool IsController(IPrincipal principal);
+        bool IsViewer(IPrincipal principal);
 	}
 }

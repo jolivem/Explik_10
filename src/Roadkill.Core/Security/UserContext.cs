@@ -11,8 +11,9 @@ namespace Roadkill.Core.Security
 	public class UserContext : IUserContext
 	{
 		private bool? _isAdmin;
-		private bool? _isEditor;
-		private User _user;
+        private bool? _isEditor;
+        private bool? _isController;
+        private User _user;
 		private UserServiceBase _userService;
 
 		/// <summary>
@@ -120,10 +121,33 @@ namespace Roadkill.Core.Security
 			}
 		}
 
-		/// <summary>
-		/// Whether the user is currently logged in or not.
-		/// </summary>
-		public bool IsLoggedIn
+        /// <summary>
+        /// Indicates whether the current user is a member of the controller role.
+        /// </summary>
+        public bool IsController
+        {
+            get
+            {
+                if (IsLoggedIn)
+                {
+                    if (_isController == null)
+                    {
+                        _isController = _userService.IsController(CurrentUser);
+                    }
+
+                    return _isController.Value;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Whether the user is currently logged in or not.
+        /// </summary>
+        public bool IsLoggedIn
 		{
 			get
 			{

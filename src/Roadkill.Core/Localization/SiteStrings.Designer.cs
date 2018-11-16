@@ -232,6 +232,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Confirm.
+        /// </summary>
+        public static string Button_Confirm {
+            get {
+                return ResourceManager.GetString("Button_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Import.
         /// </summary>
         public static string Button_Import {
@@ -255,6 +264,15 @@ namespace Roadkill.Core.Localization {
         public static string Button_Preview {
             get {
                 return ResourceManager.GetString("Button_Preview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Reject.
+        /// </summary>
+        public static string Button_Reject {
+            get {
+                return ResourceManager.GetString("Button_Reject", resourceCulture);
             }
         }
         
@@ -327,6 +345,24 @@ namespace Roadkill.Core.Localization {
         public static string Button_Upload {
             get {
                 return ResourceManager.GetString("Button_Upload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Validate.
+        /// </summary>
+        public static string Button_Validate {
+            get {
+                return ResourceManager.GetString("Button_Validate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Control page.
+        /// </summary>
+        public static string ControlPage_Title {
+            get {
+                return ResourceManager.GetString("ControlPage_Title", resourceCulture);
             }
         }
         
@@ -898,7 +934,7 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à New pages.
+        ///   Recherche une chaîne localisée semblable à New page.
         /// </summary>
         public static string Navigation_NewPage {
             get {
@@ -952,6 +988,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Add you comment.
+        /// </summary>
+        public static string Page_Add_Your_Comment {
+            get {
+                return ResourceManager.GetString("Page_Add_Your_Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Created by:.
         /// </summary>
         public static string Page_Info_CreatedBy {
@@ -961,11 +1006,29 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Created by.
+        /// </summary>
+        public static string Page_Info_CreatedBy2 {
+            get {
+                return ResourceManager.GetString("Page_Info_CreatedBy2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Created on:.
         /// </summary>
         public static string Page_Info_CreatedOn {
             get {
                 return ResourceManager.GetString("Page_Info_CreatedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Draft.
+        /// </summary>
+        public static string Page_Info_Draft {
+            get {
+                return ResourceManager.GetString("Page_Info_Draft", resourceCulture);
             }
         }
         
@@ -1002,6 +1065,33 @@ namespace Roadkill.Core.Localization {
         public static string Page_Info_NbView {
             get {
                 return ResourceManager.GetString("Page_Info_NbView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à , on:.
+        /// </summary>
+        public static string Page_Info_On {
+            get {
+                return ResourceManager.GetString("Page_Info_On", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Published.
+        /// </summary>
+        public static string Page_Info_Published {
+            get {
+                return ResourceManager.GetString("Page_Info_Published", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Submitted.
+        /// </summary>
+        public static string Page_Info_Submitted {
+            get {
+                return ResourceManager.GetString("Page_Info_Submitted", resourceCulture);
             }
         }
         
@@ -1276,6 +1366,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Control.
+        /// </summary>
+        public static string Shared_ControlLink {
+            get {
+                return ResourceManager.GetString("Shared_ControlLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Delete.
         /// </summary>
         public static string Shared_DeleteLink {
@@ -1407,6 +1506,15 @@ namespace Roadkill.Core.Localization {
         public static string Shared_RemoveAlertsLink {
             get {
                 return ResourceManager.GetString("Shared_RemoveAlertsLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Submit.
+        /// </summary>
+        public static string Shared_SubmitLink {
+            get {
+                return ResourceManager.GetString("Shared_SubmitLink", resourceCulture);
             }
         }
         

@@ -1,0 +1,51 @@
+﻿@model PageViewModel
+@{
+    ViewBag.Title = SiteStrings.EditPage_Title;
+}
+
+<script type="text/javascript">
+	$(document).ready(function ()
+	{
+		var pageTags = [ @(Html.Raw(Model.JavascriptArrayForAllTags())) ];
+		var controlPage = new Roadkill.Web.EditPage(pageTags);
+	});
+</script>
+<style>
+    .searchbar {
+        display: none;
+    }
+</style>
+
+<div id="controlpage" class="row">
+    <div id="editpage-form-container" class="col-lg-9">
+        @Html.BootstrapValidationSummary(SiteStrings.EditPage_Error)
+
+        <form class="form-horizontal" role="form" method="post" id="editpage-form">
+            @(Html.HiddenFor<PageViewModel, string>(p => p.RawTags))
+
+            <div class="form-group">
+                <h2 class="pagetitle">@Model.Title</h2>
+            </div>
+
+            <div id="pagecontent">
+                @MvcHtmlString.Create(Model.ContentAsHtml)
+            </div>
+            <hr />
+            <div class="form-inline">
+                @(Html.TextBox("TagsEntry", null, new { @class = "form-control tm-input", autocomplete = "off", tabindex = 2, placeholder = SiteStrings.EditPage_Tags_Label }))
+            </div>
+
+            <div id="editpage-button-container" class="row">
+                <div id="editpage-save-button" class="col-sm-5">
+                    <td class="delete">@Html.ActionLink(SiteStrings.Shared_RejectLink, "Reject", new { id = Model.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
+                    <input type="submit" class="btn btn-primary saveButton" value="@SiteStrings.Button_Reject" tabindex="5" />
+                </div>
+                <div id="editpage-save-button" class="col-sm-5">
+                    <input type="submit" class="btn btn-primary saveButton" value="@SiteStrings.Button_Validate" tabindex="6" /> 
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+

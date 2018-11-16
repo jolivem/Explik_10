@@ -3,21 +3,23 @@
     ViewBag.Title = Model.Title;
 }
 
-@section PageToolbar
-{
-    @* This is rendered by an action (and not a partial/extension method) for future donut caching *@
-    @Html.Action("PageToolBar", "Wiki", new { id = Model.Id })
-}
-
 @section ViewHistoryLink
 {
     <div id="viewhistory">@Html.ActionLink(SiteStrings.Navigation_ViewHistory, "History", "Pages", new { id = Model.Id }, null)</div>
 }
 
-<h1 class="pagetitle">@Model.Title</h1>
+<h1 class="pagetitle">
+    <table style="width:100%">
+        <tr>
+            <td>@Model.Title</td>
+            <td>@MvcHtmlString.Create(Model.RatingStars)</td>
+        </tr>
+    </table> 
+</h1>
+
 
 <div id="pagecontent">
-    @MvcHtmlString.Create(Model.ContentAsHtml)
+@MvcHtmlString.Create(Model.ContentAsHtml)
 </div>
 
 @section PageDetailsFooter
@@ -34,11 +36,6 @@
 @section PluginPreContainer
 {
     @MvcHtmlString.Create(Model.PluginPreContainer)
-}
-
-@section PluginComments
-{
-    @MvcHtmlString.Create(Model.PluginComments)
 }
 
 @section PluginPostContainer

@@ -58,18 +58,18 @@ namespace Roadkill.Core.Security
 			}
 		}
 
-		/// <summary>
-		/// Adds a user to the system, and sets the <see cref="User.IsActivated"/> to true.
-		/// </summary>
-		/// <param name="email">The email or username.</param>
-		/// <param name="password">The password.</param>
-		/// <param name="isAdmin">if set to <c>true</c> the user is added as an admin.</param>
-		/// <param name="isEditor">if set to <c>true</c> the user is added as an editor.</param>
-		/// <returns>
-		/// true if the user was added; false if the user already exists.
-		/// </returns>
-		/// <exception cref="SecurityException">An databaseerror occurred while adding the new user.</exception>
-		public override bool AddUser(string email, string username, string password, bool isAdmin, bool isEditor)
+        /// <summary>
+        /// Adds a user to the system, and sets the <see cref="User.IsActivated"/> to true.
+        /// </summary>
+        /// <param name="email">The email or username.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="isAdmin">if set to <c>true</c> the user is added as an admin.</param>
+        /// <param name="isController">if set to <c>true</c> the user is added as an editor.</param>
+        /// <returns>
+        /// true if the user was added; false if the user already exists.
+        /// </returns>
+        /// <exception cref="SecurityException">An databaseerror occurred while adding the new user.</exception>
+        public override bool AddUser(string email, string username, string password, bool isAdmin, bool isController)
 		{
 			try
 			{
@@ -81,7 +81,9 @@ namespace Roadkill.Core.Security
 					user.Username = username;
 					user.SetPassword(password);
 					user.IsAdmin = isAdmin;
-					user.IsEditor = isEditor;
+					user.IsEditor = true;
+                    user.IsController = isController;
+                    user.IsBlackListed = false;
 					user.IsActivated = true;
 					Repository.SaveOrUpdateUser(user);
 
@@ -660,5 +662,27 @@ namespace Roadkill.Core.Security
 
 			return "";
 		}
-	}
+
+        public override bool IsController(string cookieValue)
+        {
+            try
+            {
+                Guid id;
+                if (Guid.TryParse(cookieValue, out id))
+                {
+                    return Repository.GetControllerById(id) != null;
+                }
+                else
+                {
+                    Logout();
+                    return false;
+                    throw new SecurityException("The user's cookie value does not contain a Guid when checking for editor rights.", null);
+                }
+            }
+            catch (DatabaseException ex)
+            {
+                throw new SecurityException(ex, "An error occurred checking if {0} is an editor", cookieValue);
+            }
+        }
+    }
 }

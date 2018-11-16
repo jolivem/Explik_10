@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mime;
 using System.Web.Mvc;
 using Roadkill.Core.Diff;
 using Roadkill.Core.Converters;
@@ -12,6 +14,8 @@ using Roadkill.Core.Mvc.ViewModels;
 using System.Web;
 using Roadkill.Core.Text;
 using Roadkill.Core.Extensions;
+using Roadkill.Core.Database;
+using System.IO;
 
 namespace Roadkill.Core.Mvc.Controllers
 {
@@ -43,7 +47,8 @@ namespace Roadkill.Core.Mvc.Controllers
 		/// </summary>
 		/// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
 		[BrowserCache]
-		public ActionResult AllPages()
+        [ControllerRequired]
+        public ActionResult AllPages()
 		{
 			return View(_pageService.AllPages());
 		}
@@ -53,9 +58,11 @@ namespace Roadkill.Core.Mvc.Controllers
         /// </summary>
         /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
         [BrowserCache]
+        [ControllerRequired]
         public ActionResult AllNewPages()
         {
-            return View(_pageService.AllNewPages());
+            var all = _pageService.AllNewPages();
+            return View(all);
         }
 
         /// <summary>
@@ -63,9 +70,10 @@ namespace Roadkill.Core.Mvc.Controllers
         /// </summary>
         /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
         [BrowserCache]
-        public ActionResult Alerts()
+        [ControllerRequired]
+        public ActionResult AllAlerts()
         {
-            return View(_pageService.Alerts());
+            return View(_pageService.AllPagesWithAlerts());
         }
 
         /// <summary>
@@ -75,7 +83,9 @@ namespace Roadkill.Core.Mvc.Controllers
         [BrowserCache]
         public ActionResult MyPages(string id, bool? encoded)
         {
-
+            //TODO removeid, not needed !!!
+            // after submit, id = null --> leads to an exception
+            // when changing the user, the id is the older one
             string currentUser = Context.CurrentUsername;
             if (id == Context.CurrentUsername)
             {
@@ -93,7 +103,8 @@ namespace Roadkill.Core.Mvc.Controllers
             }
             else
             {
-                return View(); // TODO check what is the result
+                return View(_pageService.MyPages(currentUser));
+                return View(); // TODO check what is the result --> exception
             }
         }
 
@@ -150,12 +161,27 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <param name="id">The id of the page to delete.</param>
         /// <returns>Redirects to AllPages action.</returns>
         /// <remarks>This action requires admin rights.</remarks>
-        [AdminRequired]
+        //[AdminRequired]
+        [ControllerRequired]
         public ActionResult Delete(int id)
         {
             _pageService.DeletePage(id);
 
-            return RedirectToAction("AllPages");
+            return RedirectToAction("MyPages");
+        }
+
+        /// <summary>
+        /// Deletes a wiki page.
+        /// </summary>
+        /// <param name="id">The id of the page to delete.</param>
+        /// <returns>Redirects to AllPages action.</returns>
+        /// <remarks>This action requires admin rights.</remarks>
+        [EditorRequired]
+        public ActionResult Submit(int id)
+        {
+            _pageService.SubmitPage(id);
+
+            return RedirectToAction("MyPages");
         }
 
         /// <summary>
@@ -164,7 +190,35 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <param name="id">The id of the page to validate.</param>
         /// <returns>Redirects to AllPages action.</returns>
         /// <remarks>This action requires admin rights.</remarks>
-        [AdminRequired]
+        [ControllerRequired]
+        public ActionResult ControlPage(int id)
+        {
+            PageViewModel model = _pageService.GetById(id, true);
+
+            if (model != null)
+            {
+                if (model.IsLocked && !Context.IsAdmin)
+                    return new HttpStatusCodeResult(403, string.Format("The page '{0}' can only be edited by administrators.", model.Title));
+
+                model.AllTags = _pageService.AllTags().ToList();
+
+                return View("ControlPage", model);
+            }
+            else
+            {
+                //MJO TODO return RedirectToAction("New");
+            }
+
+            return RedirectToAction("ControlPage");
+        }
+
+        /// <summary>
+        /// Deletes a wiki page.
+        /// </summary>
+        /// <param name="id">The id of the page to validate.</param>
+        /// <returns>Redirects to AllPages action.</returns>
+        /// <remarks>This action requires admin rights.</remarks>
+        [ControllerRequired]
         public ActionResult Validate(int id)
         {
             _pageService.ValidatePage(id);
@@ -178,7 +232,7 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <param name="id">The id of the page to reject.</param>
         /// <returns>Redirects to AllPages action.</returns>
         /// <remarks>This action requires admin rights.</remarks>
-        [AdminRequired]
+        [ControllerRequired]
         public ActionResult Reject(int id)
         {
             _pageService.RejectPage(id);
@@ -192,7 +246,7 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <param name="id">The id of the page to reject.</param>
         /// <returns>Redirects to AllPages action.</returns>
         /// <remarks>This action requires admin rights.</remarks>
-        [AdminRequired]
+        [ControllerRequired]
         public ActionResult ResetAlerts(int id)
         {
             _pageService.ResetAlertPage(id);
@@ -301,33 +355,33 @@ namespace Roadkill.Core.Mvc.Controllers
 			return View("Edit", model);
 		}
 
-		/// <summary>
-		/// Saves a new page using the provided <see cref="PageViewModel"/> object to the database.
-		/// </summary>
-		/// <param name="model">The page details to save.</param>
-		/// <returns>Redirects to /Wiki/{id} using the newly created page's ID.</returns>
-		/// <remarks>This action requires editor rights.</remarks>
-		[EditorRequired]
-		[HttpPost]
-		[ValidateInput(false)]
-		public ActionResult New(PageViewModel model)
-		{
-			if (!ModelState.IsValid)
-				return View("Edit", model);
+        /// <summary>
+        /// Saves a new page using the provided <see cref="PageViewModel"/> object to the database.
+        /// </summary>
+        /// <param name="model">The page details to save.</param>
+        /// <returns>Redirects to /Wiki/{id} using the newly created page's ID.</returns>
+        /// <remarks>This action requires editor rights.</remarks>
+        [EditorRequired]
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult New(PageViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View("Edit", model);
 
-			model = _pageService.AddPage(model);
+            model = _pageService.AddPage(model);
 
-			return RedirectToAction("Index", "Wiki", new { id = model.Id });
-		}
+            return RedirectToAction("Index", "Wiki", new { id = model.Id });
+        }
 
-		/// <summary>
-		/// Reverts a page to the version specified, creating a new version in the process.
-		/// </summary>
-		/// <param name="versionId">The Guid ID of the version to revert to.</param>
-		/// <param name="pageId">The id of the page</param>
-		/// <returns>Redirects to the History action using the pageId parameter.</returns>
-		/// <remarks>This action requires editor rights.</remarks>
-		[EditorRequired]
+        /// <summary>
+        /// Reverts a page to the version specified, creating a new version in the process.
+        /// </summary>
+        /// <param name="versionId">The Guid ID of the version to revert to.</param>
+        /// <param name="pageId">The id of the page</param>
+        /// <returns>Redirects to the History action using the pageId parameter.</returns>
+        /// <remarks>This action requires editor rights.</remarks>
+        [EditorRequired]
 		public ActionResult Revert(Guid versionId, int pageId)
 		{
 			// Check if the page is locked to admin edits only before reverting.
@@ -389,19 +443,42 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <returns>An filled <see cref="PageViewModel"/> as the model. If the page id cannot be found, the action
         /// redirects to the New page.</returns>
         /// <remarks>This action requires editor rights.</remarks>
-        [EditorRequired] //TODO controller required
-        public ActionResult Valid(int id)
+        //[EditorRequired] //TODO controller required
+        //public ActionResult Valid(int id)
+        //{
+        //    PageViewModel model = _pageService.GetById(id, true);
+
+        //    if (model != null)
+        //    {
+        //        if (model.IsLocked && !Context.IsAdmin)
+        //            return new HttpStatusCodeResult(403, string.Format("The page '{0}' can only be edited by administrators.", model.Title));
+
+        //        model.AllTags = _pageService.AllTags().ToList();
+
+        //        return View("Edit", model);
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("New");
+        //    }
+        //}
+        /// <summary>
+        /// Displays the edit View for the page provided in the id.
+        /// </summary>
+        /// <param name="id">The ID of the page to edit.</param>
+        /// <returns>An filled <see cref="PageViewModel"/> as the model. If the page id cannot be found, the action
+        /// redirects to the New page.</returns>
+        /// <remarks>This action requires editor rights.</remarks>
+        [EditorRequired]
+        public ActionResult Rate(int id)
         {
-            PageViewModel model = _pageService.GetById(id, true);
+            var pageViewModel = _pageService.GetById(id, true);
+            RateViewModel model = new RateViewModel(_pageService.GetCurrentContent(id).Page);
 
             if (model != null)
             {
-                if (model.IsLocked && !Context.IsAdmin)
-                    return new HttpStatusCodeResult(403, string.Format("The page '{0}' can only be edited by administrators.", model.Title));
-
-                model.AllTags = _pageService.AllTags().ToList();
-
-                return View("Edit", model);
+                var view = View("Rate", (Object)model);
+                return view;
             }
             else
             {
@@ -409,5 +486,76 @@ namespace Roadkill.Core.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Displays the edit View for the page provided in the id.
+        /// </summary>
+        /// <param name="id">The ID of the page to edit.</param>
+        /// <returns>An filled <see cref="PageViewModel"/> as the model. If the page id cannot be found, the action
+        /// redirects to the New page.</returns>
+        /// <remarks>This action requires editor rights.</remarks>
+        public ActionResult AddComment(int id, string text, int rating)
+        {
+            Comment comment = new Comment( id, Context.CurrentUsername, rating, text);
+
+
+            return Content("tout va bien", MediaTypeNames.Text.Plain);
+        }
+
+        static string path = @"C:\Temp\";
+        public ActionResult UploadCanvas(int ?id, string image)
+        {
+            //Comment comment = new Comment(id, Context.CurrentUsername, string rating);
+            string fileNameWitPath = path + DateTime.Now.ToString().Replace("/", "-").Replace(" ", "- ").Replace(":", "") + ".png";
+            using (FileStream fs = new FileStream(fileNameWitPath, FileMode.Create))
+            {
+                using (BinaryWriter bw = new BinaryWriter(fs))
+                {
+                    byte[] data = Convert.FromBase64String(image);//convert from base64
+                    bw.Write(data);
+                    bw.Close();
+                }
+            }
+
+            return Content("tout va tres bien Madame la Marquise");
+        }
+
+        /// <summary>
+        /// Save an alert for the page
+        /// </summary>
+        /// <param name="id">The ID of the page to edit.</param>
+        /// <returns>An filled <see cref="PageViewModel"/> as the model. If the page id cannot be found, the action
+        /// redirects to the New page.</returns>
+        /// <remarks>This action requires editor rights.</remarks>
+        public ActionResult PageAlert(int id)
+        {
+            _pageService.AddPageAlert(id);
+            return Content("Alert taken into account", MediaTypeNames.Text.Plain);
+        }
+
+        public ActionResult CommentAlert(int id)
+        {
+            _pageService.AddCommentAlert(id);
+            return Content("Alert taken into account", MediaTypeNames.Text.Plain);
+        }
+
+
+        /// <summary>
+        /// Saves all POST'd data for a page edit to the database.
+        /// </summary>
+        /// <param name="model">A filled <see cref="PageViewModel"/> containing the new data.</param>
+        /// <returns>Redirects to /Wiki/{id} using the passed in <see cref="PageViewModel.Id"/>.</returns>
+        /// <remarks>This action requires editor rights.</remarks>
+        [EditorRequired]
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Rate(PageViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View("Rate", model);
+
+            _pageService.UpdatePage(model);
+
+            return RedirectToAction("Index", "Wiki", new { id = model.Id });
+        }
     }
 }

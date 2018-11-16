@@ -35,16 +35,16 @@ namespace Roadkill.Core.Security
 		/// <returns>True if the activation was successful</returns>
 		public abstract bool ActivateUser(string activationKey);
 
-		/// <summary>
-		/// Adds a user to the system, and sets the <see cref="User.IsActivated"/> to true.
-		/// </summary>
-		/// <param name="email">The email for the user - this is typically used for log in checks.</param>
-		/// <param name="username">The username for the user.</param>
-		/// <param name="password">The password.</param>
-		/// <param name="isAdmin">if set to <c>true</c> the user is added as an admin.</param>
-		/// <param name="isEditor">if set to <c>true</c> the user is added as an editor.</param>
-		/// <returns>true if the user was added; false if the user already exists.</returns>
-		public abstract bool AddUser(string email, string username, string password, bool isAdmin, bool isEditor);
+        /// <summary>
+        /// Adds a user to the system, and sets the <see cref="User.IsActivated"/> to true.
+        /// </summary>
+        /// <param name="email">The email for the user - this is typically used for log in checks.</param>
+        /// <param name="username">The username for the user.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="isAdmin">if set to <c>true</c> the user is added as an admin.</param>
+        /// <param name="isController">if set to <c>true</c> the user is added as an editor.</param>
+        /// <returns>true if the user was added; false if the user already exists.</returns>
+        public abstract bool AddUser(string email, string username, string password, bool isAdmin, bool isController);
 
 		/// <summary>
 		/// Authenticates the user with the specified email.
@@ -114,11 +114,18 @@ namespace Roadkill.Core.Security
 		/// <returns>true if the user is an editor; false otherwise.</returns>
 		public abstract bool IsEditor(string cookieValue);
 
-		/// <summary>
-		/// Lists all admins in the system.
-		/// </summary>
-		/// <returns>A list of email/usernames who are admins.</returns>
-		public abstract IEnumerable<UserViewModel> ListAdmins();
+        /// <summary>
+        /// Determines whether the specified user with the given email/username is an editor.
+        /// </summary>
+        /// <param name="cookieValue">The user id or username of the user.</param>
+        /// <returns>true if the user is an editor; false otherwise.</returns>
+        public abstract bool IsController(string cookieValue);
+
+        /// <summary>
+        /// Lists all admins in the system.
+        /// </summary>
+        /// <returns>A list of email/usernames who are admins.</returns>
+        public abstract IEnumerable<UserViewModel> ListAdmins();
 
 		/// <summary>
 		/// Lists all editors in the system.

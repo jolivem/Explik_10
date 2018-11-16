@@ -13,8 +13,9 @@ namespace Roadkill.Core.Database
 		IEnumerable<User> FindAllAdmins();
 		User GetAdminById(Guid id);
 		User GetUserByActivationKey(string key);
-		User GetEditorById(Guid id);
-		User GetUserByEmail(string email, bool? isActivated = null);
+        User GetEditorById(Guid id);
+        User GetControllerById(Guid id);
+        User GetUserByEmail(string email, bool? isActivated = null);
 		User GetUserById(Guid id, bool? isActivated = null);
 		User GetUserByPasswordResetKey(string key);
 		User GetUserByUsername(string username);
