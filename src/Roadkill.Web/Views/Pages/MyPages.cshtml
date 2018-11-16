@@ -42,14 +42,17 @@
                 {
                     @SiteStrings.Page_Info_Draft
                 }
-                </td>
-                @if (RoadkillContext.IsLoggedIn)
+            </td>
+            @if (RoadkillContext.IsLoggedIn)
+            {
+                <td class="edit">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary" })</td>
+                if (!pageModel.IsSubmitted)
                 {
-                    <td class="edit">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary" })</td>
                     <td class="submit">@Html.ActionLink(SiteStrings.Shared_SubmitLink, "Submit", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
-                    <td class="delete">@Html.ActionLink(SiteStrings.Shared_DeleteLink, "Delete", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
                 }
-            </tr>
+                <td class="delete">@Html.ActionLink(SiteStrings.Shared_DeleteLink, "Delete", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
+            }
+        </tr>
         }
     </table>
 }

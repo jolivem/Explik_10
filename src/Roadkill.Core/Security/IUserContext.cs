@@ -24,14 +24,19 @@ namespace Roadkill.Core
 		/// </summary>
 		bool IsAdmin { get; }
 
-		/// <summary>
-		/// Gets whether the user (if logged in), is in the editors group.
-		/// </summary>
-		bool IsEditor { get; }
+        /// <summary>
+        /// Gets whether the user (if logged in), is in the editors group.
+        /// </summary>
+        bool IsEditor { get; }
 
-		/// <summary>
-		/// Gets whether the request is for a logged in user.
-		/// </summary>
-		bool IsLoggedIn { get; }
+        /// <summary>
+        /// Gets whether the user (if logged in), is in the editors group.
+        /// </summary>
+        bool IsController { get; }
+
+        /// <summary>
+        /// Gets whether the request is for a logged in user.
+        /// </summary>
+        bool IsLoggedIn { get; }
 	}
 }

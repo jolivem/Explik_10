@@ -43,7 +43,6 @@ CREATE TABLE roadkill_users
 	[iseditor] BOOL, 
 	[iscontroller] BOOL, 
 	[isadmin] BOOL, 
-	[iscontroller] BOOL, 
 	[isdummy] BOOL, 
 	[editorlevel] BOOL, 
 	[isactivated] BOOL, 

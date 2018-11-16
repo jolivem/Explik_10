@@ -381,6 +381,7 @@
     <Content Include="Assets\Scripts\jquery\jquery.validate.js" />
     <Content Include="Assets\Scripts\shared\html2canvas.js" />
     <Content Include="Assets\Scripts\shared\tagmanager.js" />
+    <TypeScriptCompile Include="Assets\Scripts\roadkill\controlpage\controlpage.ts" />
     <TypeScriptCompile Include="Assets\Scripts\roadkill\dialogs.ts" />
     <Content Include="Assets\Scripts\jquery\jquery.fileupload.js" />
     <Content Include="Assets\Scripts\jquery\jquery.iframe-transport.js" />
@@ -626,6 +627,7 @@
     <Content Include="Views\Shared\Dialogs\PageRating.cshtml" />
     <Content Include="Views\Shared\Dialogs\PageAlert.cshtml" />
     <Content Include="Views\Shared\Dialogs\CommentAlert.cshtml" />
+    <Content Include="Views\Pages\ControlPage.cshtml" />
     <None Include="Web.Mono.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

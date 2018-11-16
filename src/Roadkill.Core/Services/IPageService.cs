@@ -7,21 +7,22 @@ namespace Roadkill.Core.Services
 {
 	public interface IPageService
 	{
-		/// <summary>
-		/// Adds the page to the database.
-		/// </summary>
-		/// <param name="model">The summary details for the page.</param>
-		/// <returns>A <see cref="PageViewModel"/> for the newly added page.</returns>
-		/// <exception cref="DatabaseException">An database error occurred while saving.</exception>
-		/// <exception cref="SearchException">An error occurred adding the page to the search index.</exception>
-		PageViewModel AddPage(PageViewModel model);
+        /// <summary>
+        /// Adds the page to the database.
+        /// </summary>
+        /// <param name="model">The summary details for the page.</param>
+        /// <returns>A <see cref="PageViewModel"/> for the newly added page.</returns>
+        /// <exception cref="DatabaseException">An database error occurred while saving.</exception>
+        /// <exception cref="SearchException">An error occurred adding the page to the search index.</exception>
+        PageViewModel AddPage(PageViewModel model);
+        void AddSeveralPagesForTests();
 
-		/// <summary>
-		/// Retrieves a list of all pages in the system.
-		/// </summary>
-		/// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
-		/// <exception cref="DatabaseException">An database error occurred while retrieving the list.</exception>
-		IEnumerable<PageViewModel> AllPages(bool loadPageContent = false);
+        /// <summary>
+        /// Retrieves a list of all pages in the system.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
+        /// <exception cref="DatabaseException">An database error occurred while retrieving the list.</exception>
+        IEnumerable<PageViewModel> AllPages(bool loadPageContent = false);
 
         /// <summary>
         /// Retrieves a list of all new pages in the system.

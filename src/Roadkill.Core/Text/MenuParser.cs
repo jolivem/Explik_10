@@ -134,14 +134,22 @@ namespace Roadkill.Core.Text
 			{
 				newpage = "";
 				manageFiles = "";
+                allPages = "";
+                myPages = "";
 			}
 
-			if (!_userContext.IsAdmin)
-			{
-				siteSettings = "";
-			}
+            if (!_userContext.IsController)
+            {
+                allNewPages = "";
+                alerts = "";
+            }
 
-			html = html.Replace(CATEGORIES_TOKEN, categories);
+            if (!_userContext.IsAdmin)
+            {
+                siteSettings = "";
+            }
+
+            html = html.Replace(CATEGORIES_TOKEN, categories);
             html = html.Replace(ALLPAGES_TOKEN, allPages);
             html = html.Replace(ALLNEWPAGES_TOKEN, allNewPages);
             html = html.Replace(ALERTS_TOKEN, alerts);

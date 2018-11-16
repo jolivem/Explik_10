@@ -539,13 +539,19 @@ namespace Roadkill.Core.Database.LightSpeed
 			return FromEntity.ToUser(entity);
 		}
 
-		public User GetEditorById(Guid id)
-		{
-			UserEntity entity = Users.FirstOrDefault(x => x.Id == id && x.IsEditor);
-			return FromEntity.ToUser(entity);
-		}
+        public User GetEditorById(Guid id)
+        {
+            UserEntity entity = Users.FirstOrDefault(x => x.Id == id && x.IsEditor);
+            return FromEntity.ToUser(entity);
+        }
 
-		public User GetUserByEmail(string email, bool? isActivated = null)
+        public User GetControllerById(Guid id)
+        {
+            UserEntity entity = Users.FirstOrDefault(x => x.Id == id && x.IsController);
+            return FromEntity.ToUser(entity);
+        }
+
+        public User GetUserByEmail(string email, bool? isActivated = null)
 		{
 			UserEntity entity;
 

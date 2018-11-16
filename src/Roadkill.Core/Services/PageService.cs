@@ -97,6 +97,67 @@ namespace Roadkill.Core.Services
         }
 
         /// <summary>
+        /// Adds the page to the database.
+        /// </summary>
+        /// <param name="model">The summary details for the page.</param>
+        /// <returns>A <see cref="PageViewModel"/> for the newly added page.</returns>
+        /// <exception cref="DatabaseException">An databaseerror occurred while saving.</exception>
+        /// <exception cref="SearchException">An error occurred adding the page to the search index.</exception>
+        public void AddSeveralPagesForTests()
+        {
+            try
+            {
+                for (int i = 1; i < 10; i++)
+                {
+
+                    string currentUser = "user" + i;
+                    for (int p = 1; p < 5; p++)
+                    {
+                        Page page = new Page();
+                        page.Title = "Title of this wondefull page n° " + p;
+                        page.Tags = "";
+                        page.CreatedBy = AppendIpForDemoSite(currentUser);
+                        page.CreatedOn = DateTime.UtcNow;
+                        page.ModifiedOn = DateTime.UtcNow;
+                        page.ModifiedBy = AppendIpForDemoSite(currentUser);
+
+                        // Double check, incase the HTML form was faked.
+                        //if (_context.IsAdmin)
+                        //    page.IsLocked = model.IsLocked;
+
+                        var content = "Le mot coucou est un terme du vocabulaire courant qui peut désigner différentes espèces d'oiseaux ayant généralement " +
+                            "un chant qui correspond à l'onomatopée « coucou ». Ce nom ne correspond donc pas à un niveau précis de la classification scientifique " +
+                            "des espèces. Autrement dit, il s'agit d'un nom vernaculaire dont le sens est ambigu en biologie car il désigne une partie seulement " +
+                            "des espèces appartenant soit à la sous-famille des Cuculinae (coucous de l'Ancien Monde), soit à celle des Coccyzinae " +
+                            "(coucous du Nouveau Monde). Le plus souvent toutefois, en disant « coucou » les francophones font référence au Coucou gris(Cuculus canorus). ";
+
+                        PageContent pageContent = Repository.AddNewPage(page, content, AppendIpForDemoSite(currentUser), DateTime.UtcNow);
+
+                        _listCache.RemoveAll();
+                        _pageViewModelCache.RemoveAll(); // completely clear the cache to update any reciprocal links.
+
+                        // Update the lucene index
+                        PageViewModel savedModel = new PageViewModel(pageContent, _markupConverter);
+                        try
+                        {
+                            _searchService.Add(savedModel);
+                        }
+                        catch (SearchException)
+                        {
+                            // TODO: log
+                        }
+                    }
+                }
+
+                return ;
+            }
+            catch (DatabaseException e)
+            {
+                throw new DatabaseException(e, "An error occurred while adding page to the database");
+            }
+        }
+
+        /// <summary>
         /// Retrieves a list of all pages in the system.
         /// </summary>
         /// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
@@ -278,7 +339,7 @@ namespace Roadkill.Core.Services
                     {
                         IEnumerable<Page> pages = Repository.MyPages(id).OrderBy(p => p.Title);
                         pageModels = from page in pages
-                                     select new PageViewModel() { Id = page.Id, Title = page.Title };
+                                     select new PageViewModel(page);
 
                         _listCache.Add<PageViewModel>(cacheKey, pageModels);
                     }
@@ -985,5 +1046,6 @@ namespace Roadkill.Core.Services
                 throw new DatabaseException(ex, "An exception occurred while getting comments by page.");
             }
         }
+
     }
 }

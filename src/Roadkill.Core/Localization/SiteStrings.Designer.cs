@@ -268,6 +268,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Reject.
+        /// </summary>
+        public static string Button_Reject {
+            get {
+                return ResourceManager.GetString("Button_Reject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Rename.
         /// </summary>
         public static string Button_Rename {
@@ -336,6 +345,24 @@ namespace Roadkill.Core.Localization {
         public static string Button_Upload {
             get {
                 return ResourceManager.GetString("Button_Upload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Validate.
+        /// </summary>
+        public static string Button_Validate {
+            get {
+                return ResourceManager.GetString("Button_Validate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Control page.
+        /// </summary>
+        public static string ControlPage_Title {
+            get {
+                return ResourceManager.GetString("ControlPage_Title", resourceCulture);
             }
         }
         
@@ -1335,6 +1362,15 @@ namespace Roadkill.Core.Localization {
         public static string Shared_ConfirmLink {
             get {
                 return ResourceManager.GetString("Shared_ConfirmLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Control.
+        /// </summary>
+        public static string Shared_ControlLink {
+            get {
+                return ResourceManager.GetString("Shared_ControlLink", resourceCulture);
             }
         }
         

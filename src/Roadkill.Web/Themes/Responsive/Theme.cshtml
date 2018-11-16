@@ -78,7 +78,7 @@
 
                 $.ajax({
                     type : "POST",
-                    url : "/Pages/Rating",
+                    url : "/Pages/AddComment",
                     data : { id : pID, rating : newRating, comment : text },
                     success : function (response){
                         toastr.success("Comment taken into account");

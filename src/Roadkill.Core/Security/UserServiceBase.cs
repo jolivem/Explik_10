@@ -35,16 +35,16 @@ namespace Roadkill.Core.Security
 		/// <returns>True if the activation was successful</returns>
 		public abstract bool ActivateUser(string activationKey);
 
-		/// <summary>
-		/// Adds a user to the system, and sets the <see cref="User.IsActivated"/> to true.
-		/// </summary>
-		/// <param name="email">The email for the user - this is typically used for log in checks.</param>
-		/// <param name="username">The username for the user.</param>
-		/// <param name="password">The password.</param>
-		/// <param name="isAdmin">if set to <c>true</c> the user is added as an admin.</param>
-		/// <param name="isEditor">if set to <c>true</c> the user is added as an editor.</param>
-		/// <returns>true if the user was added; false if the user already exists.</returns>
-		public abstract bool AddUser(string email, string username, string password, bool isAdmin, bool isEditor);
+        /// <summary>
+        /// Adds a user to the system, and sets the <see cref="User.IsActivated"/> to true.
+        /// </summary>
+        /// <param name="email">The email for the user - this is typically used for log in checks.</param>
+        /// <param name="username">The username for the user.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="isAdmin">if set to <c>true</c> the user is added as an admin.</param>
+        /// <param name="isController">if set to <c>true</c> the user is added as an editor.</param>
+        /// <returns>true if the user was added; false if the user already exists.</returns>
+        public abstract bool AddUser(string email, string username, string password, bool isAdmin, bool isController);
 
 		/// <summary>
 		/// Authenticates the user with the specified email.

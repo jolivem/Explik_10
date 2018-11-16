@@ -65,8 +65,9 @@ namespace Roadkill.Core.Mvc
 			jsBundle.Include("~/Assets/Scripts/roadkill/setup.js");
 			jsBundle.Include("~/Assets/Scripts/roadkill/validation.js");
 
-			jsBundle.Include("~/Assets/Scripts/roadkill/editpage/editpage.js");
-			jsBundle.Include("~/Assets/Scripts/roadkill/editpage/wysiwygeditor.js");
+            jsBundle.Include("~/Assets/Scripts/roadkill/editpage/editpage.js");
+            jsBundle.Include("~/Assets/Scripts/roadkill/controlpage/controlpage.js");
+            jsBundle.Include("~/Assets/Scripts/roadkill/editpage/wysiwygeditor.js");
 
 			jsBundle.Include("~/Assets/Scripts/roadkill/filemanager/ajaxrequest.js");
 			jsBundle.Include("~/Assets/Scripts/roadkill/filemanager/breadcrumbtrail.js");
