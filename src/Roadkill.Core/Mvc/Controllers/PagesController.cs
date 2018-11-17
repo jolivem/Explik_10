@@ -496,8 +496,6 @@ namespace Roadkill.Core.Mvc.Controllers
         public ActionResult AddComment(int id, string text, int rating)
         {
             Comment comment = new Comment( id, Context.CurrentUsername, rating, text);
-
-
             return Content("tout va bien", MediaTypeNames.Text.Plain);
         }
 

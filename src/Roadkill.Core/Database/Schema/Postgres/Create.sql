@@ -59,3 +59,22 @@ CREATE TABLE roadkill_siteconfiguration
   "content" TEXT NOT NULL UNIQUE, 
   PRIMARY KEY("id")
 );
+
+CREATE TABLE roadkill_comments
+(
+  "id"  UUID NOT NULL,
+  "pageid" INTEGER, 
+  "createdby" TEXT NOT NULL, 
+  "createdon" TIMESTAMP(20) WITHOUT TIME ZONE, 
+  "rating" INTEGER, 
+  "text" TEXT NOT NULL
+);
+
+CREATE TABLE roadkill_alerts
+(
+  "id" UUID NOT NULL,
+  "pageid" INTEGER, 
+  "commentid" UUID,
+  "createdby" TEXT NOT NULL, 
+  "createdon" TIMESTAMP(20) WITHOUT TIME ZONE
+);

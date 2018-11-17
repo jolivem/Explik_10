@@ -452,6 +452,8 @@ namespace Roadkill.Core.Database.MongoDB
 			SaveOrUpdate<PageContent>(content);
 		}
 
+        // Comments
+
         public void DeleteComment(int commentId)
         {
             throw new NotImplementedException();
@@ -463,6 +465,28 @@ namespace Roadkill.Core.Database.MongoDB
         }
 
         public void AddComment(Comment comment)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Alerts
+
+        public void DeleteAlert(int commentId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Comment> FindAllAlertByPage(int pageId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Comment> FindAllAlertByComment(Guid commentId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddAlert(Alert alert)
         {
             throw new NotImplementedException();
         }

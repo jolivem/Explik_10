@@ -40,6 +40,15 @@ namespace Roadkill.Core.Database.LightSpeed
             entity.Text = comment.Text;
         }
 
+        public static void FromAlert(Alert alert, AlertEntity entity)
+        {
+            entity.Id = alert.Id;
+            entity.PageId = alert.PageId;
+            entity.CommentId = alert.CommentId;
+            entity.CreatedBy = alert.CreatedBy;
+            entity.CreatedOn = alert.CreatedOn;
+        }
+
         public static void FromPage(Page page, PageEntity entity)
 		{
             entity.NbRating = page.NbRating;

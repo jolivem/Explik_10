@@ -49,3 +49,22 @@ CREATE TABLE roadkill_siteconfiguration
 	Content MEDIUMTEXT NOT NULL,
 	PRIMARY KEY (Id)
 );
+
+CREATE TABLE roadkill_comments
+(
+  Id CHAR(36) not null,
+  PageId INT, 
+  CreatedBy NTEXT, 
+  CreatedOn DATETIME, 
+  Rating INT, 
+  Text NTEXT
+);
+
+CREATE TABLE [roadkill_alerts]
+(
+  [id] CHAR(36) not null,
+  [pageid] INT, 
+  [commentid]CHAR(36),
+  [createdby] NTEXT, 
+  [createdon] DATETIME
+);

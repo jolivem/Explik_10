@@ -103,6 +103,24 @@ namespace Roadkill.Core.Database.LightSpeed
             return comment;
         }
 
+        /// <summary>
+        /// Intentionally doesn't populate the User.Password property (as this is only ever stored).
+        /// </summary>
+        public static Alert ToAlert(AlertEntity entity)
+        {
+            if (entity == null)
+                return null;
+
+            Alert alert = new Alert();
+            alert.Id = entity.Id;
+            alert.PageId = entity.PageId;
+            alert.CommentId = entity.CommentId;
+            alert.CreatedBy = entity.CreatedBy;
+            alert.CreatedOn = entity.CreatedOn;
+
+            return alert;
+        }
+
         public static IEnumerable<PageContent> ToPageContentList(IEnumerable<PageContentEntity> entities)
 		{
 			List<PageContent> list = new List<PageContent>();
@@ -146,6 +164,18 @@ namespace Roadkill.Core.Database.LightSpeed
             {
                 Comment comment = ToComment(entity);
                 list.Add(comment);
+            }
+
+            return list;
+        }
+
+        public static IEnumerable<Alert> ToAlertList(List<AlertEntity> entities)
+        {
+            List<Alert> list = new List<Alert>();
+            foreach (AlertEntity entity in entities)
+            {
+                Alert alert = ToAlert(entity);
+                list.Add(alert);
             }
 
             return list;

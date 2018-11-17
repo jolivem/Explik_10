@@ -67,7 +67,7 @@ CREATE TABLE [roadkill_siteconfiguration]
   PRIMARY KEY (Id)
 );
 
-CREATE TABLE [roadkill_comments] 
+CREATE TABLE [roadkill_comments]
 (
   [id] CHAR(36) not null,
   [pageid] INT, 
@@ -75,4 +75,13 @@ CREATE TABLE [roadkill_comments]
   [createdon] DATETIME, 
   [rating] INT, 
   [text] NTEXT
+);
+
+CREATE TABLE [roadkill_alerts]
+(
+  [id] CHAR(36) not null,
+  [pageid] INT, 
+  [commentid] CHAR(36),
+  [createdby] NTEXT, 
+  [createdon] DATETIME
 );

@@ -52,6 +52,14 @@ namespace Roadkill.Core.Database.LightSpeed
             }
         }
 
+        internal IQueryable<AlertEntity> Alerts
+        {
+            get
+            {
+                return UnitOfWork.Query<AlertEntity>();
+            }
+        }
+
         public virtual LightSpeedContext Context
 		{
 			get
@@ -340,13 +348,6 @@ namespace Roadkill.Core.Database.LightSpeed
         {
             List<PageEntity> entities = Pages.Where(p => p.CreatedBy == id).ToList();
             return FromEntity.ToPageList(entities);
-        }
-
-        public IEnumerable<Page> Alerts()
-		{
-            throw new NotImplementedException();
-            //List<PageEntity> entities = Pages.Where(p => p.NbAlert > 0).ToList();
-            //return FromEntity.ToPageList(entities);
         }
 
         public IEnumerable<PageContent> AllPageContents()
@@ -672,14 +673,13 @@ namespace Roadkill.Core.Database.LightSpeed
         #region ICommentRepository
         public void DeleteComment(int commentId)
         {
-
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Comment> FindAllCommentByPage(int pageId)
         {
             List<CommentEntity> entities = Comments.Where(x => x.PageId == pageId).ToList();
             return FromEntity.ToCommentList(entities);
-
         }
 
         public void AddComment(Comment comment)
@@ -688,6 +688,35 @@ namespace Roadkill.Core.Database.LightSpeed
                 CommentEntity entity = new CommentEntity();
                 UnitOfWork.Add(entity);
                 UnitOfWork.SaveChanges();
+        }
+
+        #endregion
+
+        #region IAlertRepository
+
+        public void DeleteAlert(int alertId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Alert> FindAllAlertByPage(int pageId)
+        {
+            List<AlertEntity> entities = Alerts.Where(x => x.PageId == pageId).ToList();
+            return FromEntity.ToAlertList(entities);
+        }
+
+        public IEnumerable<Alert> FindAllAlertByComment(Guid commentId)
+        {
+            List<AlertEntity> entities = Alerts.Where(x => x.CommentId == commentId).ToList();
+            return FromEntity.ToAlertList(entities);
+        }
+
+        public void AddAlert(Alert alert)
+        {
+            // Turn the domain object into a database entity
+            AlertEntity entity = new AlertEntity();
+            UnitOfWork.Add(entity);
+            UnitOfWork.SaveChanges();
         }
 
         #endregion
@@ -706,5 +735,10 @@ namespace Roadkill.Core.Database.LightSpeed
 			if (_applicationSettings.Installed && string.IsNullOrEmpty(_applicationSettings.ConnectionString))
 				throw new DatabaseException("The connection string is empty in the web.config file (and the roadkill.config's installed=true).", null);
 		}
+
+        IEnumerable<Page> IPageRepository.Alerts()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
