@@ -21,7 +21,7 @@ namespace Roadkill.Tests.Unit
 			entity.CreatedBy = "createdtest";
 			entity.CreatedOn = DateTime.UtcNow;
 			entity.IsLocked = true;
-			entity.ModifiedBy = "modtest";
+			entity.ControlledBy = "modtest";
 			entity.ModifiedOn = DateTime.UtcNow.AddYears(1);
 			entity.Tags = "tag1,tag2";
 			entity.Title = "title1";
@@ -33,7 +33,7 @@ namespace Roadkill.Tests.Unit
 			Assert.That(page.CreatedBy, Is.EqualTo(entity.CreatedBy));
 			Assert.That(page.CreatedOn, Is.EqualTo(entity.CreatedOn));
 			Assert.That(page.IsLocked, Is.EqualTo(entity.IsLocked));
-			Assert.That(page.ModifiedBy, Is.EqualTo(entity.ModifiedBy));
+			Assert.That(page.ControlledBy, Is.EqualTo(entity.ControlledBy));
 			Assert.That(page.ModifiedOn, Is.EqualTo(entity.ModifiedOn));
 			Assert.That(page.Tags, Is.EqualTo(entity.Tags));
 			Assert.That(page.Title, Is.EqualTo(entity.Title));
@@ -142,7 +142,7 @@ namespace Roadkill.Tests.Unit
 			entity1.CreatedBy = "createdtest1";
 			entity1.CreatedOn = DateTime.UtcNow;
 			entity1.IsLocked = true;
-			entity1.ModifiedBy = "modtest1";
+			entity1.ControlledBy = "modtest1";
 			entity1.ModifiedOn = DateTime.UtcNow.AddYears(1);
 			entity1.Tags = "tag1,tag2";
 			entity1.Title = "title1";
@@ -151,7 +151,7 @@ namespace Roadkill.Tests.Unit
 			entity2.CreatedBy = "createdtest2";
 			entity2.CreatedOn = DateTime.UtcNow;
 			entity2.IsLocked = true;
-			entity2.ModifiedBy = "modtest2";
+			entity2.ControlledBy = "modtest2";
 			entity2.ModifiedOn = DateTime.UtcNow.AddYears(2);
 			entity2.Tags = "tag2";
 			entity2.Title = "title2";
@@ -160,7 +160,7 @@ namespace Roadkill.Tests.Unit
 			entity3.CreatedBy = "createdtest3";
 			entity3.CreatedOn = DateTime.UtcNow;
 			entity3.IsLocked = true;
-			entity3.ModifiedBy = "modtest3";
+			entity3.ControlledBy = "modtest3";
 			entity3.ModifiedOn = DateTime.UtcNow.AddYears(3);
 			entity3.Tags = "tagtag3";
 			entity3.Title = "title3";

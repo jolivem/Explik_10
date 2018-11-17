@@ -53,6 +53,10 @@ namespace Roadkill.Core.Services
         /// <exception cref="DatabaseException">An database error occurred while saving.</exception>
         IEnumerable<PageViewModel> AllPagesCreatedBy(string userName);
 
+        IEnumerable<Page> PagesMostRecent(int number);
+        IEnumerable<Page> PagesBestRated(int number);
+        IEnumerable<Page> PagesMostViewed(int number);
+
 		/// <summary>
 		/// Retrieves a list of all tags in the system.
 		/// </summary>

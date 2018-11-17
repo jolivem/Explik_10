@@ -79,7 +79,7 @@ namespace Roadkill.Tests.Unit
 				existingPage.CreatedBy = page.CreatedBy;
 				existingPage.CreatedOn = page.CreatedOn;
 				existingPage.IsLocked = page.IsLocked;
-				existingPage.ModifiedBy = page.ModifiedBy;
+				existingPage.ControlledBy = page.ControlledBy;
 				existingPage.ModifiedOn = page.ModifiedOn;
 				existingPage.Tags = page.Tags;
 				existingPage.Title = page.Title;
@@ -109,7 +109,7 @@ namespace Roadkill.Tests.Unit
 		{
 			PageContent content = new PageContent();
 			content.Id = Guid.NewGuid();
-			page.ModifiedBy = content.EditedBy = editedBy;
+			page.ControlledBy = content.EditedBy = editedBy;
 			page.ModifiedOn = content.EditedOn = editedOn;
 			content.Page = page;
 			content.Text = text;
@@ -253,9 +253,9 @@ namespace Roadkill.Tests.Unit
 			return Pages.Where(p => p.CreatedBy == username);
 		}
 
-		public IEnumerable<Page> FindPagesModifiedBy(string username)
+		public IEnumerable<Page> FindPagesControlledBy(string username)
 		{
-			return Pages.Where(p => p.ModifiedBy == username);
+			return Pages.Where(p => p.ControlledBy == username);
 		}
 
 		public IEnumerable<Page> FindPagesContainingTag(string tag)

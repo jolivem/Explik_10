@@ -31,7 +31,9 @@ var Roadkill;
                         if (fileType.search(/^(jpg|png|gif)$/i) == -1)
                             return;
                         var imgUrl;
-                        imgUrl = ROADKILL_ATTACHMENTSPATH + FileManager.TableEvents.getCurrentPath() + "/";
+                        var username;
+                        username = document.getElementById("user-name").title;
+                        imgUrl = ROADKILL_ATTACHMENTSPATH + "/" + username + FileManager.TableEvents.getCurrentPath();
                         imgUrl = imgUrl.replace("//", "/") + $("td.file", this).text();
                         $("body").append("<p id='image-preview'><img src='" + imgUrl + "' alt='Image Preview' /></p>");
                         $("#image-preview")

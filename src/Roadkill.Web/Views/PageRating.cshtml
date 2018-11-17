@@ -5,23 +5,23 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="default-header">@Model.Title</h4>
+                <h4 class="default-header">NOT USED NOT USED NOT USED/h4> <!--TODO add a localyzed string -->
             </div>
 
             <div class="modal-body">
                 <div id="newrating" class="container" pageid="@Model.Id" value="5" >
                     <div id="" class="post_rating">
-                        RATE :
+                        
                         <span class="postRating" rating="" title="glagla" pageid="@Model.Id">
                             <span class="rating48 stars48 active star48-left_on" value="1"></span><span class="rating48 stars48 active star48-right_on" value="1"></span><span class="rating48 stars48 active star48-left_on" value="2"></span><span class="rating48 stars48 active star48-right_on" value="2"></span><span class="rating48 stars48 active star48-left_on" value="3"></span><span class="rating48 stars48 active star48-right_on" value="3"></span><span class="rating48 stars48 active star48-left_on" value="4"></span><span class="rating48 stars48 active star48-right_on" value="4"></span><span class="rating48 stars48 active star48-left_on" value="5"></span><span class="rating48 stars48 active star48-right_on" value="5"></span>
-                            <span>coucou</span>
+                            <span>rate = x/5 very useful</span>
                         </span>
 
                     </div>
                 </div>
                 <div class="row">
                     <label for="HeadContent">@SiteStrings.Page_Add_Your_Comment</label>
-                    <textarea id="commentarea" name="Comment" tabindex="0" class="form-control" rows="6" cols="20" rel="popover" data-content="Any additional HTML or scripts you enter here will be added to the &amp;lt;head&amp;gt; tag of the page." placeholder="Enter text to search"></textarea>
+                    <textarea id="commentarea" name="Comment" tabindex="0" class="form-control" rows="6" cols="20" rel="popover" data-content="Any additional HTML or scripts you enter here will be added to the &amp;lt;head&amp;gt; tag of the page." placeholder="Enter a comment - optional"></textarea> <!--localization-->
                 </div>
             </div>
 

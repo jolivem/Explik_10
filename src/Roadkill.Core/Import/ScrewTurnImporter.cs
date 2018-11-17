@@ -124,12 +124,14 @@ namespace Roadkill.Core.Import
                                 page.Summary = reader["Summary"].ToString();
                                 page.CreatedBy = reader["User"].ToString();
 								page.CreatedOn = (DateTime)reader["CreationDateTime"];
-								page.ModifiedBy = reader["User"].ToString();
+								page.ControlledBy = reader["User"].ToString();
                                 page.ModifiedOn = (DateTime)reader["LastModified"];
                                 page.NbView = (long)reader["NbView"];
-                                page.NbAlert = (long)reader["NbAlert"];
                                 page.NbRating = (long)reader["NbRating"];
                                 page.TotalRating = (long)reader["TotalRating"];
+                                page.FilePath = reader["FilePath"].ToString();
+                                page.VideoUrl = reader["VideoUrl"].ToString();
+                                page.ControllerRating = (long)reader["ControllerRating"];
                                 //TODO MJO what's this !!!!
                                 string categories = GetCategories(pageName);
 								if (!string.IsNullOrWhiteSpace(categories))

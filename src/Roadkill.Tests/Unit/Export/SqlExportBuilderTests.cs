@@ -134,7 +134,7 @@ namespace Roadkill.Tests.Unit
 				CreatedOn = page1CreatedOn,
 				Id = 1,
 				IsLocked = true,
-				ModifiedBy = "modified-by-user2",
+				ControlledBy = "modified-by-user2",
 				ModifiedOn = page1ModifiedOn,
 				Tags = "tag1,tag2,tag3",
 				Title = "Page 1 title"
@@ -146,7 +146,7 @@ namespace Roadkill.Tests.Unit
 				CreatedOn = page2CreatedOn,
 				Id = 2,
 				IsLocked = true,
-				ModifiedBy = "modified-by-user2",
+				ControlledBy = "modified-by-user2",
 				ModifiedOn = page2ModifiedOn,
 				Tags = "tagA,tagB,tagC",
 				Title = "Page 2 title"
@@ -158,7 +158,7 @@ namespace Roadkill.Tests.Unit
 				CreatedOn = page3CreatedOn,
 				Id = 3,
 				IsLocked = false,
-				ModifiedBy = "modified-by-user3",
+				ControlledBy = "modified-by-user3",
 				ModifiedOn = page3ModifiedOn,
 				Tags = "tagX,tagY,tagZ",
 				Title = "Page 3 title"

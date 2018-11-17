@@ -26,15 +26,17 @@ namespace Roadkill.Core.Database.LightSpeed
             page.IsControlled = entity.IsControlled;
             page.IsRejected = entity.IsRejected;
             page.IsVideo = entity.IsVideo;
-            page.ModifiedBy = entity.ModifiedBy;
+            page.ControlledBy = entity.ControlledBy;
 			page.ModifiedOn = entity.ModifiedOn;
 			page.Tags = entity.Tags;
             page.Title = entity.Title;
             page.Summary = entity.Summary;
             page.NbRating = entity.NbRating;
             page.NbView = entity.NbView;
-            page.NbAlert = entity.NbAlert;
             page.TotalRating = entity.TotalRating;
+            page.FilePath = entity.FilePath;
+            page.VideoUrl = entity.VideoUrl;
+            page.ControllerRating = entity.ControllerRating;
 
 			return page;
 		}
@@ -72,6 +74,7 @@ namespace Roadkill.Core.Database.LightSpeed
 			user.IsAdmin = entity.IsAdmin;
             user.IsEditor = entity.IsEditor;
             user.IsController = entity.IsController;
+		    user.AttachmentsPath = entity.AttachmentsPath;
             user.Lastname = entity.Lastname;
 			user.Password = entity.Password;
 			user.PasswordResetKey = entity.PasswordResetKey;
@@ -93,7 +96,6 @@ namespace Roadkill.Core.Database.LightSpeed
             comment.Id = entity.Id;
             comment.CreatedBy = entity.CreatedBy;
             comment.CreatedOn = entity.CreatedOn;
-            comment.NbAlert = entity.NbAlert;
             comment.PageId = entity.PageId;
             comment.Rating = entity.Rating;
             comment.Text = entity.Text;

@@ -22,9 +22,6 @@ namespace Roadkill.Core.Database.LightSpeed
         [Column("text")]
         private string _text;
 
-        [Column("nbalert")]
-        private int _nbalert;
-
         public int PageId
         {
             get
@@ -82,18 +79,6 @@ namespace Roadkill.Core.Database.LightSpeed
             set
             {
                 Set<string>(ref _text, value);
-            }
-        }
-
-        public int NbAlert
-        {
-            get
-            {
-                return _nbalert;
-            }
-            set
-            {
-                Set<int>(ref _nbalert, value);
             }
         }
     }

@@ -430,7 +430,7 @@
   <data name="Page_Info_ModifiedOn" xml:space="preserve">
     <value>Senast ändrad:</value>
   </data>
-  <data name="Page_Info_ModifiedBy" xml:space="preserve">
+  <data name="Page_Info_ControlledBy" xml:space="preserve">
     <value>Senast uppdaterad av:</value>
   </data>
   <data name="Page_Validation_Title" xml:space="preserve">

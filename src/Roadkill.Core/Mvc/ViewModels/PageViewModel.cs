@@ -87,7 +87,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 		/// <summary>
 		/// The user who last modified the page.
 		/// </summary>
-		public string ModifiedBy { get; set; }
+		public string ControlledBy { get; set; }
 
 		/// <summary>
 		/// The date the page was last modified on.
@@ -142,6 +142,11 @@ namespace Roadkill.Core.Mvc.ViewModels
 		public string Title { get; set; }
 
 		/// <summary>
+        /// The page summary.
+        /// </summary>
+        public string Summary { get; set; }
+
+        /// <summary>
 		/// The page title, encoded so it is a safe search-engine friendly url.
 		/// </summary>
 		public string EncodedTitle
@@ -171,11 +176,6 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// 
         /// </summary>
         public long NbView;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public long NbAlert;
 
         /// <summary>
         /// 
@@ -228,10 +228,12 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// </summary>
         public List<Comments> AllComments { get; set; }
 
-        public bool IsVideo;
-        public bool IsSubmitted;
-        public bool IsControlled;
-        public bool IsRejected;
+        public bool IsVideo { get; set; }
+        public bool IsSubmitted { get; set; }
+        public bool IsControlled { get; set; }
+        public bool IsRejected { get; set; }
+
+        public string VideoUrl { get; set; }
 
         /// <summary>
         /// Retrieves all tags for all pages in the system. This is empty unless filled by the controller.
@@ -269,15 +271,16 @@ namespace Roadkill.Core.Mvc.ViewModels
             IsSubmitted = page.IsSubmitted;
             IsControlled = page.IsControlled;
             IsRejected = page.IsRejected;
-            ModifiedBy = page.ModifiedBy;
+            ControlledBy = page.ControlledBy;
 			ModifiedOn = page.ModifiedOn;
 			RawTags = page.Tags;
+		    Summary = page.Summary;
+		    VideoUrl = page.VideoUrl;
 
 			CreatedOn = DateTime.SpecifyKind(CreatedOn, DateTimeKind.Utc);
 			ModifiedOn = DateTime.SpecifyKind(ModifiedOn, DateTimeKind.Utc);
 			AllTags = new List<TagViewModel>();
 
-            NbAlert = page.NbAlert;
             NbView = page.NbView;
             NbRating = page.NbRating;
             TotalRating = page.TotalRating;
@@ -384,8 +387,7 @@ namespace Roadkill.Core.Mvc.ViewModels
                 /// </summary>
                 /// <param name="rating"></param>
                 /// <returns></returns>
-            private static
-            string EncodePageRating(int rating, string active)
+        private static string EncodePageRating(int rating, string active)
         {
             StringBuilder builder = new StringBuilder();
             string formatStr = "<span class='rating stars {2}star-{0}' value='{1}'></span>";
@@ -430,17 +432,18 @@ namespace Roadkill.Core.Mvc.ViewModels
             IsRejected = pageContent.Page.IsRejected;
             IsSubmitted = pageContent.Page.IsSubmitted;
             IsControlled = pageContent.Page.IsControlled;
-            ModifiedBy = pageContent.Page.ModifiedBy;
+            ControlledBy = pageContent.Page.ControlledBy;
 			ModifiedOn = pageContent.Page.ModifiedOn;
 			RawTags = pageContent.Page.Tags;
 			Content = pageContent.Text;
 			VersionNumber = pageContent.VersionNumber;
             PluginComments = GetCommentsHtml();
-			ModifiedBy = pageContent.Page.ModifiedBy;
+			ControlledBy = pageContent.Page.ControlledBy;
             NbView = pageContent.Page.NbView;
-            NbAlert = pageContent.Page.NbAlert;
             NbRating = pageContent.Page.NbRating;
             TotalRating = pageContent.Page.TotalRating;
+            Summary = pageContent.Page.Summary;
+            VideoUrl = pageContent.Page.VideoUrl;
 
             PageHtml pageHtml = converter.ToHtml(pageContent.Text);
 			ContentAsHtml = pageHtml.Html;

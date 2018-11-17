@@ -14,6 +14,8 @@ using Roadkill.Core.Mvc.Attributes;
 using Roadkill.Core.Mvc.ViewModels;
 using Roadkill.Core.Text;
 
+using Page = Roadkill.Core.Database.Page;
+
 namespace Roadkill.Core.Mvc.Controllers
 {
 	/// <summary>
@@ -22,7 +24,7 @@ namespace Roadkill.Core.Mvc.Controllers
 	[OptionalAuthorization]
 	public class HomeController : ControllerBase
 	{
-		public PageService PageService { get; private set; }
+	    private PageService _pageService;
 		private SearchService _searchService;
 		private MarkupConverter _markupConverter;
 
@@ -32,7 +34,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		{
 			_markupConverter = markupConverter;
 			_searchService = searchService;
-			PageService = pageService;
+			_pageService = pageService;
 		}
 
 		/// <summary>
@@ -43,7 +45,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		public ActionResult Index()
 		{
 			// Get the first locked homepage
-			PageViewModel model = PageService.FindHomePage();
+            PageViewModel model = _pageService.FindHomePage();
 
 			if (model == null)
 			{
@@ -55,18 +57,38 @@ namespace Roadkill.Core.Mvc.Controllers
 				model.CreatedOn = DateTime.UtcNow;
 				model.RawTags = "homepage";
 				model.ModifiedOn = DateTime.UtcNow;
-				model.ModifiedBy = "";
+				model.ControlledBy = "";
                 model.NbRating = 0;
                 model.NbView = 0;
-                model.NbAlert = 0;
                 model.IsVideo = false;
                 model.IsSubmitted = false;
                 model.IsControlled = false;
                 model.IsRejected = false;
                 model.TotalRating = 0;
+                model.VideoUrl = "";
 			}
 
 			return View(model);
+		    //return null;
+        }
+
+
+        [BrowserCache]
+        public ActionResult Gallery()
+        {
+            PageViewModel pmodel = _pageService.FindHomePage();
+            var zaza = pmodel;
+
+            GalleryViewModel model = new GalleryViewModel();
+            var toto = _pageService.MyPages(Context.CurrentUsername);
+            var titi = toto;
+            model.listMostRecent = (List<Page>)_pageService.PagesMostRecent(2);
+            model.listMostViewed = (List<Page>)_pageService.PagesMostViewed(2);
+            model.listBestRated = (List<Page>)_pageService.PagesBestRated(2);
+
+            return View("Gallery", model);
+            // display a galery of pages
+
 		}
 
 		/// <summary>
@@ -97,7 +119,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		[AllowAnonymous]
 		public ActionResult NavMenu()
 		{
-			return Content(PageService.GetMenu(Context));
+			return Content(_pageService.GetMenu(Context));
 		}
 
 		/// <summary>
@@ -106,7 +128,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		[AllowAnonymous]
 		public ActionResult BootstrapNavMenu()
 		{
-			return Content(PageService.GetBootStrapNavMenu(Context));
+			return Content(_pageService.GetBootStrapNavMenu(Context));
 		}
 		
 		/// <summary>
@@ -117,7 +139,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		[AllowAnonymous]
 		public ActionResult LeftMenu()
 		{
-			return Content(PageService.GetMenu(Context));
+			return Content(_pageService.GetMenu(Context));
 		}
 	}
 }

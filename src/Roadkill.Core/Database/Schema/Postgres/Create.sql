@@ -2,16 +2,24 @@
 (
   "id" SERIAL NOT NULL, 
   "title" TEXT NOT NULL, 
+  "summary" TEXT, 
   "tags" TEXT NOT NULL, 
   "createdby" TEXT NOT NULL, 
   "createdon" TIMESTAMP(20) WITHOUT TIME ZONE NOT NULL, 
   "islocked" BOOLEAN NOT NULL, 
-  "modifiedby" TEXT, 
+  "controlledby" TEXT, 
   "modifiedon" TIMESTAMP(20) WITHOUT TIME ZONE, 
-  "NbRating" INTEGER,
-  "TotalRating" INTEGER,
-  "NbView" INTEGER,
-  PRIMARY KEY("id")
+  "isvideo" BOOLEAN NOT NULL, 
+  "issubmitted" BOOLEAN NOT NULL, 
+  "iscontrolled" BOOLEAN NOT NULL, 
+  "isrejected" BOOLEAN NOT NULL,
+  "nbrating" INTEGER,
+  "totalrating" INTEGER,
+  "nbview" INTEGER,
+  "filepath" TEXT, 
+  "videourl" TEXT, 
+  "controllerrating" INTEGER,
+PRIMARY KEY("id")
 );
 
 CREATE TABLE roadkill_pagecontent
@@ -33,6 +41,8 @@ CREATE TABLE roadkill_users
   "firstname" TEXT, 
   "lastname" TEXT, 
   "iseditor" BOOLEAN NOT NULL, 
+  "iscontroller" BOOLEAN NOT NULL, 
+  "attachmentspath" TEXT, 
   "isadmin" BOOLEAN NOT NULL, 
   "isactivated" BOOLEAN NOT NULL, 
   "password" TEXT NOT NULL, 

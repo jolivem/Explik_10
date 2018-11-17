@@ -36,6 +36,8 @@ namespace Roadkill.Core.Mvc.ViewModels
 		/// </summary>
 		public DateTime EditedOn { get; set; }
 
+        // MJO add VideoUrl, IsVideo, Summary
+
 		/// <summary>
 		/// Displays Editedon in IS8601 format, plus the timezone offset included
 		/// </summary>

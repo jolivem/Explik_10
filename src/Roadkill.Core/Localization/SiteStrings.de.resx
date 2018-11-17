@@ -336,7 +336,7 @@
 <data name="Page_Info_ModifiedOn" xml:space="preserve">
 	<value>Zuletzt geändert am:</value>
 </data>
-<data name="Page_Info_ModifiedBy" xml:space="preserve">
+<data name="Page_Info_ControlledBy" xml:space="preserve">
 	<value>Zuletzt geändert von:</value>
 </data>
 <data name="Page_Validation_Title" xml:space="preserve">

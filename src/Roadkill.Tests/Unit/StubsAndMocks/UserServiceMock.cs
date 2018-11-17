@@ -42,7 +42,7 @@ namespace Roadkill.Tests
 			return (activationKey == ACTIVATIONKEY);
 		}
 
-		public override bool AddUser(string email, string username, string password, bool isAdmin, bool isEditor)
+        public override bool AddUser(string email, string username, string password, bool isAdmin, bool isController)
 		{
 			User user = new User();
 			user.Id = Guid.NewGuid();
@@ -50,7 +50,9 @@ namespace Roadkill.Tests
 			user.Username = username;
 			user.SetPassword(password);
 			user.IsAdmin = isAdmin;
-			user.IsEditor = isEditor;
+			user.IsEditor = true;
+            user.IsController = isController;
+
 
 			Users.Add(user);
 

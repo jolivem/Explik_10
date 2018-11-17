@@ -26,7 +26,7 @@ namespace Roadkill.Core.Database
         public DateTime CreatedOn { get; set; }
         public int Rating { get; set; }
         public string Text { get; set; }
-        public int NbAlert{ get; set; }
+        public bool Alert{ get; set; }
 
         /// <summary>
         /// The unique id for this object, this is the same as the <see cref="Id"/> property.
@@ -44,7 +44,7 @@ namespace Roadkill.Core.Database
             Rating = 0;
             Text = "";
             CreatedOn = DateTime.Now;
-            NbAlert = 0;
+            Alert = false;
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Roadkill.Core.Database
             Rating = rating;
             Text = text;
             CreatedOn = DateTime.Now;
-            NbAlert = 0;
+            Alert = false;
         }
 
     }

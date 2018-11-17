@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows.Forms;
+
 using Roadkill.Core.Mvc.ViewModels;
 
 namespace Roadkill.Core

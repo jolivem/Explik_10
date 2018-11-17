@@ -62,7 +62,7 @@ namespace Roadkill.Core.Database
 		/// <value>
 		/// The user who modified the page.
 		/// </value>
-		public string ModifiedBy { get; set; }
+		public string ControlledBy { get; set; }
 
 		/// <summary>
 		/// Gets or sets the date the page was last modified on.
@@ -87,7 +87,7 @@ namespace Roadkill.Core.Database
         /// </summary>
         public bool IsVideo { get; set; }
 
-        /// <summary>77
+        /// <summary>
         /// Gets or sets whether the page has been controlled by a controller.
         /// </summary>
         public bool IsControlled { get; set; }
@@ -117,9 +117,19 @@ namespace Roadkill.Core.Database
         public long NbView  { get; set; }
 
         /// <summary>
-        /// Gets or sets the number of time it has been alerted
+        /// 
         /// </summary>
-        public long NbAlert { get; set; }
+        public string FilePath { get; set; } // MJO TODO to be removed or rename for other need
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public string VideoUrl { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public long ControllerRating { get; set; }
 
         /// <summary>
         /// The unique id for this object - for use with document stores that require a unique id for storage.

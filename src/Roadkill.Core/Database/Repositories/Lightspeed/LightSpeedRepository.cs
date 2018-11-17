@@ -310,7 +310,7 @@ namespace Roadkill.Core.Database.LightSpeed
 
 				// The page modified fields
 				pageEntity.ModifiedOn = editedOn;
-				pageEntity.ModifiedBy = editedBy;
+				pageEntity.ControlledBy = editedBy;
 				UnitOfWork.SaveChanges();
 
 				// Turn the content database entity back into a domain object
@@ -344,8 +344,9 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public IEnumerable<Page> Alerts()
 		{
-            List<PageEntity> entities = Pages.Where(p => p.NbAlert > 0).ToList();
-            return FromEntity.ToPageList(entities);
+            throw new NotImplementedException();
+            //List<PageEntity> entities = Pages.Where(p => p.NbAlert > 0).ToList();
+            //return FromEntity.ToPageList(entities);
         }
 
         public IEnumerable<PageContent> AllPageContents()
@@ -408,15 +409,49 @@ namespace Roadkill.Core.Database.LightSpeed
 			UnitOfWork.SaveChanges();
 		}
 
+	    public IEnumerable<Page> FindMostRecentPages(int number)
+	    {
+            List<PageEntity> entities = Pages.Where(p => p.IsControlled == true).ToList();
+            return FromEntity.ToPageList(entities);
+
+            
+            //List<PageEntity> entities = Pages
+            //    //.Where(p => p.IsControlled==true)TODO
+            //    .OrderByDescending(p => p.CreatedOn) //TODO : use controlledOn
+            //    .Take(number) 
+            //    .ToList();
+            //return FromEntity.ToPageList(entities);
+	    }
+
+        public IEnumerable<Page> FindPagesBestRated(int number)
+        {
+            List<PageEntity> entities = Pages
+                //.Where(p => p.IsControlled == true)TODO
+                .OrderByDescending(p => p.NbRating == 0 ? 0 : (float)(p.TotalRating/p.NbRating)) //TODO : use also explikRating
+                .Take(number)
+                .ToList();
+            return FromEntity.ToPageList(entities);
+        }
+
+        public IEnumerable<Page> FindPagesMostViewed(int number)
+        {
+            List<PageEntity> entities = Pages
+                //.Where(p => p.IsControlled == true) TODO
+                .OrderByDescending(p => p.NbView)
+                .Take(number)
+                .ToList();
+            return FromEntity.ToPageList(entities);
+        }
+
 		public IEnumerable<Page> FindPagesCreatedBy(string username)
 		{
 			List<PageEntity> entities = Pages.Where(p => p.CreatedBy == username).ToList();
 			return FromEntity.ToPageList(entities);
 		}
 
-		public IEnumerable<Page> FindPagesModifiedBy(string username)
+		public IEnumerable<Page> FindPagesControlledBy(string username)
 		{
-			List<PageEntity> entities = Pages.Where(p => p.ModifiedBy == username).ToList();
+			List<PageEntity> entities = Pages.Where(p => p.ControlledBy == username).ToList();
 			return FromEntity.ToPageList(entities);
 		}
 

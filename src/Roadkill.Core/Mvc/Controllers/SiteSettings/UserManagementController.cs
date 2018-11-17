@@ -117,6 +117,7 @@ namespace Roadkill.Core.Mvc.Controllers
                 {
                     UserService.AddUser("controller" + i + "@explik.fr", "controller" + i, "controller" + i, false, true);
                     UserService.AddUser("user" + i + "@explik.fr", "user" + i, "user" + i, false, false);
+                    _pageService.AddFakePageForTest(i, false, "user" + i);
                 }
 
                 return RedirectToAction("Index");

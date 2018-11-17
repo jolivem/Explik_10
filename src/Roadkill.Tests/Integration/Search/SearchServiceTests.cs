@@ -299,7 +299,7 @@ namespace Roadkill.Tests.Integration
 				RawTags = tags,
 				Content = textContent,
 				CreatedOn = createdOn.Value,
-				ModifiedBy = createdBy,
+				ControlledBy = createdBy,
 				ModifiedOn = createdOn.Value,
 				VersionNumber = 1
 			};

@@ -55,7 +55,7 @@ namespace Roadkill.Tests.Integration.Repository
 				Title = title,
 				CreatedOn = _createdDate,
 				CreatedBy = author,
-				ModifiedBy = author,
+				ControlledBy = author,
 				ModifiedOn = _createdDate,
 				Tags = tags
 			};
@@ -96,7 +96,7 @@ namespace Roadkill.Tests.Integration.Repository
 			Assert.That(actualPage.CreatedBy, Is.EqualTo(_page1.CreatedBy));
 			Assert.That(actualPage.CreatedOn, Is.EqualTo(_page1.CreatedOn));
 			Assert.That(actualPage.IsLocked, Is.EqualTo(_page1.IsLocked));
-			Assert.That(actualPage.ModifiedBy, Is.EqualTo(_page1.ModifiedBy));
+			Assert.That(actualPage.ControlledBy, Is.EqualTo(_page1.ControlledBy));
 			Assert.That(actualPage.ModifiedOn, Is.EqualTo(_page1.ModifiedOn));
 			Assert.That(actualPage.Tags, Is.EqualTo(_page1.Tags));
 			Assert.That(actualPage.Title, Is.EqualTo(_page1.Title));
@@ -117,21 +117,21 @@ namespace Roadkill.Tests.Integration.Repository
 			Assert.That(actualPages[0].CreatedBy, Is.EqualTo(_page1.CreatedBy));
 			Assert.That(actualPages[0].CreatedOn, Is.EqualTo(_page1.CreatedOn));
 			Assert.That(actualPages[0].IsLocked, Is.EqualTo(_page1.IsLocked));
-			Assert.That(actualPages[0].ModifiedBy, Is.EqualTo(_page1.ModifiedBy));
+			Assert.That(actualPages[0].ControlledBy, Is.EqualTo(_page1.ControlledBy));
 			Assert.That(actualPages[0].ModifiedOn, Is.EqualTo(_page1.ModifiedOn));
 			Assert.That(actualPages[0].Tags, Is.EqualTo(_page1.Tags));
 			Assert.That(actualPages[0].Title, Is.EqualTo(_page1.Title));
 		}
 
 		[Test]
-		public void FindPagesByModifiedBy()
+		public void FindPagesByControlledBy()
 		{
 			// Arrange
 			PageContent newContent = Repository.AddNewPageContentVersion(_page1, "new text", "bob", _createdDate, 3);
 			Page expectedPage = newContent.Page;
 
 			// Act
-			List<Page> actualPages = Repository.FindPagesModifiedBy("bob").ToList();
+			List<Page> actualPages = Repository.FindPagesControlledBy("bob").ToList();
 
 			// Assert
 			Assert.That(actualPages.Count, Is.EqualTo(1));
@@ -139,7 +139,7 @@ namespace Roadkill.Tests.Integration.Repository
 			Assert.That(actualPages[0].CreatedBy, Is.EqualTo(expectedPage.CreatedBy));
 			Assert.That(actualPages[0].CreatedOn, Is.EqualTo(expectedPage.CreatedOn));
 			Assert.That(actualPages[0].IsLocked, Is.EqualTo(expectedPage.IsLocked));
-			Assert.That(actualPages[0].ModifiedBy, Is.EqualTo("bob"));
+			Assert.That(actualPages[0].ControlledBy, Is.EqualTo("bob"));
 			Assert.That(actualPages[0].ModifiedOn, Is.EqualTo(expectedPage.ModifiedOn));
 			Assert.That(actualPages[0].Tags, Is.EqualTo(expectedPage.Tags));
 			Assert.That(actualPages[0].Title, Is.EqualTo(expectedPage.Title));
@@ -189,7 +189,7 @@ namespace Roadkill.Tests.Integration.Repository
 			Assert.That(actualPage.CreatedBy, Is.EqualTo(expectedPage.CreatedBy));
 			Assert.That(actualPage.CreatedOn, Is.EqualTo(expectedPage.CreatedOn));
 			Assert.That(actualPage.IsLocked, Is.EqualTo(expectedPage.IsLocked));
-			Assert.That(actualPage.ModifiedBy, Is.EqualTo(expectedPage.ModifiedBy));
+			Assert.That(actualPage.ControlledBy, Is.EqualTo(expectedPage.ControlledBy));
 			Assert.That(actualPage.ModifiedOn, Is.EqualTo(expectedPage.ModifiedOn));
 			Assert.That(actualPage.Tags, Is.EqualTo(expectedPage.Tags));
 			Assert.That(actualPage.Title, Is.EqualTo(expectedPage.Title));
@@ -217,7 +217,7 @@ namespace Roadkill.Tests.Integration.Repository
 			Assert.That(actualPage.CreatedBy, Is.EqualTo(expectedPage.CreatedBy));
 			Assert.That(actualPage.CreatedOn, Is.EqualTo(expectedPage.CreatedOn));
 			Assert.That(actualPage.IsLocked, Is.EqualTo(expectedPage.IsLocked));
-			Assert.That(actualPage.ModifiedBy, Is.EqualTo(expectedPage.ModifiedBy));
+			Assert.That(actualPage.ControlledBy, Is.EqualTo(expectedPage.ControlledBy));
 			Assert.That(actualPage.ModifiedOn, Is.EqualTo(expectedPage.ModifiedOn));
 			Assert.That(actualPage.Tags, Is.EqualTo(expectedPage.Tags));
 			Assert.That(actualPage.Title, Is.EqualTo(expectedPage.Title));
@@ -245,7 +245,7 @@ namespace Roadkill.Tests.Integration.Repository
 			Assert.That(actualPage.CreatedBy, Is.EqualTo(expectedPage.CreatedBy));
 			Assert.That(actualPage.CreatedOn, Is.EqualTo(expectedPage.CreatedOn));
 			Assert.That(actualPage.IsLocked, Is.EqualTo(expectedPage.IsLocked));
-			Assert.That(actualPage.ModifiedBy, Is.EqualTo(expectedPage.ModifiedBy));
+			Assert.That(actualPage.ControlledBy, Is.EqualTo(expectedPage.ControlledBy));
 			Assert.That(actualPage.ModifiedOn, Is.EqualTo(expectedPage.ModifiedOn));
 			Assert.That(actualPage.Tags, Is.EqualTo(expectedPage.Tags));
 			Assert.That(actualPage.Title, Is.EqualTo(expectedPage.Title));
@@ -273,7 +273,7 @@ namespace Roadkill.Tests.Integration.Repository
 			Assert.That(actualPage.CreatedBy, Is.EqualTo(expectedPage.CreatedBy));
 			Assert.That(actualPage.CreatedOn, Is.EqualTo(expectedPage.CreatedOn));
 			Assert.That(actualPage.IsLocked, Is.EqualTo(expectedPage.IsLocked));
-			Assert.That(actualPage.ModifiedBy, Is.EqualTo(expectedPage.ModifiedBy));
+			Assert.That(actualPage.ControlledBy, Is.EqualTo(expectedPage.ControlledBy));
 			Assert.That(actualPage.ModifiedOn, Is.EqualTo(expectedPage.ModifiedOn));
 			Assert.That(actualPage.Tags, Is.EqualTo(expectedPage.Tags));
 			Assert.That(actualPage.Title, Is.EqualTo(expectedPage.Title));
@@ -380,7 +380,7 @@ namespace Roadkill.Tests.Integration.Repository
 
 			Page existingPage = _page1;
 			existingPage.Title = "new title";
-			existingPage.ModifiedBy = "editor1";
+			existingPage.ControlledBy = "editor1";
 			existingPage.ModifiedOn = modifiedDate;
 
 			// Act
@@ -392,7 +392,7 @@ namespace Roadkill.Tests.Integration.Repository
 
 			Page actualPage = Repository.GetPageById(existingPage.Id);
 			Assert.That(actualPage.Title, Is.EqualTo("new title"));
-			Assert.That(actualPage.ModifiedBy, Is.EqualTo("editor1"));
+			Assert.That(actualPage.ControlledBy, Is.EqualTo("editor1"));
 			Assert.That(actualPage.ModifiedOn, Is.EqualTo(modifiedDate));
 		}
 
@@ -419,7 +419,7 @@ namespace Roadkill.Tests.Integration.Repository
 			Assert.That(actualPage.Tags, Is.EqualTo("tag1,3,4"));
 			Assert.That(actualPage.CreatedOn, Is.EqualTo(_createdDate));
 			Assert.That(actualPage.CreatedBy, Is.EqualTo("admin"));
-			Assert.That(actualPage.ModifiedBy, Is.EqualTo("admin"));
+			Assert.That(actualPage.ControlledBy, Is.EqualTo("admin"));
 			Assert.That(actualPage.ModifiedOn, Is.EqualTo(_createdDate));
 		}
 

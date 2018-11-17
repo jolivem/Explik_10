@@ -99,6 +99,18 @@ namespace Roadkill.Core.Mvc
 				new string[] { "Roadkill.Core.Mvc.Controllers" }
 			);
 
+            routes.MapRoute(
+                "FileManagerUser",
+                "FileManager/User/{id}",
+                new { controller = "FileManager", action = "User", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                "Gallery",
+                "Gallery",
+                new { controller = "Home", action = "Gallery"}
+            );
+
 			// Default
 			routes.MapLowercaseRoute(
 				"Default", // Route name

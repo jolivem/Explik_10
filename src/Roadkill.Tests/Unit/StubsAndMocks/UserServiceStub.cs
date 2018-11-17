@@ -35,7 +35,7 @@ namespace Roadkill.Tests
 			throw new NotImplementedException();
 		}
 
-		public override bool AddUser(string email, string username, string password, bool isAdmin, bool isEditor)
+		public override bool AddUser(string email, string username, string password, bool isAdmin, bool isController)
 		{
 			throw new NotImplementedException();
 		}

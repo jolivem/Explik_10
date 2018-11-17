@@ -59,7 +59,7 @@ namespace Roadkill.Tests.Unit
 			page.CreatedBy = "createdby";
 			page.CreatedOn = DateTime.UtcNow;
 			page.IsLocked = true;
-			page.ModifiedBy = "modifiedby";
+			page.ControlledBy = "controlledby";
 			page.ModifiedOn = DateTime.UtcNow;
 			page.Tags = "tag1,tag2";
 			page.Title = "title";
@@ -74,7 +74,7 @@ namespace Roadkill.Tests.Unit
 			Assert.That(entity.CreatedBy, Is.EqualTo(page.CreatedBy));
 			Assert.That(entity.CreatedOn, Is.EqualTo(page.CreatedOn));
 			Assert.That(entity.IsLocked, Is.EqualTo(page.IsLocked));
-			Assert.That(entity.ModifiedBy, Is.EqualTo(page.ModifiedBy));
+			Assert.That(entity.ControlledBy, Is.EqualTo(page.ControlledBy));
 			Assert.That(entity.ModifiedOn, Is.EqualTo(page.ModifiedOn));
 			Assert.That(entity.Tags, Is.EqualTo(page.Tags));
 			Assert.That(entity.Title, Is.EqualTo(page.Title));

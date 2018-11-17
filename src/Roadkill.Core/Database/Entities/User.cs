@@ -81,6 +81,11 @@ namespace Roadkill.Core.Database
         /// </value>
         public bool IsActivated { get; set; }
 
+	    /// <summary>
+	    /// 
+	    /// </summary>
+        public string AttachmentsPath { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether the user is dummy for any reason.
         /// </summary>
@@ -126,7 +131,7 @@ namespace Roadkill.Core.Database
 		public string Salt { get; set; }
 
 		/// <summary>
-		/// This field is for page modifiedby/created by, and is a 'friendly' name. For windows auth the email field is used instead.
+		/// This field is for page controlledby/created by, and is a 'friendly' name. For windows auth the email field is used instead.
 		/// </summary>
 		public string Username { get; set; }
 

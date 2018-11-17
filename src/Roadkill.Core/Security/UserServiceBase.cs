@@ -42,7 +42,7 @@ namespace Roadkill.Core.Security
         /// <param name="username">The username for the user.</param>
         /// <param name="password">The password.</param>
         /// <param name="isAdmin">if set to <c>true</c> the user is added as an admin.</param>
-        /// <param name="isController">if set to <c>true</c> the user is added as an editor.</param>
+        /// <param name="isController">if set to <c>true</c> the user is added as a controller.</param>
         /// <returns>true if the user was added; false if the user already exists.</returns>
         public abstract bool AddUser(string email, string username, string password, bool isAdmin, bool isController);
 

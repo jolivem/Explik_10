@@ -10,6 +10,8 @@ using Roadkill.Core.Cache;
 using Roadkill.Core.Mvc.ViewModels;
 using Roadkill.Core.Configuration;
 using System.Web;
+using System.Windows.Forms;
+
 using Roadkill.Core.Logging;
 using Roadkill.Core.Text;
 using Roadkill.Core.Plugins;
@@ -66,7 +68,13 @@ namespace Roadkill.Core.Services
                 page.CreatedBy = AppendIpForDemoSite(currentUser);
                 page.CreatedOn = DateTime.UtcNow;
                 page.ModifiedOn = DateTime.UtcNow;
-                page.ModifiedBy = AppendIpForDemoSite(currentUser);
+                page.ControlledBy = AppendIpForDemoSite(currentUser);
+                page.Summary = model.Summary;
+                page.IsVideo = model.IsVideo;
+                page.IsControlled = false;
+                page.IsRejected = false;
+                page.IsSubmitted = false;
+                page.VideoUrl = model.VideoUrl;
 
                 // Double check, incase the HTML form was faked.
                 if (_context.IsAdmin)
@@ -119,7 +127,7 @@ namespace Roadkill.Core.Services
                         page.CreatedBy = AppendIpForDemoSite(currentUser);
                         page.CreatedOn = DateTime.UtcNow;
                         page.ModifiedOn = DateTime.UtcNow;
-                        page.ModifiedBy = AppendIpForDemoSite(currentUser);
+                        page.ControlledBy = AppendIpForDemoSite(currentUser);
 
                         // Double check, incase the HTML form was faked.
                         //if (_context.IsAdmin)
@@ -274,11 +282,11 @@ namespace Roadkill.Core.Services
 
                     if (pageModels == null)
                     {
-                        IEnumerable<Page> pages = Repository.Alerts().OrderByDescending(p => p.NbAlert);
-                        pageModels = from page in pages
-                                     select new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+                        //IEnumerable<Page> pages = Repository.Alerts().OrderByDescending(p => p.NbAlert); TODO change with new table
+                        //pagemodels = from page in pages
+                        //             select new pageviewmodel(repository.getlatestpagecontent(page.id), _markupconverter);
 
-                        _listCache.Add<PageViewModel>(cacheKey, pageModels);
+                        //_listcache.add<pageviewmodel>(cachekey, pagemodels);
                     }
                 }
                 else
@@ -288,11 +296,11 @@ namespace Roadkill.Core.Services
 
                     if (pageModels == null)
                     {
-                        IEnumerable<Page> pages = Repository.Alerts().OrderByDescending(p => p.NbAlert);
-                        pageModels = from page in pages
-                                     select new PageViewModel() { Id = page.Id, Title = page.Title };
+                        //IEnumerable<Page> pages = Repository.Alerts().OrderByDescending(p => p.NbAlert);
+                        //pageModels = from page in pages
+                        //             select new PageViewModel() { Id = page.Id, Title = page.Title };
 
-                        _listCache.Add<PageViewModel>(cacheKey, pageModels);
+                        //_listCache.Add<PageViewModel>(cacheKey, pageModels);
                     }
                 }
 
@@ -381,6 +389,27 @@ namespace Roadkill.Core.Services
             {
                 throw new DatabaseException(ex, "An error occurred while retrieving all pages created by {0} from the database", userName);
             }
+        }
+
+        public IEnumerable<Page> PagesMostRecent(int number)
+        {
+            //TODO add in cache
+            IEnumerable<Page> pages = Repository.FindMostRecentPages(number);
+            return pages;
+        }
+
+        public IEnumerable<Page> PagesBestRated(int number)
+        {
+            //TODO add in cache
+            IEnumerable<Page> pages = Repository.FindPagesBestRated(number);
+            return pages;
+        }
+
+        public IEnumerable<Page> PagesMostViewed(int number)
+        {
+            //TODO add in cache
+            IEnumerable<Page> pages = Repository.FindPagesMostViewed(number);
+            return pages;
         }
 
         /// <summary>
@@ -539,12 +568,12 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <param name="pageId">The id of the page to reject.</param>
         /// <exception cref="DatabaseException">An databaseerror occurred while deleting the page.</exception>
-        public void ResetAlertPage(int pageId)
+        public void ResetAlertPage(int pageId) //TODO with new table
         {
             try
             {
                 Page page = Repository.GetPageById(pageId);
-                page.NbAlert = 0;
+                //page.NbAlert = 0;
                 Repository.SaveOrUpdatePage(page);
             }
             catch (DatabaseException ex)
@@ -740,7 +769,16 @@ namespace Roadkill.Core.Services
                 page.Title = model.Title;
                 page.Tags = model.CommaDelimitedTags();
                 page.ModifiedOn = DateTime.UtcNow;
-                page.ModifiedBy = AppendIpForDemoSite(currentUser);
+                page.ControlledBy = AppendIpForDemoSite(currentUser);
+
+                page.IsControlled = false;
+                page.IsRejected = false;
+                page.IsSubmitted = false;
+
+                page.Summary = model.Summary;
+                page.IsVideo = model.IsVideo;
+                page.VideoUrl = model.VideoUrl;
+
 
                 // A second check to ensure a fake IsLocked POST doesn't work.
                 if (_context.IsAdmin)
@@ -975,12 +1013,12 @@ namespace Roadkill.Core.Services
         /// 
         /// </summary>
         /// <param name="pageId"></param>
-        public void AddPageAlert(int pageId)
+        public void AddPageAlert(int pageId) //TODO with new table
         {
             try
             {
                 Page page = Repository.GetPageById(pageId);
-                page.NbAlert++;
+                //page.NbAlert++;
                 Repository.SaveOrUpdatePage(page);
             }
             catch (DatabaseException ex)
@@ -1046,6 +1084,65 @@ namespace Roadkill.Core.Services
                 throw new DatabaseException(ex, "An exception occurred while getting comments by page.");
             }
         }
+        /// <summary>
+        /// Adds the page to the database.
+        /// </summary>
+        public void AddFakePageForTest(int number, bool isVideo, string user)
+        {
+            try
+            {
+                string currentUser = _context.CurrentUsername;
 
+                Page page = new Page();
+                page.Title = "Title for the page n° "+ number;
+                page.Tags = "";
+                page.CreatedBy = user;
+                page.CreatedOn = DateTime.UtcNow;
+                page.ModifiedOn = DateTime.UtcNow;
+                page.ControlledBy = user;
+                page.Summary = "This is the summary";
+                page.IsVideo = isVideo;
+                string content = "";
+                if (isVideo)
+                {
+                    page.VideoUrl = "url of the video";
+                }
+                else
+                {
+                    content =
+                        "Mésange est un nom vernaculaire ambigu en français. Les mésanges sont pour la plupart des passereaux de la famille des Paridés. Ce sont de petits oiseaux actifs, au bec court, de forme assez trapue. Elles sont arboricoles, insectivores et granivores. Le mâle et la femelle sont semblables ; les jeunes ressemblent aux adultes. " +
+                        "Elles nichent dans des trous d'arbres, mais utilisent souvent les nichoirs dans les jardins. Elles sont très sociables et fréquentent volontiers les mangeoires en hiver. " +
+                        "Anciennement, la majorité des espèces appartenait au genre Parus. Elles figurent actuellement au sein de ce genre et de quatre autres : Cyanistes, Lophophanes, Periparus et Poecile. La mésange à longue queue fait, quant à elle, partie de la famille des Aegithalidae. ";
+
+                }
+                page.IsControlled = false;
+                page.IsRejected = false;
+                page.IsSubmitted = false;
+                page.IsLocked = false;
+
+
+                PageContent pageContent = Repository.AddNewPage(page, content, AppendIpForDemoSite(currentUser), DateTime.UtcNow);
+
+                _listCache.RemoveAll();
+                _pageViewModelCache.RemoveAll(); // completely clear the cache to update any reciprocal links.
+
+                // Update the lucene index
+                PageViewModel savedModel = new PageViewModel(pageContent, _markupConverter);
+                try
+                {
+                    _searchService.Add(savedModel);
+                }
+                catch (SearchException)
+                {
+                    // TODO: log
+                }
+
+                return;
+            }
+            catch (DatabaseException e)
+            {
+                throw new DatabaseException(e, "An error occurred while adding page to the database");
+            }
+        }
     }
 }
