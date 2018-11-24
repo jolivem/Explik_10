@@ -123,7 +123,8 @@ namespace Roadkill.Core.Services
                     {
                         Page page = new Page();
                         page.Title = "Title of this wondefull page n° " + p;
-                        page.Tags = "";
+                        page.Summary = "This is a short summary to say that it is a page test and nothing more";
+                        page.Tags = "tage"+i;
                         page.CreatedBy = AppendIpForDemoSite(currentUser);
                         page.CreatedOn = DateTime.UtcNow;
                         page.ModifiedOn = DateTime.UtcNow;
@@ -1013,13 +1014,12 @@ namespace Roadkill.Core.Services
         /// 
         /// </summary>
         /// <param name="pageId"></param>
-        public void AddPageAlert(int pageId) //TODO with new table
+        public void AddAlert(int pageId) //TODO with new table
         {
             try
             {
-                Page page = Repository.GetPageById(pageId);
-                //page.NbAlert++;
-                Repository.SaveOrUpdatePage(page);
+                Alert alert = new Alert(pageId, Guid.Empty, ""); //TODO add createdby
+                Repository.AddAlert(alert);
             }
             catch (DatabaseException ex)
             {
@@ -1031,9 +1031,17 @@ namespace Roadkill.Core.Services
         /// 
         /// </summary>
         /// <param name="commentId"></param>
-        public void AddCommentAlert(int commentId)
+        public void AddAlert(Guid commentId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Alert alert = new Alert(0, commentId, ""); //TODO add createdby
+                Repository.AddAlert(alert);
+            }
+            catch (DatabaseException ex)
+            {
+                throw new DatabaseException(ex, "An error occurred while submitting the alert");
+            }
         }
 
         /// <summary>
@@ -1055,8 +1063,24 @@ namespace Roadkill.Core.Services
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="comment"></param>
+        public void AddAlert(Alert alert)
+        {
+            try
+            {
+                Repository.AddAlert(alert);
+            }
+            catch (DatabaseException ex)
+            {
+                throw new DatabaseException(ex, "An exception occurred while adding a comment.");
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="commentId"></param>
-        public void DeleteComment(int commentId)
+        public void DeleteComment(Guid commentId)
         {
             try
             {
@@ -1087,20 +1111,20 @@ namespace Roadkill.Core.Services
         /// <summary>
         /// Adds the page to the database.
         /// </summary>
-        public void AddFakePageForTest(int number, bool isVideo, string user)
+        public int AddFakePageForTest(int number, bool isVideo, string user)
         {
             try
             {
                 string currentUser = _context.CurrentUsername;
 
                 Page page = new Page();
-                page.Title = "Title for the page n° "+ number;
+                page.Title = "Title for the page n° " + number;
+                page.Summary = "This is a short summary to say that it is a page test and nothing more";
                 page.Tags = "";
                 page.CreatedBy = user;
                 page.CreatedOn = DateTime.UtcNow;
                 page.ModifiedOn = DateTime.UtcNow;
                 page.ControlledBy = user;
-                page.Summary = "This is the summary";
                 page.IsVideo = isVideo;
                 string content = "";
                 if (isVideo)
@@ -1137,7 +1161,7 @@ namespace Roadkill.Core.Services
                     // TODO: log
                 }
 
-                return;
+                return pageContent.Page.Id;
             }
             catch (DatabaseException e)
             {

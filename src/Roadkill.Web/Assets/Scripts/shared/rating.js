@@ -31,7 +31,7 @@ $(document).ready(function () {
     $(".rating48.stars48.active").click(function () {
         var newRating = $(this).attr("value");
         $("#newrating").attr("value", newRating);
-        $("#rate-info").html("whatever"); 
+        $("#rate-info").html("new rating = " + newRating); 
     });
 
     function setRating(span, rating){ // change star display

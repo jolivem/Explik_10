@@ -37,10 +37,11 @@ namespace Roadkill.Core.Database
 
         public Alert()
         {
+            Id = new Guid();
             PageId = 0;
             CreatedBy = "";
             CreatedOn = DateTime.Now;
-            //CommentId = null;
+            CommentId = Guid.Empty;
         }
 
         /// <summary>
@@ -52,6 +53,7 @@ namespace Roadkill.Core.Database
         /// <param name="text"></param>
         public Alert(int pageId, Guid commentId, string createdBy)
         {
+            Id = new Guid();
             PageId = pageId;
             CommentId = commentId;
             CreatedBy = createdBy;

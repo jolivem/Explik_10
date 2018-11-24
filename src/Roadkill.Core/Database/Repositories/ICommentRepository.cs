@@ -7,7 +7,7 @@ namespace Roadkill.Core.Database
 {
     public interface ICommentRepository
     {
-        void DeleteComment(int commentId);
+        void DeleteComment(Guid commentId);
         IEnumerable<Comment> FindAllCommentByPage(int pageId);
         void AddComment(Comment comment);
     }

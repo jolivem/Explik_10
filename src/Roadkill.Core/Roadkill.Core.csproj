@@ -383,6 +383,7 @@
     <Compile Include="Attachments\ResponseWrapper.cs" />
     <Compile Include="Database\Entities\Alert.cs" />
     <Compile Include="Database\Entities\Comment.cs" />
+    <Compile Include="Database\Repositories\IAlertRepository.cs" />
     <Compile Include="Database\Repositories\ICommentRepository.cs" />
     <Compile Include="Database\Repositories\ISettingsRepository.cs" />
     <Compile Include="Database\Repositories\LightSpeed\AlertEntity.cs" />

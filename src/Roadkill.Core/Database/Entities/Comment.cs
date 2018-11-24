@@ -38,6 +38,7 @@ namespace Roadkill.Core.Database
 
         public Comment()
         {
+            Id = new Guid();
             PageId = 0;
             CreatedBy = "";
             Rating = 0;
@@ -54,6 +55,7 @@ namespace Roadkill.Core.Database
         /// <param name="text"></param>
         public Comment( int pageId, string createdBy, int rating, string text)
         {
+            Id = new Guid();
             PageId = pageId;
             CreatedBy = createdBy;
             Rating = rating;

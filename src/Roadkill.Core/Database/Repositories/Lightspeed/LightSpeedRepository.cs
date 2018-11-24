@@ -671,9 +671,11 @@ namespace Roadkill.Core.Database.LightSpeed
         #endregion
 
         #region ICommentRepository
-        public void DeleteComment(int commentId)
+        public void DeleteComment(Guid commentId)
         {
-            throw new NotImplementedException();
+            CommentEntity entity = Comments.Where(x => x.Id == commentId).Single();
+            UnitOfWork.Remove(entity);
+            UnitOfWork.SaveChanges();
         }
 
         public IEnumerable<Comment> FindAllCommentByPage(int pageId)
@@ -684,19 +686,21 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public void AddComment(Comment comment)
         {
-                // Turn the domain object into a database entity
-                CommentEntity entity = new CommentEntity();
-                UnitOfWork.Add(entity);
-                UnitOfWork.SaveChanges();
+            CommentEntity entity = new CommentEntity();
+            ToEntity.FromComment(comment, entity);
+            UnitOfWork.Add(entity);
+            UnitOfWork.SaveChanges();
         }
 
         #endregion
 
         #region IAlertRepository
 
-        public void DeleteAlert(int alertId)
+        public void DeleteAlert(Guid alertId)
         {
-            throw new NotImplementedException();
+            AlertEntity entity = Alerts.Where(x => x.Id == alertId).Single();
+            UnitOfWork.Remove(entity);
+            UnitOfWork.SaveChanges();
         }
 
         public IEnumerable<Alert> FindAllAlertByPage(int pageId)
@@ -713,8 +717,8 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public void AddAlert(Alert alert)
         {
-            // Turn the domain object into a database entity
             AlertEntity entity = new AlertEntity();
+            ToEntity.FromAlert(alert, entity);
             UnitOfWork.Add(entity);
             UnitOfWork.SaveChanges();
         }
