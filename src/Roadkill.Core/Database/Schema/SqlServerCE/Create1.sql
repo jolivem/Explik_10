@@ -6,6 +6,6 @@ CREATE TABLE [roadkill_pages]
 	[CreatedBy] [nvarchar](255) NOT NULL,
 	[CreatedOn] [datetime] NOT NULL,
 	[IsLocked] [bit] NOT NULL,
-	[ModifiedBy] [nvarchar](255) NULL,
+	[ControlledBy] [nvarchar](255) NULL,
 	[ModifiedOn] [datetime] NULL
 );

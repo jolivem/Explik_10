@@ -53,6 +53,10 @@ namespace Roadkill.Core.Services
         /// <exception cref="DatabaseException">An database error occurred while saving.</exception>
         IEnumerable<PageViewModel> AllPagesCreatedBy(string userName);
 
+        IEnumerable<Page> PagesMostRecent(int number);
+        IEnumerable<Page> PagesBestRated(int number);
+        IEnumerable<Page> PagesMostViewed(int number);
+
 		/// <summary>
 		/// Retrieves a list of all tags in the system.
 		/// </summary>
@@ -72,14 +76,14 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <param name="pageId">The id of the page of the alert.</param>
         /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
-        void AddPageAlert(int pageId);
+        void AddAlert(int pageId);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="commentId"></param>
         /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
-        void AddCommentAlert(int commentId);
+        void AddAlert(Guid commentId);
 
         /// <summary>
         /// Submit a page from the database.

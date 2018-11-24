@@ -1,0 +1,69 @@
+﻿@model GalleryViewModel
+@{
+    //ViewBag.Title = Model.Title;
+}
+<style type="text/css">
+    
+    .textwidget {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    }
+/* mixin for multiline */
+.block-with-text {
+  overflow: hidden;
+  position: relative;
+  line-height: 1.2em;
+  max-height: 5.0em;
+  text-align: justify;
+  margin-right: -1em;
+  padding-right: 1em;
+}
+.block-with-text:before {
+  content: "...";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.block-with-text:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 1em;
+  height: 1em;
+  margin-top: 0.2em;
+  background: white;
+}
+
+</style>
+
+<div class="container-fluid">
+    <h2>Last pages published</h2>
+    <div class="row" style="margin-left:0">
+        @for (int i = 0; i < Math.Min(3, Model.listMostRecent.Count); i++) /* TODO Min or Max */
+        {
+            <div class="col-lg-4 col-sm-6" style="padding-left:0">
+                @MvcHtmlString.Create(@Model.EncodeThumbNail(Model.listMostRecent[i], i))
+            </div>
+        }
+    </div>
+    <h2>Best rated pages</h2>
+    <div class="row" style="margin-left:0">
+        @for (int i = 0; i < Math.Min(3, Model.listBestRated.Count); i++)
+        {
+            <div class="col-md-4 col-sm-6" style="padding-left:0">
+                @MvcHtmlString.Create(@Model.EncodeThumbNail(Model.listBestRated[i], i))
+            </div>
+        }
+    </div>
+    <h2>Most viewed pages</h2>
+    <div class="row" style="margin-left:0">
+        @for (int i = 0; i < Math.Min(3, Model.listMostViewed.Count); i++)
+        {
+            <div class="col-md-4 col-sm-6" style="padding-left:0">
+                @MvcHtmlString.Create(@Model.EncodeThumbNail(Model.listMostViewed[i], i))
+            </div>
+        }
+    </div>
+</div>
+

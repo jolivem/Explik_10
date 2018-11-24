@@ -5,9 +5,9 @@
 
 
 -- Pages
-INSERT INTO roadkill_pages (id, title, createdby, createdon, modifiedby, modifiedon, tags, islocked) VALUES ('1','Page 1 title','created-by-user1','2013-01-01 12:00:00','modified-by-user2','2013-01-01 13:00:00','tag1,tag2,tag3','1');
-INSERT INTO roadkill_pages (id, title, createdby, createdon, modifiedby, modifiedon, tags, islocked) VALUES ('2','Page 2 title','created-by-user2','2013-01-02 12:00:00','modified-by-user2','2013-01-02 13:00:00','tagA,tagB,tagC','1');
-INSERT INTO roadkill_pages (id, title, createdby, createdon, modifiedby, modifiedon, tags, islocked) VALUES ('3','Page 3 title','created-by-user3','2013-01-03 12:00:00','modified-by-user3','2013-01-03 13:00:00','tagX,tagY,tagZ','0');
+INSERT INTO roadkill_pages (id, title, createdby, createdon, controlledby, modifiedon, tags, islocked) VALUES ('1','Page 1 title','created-by-user1','2013-01-01 12:00:00','modified-by-user2','2013-01-01 13:00:00','tag1,tag2,tag3','1');
+INSERT INTO roadkill_pages (id, title, createdby, createdon, controlledby, modifiedon, tags, islocked) VALUES ('2','Page 2 title','created-by-user2','2013-01-02 12:00:00','modified-by-user2','2013-01-02 13:00:00','tagA,tagB,tagC','1');
+INSERT INTO roadkill_pages (id, title, createdby, createdon, controlledby, modifiedon, tags, islocked) VALUES ('3','Page 3 title','created-by-user3','2013-01-03 12:00:00','modified-by-user3','2013-01-03 13:00:00','tagX,tagY,tagZ','0');
 
 -- Pages contents
 INSERT INTO roadkill_pagecontent (id, pageid, text, editedby, editedon, versionnumber) VALUES ('13a8ad19-b203-46f5-be10-11e0ebf6f812','1','the text ;''''''

@@ -7,7 +7,7 @@ CREATE TABLE roadkill_pages
 	CreatedBy NVARCHAR(255) NOT NULL,
 	CreatedOn DATETIME NOT NULL,
 	IsLocked BOOLEAN NOT NULL,
-	ModifiedBy NVARCHAR(255) NULL,
+	ControlledBy NVARCHAR(255) NULL,
 	ModifiedOn DATETIME NULL,
 	PRIMARY KEY (Id)
 );
@@ -48,4 +48,23 @@ CREATE TABLE roadkill_siteconfiguration
 	Version NVARCHAR(255) NOT NULL,
 	Content MEDIUMTEXT NOT NULL,
 	PRIMARY KEY (Id)
+);
+
+CREATE TABLE roadkill_comments
+(
+  Id CHAR(36) not null,
+  PageId INT, 
+  CreatedBy NTEXT, 
+  CreatedOn DATETIME, 
+  Rating INT, 
+  Text NTEXT
+);
+
+CREATE TABLE [roadkill_alerts]
+(
+  [id] CHAR(36) not null,
+  [pageid] INT, 
+  [commentid]CHAR(36),
+  [createdby] NTEXT, 
+  [createdon] DATETIME
 );

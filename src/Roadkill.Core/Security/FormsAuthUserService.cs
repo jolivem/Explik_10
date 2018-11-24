@@ -64,7 +64,7 @@ namespace Roadkill.Core.Security
         /// <param name="email">The email or username.</param>
         /// <param name="password">The password.</param>
         /// <param name="isAdmin">if set to <c>true</c> the user is added as an admin.</param>
-        /// <param name="isController">if set to <c>true</c> the user is added as an editor.</param>
+		/// <param name="isController">if set to <c>true</c> the user is added as a controller.</param>
         /// <returns>
         /// true if the user was added; false if the user already exists.
         /// </returns>
@@ -83,6 +83,7 @@ namespace Roadkill.Core.Security
 					user.IsAdmin = isAdmin;
 					user.IsEditor = true;
                     user.IsController = isController;
+                    user.AttachmentsPath = DateTime.UtcNow.ToString("yyyy-MM") + "\\" + email;
                     user.IsBlackListed = false;
 					user.IsActivated = true;
 					Repository.SaveOrUpdateUser(user);
@@ -562,7 +563,7 @@ namespace Roadkill.Core.Security
 						}
 
 						//
-						// Update all Page.CreatedBy and Page.ModifiedBy
+						// Update all Page.CreatedBy and Page.ControlledBy
 						//
 						IList<Page> pages = Repository.FindPagesCreatedBy(model.ExistingUsername).ToList();
 						for (int i = 0; i < pages.Count; i++)
@@ -571,10 +572,10 @@ namespace Roadkill.Core.Security
 							Repository.SaveOrUpdatePage(pages[i]);
 						}
 
-						pages = Repository.FindPagesModifiedBy(model.ExistingUsername).ToList();
+						pages = Repository.FindPagesControlledBy(model.ExistingUsername).ToList();
 						for (int i = 0; i < pages.Count; i++)
 						{
-							pages[i].ModifiedBy = model.NewUsername;
+							pages[i].ControlledBy = model.NewUsername;
 							Repository.SaveOrUpdatePage(pages[i]);
 						}
 					}

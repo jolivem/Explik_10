@@ -22,6 +22,7 @@ namespace Roadkill.Core.Database.LightSpeed
 			entity.IsAdmin = user.IsAdmin;
             entity.IsEditor = user.IsEditor;
             entity.IsController = user.IsController;
+		    entity.AttachmentsPath = user.AttachmentsPath;
             entity.Lastname = user.Lastname;
 			entity.Password = user.Password;
 			entity.PasswordResetKey = user.PasswordResetKey;
@@ -34,17 +35,24 @@ namespace Roadkill.Core.Database.LightSpeed
             entity.CreatedBy = comment.CreatedBy;
             entity.CreatedOn = comment.CreatedOn;
             entity.Id = comment.Id;
-            entity.NbAlert = comment.NbAlert;
             entity.PageId = comment.PageId;
             entity.Rating = comment.Rating;
             entity.Text = comment.Text;
+        }
+
+        public static void FromAlert(Alert alert, AlertEntity entity)
+        {
+            entity.Id = alert.Id;
+            entity.PageId = alert.PageId;
+            entity.CommentId = alert.CommentId;
+            entity.CreatedBy = alert.CreatedBy;
+            entity.CreatedOn = alert.CreatedOn;
         }
 
         public static void FromPage(Page page, PageEntity entity)
 		{
             entity.NbRating = page.NbRating;
             entity.NbView = page.NbView;
-            entity.NbAlert = page.NbAlert;
             entity.TotalRating = page.TotalRating;
             entity.CreatedBy = page.CreatedBy;
             entity.CreatedOn = page.CreatedOn;
@@ -54,10 +62,13 @@ namespace Roadkill.Core.Database.LightSpeed
             entity.IsControlled = page.IsControlled;
             entity.IsRejected = page.IsRejected;
             entity.ModifiedOn = page.ModifiedOn;
-			entity.ModifiedBy = page.ModifiedBy;
+			entity.ControlledBy = page.ControlledBy;
 			entity.Tags = page.Tags;
             entity.Summary = page.Summary;
             entity.Title = page.Title;
+            entity.FilePath = page.FilePath;
+            entity.VideoUrl = page.VideoUrl;
+            entity.ControllerRating = page.ControllerRating;
         }
 
         public static void FromPageContent(PageContent pageContent, PageContentEntity entity)

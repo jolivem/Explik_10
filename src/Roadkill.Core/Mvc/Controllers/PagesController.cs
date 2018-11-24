@@ -496,8 +496,6 @@ namespace Roadkill.Core.Mvc.Controllers
         public ActionResult AddComment(int id, string text, int rating)
         {
             Comment comment = new Comment( id, Context.CurrentUsername, rating, text);
-
-
             return Content("tout va bien", MediaTypeNames.Text.Plain);
         }
 
@@ -528,13 +526,13 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <remarks>This action requires editor rights.</remarks>
         public ActionResult PageAlert(int id)
         {
-            _pageService.AddPageAlert(id);
+            _pageService.AddAlert(id);
             return Content("Alert taken into account", MediaTypeNames.Text.Plain);
         }
 
         public ActionResult CommentAlert(int id)
         {
-            _pageService.AddCommentAlert(id);
+            _pageService.AddAlert(id);
             return Content("Alert taken into account", MediaTypeNames.Text.Plain);
         }
 

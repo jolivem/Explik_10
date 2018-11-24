@@ -412,6 +412,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à This page is for a video ?.
+        /// </summary>
+        public static string EditPage_IsVideo_Label {
+            get {
+                return ResourceManager.GetString("EditPage_IsVideo_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Link text.
         /// </summary>
         public static string EditPage_LinkText_PlaceHolder {
@@ -435,6 +444,15 @@ namespace Roadkill.Core.Localization {
         public static string EditPage_Preview {
             get {
                 return ResourceManager.GetString("EditPage_Preview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Summary.
+        /// </summary>
+        public static string EditPage_Summary_Label {
+            get {
+                return ResourceManager.GetString("EditPage_Summary_Label", resourceCulture);
             }
         }
         
@@ -570,6 +588,15 @@ namespace Roadkill.Core.Localization {
         public static string EditPage_Toolbar_Underline {
             get {
                 return ResourceManager.GetString("EditPage_Toolbar_Underline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Address of the video.
+        /// </summary>
+        public static string EditPage_VideoUrl_Label {
+            get {
+                return ResourceManager.GetString("EditPage_VideoUrl_Label", resourceCulture);
             }
         }
         
@@ -988,11 +1015,20 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Add you comment.
+        ///   Recherche une chaîne localisée semblable à Add a comment.
         /// </summary>
         public static string Page_Add_Your_Comment {
             get {
                 return ResourceManager.GetString("Page_Add_Your_Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Last modified by:.
+        /// </summary>
+        public static string Page_Info_ControlledBy {
+            get {
+                return ResourceManager.GetString("Page_Info_ControlledBy", resourceCulture);
             }
         }
         
@@ -1029,15 +1065,6 @@ namespace Roadkill.Core.Localization {
         public static string Page_Info_Draft {
             get {
                 return ResourceManager.GetString("Page_Info_Draft", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Last modified by:.
-        /// </summary>
-        public static string Page_Info_ModifiedBy {
-            get {
-                return ResourceManager.GetString("Page_Info_ModifiedBy", resourceCulture);
             }
         }
         
@@ -1083,6 +1110,15 @@ namespace Roadkill.Core.Localization {
         public static string Page_Info_Published {
             get {
                 return ResourceManager.GetString("Page_Info_Published", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Published on:.
+        /// </summary>
+        public static string Page_Info_PublishedOn {
+            get {
+                return ResourceManager.GetString("Page_Info_PublishedOn", resourceCulture);
             }
         }
         
@@ -2689,7 +2725,7 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à New editor user.
+        ///   Recherche une chaîne localisée semblable à New users for tests.
         /// </summary>
         public static string SiteSettings_UserManagement_NewEditor {
             get {

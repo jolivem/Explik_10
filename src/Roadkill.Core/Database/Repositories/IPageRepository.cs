@@ -28,13 +28,21 @@ namespace Roadkill.Core.Database
 		/// <param name="pageContent"></param>
 		void DeletePageContent(PageContent pageContent);
 		void DeleteAllPages();
+
+        IEnumerable<Page> FindMostRecentPages(int number);
+
+	    IEnumerable<Page> FindPagesMostViewed(int number);
+	    IEnumerable<Page> FindPagesBestRated(int number);
+
+        
 		IEnumerable<Page> FindPagesCreatedBy(string username);
-		IEnumerable<Page> FindPagesModifiedBy(string username);
+		IEnumerable<Page> FindPagesControlledBy(string username);
 		IEnumerable<Page> FindPagesContainingTag(string tag);
 		IEnumerable<PageContent> FindPageContentsByPageId(int pageId);
 		IEnumerable<PageContent> FindPageContentsEditedBy(string username);
 		PageContent GetLatestPageContent(int pageId);
 		Page GetPageById(int id);
+
 		/// <summary>
 		/// Case insensitive search by page title
 		/// </summary>

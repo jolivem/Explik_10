@@ -368,11 +368,14 @@
     <Content Include="Assets\Bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Assets\Bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Assets\CSS\tagmanager.css" />
+    <Content Include="Assets\Images\RaspberryPiBoard.png" />
     <Content Include="Assets\Images\roadkill.png" />
+    <Content Include="Assets\Images\spectrogram_zoomed.png" />
     <Content Include="Assets\opensearch.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Assets\Scripts\Rating.js" />
+    <Content Include="Assets\Scripts\shared\rating.js" />
+    <Content Include="Assets\Scripts\Rating_not_used.js" />
     <Content Include="Assets\Scripts\shared\bootbox.js" />
     <Content Include="Assets\Scripts\readme.txt" />
     <Content Include="Assets\Scripts\jquery\additional-methods.js" />
@@ -628,6 +631,7 @@
     <Content Include="Views\Shared\Dialogs\PageAlert.cshtml" />
     <Content Include="Views\Shared\Dialogs\CommentAlert.cshtml" />
     <Content Include="Views\Pages\ControlPage.cshtml" />
+    <Content Include="Views\Home\Gallery.cshtml" />
     <None Include="Web.Mono.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

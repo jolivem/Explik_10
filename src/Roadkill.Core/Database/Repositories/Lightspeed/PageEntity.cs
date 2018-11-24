@@ -18,8 +18,8 @@ namespace Roadkill.Core.Database.LightSpeed
         [Column("createdon")]
 		private DateTime _createdOnColumn;
 
-		[Column("modifiedby")]
-		private string _modifiedBy;
+		[Column("controlledby")]
+		private string _controlleddBy;
 
 		[Column("modifiedon")]
 		private DateTime _modifiedOn;
@@ -48,11 +48,17 @@ namespace Roadkill.Core.Database.LightSpeed
         [Column("nbview")]
         private long _nbView;
 
-        [Column("nbalert")]
-        private long _nbAlert;
-
         [Column("totalrating")]
         private long _totalRating;
+
+        [Column("filepath")]
+        private string _filepath;
+
+        [Column("videourl")]
+        private string _videourl;
+
+        [Column("controllerrating")]
+        private long _controllerrating;
 
         [ReverseAssociation("PageContents")]
 		private readonly EntityCollection<PageContentEntity> _pageContents = new EntityCollection<PageContentEntity>();
@@ -110,15 +116,15 @@ namespace Roadkill.Core.Database.LightSpeed
 			}
 		}
 
-		public string ModifiedBy
+		public string ControlledBy
 		{
 			get
 			{
-				return _modifiedBy;
+				return _controlleddBy;
 			}
 			set
 			{
-				Set<string>(ref _modifiedBy, value);
+				Set<string>(ref _controlleddBy, value);
 			}
 		}
 
@@ -213,17 +219,6 @@ namespace Roadkill.Core.Database.LightSpeed
                 Set<long>(ref _nbView, value);
             }
         }
-        public long NbAlert
-        {
-            get
-            {
-                return _nbAlert;
-            }
-            set
-            {
-                Set<long>(ref _nbAlert, value);
-            }
-        }
 
         public long NbRating
         {
@@ -246,6 +241,40 @@ namespace Roadkill.Core.Database.LightSpeed
             set
             {
                 Set<long>(ref _totalRating, value);
+            }
+        }
+
+        public string FilePath
+        {
+            get
+            {
+                return _filepath;
+            }
+            set
+            {
+                Set<string>(ref _filepath, value);
+            }
+        }
+        public string VideoUrl
+        {
+            get
+            {
+                return _videourl;
+            }
+            set
+            {
+                Set<string>(ref _videourl, value);
+            }
+        }
+        public long ControllerRating
+        {
+            get
+            {
+                return _controllerrating;
+            }
+            set
+            {
+                Set<long>(ref _controllerrating, value);
             }
         }
     }

@@ -138,15 +138,46 @@ namespace Roadkill.Core.Text
                 myPages = "";
 			}
 
-            if (!_userContext.IsController)
+            if (_userContext.IsController)
             {
+                // remove some menus
+                categories = "";
+                allPages = "";
+                myPages = "";
+                mainPage = "";
+                newpage = "";
+                manageFiles = "";
+                siteSettings = "";
+            }
+            else if (_userContext.IsAdmin)
+            {
+                categories = "";
+                allPages = "";
                 allNewPages = "";
                 alerts = "";
             }
-
-            if (!_userContext.IsAdmin)
+            else if (_userContext.IsLoggedIn) // logged but no specific right
             {
+                categories = "";
+                allPages = "";
+                allNewPages = "";
+                alerts = "";
+                mainPage = ""; 
+                siteSettings = ""; 
+            }
+
+            else // simple visitor
+            {
+                categories = ""; 
+                allPages = "";
+                allNewPages = "";
+                myPages = "";
+                alerts = "";
+                mainPage = "";
+                newpage = "";
+                manageFiles = "";
                 siteSettings = "";
+                
             }
 
             html = html.Replace(CATEGORIES_TOKEN, categories);

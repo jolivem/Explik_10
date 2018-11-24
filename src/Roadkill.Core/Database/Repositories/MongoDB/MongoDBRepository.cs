@@ -18,6 +18,20 @@ namespace Roadkill.Core.Database.MongoDB
 {
 	public class MongoDBRepository : IRepository
 	{
+	    public IEnumerable<Page> FindMostRecentPages(int number)
+	    {
+            throw new NotImplementedException();
+	    }
+
+        public IEnumerable<Page> FindPagesMostViewed(int number)
+	    {
+            throw new NotImplementedException();
+	    }
+        public IEnumerable<Page> FindPagesBestRated(int number)
+	    {
+            throw new NotImplementedException();
+	    }
+
 		private ApplicationSettings _settings;
 
 		public IQueryable<Page> Pages
@@ -236,9 +250,9 @@ namespace Roadkill.Core.Database.MongoDB
 			return Pages.Where(p => p.CreatedBy == username);
 		}
 
-		public IEnumerable<Page> FindPagesModifiedBy(string username)
+		public IEnumerable<Page> FindPagesControlledBy(string username)
 		{
-			return Pages.Where(p => p.ModifiedBy == username);
+			return Pages.Where(p => p.ControlledBy == username);
 		}
 
 		public IEnumerable<Page> FindPagesContainingTag(string tag)
@@ -409,7 +423,7 @@ namespace Roadkill.Core.Database.MongoDB
 		public PageContent AddNewPageContentVersion(Page page, string text, string editedBy, DateTime editedOn, int version)
 		{
 			page.ModifiedOn = editedOn;
-			page.ModifiedBy = editedBy;
+			page.ControlledBy = editedBy;
 			SaveOrUpdate<Page>(page);
 
 			PageContent pageContent = new PageContent()
@@ -438,7 +452,9 @@ namespace Roadkill.Core.Database.MongoDB
 			SaveOrUpdate<PageContent>(content);
 		}
 
-        public void DeleteComment(int commentId)
+        // Comments
+
+        public void DeleteComment(Guid commentId)
         {
             throw new NotImplementedException();
         }
@@ -449,6 +465,28 @@ namespace Roadkill.Core.Database.MongoDB
         }
 
         public void AddComment(Comment comment)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Alerts
+
+        public void DeleteAlert(Guid commentId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Alert> FindAllAlertByPage(int pageId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Alert> FindAllAlertByComment(Guid commentId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddAlert(Alert alert)
         {
             throw new NotImplementedException();
         }

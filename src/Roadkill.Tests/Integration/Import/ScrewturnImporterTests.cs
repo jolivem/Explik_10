@@ -79,7 +79,7 @@ namespace Roadkill.Tests.Integration
 			Assert.That(page1.CreatedOn.ToString("u"), Is.EqualTo("2013-08-11 19:05:49Z"));
 			Assert.That(page1.ModifiedOn.ToString("u"), Is.EqualTo("2013-08-11 19:05:49Z"));
 			Assert.That(page1.CreatedBy, Is.EqualTo("admin"));
-			Assert.That(page1.ModifiedBy, Is.EqualTo("admin"));
+			Assert.That(page1.ControlledBy, Is.EqualTo("admin"));
 			Assert.That(pageContent1.Text, Is.EqualTo("This is an amazing Screwturn page."));
 
 			Page page2 = pages.FirstOrDefault(x => x.Title == "Screwturn page 2");
@@ -88,7 +88,7 @@ namespace Roadkill.Tests.Integration
 			Assert.That(page2.CreatedOn.ToString("u"), Is.EqualTo("2013-08-11 19:06:54Z"));
 			Assert.That(page2.ModifiedOn.ToString("u"), Is.EqualTo("2013-08-11 19:06:54Z"));
 			Assert.That(page2.CreatedBy, Is.EqualTo("user2"));
-			Assert.That(page2.ModifiedBy, Is.EqualTo("user2"));
+			Assert.That(page2.ControlledBy, Is.EqualTo("user2"));
 			Assert.That(pageContent2.Text, Is.EqualTo("Amazing screwturn page 2"));
 		}
 

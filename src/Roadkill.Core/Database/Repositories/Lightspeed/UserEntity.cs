@@ -31,6 +31,9 @@ namespace Roadkill.Core.Database.LightSpeed
         [Column("iscontroller")]
         private bool _isController;
 
+        [Column("attachmentspath")]
+        private string _attachmentsPath;
+
         [Column("isadmin")]
 		private bool _isAdmin;
 
@@ -136,6 +139,18 @@ namespace Roadkill.Core.Database.LightSpeed
             set
             {
                 Set<bool>(ref _isController, value);
+            }
+        }
+
+        public string AttachmentsPath
+        {
+            get
+            {
+                return _attachmentsPath;
+            }
+            set
+            {
+                Set<string>(ref _attachmentsPath, value);
             }
         }
 

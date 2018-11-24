@@ -4,23 +4,20 @@ using Mindscape.LightSpeed;
 namespace Roadkill.Core.Database.LightSpeed
 {
 
-    [Table("roadkill_comments")]
-    public class CommentEntity : Entity<Guid>
+    [Table("roadkill_alerts")]
+    public class AlertEntity : Entity<Guid>
     {
         [Column("pageid")]
         private int _pageid;
+
+        [Column("commentid")]
+        private Guid _commentid;
 
         [Column("createdby")]
         private string _createdby;
 
         [Column("createdon")]
         private DateTime _createdon;
-
-        [Column("rating")]
-        private int _rating;
-
-        [Column("text")]
-        private string _text;
 
         public int PageId
         {
@@ -58,27 +55,15 @@ namespace Roadkill.Core.Database.LightSpeed
             }
         }
 
-        public int Rating
+        public Guid CommentId
         {
             get
             {
-                return _rating;
+                return _commentid;
             }
             set
             {
-                Set<int>(ref _rating, value);
-            }
-        }
-
-        public string Text
-        {
-            get
-            {
-                return _text;
-            }
-            set
-            {
-                Set<string>(ref _text, value);
+                Set<Guid>(ref _commentid, value);
             }
         }
     }

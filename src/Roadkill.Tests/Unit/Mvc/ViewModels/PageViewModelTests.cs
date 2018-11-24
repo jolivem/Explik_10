@@ -90,7 +90,7 @@ namespace Roadkill.Tests.Unit
 			page.CreatedBy = "me";
 			page.CreatedOn = DateTime.Now;
 			page.IsLocked = true;
-			page.ModifiedBy = "me2";
+			page.ControlledBy = "me2";
 			page.ModifiedOn = DateTime.Now.AddDays(1);
 			page.Tags = "tag1,tag2,tag3";
 
@@ -101,7 +101,7 @@ namespace Roadkill.Tests.Unit
 			Assert.That(model.Id, Is.EqualTo(page.Id));
 			Assert.That(model.Title, Is.EqualTo(page.Title));
 			Assert.That(model.CreatedBy, Is.EqualTo(page.CreatedBy));
-			Assert.That(model.ModifiedBy, Is.EqualTo(page.ModifiedBy));
+			Assert.That(model.ControlledBy, Is.EqualTo(page.ControlledBy));
 			Assert.That(model.CreatedOn, Is.EqualTo(page.CreatedOn));
 			Assert.That(model.CreatedOn.Kind, Is.EqualTo(DateTimeKind.Utc));
 			Assert.That(model.ModifiedOn, Is.EqualTo(page.ModifiedOn));
@@ -124,7 +124,7 @@ namespace Roadkill.Tests.Unit
 			content.Page.CreatedBy = "me";
 			content.Page.CreatedOn = DateTime.Now;
 			content.Page.IsLocked = true;
-			content.Page.ModifiedBy = "me2";
+			content.Page.ControlledBy = "me2";
 			content.Page.ModifiedOn = DateTime.Now.AddDays(1);
 			content.Page.Tags = "tag1,tag2,tag3";
 			content.Text = "some text **in bold**";
@@ -149,7 +149,7 @@ namespace Roadkill.Tests.Unit
 			Assert.That(model.Id, Is.EqualTo(content.Page.Id));
 			Assert.That(model.Title, Is.EqualTo(content.Page.Title));
 			Assert.That(model.CreatedBy, Is.EqualTo(content.Page.CreatedBy));
-			Assert.That(model.ModifiedBy, Is.EqualTo(content.Page.ModifiedBy));
+			Assert.That(model.ControlledBy, Is.EqualTo(content.Page.ControlledBy));
 			Assert.That(model.VersionNumber, Is.EqualTo(content.VersionNumber));
 			Assert.That(model.Content, Is.EqualTo(content.Text));
 

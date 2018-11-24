@@ -117,6 +117,16 @@ namespace Roadkill.Core.Mvc.Controllers
                 {
                     UserService.AddUser("controller" + i + "@explik.fr", "controller" + i, "controller" + i, false, true);
                     UserService.AddUser("user" + i + "@explik.fr", "user" + i, "user" + i, false, false);
+                    int pageId = _pageService.AddFakePageForTest(i, false, "user" + i);
+                    Alert alert = new Alert(pageId, Guid.Empty, "user1");
+                    _pageService.AddAlert(alert);
+                    for ( int j=0; j < 5; j++)
+                    {
+                        Comment comment = new Comment(pageId, "user"+i, j, "I think thispage is wonderful. It was very useful for my daugther");
+                        _pageService.AddComment(comment);
+                        alert = new Alert(0, comment.Id, "user"+i);
+                        _pageService.AddAlert(alert);
+                    }
                 }
 
                 return RedirectToAction("Index");

@@ -381,9 +381,12 @@
     <Compile Include="Attachments\AttachmentPathUtil.cs" />
     <Compile Include="Attachments\IResponseWrapper.cs" />
     <Compile Include="Attachments\ResponseWrapper.cs" />
+    <Compile Include="Database\Entities\Alert.cs" />
     <Compile Include="Database\Entities\Comment.cs" />
+    <Compile Include="Database\Repositories\IAlertRepository.cs" />
     <Compile Include="Database\Repositories\ICommentRepository.cs" />
     <Compile Include="Database\Repositories\ISettingsRepository.cs" />
+    <Compile Include="Database\Repositories\LightSpeed\AlertEntity.cs" />
     <Compile Include="Database\Repositories\LightSpeed\CommentEntity.cs" />
     <Compile Include="Email\EmailClient.cs" />
     <Compile Include="Email\IEmailClient.cs" />
@@ -403,6 +406,7 @@
     <Compile Include="Mvc\Attributes\ControllerRequiredAttribute.cs" />
     <Compile Include="Mvc\Attributes\IAuthorizationAttribute.cs" />
     <Compile Include="Mvc\Controllers\ConfigurationTesterController.cs" />
+    <Compile Include="Mvc\ViewModels\GalleryViewModel.cs" />
     <Compile Include="Mvc\ViewModels\RateViewModel.cs" />
     <Compile Include="Security\AuthorizationProvider.cs" />
     <Compile Include="Security\IAuthorizationProvider.cs" />
@@ -600,7 +604,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Database\Schema\Postgres\Create.sql" />
+    <EmbeddedResource Include="Database\Schema\Postgres\Create.sql" />
     <EmbeddedResource Include="Database\Schema\Postgres\Drop.sql" />
     <EmbeddedResource Include="Database\Schema\Sqlite\Create.sql" />
     <EmbeddedResource Include="Database\Schema\Sqlite\Drop.sql" />

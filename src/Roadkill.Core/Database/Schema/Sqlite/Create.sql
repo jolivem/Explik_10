@@ -7,7 +7,7 @@ CREATE TABLE roadkill_pages
 	[createdby] TEXT, 
 	[createdon] DATETIME, 
 	[islocked] BOOL, 
-	[modifiedby] TEXT, 
+	[controlledby] TEXT, 
 	[modifiedon] DATETIME,
 	[isvideo] BOOL, 
 	[issubmitted] BOOL, 
@@ -16,7 +16,9 @@ CREATE TABLE roadkill_pages
 	[nbrating] integer,
 	[totalrating] integer,
 	[nbview] integer,
-    [nbalert] INT
+    [filepath] TEXT, 
+    [videourl] TEXT, 
+    [controllerrating] integer
 );
 
 CREATE TABLE roadkill_pagecontent 
@@ -42,6 +44,7 @@ CREATE TABLE roadkill_users
 	[isblacklisted] BOOL,
 	[iseditor] BOOL, 
 	[iscontroller] BOOL, 
+	[attachmentspath] NTEXT, 
 	[isadmin] BOOL, 
 	[isdummy] BOOL, 
 	[editorlevel] BOOL, 
@@ -64,13 +67,21 @@ CREATE TABLE [roadkill_siteconfiguration]
   PRIMARY KEY (Id)
 );
 
-CREATE TABLE [roadkill_comments] 
+CREATE TABLE [roadkill_comments]
 (
   [id] CHAR(36) not null,
   [pageid] INT, 
   [createdby] NTEXT, 
   [createdon] DATETIME, 
   [rating] INT, 
-  [text] NTEXT,
-  [nbalert] INT
+  [text] NTEXT
+);
+
+CREATE TABLE [roadkill_alerts]
+(
+  [id] CHAR(36) not null,
+  [pageid] INT, 
+  [commentid] CHAR(36),
+  [createdby] NTEXT, 
+  [createdon] DATETIME
 );

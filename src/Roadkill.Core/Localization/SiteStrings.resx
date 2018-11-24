@@ -429,7 +429,7 @@
   <data name="Page_Info_ModifiedOn" xml:space="preserve">
     <value>Last modified on:</value>
   </data>
-  <data name="Page_Info_ModifiedBy" xml:space="preserve">
+  <data name="Page_Info_ControlledBy" xml:space="preserve">
     <value>Last modified by:</value>
   </data>
   <data name="Page_Validation_Title" xml:space="preserve">
@@ -686,7 +686,7 @@
     <comment>Fuzzy</comment>
   </data>
   <data name="SiteSettings_UserManagement_NewEditor" xml:space="preserve">
-    <value>New editor user</value>
+    <value>New users for tests</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="SiteSettings_UserManagement_AddAdmin_Title" xml:space="preserve">
@@ -1046,7 +1046,7 @@
     <value>Remove alerts</value>
   </data>
   <data name="Page_Add_Your_Comment" xml:space="preserve">
-    <value>Add you comment</value>
+    <value>Add a comment</value>
   </data>
   <data name="Page_Info_Draft" xml:space="preserve">
     <value>Draft</value>
@@ -1077,5 +1077,17 @@
   </data>
   <data name="Button_Reject" xml:space="preserve">
     <value>Reject</value>
+  </data>
+  <data name="EditPage_IsVideo_Label" xml:space="preserve">
+    <value>This page is for a video ?</value>
+  </data>
+  <data name="EditPage_Summary_Label" xml:space="preserve">
+    <value>Summary</value>
+  </data>
+  <data name="EditPage_VideoUrl_Label" xml:space="preserve">
+    <value>Address of the video</value>
+  </data>
+  <data name="Page_Info_PublishedOn" xml:space="preserve">
+    <value>Published on:</value>
   </data>
 </root>
