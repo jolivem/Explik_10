@@ -10,6 +10,7 @@ using MongoDB.Driver.Builders;
 using MongoDB.Driver.Linq;
 using Roadkill.Core.Configuration;
 using Roadkill.Core.Logging;
+using Roadkill.Core.Mvc.ViewModels;
 using Roadkill.Core.Plugins;
 using StructureMap.Attributes;
 using PluginSettings = Roadkill.Core.Plugins.Settings;
@@ -452,7 +453,7 @@ namespace Roadkill.Core.Database.MongoDB
 			SaveOrUpdate<PageContent>(content);
 		}
 
-        // Comments
+        // Comment
 
         public void DeleteComment(Guid commentId)
         {
@@ -469,6 +470,11 @@ namespace Roadkill.Core.Database.MongoDB
             throw new NotImplementedException();
         }
 
+        public Comment FindCommentByPageAndUser(int pageId, string username)
+        {
+            throw new NotImplementedException();
+        }
+
         // Alerts
 
         public void DeleteAlert(Guid commentId)
@@ -476,12 +482,22 @@ namespace Roadkill.Core.Database.MongoDB
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Alert> FindAllAlertByPage(int pageId)
+	    public void DeletPageAlerts(int pageId)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public void DeletCommentAlerts(Guid commentId)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public IEnumerable<Alert> FindAlertsByPage(int pageId)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Alert> FindAllAlertByComment(Guid commentId)
+        public IEnumerable<Alert> FindAlertsByComment(Guid commentId)
         {
             throw new NotImplementedException();
         }
@@ -490,6 +506,22 @@ namespace Roadkill.Core.Database.MongoDB
         {
             throw new NotImplementedException();
         }
+
+        public void AddPageRating(int pageId, int rating)
+        {
+            throw new NotImplementedException();
+        }
+
+	    public void IncrementNbView(int pageId)
+	    {
+            throw new NotImplementedException();
+	    }
+
+        public IEnumerable<Page> FindPagesWithAlerts()
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

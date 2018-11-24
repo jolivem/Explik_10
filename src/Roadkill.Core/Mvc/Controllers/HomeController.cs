@@ -45,30 +45,32 @@ namespace Roadkill.Core.Mvc.Controllers
 		public ActionResult Index()
 		{
 			// Get the first locked homepage
-            PageViewModel model = _pageService.FindHomePage();
+            //PageViewModel model = _pageService.FindHomePage();
 
-			if (model == null)
-			{
-				model = new PageViewModel();
-				model.Title = SiteStrings.NoMainPage_Title;
-				model.Content = SiteStrings.NoMainPage_Label;
-				model.ContentAsHtml = _markupConverter.ToHtml(SiteStrings.NoMainPage_Label).Html;
-				model.CreatedBy = "";
-				model.CreatedOn = DateTime.UtcNow;
-				model.RawTags = "homepage";
-				model.ModifiedOn = DateTime.UtcNow;
-				model.ControlledBy = "";
-                model.NbRating = 0;
-                model.NbView = 0;
-                model.IsVideo = false;
-                model.IsSubmitted = false;
-                model.IsControlled = false;
-                model.IsRejected = false;
-                model.TotalRating = 0;
-                model.VideoUrl = "";
-			}
+            //if (model == null)
+            //{
+            //    model = new PageViewModel();
+            //    model.Title = SiteStrings.NoMainPage_Title;
+            //    model.Content = SiteStrings.NoMainPage_Label;
+            //    model.ContentAsHtml = _markupConverter.ToHtml(SiteStrings.NoMainPage_Label).Html;
+            //    model.CreatedBy = "";
+            //    model.CreatedOn = DateTime.UtcNow;
+            //    model.RawTags = "homepage";
+            //    model.ModifiedOn = DateTime.UtcNow;
+            //    model.ControlledBy = "";
+            //    model.NbRating = 0;
+            //    model.NbView = 0;
+            //    model.IsVideo = false;
+            //    model.IsSubmitted = false;
+            //    model.IsControlled = false;
+            //    model.IsRejected = false;
+            //    model.TotalRating = 0;
+            //    model.VideoUrl = "";
+            //}
 
-			return View(model);
+            return RedirectToAction("Gallery");
+
+			//return View(model);
 		    //return null;
         }
 
@@ -82,9 +84,9 @@ namespace Roadkill.Core.Mvc.Controllers
             GalleryViewModel model = new GalleryViewModel();
             var toto = _pageService.MyPages(Context.CurrentUsername);
             var titi = toto;
-            model.listMostRecent = (List<Page>)_pageService.PagesMostRecent(2);
-            model.listMostViewed = (List<Page>)_pageService.PagesMostViewed(2);
-            model.listBestRated = (List<Page>)_pageService.PagesBestRated(2);
+            model.listMostRecent = (List<Page>)_pageService.PagesMostRecent(5);
+            model.listMostViewed = (List<Page>)_pageService.PagesMostViewed(5);
+            model.listBestRated = (List<Page>)_pageService.PagesBestRated(5);
 
             return View("Gallery", model);
             // display a galery of pages
@@ -99,6 +101,40 @@ namespace Roadkill.Core.Mvc.Controllers
 			ViewData["search"] = q;
 
 			List<SearchResultViewModel> results = _searchService.Search(q).ToList();
+		    foreach (var result in results)
+		    {
+		        Page page = _pageService.FindById(result.Id);
+		        if (page != null)
+		        {
+		            result.NbView = page.NbView;
+		            result.Rating = page.TotalRating / page.NbRating;
+		            //Image = page.FilePath + "thumb.png"; //TODO
+		            result.Canvas = "/Assets/Images/RaspberryPiBoard.png";
+		        }
+		    }
+
+
+ //string image;
+            
+ //           image = b == 0 ? "/Assets/Images/RaspberryPiBoard.png" 
+ //               builder.AppendLine("<div class='col-xs-4 caption'  style='padding-left:0'>");
+ //               {
+ //                   builder.AppendLine(string.Format("<a href='/wiki/{0}'>", page.Id));
+ //                   {
+ //                       builder.AppendLine(string.Format("<img class='img-responsive' src='{0}' alt='Lights' height='120'>", image));
+ //                       builder.AppendLine("</a>");
+ //                   }
+ //                   builder.AppendLine("</div>");
+ //               }
+ //               builder.AppendLine("<div class='col-xs-8'  style='padding-left:0'>");
+ //               {
+ //                   builder.AppendLine(string.Format("<p class='block-with-text'>{0}<br>", page.Title)); //TODO 1 line only
+ //                   builder.AppendLine(string.Format("<p class='block-with-text'><small>{0}</small><br></p>", page.Summary));
+ //                   builder.AppendLine(string.Format("<p><small>{1}  Views: {0}</small></p>", page.NbView, EncodePageRating(page)));
+ //                   builder.AppendLine("</div>");
+ //               }
+ //               builder.AppendLine("</div>");
+
 			return View(results);
 		}
 

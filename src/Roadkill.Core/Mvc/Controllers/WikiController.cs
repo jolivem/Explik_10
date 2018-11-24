@@ -41,6 +41,8 @@ namespace Roadkill.Core.Mvc.Controllers
 
 			PageViewModel model = PageService.GetById(id.Value, true);
 
+            PageService.IncrementNbView(model.Id);
+
 			if (model == null)
 				throw new HttpException(404, string.Format("The page with id '{0}' could not be found", id));
 

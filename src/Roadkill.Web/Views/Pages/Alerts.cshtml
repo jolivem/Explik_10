@@ -40,7 +40,7 @@
                 {
                     //if (!pageModel.IsLocked || (pageModel.IsLocked && RoadkillContext.IsAdmin))
                     //{
-                        <td class="edit">@Html.ActionLink(@SiteStrings.Shared_RemoveAlertsLink, "ResetAlerts", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
+                        <td class="edit">@Html.ActionLink(@SiteStrings.Shared_RemoveAlertsLink, "DeletPageAlerts", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
                     //}
                     if (RoadkillContext.IsAdmin)
                     {

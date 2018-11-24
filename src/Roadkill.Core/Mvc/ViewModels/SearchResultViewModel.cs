@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using System.Windows.Forms.VisualStyles;
+
 using Lucene.Net.Documents;
 using Lucene.Net.Search;
+
+using Roadkill.Core.Database;
 
 namespace Roadkill.Core.Mvc.ViewModels
 {
@@ -85,12 +89,17 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// <summary>
         /// 
         /// </summary>
-        public long NbRating { get; internal set; }
+        public double Rating { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
         public long TotalRating { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Canvas { get; internal set; }
 
 
         /// <summary>
@@ -118,9 +127,6 @@ namespace Roadkill.Core.Mvc.ViewModels
 			Tags = document.GetField("tags").StringValue;
 			CreatedBy = document.GetField("createdby").StringValue;		
 			ContentLength = int.Parse(document.GetField("contentlength").StringValue);
-            //NbView = long.Parse(document.GetField("nbview").StringValue);
-            //NbRating = long.Parse(document.GetField("nbrating").StringValue);
-            //TotalRating = long.Parse(document.GetField("totalrating").StringValue);
             Score = scoreDoc.Score;
 
 			DateTime createdOn = DateTime.UtcNow;
@@ -128,6 +134,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 				createdOn = DateTime.UtcNow;
 
 			CreatedOn = createdOn;
+            
 		}
 
 		private void EnsureFieldsExist(Document document)
@@ -140,9 +147,6 @@ namespace Roadkill.Core.Mvc.ViewModels
 			EnsureFieldExists(fields, "createdby");
 			EnsureFieldExists(fields, "contentlength");
             EnsureFieldExists(fields, "createdon");
-            //EnsureFieldExists(fields, "nbview");
-            //EnsureFieldExists(fields, "nbrating");
-            //EnsureFieldExists(fields, "totalrating");
         }
 
         private void EnsureFieldExists(IList<IFieldable> fields, string fieldname)

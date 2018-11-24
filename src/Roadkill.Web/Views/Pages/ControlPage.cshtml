@@ -1,14 +1,13 @@
 ﻿@model PageViewModel
 @{
-    ViewBag.Title = SiteStrings.EditPage_Title;
+    ViewBag.Title = SiteStrings.ControlPage_Title;
 }
 
 <script type="text/javascript">
-	$(document).ready(function ()
-	{
-		var pageTags = [ @(Html.Raw(Model.JavascriptArrayForAllTags())) ];
-		var controlPage = new Roadkill.Web.EditPage(pageTags);
-	});
+    $(document).ready(function () {
+        var pageTags = [ @(Html.Raw(Model.JavascriptArrayForAllTags()))];
+        var controlPage = new Roadkill.Web.EditPage(pageTags);
+    });
 </script>
 <style>
     .searchbar {
@@ -16,50 +15,61 @@
     }
 </style>
 
-<div id="controlpage" class="row">
-    <div id="editpage-form-container" class="col-lg-8">
+<div id="control-page" class="container-fluid">
+    <div id="editpage-form-container">
         @Html.BootstrapValidationSummary(SiteStrings.EditPage_Error)
 
-        <form class="form-horizontal" role="form" method="post" id="editpage-form">
-            @(Html.HiddenFor<PageViewModel, string>(p => p.RawTags))
+        @(Html.HiddenFor<PageViewModel, string>(p => p.RawTags))
 
-            <div class="form-group">
+        <div class="row">
+            <div class="col-lg-8">
                 <h2 class="pagetitle">@Model.Title</h2>
             </div>
+        </div>
 
-            <div id="pagecontent">
-                @MvcHtmlString.Create(Model.ContentAsHtml)
-            </div>
-            <hr />
-            <div class="form-inline">
-                @(Html.TextBox("TagsEntry", null, new { @class = "form-control tm-input", autocomplete = "off", tabindex = 2, placeholder = SiteStrings.EditPage_Tags_Label }))
-            </div>
-            <div id="newrating" class="container" pageid="@Model.Id" value="5">
-                <div id="" class="post_rating">
+        <div class="row">
+            <div class="col-lg-8">
+                <p align="justify">@Model.Summary</p>
 
-                    <span class="postRating" rating="" title="glagla" pageid="@Model.Id">
-                        <span class="rating48 stars48 active star48-left_on" title="bibi" value="1"></span><span class="rating48 stars48 active star48-right_on" title="joujou" value="1"></span><span class="rating48 stars48 active star48-left_on" title="tactac" value="2"></span><span class="rating48 stars48 active star48-right_on" title="baboum" value="2"></span><span class="rating48 stars48 active star48-left_on" title="coco" value="3"></span><span class="rating48 stars48 active star48-right_on" title="bisou" value="3"></span><span class="rating48 stars48 active star48-left_on" title="ding-dong" value="4"></span><span class="rating48 stars48 active star48-right_on" title="plouf" value="4"></span><span class="rating48 stars48 active star48-left_on" title="clong" value="5"></span><span class="rating48 stars48 active star48-right_on" title="toutou" value="5"></span>
-                        <div id="rate-info">rate = x/5 very useful</div>
-                    </span>
-
+                <div id="pagecontent">
+                    @MvcHtmlString.Create(Model.ContentAsHtml)
                 </div>
             </div>
-            <div id="editpage-button-container" class="row">
-                <div id="editpage-save-button" class="col-sm-5">
-                    <td class="delete">@Html.ActionLink(SiteStrings.Shared_RejectLink, "Reject", new { id = Model.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
-                    <input type="submit" class="btn btn-primary saveButton" value="@SiteStrings.Button_Reject" tabindex="5" />
-                </div>
-                <div id="editpage-save-button" class="col-sm-5">
-                    <input type="submit" class="btn btn-primary saveButton" value="@SiteStrings.Button_Validate" tabindex="6" />
-                </div>
+            <div class="col-lg-4">
+                <p>Author: @Model.CreatedBy</p>
+                <p>Author since: @Model.OldestPageDate()</p>
+                <p>Nb page published: @Model.OldestPageDate()</p>
+                <p>Global rating: @Model.UserGlobalRating()</p>
             </div>
-        </form>
-    </div>
-    <div id="editpage-form-container" class="col-lg-4">
-        <p>Author: @Model.CreatedBy</p>
-        <p>Author since: TODO</p>
-        <p>Nb page published: TODO</p>
-        <p>Global rating: TODO</p>
+        </div>
+        <hr />
     </div>
 </div>
+
+<form class="form-horizontal" role="form" method="post" id="controlpage-form" action="@Url.Action("Validate", "Pages")>
+    <div class="form-inline">
+        Add tags TODO
+        @(Html.TextBox("TagsEntry", null, new { @class = "form-control tm-input", autocomplete = "off", tabindex = 2, placeholder = SiteStrings.EditPage_Tags_Label }))
+    </div>
+    <div id="newrating" pageid="@Model.Id" value="5">
+        <div id="" class="post_rating">
+            Rate: TODO
+            <span class="postRating" rating="" title="glagla" pageid="@Model.Id">
+                <span class="rating48 stars48 active star48-left_on" title="bibi" value="1"></span><span class="rating48 stars48 active star48-right_on" title="joujou" value="1"></span><span class="rating48 stars48 active star48-left_on" title="tactac" value="2"></span><span class="rating48 stars48 active star48-right_on" title="baboum" value="2"></span><span class="rating48 stars48 active star48-left_on" title="coco" value="3"></span><span class="rating48 stars48 active star48-right_on" title="bisou" value="3"></span><span class="rating48 stars48 active star48-left_on" title="ding-dong" value="4"></span><span class="rating48 stars48 active star48-right_on" title="plouf" value="4"></span><span class="rating48 stars48 active star48-left_on" title="clong" value="5"></span><span class="rating48 stars48 active star48-right_on" title="toutou" value="5"></span>
+                <div id="rate-info">rate = x/5 very useful</div>
+            </span>
+
+        </div>
+    </div>
+
+    <div id="editpage-button-container" class="row">
+        <div id="editpage-save-button" class="col-sm-5">
+            <td class="delete">@Html.ActionLink(SiteStrings.Shared_RejectLink, "Reject", new { id = Model.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
+        </div>
+        <div id="editpage-save-button" class="col-sm-5">
+            <input type="submit" class="btn btn-primary saveButton" value="@SiteStrings.Button_Validate" tabindex="6" />
+        </div>
+    </div>
+    <hr />
+</form>
 

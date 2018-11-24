@@ -69,12 +69,12 @@ namespace Roadkill.Core.Mvc.Controllers
         /// Displays a list of all alerted page titles and ids in Roadkill.
         /// </summary>
         /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
-        [BrowserCache]
-        [ControllerRequired]
-        public ActionResult AllAlerts()
-        {
-            return View(_pageService.AllPagesWithAlerts());
-        }
+        //[BrowserCache]
+        //[ControllerRequired]
+        //public ActionResult AllAlerts()
+        //{
+        //    return View(_pageService.AllPagesWithAlerts());
+        //}
 
         /// <summary>
         /// Displays a list of current user page titles and ids in Roadkill.
@@ -202,6 +202,10 @@ namespace Roadkill.Core.Mvc.Controllers
 
                 model.AllTags = _pageService.AllTags().ToList();
 
+
+                UserActivity userActivity = _pageService.GetUserActivity(model.CreatedBy);
+                model.SetUserActivity(userActivity);
+
                 return View("ControlPage", model);
             }
             else
@@ -215,20 +219,6 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <summary>
         /// Deletes a wiki page.
         /// </summary>
-        /// <param name="id">The id of the page to validate.</param>
-        /// <returns>Redirects to AllPages action.</returns>
-        /// <remarks>This action requires admin rights.</remarks>
-        [ControllerRequired]
-        public ActionResult Validate(int id)
-        {
-            _pageService.ValidatePage(id);
-
-            return RedirectToAction("AllNewPages");
-        }
-
-        /// <summary>
-        /// Deletes a wiki page.
-        /// </summary>
         /// <param name="id">The id of the page to reject.</param>
         /// <returns>Redirects to AllPages action.</returns>
         /// <remarks>This action requires admin rights.</remarks>
@@ -236,7 +226,6 @@ namespace Roadkill.Core.Mvc.Controllers
         public ActionResult Reject(int id)
         {
             _pageService.RejectPage(id);
-
             return RedirectToAction("AllNewPages");
         }
 
@@ -247,10 +236,9 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <returns>Redirects to AllPages action.</returns>
         /// <remarks>This action requires admin rights.</remarks>
         [ControllerRequired]
-        public ActionResult ResetAlerts(int id)
+        public ActionResult DeletPageAlerts(int pageId)
         {
-            _pageService.ResetAlertPage(id);
-
+            _pageService.DeletPageAlerts(pageId);
             return RedirectToAction("AllNewPages");
         }
 
@@ -486,18 +474,6 @@ namespace Roadkill.Core.Mvc.Controllers
             }
         }
 
-        /// <summary>
-        /// Displays the edit View for the page provided in the id.
-        /// </summary>
-        /// <param name="id">The ID of the page to edit.</param>
-        /// <returns>An filled <see cref="PageViewModel"/> as the model. If the page id cannot be found, the action
-        /// redirects to the New page.</returns>
-        /// <remarks>This action requires editor rights.</remarks>
-        public ActionResult AddComment(int id, string text, int rating)
-        {
-            Comment comment = new Comment( id, Context.CurrentUsername, rating, text);
-            return Content("tout va bien", MediaTypeNames.Text.Plain);
-        }
 
         static string path = @"C:\Temp\";
         public ActionResult UploadCanvas(int ?id, string image)
@@ -524,15 +500,17 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <returns>An filled <see cref="PageViewModel"/> as the model. If the page id cannot be found, the action
         /// redirects to the New page.</returns>
         /// <remarks>This action requires editor rights.</remarks>
-        public ActionResult PageAlert(int id)
+        public ActionResult PageAlert(int pageId)
         {
-            _pageService.AddAlert(id);
+            Alert alert = new Alert(pageId, Context.CurrentUsername);
+            _pageService.AddAlert(alert);
             return Content("Alert taken into account", MediaTypeNames.Text.Plain);
         }
 
-        public ActionResult CommentAlert(int id)
+        public ActionResult CommentAlert(Guid commenGuid)
         {
-            _pageService.AddAlert(id);
+            Alert alert = new Alert(commenGuid, Context.CurrentUsername);
+            _pageService.AddAlert(alert);
             return Content("Alert taken into account", MediaTypeNames.Text.Plain);
         }
 
@@ -548,12 +526,31 @@ namespace Roadkill.Core.Mvc.Controllers
         [ValidateInput(false)]
         public ActionResult Rate(PageViewModel model)
         {
-            if (!ModelState.IsValid)
-                return View("Rate", model);
+            //if (!ModelState.IsValid)
+            //    return View("Rate", model); //TODO
 
             _pageService.UpdatePage(model);
 
             return RedirectToAction("Index", "Wiki", new { id = model.Id });
         }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Validate(int id)
+        {
+            //if (!ModelState.IsValid)
+            //    return View("Rate", model); //TODO check if hack the address !!!!
+
+            // update controller
+            // update date
+            string sRating = Request.Form["rating"];
+            int iRating = Int32.Parse(sRating);
+            _pageService.ValidatePage(id, Context.CurrentUsername, iRating); //TODO check now or UTCNow
+            //_pageService.UpdatePage(id); // update tags TODO
+            //TODO send a mail
+
+            return RedirectToAction("AllNewPages", "Pages");
+        }
     }
 }
+

@@ -85,9 +85,9 @@ namespace Roadkill.Core.Mvc.ViewModels
             else
             {
                 long nbController = page.TotalRating / 3;
-                rating = (double)(page.TotalRating + page.ControllerRating * nbController) / (double)(page.NbRating + nbController);
+                rating = (page.TotalRating / page.NbRating); //TODO take into account Controller rating
             }
-            rating = Math.Round(rating, 1);
+            //rating = Math.Round(rating, 1);
 
             for (double i = .5; i <= 5.0; i = i + .5)
             {

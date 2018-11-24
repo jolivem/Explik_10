@@ -1,0 +1,31 @@
+﻿@model PageViewModel
+
+<div class="modal" id="pageinformation" role="dialog" aria-describedby="Contains meta information about the current page">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="default-header">@Model.Title</h4>
+            </div>
+
+            <div class="modal-body">
+                <br />
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="Theme">@SiteStrings.SiteSettings_Configuration_Theme</label>
+                        @Html.BootstrapDropDownListFor(x => x.Theme, new SelectList(Model.ThemesAvailable, Model.Theme), SiteStrings.SiteSettings_Configuration_Theme_Help)
+
+                        <label for="HeadContent">@SiteStrings.SiteSettings_Configuration_HeadContent</label>
+                        @Html.BootstrapTextAreaFor(s => s.HeadContent, LocalizationTokens.ReplaceHeadToken(SiteStrings.SiteSettings_Configuration_HeadContent_Help))
+
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary">@SiteStrings.Button_Reject</button>
+            </div>
+        </div>
+    </div>
+</div>

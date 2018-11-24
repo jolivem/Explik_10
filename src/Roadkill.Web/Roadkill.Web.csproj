@@ -632,6 +632,8 @@
     <Content Include="Views\Shared\Dialogs\CommentAlert.cshtml" />
     <Content Include="Views\Pages\ControlPage.cshtml" />
     <Content Include="Views\Home\Gallery.cshtml" />
+    <Content Include="Views\Shared\Dialogs\RejectPage.cshtml" />
+    <Content Include="Views\Comment\EditComment.cshtml" />
     <None Include="Web.Mono.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

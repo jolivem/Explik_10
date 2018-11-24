@@ -1090,4 +1090,31 @@
   <data name="Page_Info_PublishedOn" xml:space="preserve">
     <value>Published on:</value>
   </data>
+  <data name="Comment_Title" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="Button_Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="CommentPage_Title" xml:space="preserve">
+    <value>Rate and Comment</value>
+  </data>
+  <data name="Rate_Title" xml:space="preserve">
+    <value>Rate</value>
+  </data>
+  <data name="Rating_level1" xml:space="preserve">
+    <value>Unclear</value>
+  </data>
+  <data name="Rating_level2" xml:space="preserve">
+    <value>Simple</value>
+  </data>
+  <data name="Rating_level3" xml:space="preserve">
+    <value>Interesting</value>
+  </data>
+  <data name="Rating_level4" xml:space="preserve">
+    <value>Great, very useful</value>
+  </data>
+  <data name="Rating_level5" xml:space="preserve">
+    <value>Excellent, unforgetable</value>
+  </data>
 </root>

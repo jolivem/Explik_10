@@ -30,12 +30,14 @@ namespace Roadkill.Core.Services
 		protected virtual string IndexPath { get; set; }
 		private IPluginFactory _pluginFactory;
 		private static readonly LuceneVersion LUCENEVERSION = LuceneVersion.LUCENE_29;
+	    //private PageService pageService;
 
-		public SearchService(ApplicationSettings settings, IRepository repository, IPluginFactory pluginFactory)
+		public SearchService(ApplicationSettings settings, IRepository repository, IPluginFactory pluginFactory)//, PageService _pageService)
 			: base(settings, repository)
 		{
 			_markupConverter = new MarkupConverter(settings, repository, pluginFactory);
 			IndexPath = settings.SearchIndexPath;
+		  //  pageService = _pageService; //TODO maybe better to store all fileds in LUCENE ??? No because it is dynamic !!!
 		}
 
 		/// <summary>

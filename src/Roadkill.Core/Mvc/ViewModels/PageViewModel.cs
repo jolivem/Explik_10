@@ -10,15 +10,17 @@ using Roadkill.Core.Converters;
 using System.Xml.Serialization;
 using System.Text.RegularExpressions;
 
+using Roadkill.Core.Services;
+
 namespace Roadkill.Core.Mvc.ViewModels
 {
-    public class Comments
-    {
-        public string CreateBy;
-        public DateTime CreatedOn;
-        public string Comment;
-        public int Rating; //from 1 to 5
-    }
+    //public class Comments
+    //{
+    //    public string CreateBy;
+    //    public DateTime CreatedOn;
+    //    public string Comment;
+    //    public int Rating; //from 1 to 5
+    //}
     
     
 	/// <summary>
@@ -84,7 +86,12 @@ namespace Roadkill.Core.Mvc.ViewModels
 			}
 		}
 
-		/// <summary>
+	    /// <summary>
+	    /// Used for Controlling pages
+	    /// </summary>
+        private UserActivity UserActivity;
+
+        /// <summary>
 		/// The user who last modified the page.
 		/// </summary>
 		public string ControlledBy { get; set; }
@@ -211,7 +218,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 		/// <summary>
         ///  
         /// </summary>
-        public string RatingStars { get; set; }
+        //public string RatingStars { get; set; }
 
         /// <summary>
         ///  
@@ -226,7 +233,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// <summary>
         ///  
         /// </summary>
-        public List<Comments> AllComments { get; set; }
+        public List<Comment> AllComments { get; set; }
 
         public bool IsVideo { get; set; }
         public bool IsSubmitted { get; set; }
@@ -245,7 +252,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 		{
 			_tags = new List<string>();
 			IsCacheable = true;
-            RatingStars = "";
+            //RatingStars = "";
 			PluginHeadHtml = "";
 			PluginFooterHtml = "";
             PluginComments = "";
@@ -253,7 +260,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 			PluginPostContainer = "";
             PluginComments = "";
             AllTags = new List<TagViewModel>();
-            AllComments = new List<Comments>();
+            AllComments = new List<Comment>();
 		}
 
 		public PageViewModel(Page page)
@@ -280,6 +287,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 			CreatedOn = DateTime.SpecifyKind(CreatedOn, DateTimeKind.Utc);
 			ModifiedOn = DateTime.SpecifyKind(ModifiedOn, DateTimeKind.Utc);
 			AllTags = new List<TagViewModel>();
+            //AllComments = page.GetAllComments();
 
             NbView = page.NbView;
             NbRating = page.NbRating;
@@ -292,90 +300,42 @@ namespace Roadkill.Core.Mvc.ViewModels
         public string GetCommentsHtml()
         {
 
-            AllComments = new List<Comments>()
-            {
-                new Comments()
-                {
-                    CreateBy = "bibi",
-                    CreatedOn = DateTime.Now,
-                    Comment = "comment 1",
-                    Rating = 1
-                },
-                new Comments()
-                {
-                    CreateBy = "bibi2",
-                    CreatedOn = DateTime.Now,
-                    Comment = "comment 2",
-                    Rating = 2
-                },
-                new Comments()
-                {
-                    CreateBy = "bibi3",
-                    CreatedOn = DateTime.Now,
-                    Comment = "comment 3",
-                    Rating = 3
-                },
-                new Comments()
-                {
-                    CreateBy = "bibi4",
-                    CreatedOn = DateTime.Now,
-                    Comment = "comment 4",
-                    Rating = 4
-                }
-            };
-
             StringBuilder builder = new StringBuilder();
             if (AllComments != null)
             {
-                builder.AppendLine("<div class='reviews-users-comment'>");
+                if (AllComments.Count == 0)
+                {
+                    return builder.AppendLine("TODO be the first to comment").ToString();
+                }
+
+                builder.AppendLine("<div>");
                 foreach (var comment in AllComments)
                 {
-                    builder.AppendLine(
-                        "<div class='row item hred' itemprop='review' itemscope itemtype='http://schema.org/Review'>");
+                    builder.AppendLine("<div class='row'>");
                     {
 
                         // first the user on the left
-                        builder.AppendLine("<div class='card reviews-user-infos cf'>");
+                        builder.AppendLine("<div class='col-sm-2'>");
                         {
-                            builder.AppendLine("<span itemprop='author'>" + comment.CreateBy + "</span>");
+                            builder.AppendLine("<p>By " + comment.CreatedBy + "</p>");
+                            builder.AppendLine("<p><small>On " + comment.CreatedOn + "</small></p>");
 
                             builder.AppendLine("</div>");
                         }
                         // then the comment text
 
-                        builder.AppendLine(
-                            "<div class='col-xs-12 col-sm-9 reviews-user-txt' itemprop='reviewRating' itemscope itemtype='http://schema.org/Rating'>");
+                        builder.AppendLine("<div class='col-sm-10'>");
                         {
-                            builder.AppendLine(EncodePageRating(comment.Rating, "active "));
+                            builder.AppendLine(EncodePageRating16(comment.Rating, "active "));
 
-                            builder.AppendLine("<span class='review-about light'>");
-                            builder.AppendLine("Publiée le " + comment.CreatedOn );
-                            builder.AppendLine("</span>");
-                            builder.AppendLine("<p class='review-content' itemprop='description'>");
-
-
-                            builder.AppendLine("<div class='content-txt' itemprop='description'>");
-                            {
-                                builder.AppendLine(comment.Comment);
-                                builder.AppendLine("</div>");
-                            }
-
+                            builder.AppendLine("<p>");
+                            builder.AppendLine(comment.Text);
                             builder.AppendLine("</div>");
                         }
                         builder.AppendLine("</div>");
-                        //builder.AppendLine("<div class='lightborder rounded10'>");
-                        //builder.AppendLine(comment.Comment + "<br />");
-
-                        //builder.Append("Created by " + comment.CreateBy);
-                        //builder.AppendLine(", Created on " + comment.CreatedOn);
-                        //builder.AppendLine(EncodePageRating(comment.Rating, "active "));
-
-                        //builder.AppendLine();
-
-                        //builder.AppendLine("</div>");
 
                     }
-                    builder.AppendLine("<hr>");
+                    //builder.AppendLine("<hr>");
                 }//foreach
                 builder.AppendLine("</div>");
             }
@@ -387,10 +347,10 @@ namespace Roadkill.Core.Mvc.ViewModels
                 /// </summary>
                 /// <param name="rating"></param>
                 /// <returns></returns>
-        private static string EncodePageRating(int rating, string active)
+        public static string EncodePageRating16(int rating, string active)
         {
             StringBuilder builder = new StringBuilder();
-            string formatStr = "<span class='rating stars {2}star-{0}' value='{1}'></span>";
+            string formatStr = "<span class='rating16 stars16 {2}star16-{0}' value='{1}'></span>";
 
             for (double i = .5; i <= 5.0; i = i + .5)
             {
@@ -401,6 +361,32 @@ namespace Roadkill.Core.Mvc.ViewModels
                 else
                 {
                     builder.AppendFormat(formatStr, (i * 2) % 2 == 1 ? "left_off" : "right_off", i, active);
+                }
+            }
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rating"></param>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        public string EncodePageRating32(double rating)
+        {
+            string passive = "passive ";
+            StringBuilder builder = new StringBuilder();
+            string formatStr = "<span class='rating32 stars32 {2}star32-{0}' value='{1}'></span>";
+
+            for (double d = .5; d <= 5.0; d = d + .5)
+            {
+                if (d <= rating)
+                {
+                    builder.AppendFormat(formatStr, (d * 2) % 2 == 1 ? "left_on" : "right_on", d, passive);
+                }
+                else
+                {
+                    builder.AppendFormat(formatStr, (d * 2) % 2 == 1 ? "left_off" : "right_off", d, passive);
                 }
             }
             return builder.ToString();
@@ -437,8 +423,9 @@ namespace Roadkill.Core.Mvc.ViewModels
 			RawTags = pageContent.Page.Tags;
 			Content = pageContent.Text;
 			VersionNumber = pageContent.VersionNumber;
-            PluginComments = GetCommentsHtml();
-			ControlledBy = pageContent.Page.ControlledBy;
+            PluginComments = ""; //TODO can be remove
+            //PluginComments = GetCommentsHtml();
+            ControlledBy = pageContent.Page.ControlledBy;
             NbView = pageContent.Page.NbView;
             NbRating = pageContent.Page.NbRating;
             TotalRating = pageContent.Page.TotalRating;
@@ -456,7 +443,7 @@ namespace Roadkill.Core.Mvc.ViewModels
             CreatedOn = DateTime.SpecifyKind(CreatedOn, DateTimeKind.Utc);
 			ModifiedOn = DateTime.SpecifyKind(ModifiedOn, DateTimeKind.Utc);
 			AllTags = new List<TagViewModel>();
-            RatingStars = EncodePageRating(4, "active ");
+            //RatingStars = EncodePageRating32(4, "active ");
 		}
 
 		/// <summary>
@@ -568,5 +555,15 @@ namespace Roadkill.Core.Mvc.ViewModels
 
 			return title;
 		}
+
+	    public void SetUserActivity(UserActivity activity)
+	    {
+	        UserActivity = new UserActivity()
+	        {
+	            OldestPageDate = activity.OldestPageDate,
+	            GlobalRating = activity.GlobalRating,
+	            NbPublications = activity.NbPublications,
+	        };
+	    }
 	}
 }

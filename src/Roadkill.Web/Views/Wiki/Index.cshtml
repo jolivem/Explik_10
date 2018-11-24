@@ -11,54 +11,77 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-8">
-            <h1 class="pagetitle row">@Model.Title</h1>
+            <h2 class="pagetitle">@Model.Title</h2>
         </div>
-        <div class="col-sm-3">
-            @MvcHtmlString.Create(Model.RatingStars)
+        <div class="col-sm-4">
+            @if (@Model.NbRating > 0)
+            {
+                @MvcHtmlString.Create(@Model.EncodePageRating32(@Model.TotalRating / @Model.NbRating))
+            }
+            else
+            {
+                @MvcHtmlString.Create(@Model.EncodePageRating32(0))
+            }
+            <p>Number of views: @Model.NbView</p>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-10">
+            <hr size=2 align=center width="80%" />
+            <p align="justify">@Model.Summary</p>
+            <hr size=2 align=center width="80%" />
+
+            <div id="pagecontent">
+                @MvcHtmlString.Create(Model.ContentAsHtml)
+            </div>
+            <hr size=2 align=center width="80%" />
+        </div>
+    </div>
+    <div id="pageinfo" pageid="@Model.Id">
+        <div class="row">
+            <div class="col-sm-8">
+                <b>@SiteStrings.Page_Info_CreatedBy2</b>
+                @Model.CreatedBy<b>@SiteStrings.Page_Info_On</b>
+                @Model.CreatedOn.Date.ToString("dd/MM/yyyy")<b>. @SiteStrings.Page_Info_PublishedOn</b>
+                @Model.ModifiedOn.Date.ToString("dd/MM/yyyy")<br />
+            </div>
+            <div class="col-sm-4">
+                <a href="@Url.Action("CommentPage", "Comment", new { id = @Model.Id })"><small>Rate</small></a>
+                <a href="javascript:;"><small>Alert</small></a>
+                <a href="javascript:;"><small>Share</small></a>
+            </div>
+        </div>
+    </div>
+    <hr size=1 align=center width="80%" />
+    <div id="pagecomments">
+        <!-- Comments and rating -->
+        @MvcHtmlString.Create(@Model.GetCommentsHtml())
+    </div>
 </div>
-<hr size=2 align=center width="80%" />
-<p>@Model.Summary</p>
-<hr size=2 align=center width="80%" />
 
-<div id="pagecontent">
-    @MvcHtmlString.Create(Model.ContentAsHtml)
-</div>
-<hr size=2 align=center width="80%" />
 
-<div id="pageinfo" pageid="@Model.Id">
-    <b>@SiteStrings.Page_Info_CreatedBy2</b>
-    @Model.CreatedBy<b>@SiteStrings.Page_Info_On</b>
-    @Model.CreatedOn.Date.ToString("dd/MM/yyyy")<b>. @SiteStrings.Page_Info_PublishedOn</b>
-    @Model.ModifiedOn.Date.ToString("dd/MM/yyyy")<br />
-    <a id="pagerate-button" class="btn btn-default btn-sm" href="javascript:;">Rate</a>
-    <a id="pagealert-button" class="btn btn-default btn-sm" href="javascript:;">Alert</a>
-    <a id="pageshare-button" class="btn btn-default btn-sm" href="javascript:;">Share</a>
-</div>
-
-@section PageDetailsFooter
+        @section PageDetailsFooter
 {
-    @SiteStrings.Shared_LastModified <span id="lastmodified-on" title="@Model.ModifiedOnWithOffset">@Model.ModifiedOnWithOffset</span>.
-}
+            @SiteStrings.Shared_LastModified <span id="lastmodified-on" title="@Model.ModifiedOnWithOffset">@Model.ModifiedOnWithOffset</span>.
+        }
 
-@section PluginHead
+        @section PluginHead
 {
-    <!-- Plugins -->
-    @Html.Raw(Model.PluginHeadHtml)<!-- End plugins head -->
-}
+            <!-- Plugins -->
+            @Html.Raw(Model.PluginHeadHtml)<!-- End plugins head -->
+        }
 
-@section PluginPreContainer
+        @section PluginPreContainer
 {
-    @MvcHtmlString.Create(Model.PluginPreContainer)
-}
+            @MvcHtmlString.Create(Model.PluginPreContainer)
+        }
 
-@section PluginPostContainer
+        @section PluginPostContainer
 {
-    @MvcHtmlString.Create(Model.PluginPostContainer)
-}
+            @MvcHtmlString.Create(Model.PluginPostContainer)
+        }
 
-@section PluginFooter
+        @section PluginFooter
 {
-    @MvcHtmlString.Create(Model.PluginFooterHtml)
-}
+            @MvcHtmlString.Create(Model.PluginFooterHtml)
+        }

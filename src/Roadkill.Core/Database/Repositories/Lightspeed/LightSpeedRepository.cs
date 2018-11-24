@@ -10,6 +10,7 @@ using Mindscape.LightSpeed.Querying;
 using Roadkill.Core.Configuration;
 using Roadkill.Core.Database.Schema;
 using Roadkill.Core.Logging;
+using Roadkill.Core.Mvc.ViewModels;
 using Roadkill.Core.Plugins;
 using StructureMap;
 using PluginSettings = Roadkill.Core.Plugins.Settings;
@@ -44,19 +45,11 @@ namespace Roadkill.Core.Database.LightSpeed
             }
         }
 
-        internal IQueryable<CommentEntity> Comments
+        internal IQueryable<CommentEntity> Comment
         {
             get
             {
                 return UnitOfWork.Query<CommentEntity>();
-            }
-        }
-
-        internal IQueryable<AlertEntity> Alerts
-        {
-            get
-            {
-                return UnitOfWork.Query<AlertEntity>();
             }
         }
 
@@ -412,22 +405,18 @@ namespace Roadkill.Core.Database.LightSpeed
 
 	    public IEnumerable<Page> FindMostRecentPages(int number)
 	    {
-            List<PageEntity> entities = Pages.Where(p => p.IsControlled == true).ToList();
+            List<PageEntity> entities = Pages
+                //.Where(p => p.IsControlled) TO ADD
+                .OrderBy( p => p.ModifiedOn) // used fo SubmittedOn
+                .Take(number)
+                .ToList();
             return FromEntity.ToPageList(entities);
-
-            
-            //List<PageEntity> entities = Pages
-            //    //.Where(p => p.IsControlled==true)TODO
-            //    .OrderByDescending(p => p.CreatedOn) //TODO : use controlledOn
-            //    .Take(number) 
-            //    .ToList();
-            //return FromEntity.ToPageList(entities);
 	    }
 
         public IEnumerable<Page> FindPagesBestRated(int number)
         {
             List<PageEntity> entities = Pages
-                //.Where(p => p.IsControlled == true)TODO
+                //.Where(p => p.IsControlled) TO ADD
                 .OrderByDescending(p => p.NbRating == 0 ? 0 : (float)(p.TotalRating/p.NbRating)) //TODO : use also explikRating
                 .Take(number)
                 .ToList();
@@ -437,7 +426,7 @@ namespace Roadkill.Core.Database.LightSpeed
         public IEnumerable<Page> FindPagesMostViewed(int number)
         {
             List<PageEntity> entities = Pages
-                //.Where(p => p.IsControlled == true) TODO
+                //.Where(p => p.IsControlled) TO ADD
                 .OrderByDescending(p => p.NbView)
                 .Take(number)
                 .ToList();
@@ -462,7 +451,15 @@ namespace Roadkill.Core.Database.LightSpeed
 			return FromEntity.ToPageList(entities);
 		}
 
-		public IEnumerable<PageContent> FindPageContentsByPageId(int pageId)
+	    public IEnumerable<Page> FindPagesWithAlerts()
+	    {
+	        List<int> pageIds = Alerts.GroupBy(a => a.PageId).Select(a => a.First()).Select(a=>a.PageId).ToList();
+            IEnumerable<PageEntity> entities = Pages.Where(p => pageIds.Contains(p.Id)); // Lightspeed doesn't support ToLowerInvariant
+            return FromEntity.ToPageList(entities);
+	        
+	    }
+    
+        public IEnumerable<PageContent> FindPageContentsByPageId(int pageId)
 		{
 			List<PageContentEntity> entities = PageContents.Where(p => p.Page.Id == pageId).ToList();
 			return FromEntity.ToPageContentList(entities);
@@ -547,6 +544,26 @@ namespace Roadkill.Core.Database.LightSpeed
 			}
 		}
 
+	    public void IncrementNbView(int pageId)
+	    {
+            PageEntity entity = UnitOfWork.FindById<PageEntity>(pageId);
+	        if (entity != null)
+	        {
+	            entity.NbView ++;
+	            UnitOfWork.SaveChanges();
+	        }
+	    }
+
+	    public void AddPageRating(int pageId, int rating)
+	    {
+            PageEntity entity = UnitOfWork.FindById<PageEntity>(pageId);
+            if (entity != null)
+            {
+                entity.TotalRating += rating;
+                entity.NbRating ++;
+                UnitOfWork.SaveChanges();
+            }
+        }
 		#endregion
 
 		#region IUserRepository
@@ -673,14 +690,14 @@ namespace Roadkill.Core.Database.LightSpeed
         #region ICommentRepository
         public void DeleteComment(Guid commentId)
         {
-            CommentEntity entity = Comments.Where(x => x.Id == commentId).Single();
+            CommentEntity entity = Comment.Where(x => x.Id == commentId).Single();
             UnitOfWork.Remove(entity);
             UnitOfWork.SaveChanges();
         }
 
         public IEnumerable<Comment> FindAllCommentByPage(int pageId)
         {
-            List<CommentEntity> entities = Comments.Where(x => x.PageId == pageId).ToList();
+            List<CommentEntity> entities = Comment.Where(x => x.PageId == pageId).ToList();
             return FromEntity.ToCommentList(entities);
         }
 
@@ -691,6 +708,16 @@ namespace Roadkill.Core.Database.LightSpeed
             UnitOfWork.Add(entity);
             UnitOfWork.SaveChanges();
         }
+
+	    public Comment FindCommentByPageAndUser(int pageId, string username)
+	    {
+            List<CommentEntity> entities = Comment.Where(x => x.PageId == pageId && x.CreatedBy == username).ToList();
+	        if (entities.Count > 0)
+	        {
+	            return FromEntity.ToComment( entities[0]);
+	        }
+	        return null;
+	    }
 
         #endregion
 
@@ -703,15 +730,15 @@ namespace Roadkill.Core.Database.LightSpeed
             UnitOfWork.SaveChanges();
         }
 
-        public IEnumerable<Alert> FindAllAlertByPage(int pageId)
+        public IEnumerable<Alert> FindAlertsByPage(int pageId)
         {
             List<AlertEntity> entities = Alerts.Where(x => x.PageId == pageId).ToList();
             return FromEntity.ToAlertList(entities);
         }
 
-        public IEnumerable<Alert> FindAllAlertByComment(Guid commentId)
+        public IEnumerable<Alert> FindAlertsByComment(Guid commentGuid)
         {
-            List<AlertEntity> entities = Alerts.Where(x => x.CommentId == commentId).ToList();
+            List<AlertEntity> entities = Alerts.Where(x => x.CommentId == commentGuid).ToList();
             return FromEntity.ToAlertList(entities);
         }
 
@@ -721,6 +748,34 @@ namespace Roadkill.Core.Database.LightSpeed
             ToEntity.FromAlert(alert, entity);
             UnitOfWork.Add(entity);
             UnitOfWork.SaveChanges();
+        }
+
+        public void DeletPageAlerts(int pageId)
+	    {
+            List<AlertEntity> entities = Alerts.Where(x => x.PageId == pageId).ToList();
+	        foreach (var entity in entities)
+	        {
+                UnitOfWork.Remove(entity);
+	        }
+            UnitOfWork.SaveChanges();
+        }
+
+        public void DeletCommentAlerts(Guid commentId)
+	    {
+            List<AlertEntity> entities = Alerts.Where(x => x.CommentId == commentId).ToList();
+            foreach (var entity in entities)
+            {
+                UnitOfWork.Remove(entity);
+            }
+            UnitOfWork.SaveChanges();
+        }
+
+        internal IQueryable<AlertEntity> Alerts
+        {
+            get
+            {
+                return UnitOfWork.Query<AlertEntity>();
+            }
         }
 
         #endregion
@@ -740,9 +795,5 @@ namespace Roadkill.Core.Database.LightSpeed
 				throw new DatabaseException("The connection string is empty in the web.config file (and the roadkill.config's installed=true).", null);
 		}
 
-        IEnumerable<Page> IPageRepository.Alerts()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -49,12 +49,23 @@ namespace Roadkill.Core.Database
         /// </summary>
         /// <param name="pageId"></param>
         /// <param name="createdBy"></param>
-        /// <param name="rating"></param>
-        /// <param name="text"></param>
-        public Alert(int pageId, Guid commentId, string createdBy)
+        public Alert(int pageId, string createdBy)
         {
             Id = new Guid();
             PageId = pageId;
+            CommentId = Guid.Empty;
+            CreatedBy = createdBy;
+            CreatedOn = DateTime.Now;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="commentId"></param>
+        /// <param name="createdBy"></param>
+        public Alert(Guid commentId, string createdBy)
+        {
+            Id = new Guid();
+            PageId = 0;
             CommentId = commentId;
             CreatedBy = createdBy;
             CreatedOn = DateTime.Now;

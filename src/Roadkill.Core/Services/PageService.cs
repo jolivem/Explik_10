@@ -12,7 +12,10 @@ using Roadkill.Core.Configuration;
 using System.Web;
 using System.Windows.Forms;
 
+using Lucene.Net.Support;
+
 using Roadkill.Core.Logging;
+using Roadkill.Core.Mvc;
 using Roadkill.Core.Text;
 using Roadkill.Core.Plugins;
 
@@ -273,37 +276,10 @@ namespace Roadkill.Core.Services
         {
             try
             {
-                string cacheKey = "";
                 IEnumerable<PageViewModel> pageModels;
 
-                if (loadPageContent)
-                {
-                    cacheKey = CacheKeys.AllPagesWithContent();
-                    pageModels = _listCache.Get<PageViewModel>(cacheKey);
-
-                    if (pageModels == null)
-                    {
-                        //IEnumerable<Page> pages = Repository.Alerts().OrderByDescending(p => p.NbAlert); TODO change with new table
-                        //pagemodels = from page in pages
-                        //             select new pageviewmodel(repository.getlatestpagecontent(page.id), _markupconverter);
-
-                        //_listcache.add<pageviewmodel>(cachekey, pagemodels);
-                    }
-                }
-                else
-                {
-                    cacheKey = CacheKeys.AllNewPages();
-                    pageModels = _listCache.Get<PageViewModel>(cacheKey);
-
-                    if (pageModels == null)
-                    {
-                        //IEnumerable<Page> pages = Repository.Alerts().OrderByDescending(p => p.NbAlert);
-                        //pageModels = from page in pages
-                        //             select new PageViewModel() { Id = page.Id, Title = page.Title };
-
-                        //_listCache.Add<PageViewModel>(cacheKey, pageModels);
-                    }
-                }
+                IEnumerable<Page> pages = Repository.FindPagesWithAlerts();
+                pageModels = from page in pages select new PageViewModel(page);
 
                 return pageModels;
             }
@@ -529,12 +505,15 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <param name="pageId">The id of the page to validate.</param>
         /// <exception cref="DatabaseException">An databaseerror occurred while deleting the page.</exception>
-        public void ValidatePage(int pageId)
+        public void ValidatePage(int pageId, string controllerName, int rating)
         {
             try
             {
                 Page page = Repository.GetPageById(pageId);
                 page.IsControlled = true;
+                page.ControlledBy = controllerName;
+                page.ModifiedOn = DateTime.UtcNow;
+                page.ControllerRating = rating;
                 page.IsRejected = false;
                 Repository.SaveOrUpdatePage(page);
             }
@@ -569,18 +548,21 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <param name="pageId">The id of the page to reject.</param>
         /// <exception cref="DatabaseException">An databaseerror occurred while deleting the page.</exception>
-        public void ResetAlertPage(int pageId) //TODO with new table
+        public void DeletPageAlerts(int pageId) //TODO with new table
         {
             try
             {
-                Page page = Repository.GetPageById(pageId);
-                //page.NbAlert = 0;
-                Repository.SaveOrUpdatePage(page);
+                Repository.DeletPageAlerts(pageId);
             }
             catch (DatabaseException ex)
             {
                 throw new DatabaseException(ex, "An error occurred while reseting alerts of the page id {0} from the database", pageId);
             }
+        }
+
+        public void DeletCommentAlerts(Guid commentGuid)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -744,6 +726,9 @@ namespace Roadkill.Core.Services
                         }
 
                         _pageViewModelCache.Add(id, pageModel);
+
+                        pageModel.AllComments = FindAllCommentByPage(id);
+
                         return pageModel;
                     }
                 }
@@ -1010,39 +995,6 @@ namespace Roadkill.Core.Services
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pageId"></param>
-        public void AddAlert(int pageId) //TODO with new table
-        {
-            try
-            {
-                Alert alert = new Alert(pageId, Guid.Empty, ""); //TODO add createdby
-                Repository.AddAlert(alert);
-            }
-            catch (DatabaseException ex)
-            {
-                throw new DatabaseException(ex, "An error occurred while submitting the page id {0} from the database", pageId);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="commentId"></param>
-        public void AddAlert(Guid commentId)
-        {
-            try
-            {
-                Alert alert = new Alert(0, commentId, ""); //TODO add createdby
-                Repository.AddAlert(alert);
-            }
-            catch (DatabaseException ex)
-            {
-                throw new DatabaseException(ex, "An error occurred while submitting the alert");
-            }
-        }
 
         /// <summary>
         /// 
@@ -1053,6 +1005,8 @@ namespace Roadkill.Core.Services
             try
             {
                 Repository.AddComment(comment);
+                Repository.AddPageRating(comment.PageId, comment.Rating);
+
             }
             catch (DatabaseException ex)
             {
@@ -1093,21 +1047,40 @@ namespace Roadkill.Core.Services
         }
 
         /// <summary>
-        /// 
+        /// FindAllCommentByPage
         /// </summary>
         /// <param name="pageId"></param>
         /// <returns></returns>
-        public IEnumerable<Comment> FindAllCommentByPage(int pageId)
+        public List<Comment> FindAllCommentByPage(int pageId)
         {
             try
             {
-                return Repository.FindAllCommentByPage(pageId);
+                List<Comment> comments = (List<Comment>)Repository.FindAllCommentByPage(pageId);
+                return comments;
             }
             catch (DatabaseException ex)
             {
                 throw new DatabaseException(ex, "An exception occurred while getting comments by page.");
             }
         }
+
+        /// <summary>
+        /// FindAllCommentByPage
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <returns></returns>
+        public Comment FindCommentByPageAndUser(int pageId, string userName)
+        {
+            try
+            {
+                return Repository.FindCommentByPageAndUser(pageId, userName);
+            }
+            catch (DatabaseException ex)
+            {
+                throw new DatabaseException(ex, "An exception occurred while getting comments by page.");
+            }
+        }
+
         /// <summary>
         /// Adds the page to the database.
         /// </summary>
@@ -1167,6 +1140,57 @@ namespace Roadkill.Core.Services
             {
                 throw new DatabaseException(e, "An error occurred while adding page to the database");
             }
+        }
+
+        public void IncrementNbView(int pageId)
+        {
+            try
+            {
+                Repository.IncrementNbView(pageId);
+            }
+            catch (DatabaseException ex)
+            {
+                throw new DatabaseException(ex, "An exception occurred while incrementing nb views.");
+            }
+            
+        }
+
+        public Page FindById(int id) //TODO handle cache ???
+        {
+            try
+            {
+                 return Repository.GetPageById(id);
+            }
+            catch (DatabaseException ex)
+            {
+                //throw new DatabaseException(ex, "An error occurred getting the page with id '{0}' from the database", id);
+                return null;
+            }        
+        }
+
+        UserActivity GetUserActivity(string username)
+        {
+            List<Page> pages = (List<Page>)Repository.FindPagesCreatedBy(username);
+
+            if (pages.Count > 0)
+            {
+                // nb publications
+                UserActivity userActivity = new UserActivity();
+                userActivity.NbPublications = pages.Count(p => p.IsControlled);
+
+                // gloabl rating
+                long sumRatings = pages.Sum(p => p.TotalRating);
+                long nbRatings = pages.Sum(p => p.NbRating);
+                userActivity.GlobalRating = sumRatings / nbRatings;
+
+                // oldest
+                Page oldestPage = pages.OrderBy(p => p.ModifiedOn).First();
+                userActivity.OldestPageDate = oldestPage.ModifiedOn; // PublishedOn
+
+                return userActivity;
+            }
+
+            return null;
         }
     }
 }

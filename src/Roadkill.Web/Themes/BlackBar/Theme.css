@@ -31,4 +31,4 @@ div.floatright, table.floatright { clear: right; float: right; }
 .center * { margin-left: auto; margin-right: auto; }
 .center { text-align: center; width: 100%; }
 
-.pagetitle	{ margin-bottom: 40px; }
+.pagetitle	{padding: 0}

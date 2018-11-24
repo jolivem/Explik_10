@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Roadkill.Core.Database;
+using Roadkill.Core.Mvc;
 using Roadkill.Core.Mvc.ViewModels;
 
 namespace Roadkill.Core.Services
@@ -76,14 +77,7 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <param name="pageId">The id of the page of the alert.</param>
         /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
-        void AddAlert(int pageId);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="commentId"></param>
-        /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
-        void AddAlert(Guid commentId);
+        void AddAlert(Alert alert);
 
         /// <summary>
         /// Submit a page from the database.
@@ -97,7 +91,7 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <param name="pageId">The id of the page to validate.</param>
         /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
-        void ValidatePage(int pageId);
+        void ValidatePage(int pageId, string controllername, int rating);
 
         /// <summary>
         /// 
@@ -111,7 +105,14 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <param name="pageId">The id of the page to reset.</param>
         /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
-        void ResetAlertPage(int pageId);
+        void DeletPageAlerts(int pageId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageId">The id of the page to reset.</param>
+        /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
+        void DeletCommentAlerts(Guid commentGuid);
 
         /// <summary>
         /// Exports all pages in the database, including content, to an XML format.
@@ -197,5 +198,12 @@ namespace Roadkill.Core.Services
 		/// </summary>
 		/// <exception cref="DatabaseException">A datastore error occurred while clearing the page data.</exception>
 		void ClearPageTables();
+
+	    /// <summary>
+	    /// Get information about user activity given a pageId
+	    /// </summary>
+	    /// <param name="pageId"></param>
+	    /// <returns></returns>
+        UserActivity GetUserActivity(string username);
 	}
 }

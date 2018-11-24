@@ -5,7 +5,9 @@ $(document).ready(function () {
     // see weblog project
     // changing rating is not actually working
 
-    //************** begin star rating system *****************
+
+
+    //************** begin star 48 rating system *****************
     function setRating48(span, rating){ // change star display
         span.find('.rating48.stars48').each(function () {
             var value = parseFloat($(this).attr("value"));
@@ -16,23 +18,123 @@ $(document).ready(function () {
     }
 
     $(".rating48.stars48.active").mouseover(function () {
-        var span = $(this).parent("span");
-        var newRating = $(this).attr("value");
-        setRating48(span, newRating);
+        var srating = $("#srating").attr("value");
+        if (srating == 0) {
+            var span = $(this).parent("span");
+            var rating = $(this).attr("value");
+            setRating48(span, rating);
+        }
     });
 
     $(".rating48.stars48.active").mouseout(function () {
 
         var span = $(this).parent("span");
         var rating = $(this).attr("value");
-        setRating48(span, rating);
+        if (rating == 0) {
+            setRating48(span, rating);
+        }
     });
 
     $(".rating48.stars48.active").click(function () {
+        var span = $(this).parent("span");
         var newRating = $(this).attr("value");
         $("#newrating").attr("value", newRating);
-        $("#rate-info").html("new rating = " + newRating); 
+        var title = $(this).attr("title");
+        $("#rate-info").html(title); 
+        $("#srating").val(newRating);
+        setRating48(span, newRating);
     });
+
+
+
+    //************** begin star 16 rating system *****************
+    function setRating16(span, rating){ // change star display
+        span.find('.rating16.stars16').each(function () {
+            var value = parseFloat($(this).attr("value"));
+            var imgSrc = $(this).attr("class");
+            if (value <= rating) $(this).attr("class", imgSrc.replace("_off", "_on"));
+            else $(this).attr("class", imgSrc.replace("_on", "_off"));
+        });
+    }
+
+    $(".rating16.stars16.active").mouseover(function () {
+        var srating = $("#srating").attr("value");
+        if (srating == 0) {
+            var span = $(this).parent("span");
+            var rating = $(this).attr("value");
+            setRating16(span, rating);
+        }
+    });
+
+    $(".rating16.stars16.active").mouseout(function () {
+
+        var span = $(this).parent("span");
+        var rating = $(this).attr("value");
+        if (rating == 0) {
+            setRating16(span, rating);
+        }
+    });
+
+    $(".rating16.stars16.active").click(function () {
+        var span = $(this).parent("span");
+        var newRating = $(this).attr("value");
+        $("#newrating").attr("value", newRating);
+        var title = $(this).attr("title");
+        $("#rate-info").html(title); 
+        $("#srating").val(newRating);
+        setRating16(span, newRating);
+    });
+
+
+
+    //************** begin star 32 rating system *****************
+    function setRating32(span, rating){ // change star display
+        span.find('.rating32.stars32').each(function () {
+            var value = parseFloat($(this).attr("value"));
+            var imgSrc = $(this).attr("class");
+            if (value <= rating) $(this).attr("class", imgSrc.replace("_off", "_on"));
+            else $(this).attr("class", imgSrc.replace("_on", "_off"));
+        });
+    }
+
+    $(".rating32.stars32.active").mouseover(function () {
+        var srating = $("#srating").attr("value");
+        if (srating == 0) {
+            var span = $(this).parent("span");
+            var rating = $(this).attr("value");
+            setRating32(span, rating);
+        }
+    });
+
+    $(".rating32.stars32.active").mouseout(function () {
+
+        var span = $(this).parent("span");
+        var rating = $(this).attr("value");
+        if (rating == 0) {
+            setRating32(span, rating);
+        }
+    });
+
+    $(".rating32.stars32.active").click(function () {
+        var span = $(this).parent("span");
+        var newRating = $(this).attr("value");
+        $("#newrating").attr("value", newRating);
+        var title = $(this).attr("title");
+        $("#rate-info").html(title); 
+        $("#srating").val(newRating);
+        setRating32(span, newRating);
+    });
+
+
+
+
+
+
+
+
+
+
+
 
     function setRating(span, rating){ // change star display
         span.find('.rating.stars').each(function () {
@@ -65,7 +167,6 @@ $(document).ready(function () {
         var newRating = $("#newrating").attr("value");
         var pID = $("#newrating").attr("pageid");
         var text = $("#commentarea").val();
-
         $.ajax({
             type : "POST",
             url : "/Pages/AddComment",

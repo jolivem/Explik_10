@@ -49,8 +49,8 @@ namespace Roadkill.Core.Mvc
             // Don't lowercase pages that use Base64
             routes.MapRoute(
                 "Rating",
-                "Pages/AddComment/{id}/{rating}",
-                new { controller = "Pages", action = "AddComment", id = UrlParameter.Optional }
+                "Comment/CommentPage/{id}",
+                new { controller = "Comment", action = "CommentPage", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(

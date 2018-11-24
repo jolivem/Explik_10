@@ -62,7 +62,9 @@ a.external-link	{ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA
 /* Login,profile,reset password pages */
 #profile		{ background-color:#fbfafa;padding:1em; }
 #login			{ background-color:#fbfafa;padding:1em; }
+#ratecomment	{ background-color:#fbfafa;padding:1em; }
 #resetpassword	{ background-color:#fbfafa;padding:1em; }
+#rate-info  	{ padding:1em; }
 
 /* Search result page */
 .searchresult			{ padding-bottom: 20px; }

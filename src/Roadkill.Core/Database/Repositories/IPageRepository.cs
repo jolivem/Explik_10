@@ -18,7 +18,6 @@ namespace Roadkill.Core.Database
         IEnumerable<Page> AllPages();
         IEnumerable<Page> AllNewPages();
         IEnumerable<Page> MyPages(string username);
-        IEnumerable<Page> Alerts();
         IEnumerable<PageContent> AllPageContents();
 		IEnumerable<string> AllTags();
 		void DeletePage(Page page);
@@ -34,9 +33,10 @@ namespace Roadkill.Core.Database
 	    IEnumerable<Page> FindPagesMostViewed(int number);
 	    IEnumerable<Page> FindPagesBestRated(int number);
 
-        
-		IEnumerable<Page> FindPagesCreatedBy(string username);
-		IEnumerable<Page> FindPagesControlledBy(string username);
+
+        IEnumerable<Page> FindPagesCreatedBy(string username);
+        IEnumerable<Page> FindPagesWithAlerts();
+        IEnumerable<Page> FindPagesControlledBy(string username);
 		IEnumerable<Page> FindPagesContainingTag(string tag);
 		IEnumerable<PageContent> FindPageContentsByPageId(int pageId);
 		IEnumerable<PageContent> FindPageContentsEditedBy(string username);
@@ -54,5 +54,8 @@ namespace Roadkill.Core.Database
 		IEnumerable<PageContent> GetPageContentByEditedBy(string username);
 		Page SaveOrUpdatePage(Page page);
 		void UpdatePageContent(PageContent content); // no new version
+
+        void IncrementNbView(int pageId);
+
 	}
 }
