@@ -89,7 +89,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 	    /// <summary>
 	    /// Used for Controlling pages
 	    /// </summary>
-        private UserActivity UserActivity;
+        private UserActivity _userActivity;
 
         /// <summary>
 		/// The user who last modified the page.
@@ -188,6 +188,19 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// 
         /// </summary>
         public long NbRating;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string RejectReason { get; set; }
+
+        public IEnumerable<string> RejectReasonAvailable
+        {
+            get
+            {
+                return new string[] { "Unpolite", "TBC1", "TBC2" };
+            }
+        }
 
         /// <summary>
         /// 
@@ -556,14 +569,56 @@ namespace Roadkill.Core.Mvc.ViewModels
 			return title;
 		}
 
-	    public void SetUserActivity(UserActivity activity)
-	    {
-	        UserActivity = new UserActivity()
-	        {
-	            OldestPageDate = activity.OldestPageDate,
-	            GlobalRating = activity.GlobalRating,
-	            NbPublications = activity.NbPublications,
-	        };
-	    }
-	}
+        public void SetUserActivity(UserActivity activity)
+        {
+            _userActivity = new UserActivity()
+            {
+                OldestPageDate = activity.OldestPageDate,
+                GlobalRating = activity.GlobalRating,
+                NbPublications = activity.NbPublications,
+            };
+        }
+
+        public UserActivity GetUserActivity()
+        {
+            return _userActivity;
+        }
+        public string EncodeRating()
+        {
+            string active = "active ";
+            StringBuilder builder = new StringBuilder();
+
+            string[] titles = { SiteStrings.Rating_level1, SiteStrings.Rating_level2, SiteStrings.Rating_level3, SiteStrings.Rating_level4, SiteStrings.Rating_level5 };
+
+            for (int i = 1; i <= 5; i++)
+            {
+                string formatStr = "<span class='rating32 stars32 {2}star32-{0}' title='{3}' value='{1}'></span>";
+                if (i <= Rating)
+                {
+                    builder.AppendFormat(formatStr, "left_on", i, active, titles[i - 1]);
+                    builder.AppendFormat(formatStr, "right_on", i, active, titles[i - 1]);
+                }
+                else
+                {
+                    builder.AppendFormat(formatStr, "left_off", i, active, titles[i - 1]);
+                    builder.AppendFormat(formatStr, "right_off", i, active, titles[i - 1]);
+                }
+            }
+
+            //for (double i = .5; i <= 5.0; i = i + .5)
+            //{
+            //    int rounded = (int)i;
+            //    if (i <= rating)
+            //    {
+            //        builder.AppendFormat(formatStr, (i * 2) % 2 == 1 ? "left_on" : "right_on", i, active);
+            //    }
+            //    else
+            //    {
+            //        builder.AppendFormat(formatStr, (i * 2) % 2 == 1 ? "left_off" : "right_off", i, active);
+            //    }
+            //}
+            //builder.AppendFormat("rating={0}", rating);
+            return builder.ToString();
+        }
+    }
 }

@@ -73,20 +73,3 @@ namespace Roadkill.Core.Mvc.Controllers
         }
     }
 }
-
-/// <summary>
-/// Displays the edit View for the page provided in the id.
-/// </summary>
-/// <param name="id">The ID of the page to edit.</param>
-/// <returns>An filled <see cref="PageViewModel"/> as the model. If the page id cannot be found, the action
-/// redirects to the New page.</returns>
-/// <remarks>This action requires editor rights.</remarks>
-//[HttpPost]
-//public ActionResult AddComment(int id, string text, int rating)
-//{
-//    Comment comment = new Comment( id, Context.CurrentUsername, rating, text);
-//    var titi = Request.QueryString["commentarea"];
-//    var toto = titi;
-
-//    return Content("tout va bien", MediaTypeNames.Text.Plain);
-//}

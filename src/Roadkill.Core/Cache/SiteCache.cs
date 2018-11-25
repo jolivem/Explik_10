@@ -72,7 +72,9 @@ namespace Roadkill.Core.Cache
 		/// <returns>The cache HTML for the menu.</returns>
 		public string GetLoggedInMenu()
 		{
-			return _cache.Get(CacheKeys.LoggedInMenuKey()) as string;
+			//return _cache.Get(CacheKeys.LoggedInMenuKey()) as string;
+            //TODO issue when changing often the logger during tests
+            return null;
 		}
 
 		/// <summary>

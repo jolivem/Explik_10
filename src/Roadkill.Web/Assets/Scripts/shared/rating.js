@@ -225,12 +225,12 @@ $(document).ready(function () {
     });
 
     $("#buttoncanvas").click(function () {
-        html2canvas($('#pagecomments')[0], { scale : 0.5 }).
+        html2canvas($('#controlpage')[0], { scale : 0.5 }).
             //document.querySelector("#pagecomments")).
             then(canvas =>{
                 document.body.appendChild(canvas)
 
-                var pID = $("#pageinfo").attr("pageid");
+                var pID = $("#controlpage").attr("pageid");
                 var dataURL = canvas.toDataURL("image/png");
                 var dataURL = dataURL.replace('data:image/png;base64,', '');
 

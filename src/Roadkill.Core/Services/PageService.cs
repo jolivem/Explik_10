@@ -1168,7 +1168,7 @@ namespace Roadkill.Core.Services
             }        
         }
 
-        UserActivity GetUserActivity(string username)
+        public UserActivity GetUserActivity(string username)
         {
             List<Page> pages = (List<Page>)Repository.FindPagesCreatedBy(username);
 
