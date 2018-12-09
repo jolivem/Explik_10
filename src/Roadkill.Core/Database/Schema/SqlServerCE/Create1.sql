@@ -7,5 +7,5 @@ CREATE TABLE [roadkill_pages]
 	[CreatedOn] [datetime] NOT NULL,
 	[IsLocked] [bit] NOT NULL,
 	[ControlledBy] [nvarchar](255) NULL,
-	[ModifiedOn] [datetime] NULL
+	[PublishedOn] [datetime] NULL
 );

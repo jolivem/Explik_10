@@ -31,13 +31,17 @@ namespace Roadkill.Core.Services
 		private IPluginFactory _pluginFactory;
 		private static readonly LuceneVersion LUCENEVERSION = LuceneVersion.LUCENE_29;
 	    //private PageService pageService;
+	    private IRepository _repository;
+	    private ApplicationSettings _applicationSettings;
 
-		public SearchService(ApplicationSettings settings, IRepository repository, IPluginFactory pluginFactory)//, PageService _pageService)
-			: base(settings, repository)
+		public SearchService(ApplicationSettings applicationSettings, IRepository repository, IPluginFactory pluginFactory)//, PageService _pageService)
+            : base(applicationSettings, repository)
 		{
-			_markupConverter = new MarkupConverter(settings, repository, pluginFactory);
-			IndexPath = settings.SearchIndexPath;
-		  //  pageService = _pageService; //TODO maybe better to store all fileds in LUCENE ??? No because it is dynamic !!!
+            _markupConverter = new MarkupConverter(applicationSettings, repository, pluginFactory);
+			IndexPath = applicationSettings.SearchIndexPath;
+		    _repository = repository;
+		    _applicationSettings = applicationSettings;
+		    //  pageService = _pageService; //TODO maybe better to store all fileds in LUCENE ??? No because it is dynamic !!!
 		}
 
 		/// <summary>
@@ -83,7 +87,16 @@ namespace Roadkill.Core.Services
 						foreach (ScoreDoc scoreDoc in topDocs.ScoreDocs)
 						{
 							Document document = searcher.Doc(scoreDoc.Doc);
-							list.Add(new SearchResultViewModel(document, scoreDoc));
+
+						    int id = int.Parse(document.GetField("id").StringValue);
+						    // TODO optimyze: use cachebrowser or LUCENE DB
+                            Page page = _repository.GetPageById(id);
+						    if (page != null)
+						    {
+                                page.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + page.FilePath + "/";
+						        var model = new SearchResultViewModel(document, scoreDoc, page);
+						        list.Add(model);
+						    }
 						}
 					}
 				}

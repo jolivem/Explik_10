@@ -193,5 +193,14 @@ namespace Roadkill.Core.Security
 		/// <param name="context">The current <see cref="System.Web.HttpContext"/> for the request.</param>
 		/// <returns>The username of the logged in user, or an empty string if the user is not logged in.</returns>
 		public abstract string GetLoggedInUserName(HttpContextBase context);
+
+
+	    /// <summary>
+	    /// 
+	    /// </summary>
+	    /// <param name="email"></param>
+	    /// <returns></returns>
+        public abstract string GetAttachmentPath(string email);
+
 	}
 }

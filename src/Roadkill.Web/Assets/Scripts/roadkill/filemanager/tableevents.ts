@@ -20,7 +20,7 @@ module Roadkill.Web.FileManager
 
 			if ($(tr).attr("data-itemtype") !== "folder")
 			{
-				var path = TableEvents.getCurrentPath();
+                var path = TableEvents.getCurrentUserPath();
 				if (path !== "/")
 					path += "/";
 
@@ -42,6 +42,10 @@ module Roadkill.Web.FileManager
 		{
 			return $("ul.navigator li:last").attr("data-urlpath");
 		}
+
+        public static getCurrentUserPath(): string {
+            return $("ul.navigator li:last").attr("data-userurlpath");
+        }
 
         public static update(path: string = "", addBreadCrumb: boolean = true)
 		{

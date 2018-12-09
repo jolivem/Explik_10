@@ -8,6 +8,8 @@ using Roadkill.Core.Configuration;
 using System.Diagnostics;
 using System.Web;
 using System.Web.UI;
+
+using Roadkill.Core.Attachments;
 using Roadkill.Core.Services;
 using Roadkill.Core.Security;
 using Roadkill.Core.Mvc.Attributes;
@@ -27,6 +29,8 @@ namespace Roadkill.Core.Mvc.Controllers
 	    private PageService _pageService;
 		private SearchService _searchService;
 		private MarkupConverter _markupConverter;
+        //private AttachmentPathUtil _attachmentPathUtil;
+        private ApplicationSettings _applicationSettings ;
 
 		public HomeController(ApplicationSettings settings, UserServiceBase userManager, MarkupConverter markupConverter,
 			PageService pageService, SearchService searchService, IUserContext context, SettingsService settingsService)
@@ -35,6 +39,8 @@ namespace Roadkill.Core.Mvc.Controllers
 			_markupConverter = markupConverter;
 			_searchService = searchService;
 			_pageService = pageService;
+            //_attachmentPathUtil = new AttachmentPathUtil(settings);
+		    _applicationSettings = settings;
 		}
 
 		/// <summary>
@@ -44,30 +50,10 @@ namespace Roadkill.Core.Mvc.Controllers
 		[BrowserCache]
 		public ActionResult Index()
 		{
-			// Get the first locked homepage
-            //PageViewModel model = _pageService.FindHomePage();
-
-            //if (model == null)
-            //{
-            //    model = new PageViewModel();
-            //    model.Title = SiteStrings.NoMainPage_Title;
-            //    model.Content = SiteStrings.NoMainPage_Label;
-            //    model.ContentAsHtml = _markupConverter.ToHtml(SiteStrings.NoMainPage_Label).Html;
-            //    model.CreatedBy = "";
-            //    model.CreatedOn = DateTime.UtcNow;
-            //    model.RawTags = "homepage";
-            //    model.ModifiedOn = DateTime.UtcNow;
-            //    model.ControlledBy = "";
-            //    model.NbRating = 0;
-            //    model.NbView = 0;
-            //    model.IsVideo = false;
-            //    model.IsSubmitted = false;
-            //    model.IsControlled = false;
-            //    model.IsRejected = false;
-            //    model.TotalRating = 0;
-            //    model.VideoUrl = "";
-            //}
-
+		    if (Context.IsController)
+		    {
+                return RedirectToAction("AllNewPages", "Pages");
+		    }
             return RedirectToAction("Gallery");
 
 			//return View(model);
@@ -85,8 +71,22 @@ namespace Roadkill.Core.Mvc.Controllers
             var toto = _pageService.MyPages(Context.CurrentUsername);
             var titi = toto;
             model.listMostRecent = (List<Page>)_pageService.PagesMostRecent(5);
+            foreach (Page page in model.listMostRecent)
+            {
+                page.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + page.FilePath + "/";
+            }
+            
             model.listMostViewed = (List<Page>)_pageService.PagesMostViewed(5);
+            foreach (Page page in model.listMostViewed)
+            {
+                page.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + page.FilePath + "/";
+            }
+
             model.listBestRated = (List<Page>)_pageService.PagesBestRated(5);
+            foreach (Page page in model.listBestRated)
+            {
+                page.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + page.FilePath + "/";
+            }
 
             return View("Gallery", model);
             // display a galery of pages
@@ -101,17 +101,17 @@ namespace Roadkill.Core.Mvc.Controllers
 			ViewData["search"] = q;
 
 			List<SearchResultViewModel> results = _searchService.Search(q).ToList();
-		    foreach (var result in results)
-		    {
-		        Page page = _pageService.FindById(result.Id);
-		        if (page != null)
-		        {
-		            result.NbView = page.NbView;
-		            result.Rating = page.TotalRating / page.NbRating;
-		            //Image = page.FilePath + "thumb.png"; //TODO
-		            result.Canvas = "/Assets/Images/RaspberryPiBoard.png";
-		        }
-		    }
+            //foreach (var result in results)
+            //{
+            //    Page page = _pageService.FindById(result.Id);
+            //    if (page != null)
+            //    {
+            //        result.NbView = page.NbView;
+            //        result.Rating = page.TotalRating / page.NbRating;
+            //        //Image = page.FilePath + "thumb.png"; //TODO
+            //        result.Canvas = "/Assets/Images/RaspberryPiBoard.png";
+            //    }
+            //}
 
 
  //string image;

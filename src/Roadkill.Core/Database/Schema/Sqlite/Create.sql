@@ -8,16 +8,18 @@ CREATE TABLE roadkill_pages
 	[createdon] DATETIME, 
 	[islocked] BOOL, 
 	[controlledby] TEXT, 
-	[modifiedon] DATETIME,
+	[publishedon] DATETIME,
 	[isvideo] BOOL, 
 	[issubmitted] BOOL, 
 	[iscontrolled] BOOL, 
 	[isrejected] BOOL, 
+	[iscopied] BOOL, 
 	[nbrating] integer,
 	[totalrating] integer,
 	[nbview] integer,
     [filepath] TEXT, 
     [videourl] TEXT, 
+    [pseudonym] TEXT, 
     [controllerrating] integer
 );
 

@@ -40,5 +40,11 @@ namespace Roadkill.Core
         /// Gets whether the request is for a logged in user.
         /// </summary>
         bool IsLoggedIn { get; }
-	}
+
+
+        /// <summary>
+        /// Gets whether the request is for a logged in user.
+        /// </summary>
+        string AttachmentsPath { get; }
+    }
 }

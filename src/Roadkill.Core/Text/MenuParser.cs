@@ -130,14 +130,6 @@ namespace Roadkill.Core.Text
 				siteSettings = CreateAnchorTag(urlHelper.Action( "Index", "Settings"), SiteStrings.Navigation_SiteSettings);
 			}
 
-			if (!_userContext.IsLoggedIn)
-			{
-				newpage = "";
-				manageFiles = "";
-                allPages = "";
-                myPages = "";
-			}
-
             if (_userContext.IsController)
             {
                 // remove some menus
@@ -162,7 +154,6 @@ namespace Roadkill.Core.Text
                 allPages = "";
                 allNewPages = "";
                 alerts = "";
-                mainPage = ""; 
                 siteSettings = ""; 
             }
 

@@ -91,7 +91,7 @@ namespace Roadkill.Tests.Unit
 			page.CreatedOn = DateTime.Now;
 			page.IsLocked = true;
 			page.ControlledBy = "me2";
-			page.ModifiedOn = DateTime.Now.AddDays(1);
+			page.PublishedOn = DateTime.Now.AddDays(1);
 			page.Tags = "tag1,tag2,tag3";
 
 			// Act
@@ -104,8 +104,8 @@ namespace Roadkill.Tests.Unit
 			Assert.That(model.ControlledBy, Is.EqualTo(page.ControlledBy));
 			Assert.That(model.CreatedOn, Is.EqualTo(page.CreatedOn));
 			Assert.That(model.CreatedOn.Kind, Is.EqualTo(DateTimeKind.Utc));
-			Assert.That(model.ModifiedOn, Is.EqualTo(page.ModifiedOn));
-			Assert.That(model.ModifiedOn.Kind, Is.EqualTo(DateTimeKind.Utc));
+			Assert.That(model.PublishedOn, Is.EqualTo(page.PublishedOn));
+			Assert.That(model.PublishedOn.Kind, Is.EqualTo(DateTimeKind.Utc));
 
 			Assert.That(model.Tags.Count(), Is.EqualTo(3));
 			Assert.That(model.Tags, Contains.Item("tag1"));
@@ -125,7 +125,7 @@ namespace Roadkill.Tests.Unit
 			content.Page.CreatedOn = DateTime.Now;
 			content.Page.IsLocked = true;
 			content.Page.ControlledBy = "me2";
-			content.Page.ModifiedOn = DateTime.Now.AddDays(1);
+			content.Page.PublishedOn = DateTime.Now.AddDays(1);
 			content.Page.Tags = "tag1,tag2,tag3";
 			content.Text = "some text **in bold**";
 			content.VersionNumber = 5;
@@ -155,8 +155,8 @@ namespace Roadkill.Tests.Unit
 
 			Assert.That(model.CreatedOn, Is.EqualTo(content.Page.CreatedOn));
 			Assert.That(model.CreatedOn.Kind, Is.EqualTo(DateTimeKind.Utc));
-			Assert.That(model.ModifiedOn, Is.EqualTo(content.Page.ModifiedOn));
-			Assert.That(model.ModifiedOn.Kind, Is.EqualTo(DateTimeKind.Utc));
+			Assert.That(model.PublishedOn, Is.EqualTo(content.Page.PublishedOn));
+			Assert.That(model.PublishedOn.Kind, Is.EqualTo(DateTimeKind.Utc));
 
 			Assert.That(model.Tags.Count(), Is.EqualTo(3));
 			Assert.That(model.Tags, Contains.Item("tag1"));

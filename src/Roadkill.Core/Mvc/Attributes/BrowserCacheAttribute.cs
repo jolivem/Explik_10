@@ -90,7 +90,7 @@ namespace Roadkill.Core.Mvc.Attributes
 				//
 				// Is the page's last modified date after the plugin last save date?
 				//
-				DateTime pageModifiedDate = page.ModifiedOn.ToUniversalTime();
+				DateTime pageModifiedDate = page.PublishedOn.ToUniversalTime();
 
 				if (pageModifiedDate > pluginLastSaveDate)
 				{

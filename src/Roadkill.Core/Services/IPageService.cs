@@ -73,6 +73,13 @@ namespace Roadkill.Core.Services
         void DeletePage(int pageId);
 
         /// <summary>
+        /// Set Draft.
+        /// </summary>
+        /// <param name="pageId">The id of the page to remove.</param>
+        /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
+        //void SetDraft(int pageId);
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="pageId">The id of the page of the alert.</param>
@@ -84,28 +91,30 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <param name="pageId">The id of the page to remove.</param>
         /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
-        void SubmitPage(int pageId);
+        //void SubmitPage(int pageId);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="pageId">The id of the page to validate.</param>
-        /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
-        void ValidatePage(int pageId, string controllername, int rating);
+        /// <param name="pageId"></param>
+        /// <param name="controllername"></param>
+        /// <param name="rating"></param>
+        /// <param name="tags"></param>
+        void ValidatePage(int pageId, string controllername, int rating, string tags=null);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="pageId">The id of the page to reject.</param>
         /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
-        void RejectPage(int pageId);
+        //void RejectPage(int pageId);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="pageId">The id of the page to reset.</param>
         /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
-        void DeletPageAlerts(int pageId);
+        //void DeletPageAlerts(int pageId);
 
         /// <summary>
         /// 
@@ -202,8 +211,24 @@ namespace Roadkill.Core.Services
 	    /// <summary>
 	    /// Get information about user activity given a pageId
 	    /// </summary>
-	    /// <param name="pageId"></param>
+        /// <param name="username"></param>
 	    /// <returns></returns>
         UserActivity GetUserActivity(string username);
+
+	    /// <summary>
+	    /// 
+	    /// </summary>
+	    /// <param name="pageId"></param>
+	    /// <param name="username"></param>
+	    /// <param name="rating"></param>
+        void SetPageRatingForUser(int pageId, string username, int rating);
+
+	    /// <summary>
+	    /// 
+	    /// </summary>
+	    /// <param name="id"></param>
+	    /// <param name="currentUsername"></param>
+	    /// <returns></returns>
+        int GetPageRatingFromUser(int id, string username);
 	}
 }

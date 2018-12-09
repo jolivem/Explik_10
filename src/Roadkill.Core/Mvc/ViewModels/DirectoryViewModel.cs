@@ -34,14 +34,20 @@ namespace Roadkill.Core.Mvc.ViewModels
 		/// </summary>
 		public string UrlPath { get; set; }
 
-		/// <summary>
+        /// <summary>
+        /// The virtual path of the user directory, e.g. /date/user1
+        /// </summary>
+        public string UserUrlPath { get; set; }
+
+        /// <summary>
 		/// Initializes a new instance of the <see cref="DirectoryViewModel"/> class.
 		/// </summary>
 		/// <param name="name">The directory name.</param>
-		public DirectoryViewModel(string name, string urlPath)
+		public DirectoryViewModel(string name, string urlPath, string userUrlPath)
 		{
 			Name = name;
 			UrlPath = urlPath;
+            UserUrlPath = userUrlPath;
 			Files = new List<FileViewModel>();
 			ChildFolders = new List<DirectoryViewModel>();
 		}

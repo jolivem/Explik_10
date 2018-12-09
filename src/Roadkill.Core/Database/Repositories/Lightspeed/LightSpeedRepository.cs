@@ -310,7 +310,7 @@ namespace Roadkill.Core.Database.LightSpeed
 				UnitOfWork.SaveChanges();
 
 				// The page modified fields
-				pageEntity.ModifiedOn = editedOn;
+				pageEntity.PublishedOn = editedOn;
 				pageEntity.ControlledBy = editedBy;
 				UnitOfWork.SaveChanges();
 
@@ -333,7 +333,7 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public IEnumerable<Page> AllNewPages()
         {
-            List<PageEntity> entities = Pages.Where(p => p.IsRejected == false && p.IsSubmitted == true && p.IsControlled == false).ToList();
+            List<PageEntity> entities = Pages.Where(p => p.IsRejected == false && p.IsSubmitted == true && p.IsControlled == false && p.IsCopied == false).ToList();
             return FromEntity.ToPageList(entities);
         }
 
@@ -363,33 +363,42 @@ namespace Roadkill.Core.Database.LightSpeed
 			UnitOfWork.SaveChanges();
 		}
 
-        public void DeletePage(Page page)
+        public void DeletePage(int pageId)
         {
-            PageEntity entity = UnitOfWork.FindById<PageEntity>(page.Id);
+            PageEntity entity = UnitOfWork.FindById<PageEntity>(pageId);
             UnitOfWork.Remove(entity);
             UnitOfWork.SaveChanges();
         }
 
-        public void SubmitPage(Page page)
+        public void SetDraft(int pageId)
         {
-            PageEntity entity = UnitOfWork.FindById<PageEntity>(page.Id);
+            PageEntity entity = UnitOfWork.FindById<PageEntity>(pageId);
+            entity.IsControlled = false;
+            entity.IsSubmitted = false;
+            entity.IsRejected = false;
+            UnitOfWork.SaveChanges();
+        }
+
+        public void SubmitPage(int pageId)
+        {
+            PageEntity entity = UnitOfWork.FindById<PageEntity>(pageId);
             entity.IsControlled = false;
             entity.IsRejected = false;
             entity.IsSubmitted = true;
             UnitOfWork.SaveChanges();
         }
 
-        public void ValidatePage(Page page)
+        //public void ValidatePage(Page page)
+        //{
+        //    PageEntity entity = UnitOfWork.FindById<PageEntity>(page.Id);
+        //    entity.IsControlled = true;
+        //    entity.IsRejected = false;
+        //    entity.IsSubmitted = true;
+        //    UnitOfWork.SaveChanges();
+        //}
+        public void RejectPage(int pageId)
         {
-            PageEntity entity = UnitOfWork.FindById<PageEntity>(page.Id);
-            entity.IsControlled = true;
-            entity.IsRejected = false;
-            entity.IsSubmitted = true;
-            UnitOfWork.SaveChanges();
-        }
-        public void RejectPage(Page page)
-        {
-            PageEntity entity = UnitOfWork.FindById<PageEntity>(page.Id);
+            PageEntity entity = UnitOfWork.FindById<PageEntity>(pageId);
             entity.IsControlled = true;
             entity.IsRejected = true;
             UnitOfWork.SaveChanges();
@@ -406,8 +415,8 @@ namespace Roadkill.Core.Database.LightSpeed
 	    public IEnumerable<Page> FindMostRecentPages(int number)
 	    {
             List<PageEntity> entities = Pages
-                //.Where(p => p.IsControlled) TO ADD
-                .OrderBy( p => p.ModifiedOn) // used fo SubmittedOn
+                .Where(p => p.IsControlled)
+                .OrderBy( p => p.PublishedOn) // used fo SubmittedOn
                 .Take(number)
                 .ToList();
             return FromEntity.ToPageList(entities);
@@ -416,7 +425,7 @@ namespace Roadkill.Core.Database.LightSpeed
         public IEnumerable<Page> FindPagesBestRated(int number)
         {
             List<PageEntity> entities = Pages
-                //.Where(p => p.IsControlled) TO ADD
+                .Where(p => p.IsControlled)
                 .OrderByDescending(p => p.NbRating == 0 ? 0 : (float)(p.TotalRating/p.NbRating)) //TODO : use also explikRating
                 .Take(number)
                 .ToList();
@@ -426,7 +435,7 @@ namespace Roadkill.Core.Database.LightSpeed
         public IEnumerable<Page> FindPagesMostViewed(int number)
         {
             List<PageEntity> entities = Pages
-                //.Where(p => p.IsControlled) TO ADD
+                .Where(p => p.IsControlled)
                 .OrderByDescending(p => p.NbView)
                 .Take(number)
                 .ToList();
@@ -554,7 +563,28 @@ namespace Roadkill.Core.Database.LightSpeed
 	        }
 	    }
 
-	    public void AddPageRating(int pageId, int rating)
+        public void SetNbView(int pageId, int nbView)
+        {
+            PageEntity entity = UnitOfWork.FindById<PageEntity>(pageId);
+            if (entity != null)
+            {
+                entity.NbView = nbView;
+                UnitOfWork.SaveChanges();
+            }
+        }
+
+	    public void SetRating(int pageId, int nbRating, int totalRating)
+	    {
+            PageEntity entity = UnitOfWork.FindById<PageEntity>(pageId);
+            if (entity != null)
+            {
+                entity.TotalRating = totalRating;
+                entity.NbRating = nbRating;
+                UnitOfWork.SaveChanges();
+            }
+	    }
+
+        public void AddPageRating(int pageId, int rating)
 	    {
             PageEntity entity = UnitOfWork.FindById<PageEntity>(pageId);
             if (entity != null)
@@ -564,7 +594,19 @@ namespace Roadkill.Core.Database.LightSpeed
                 UnitOfWork.SaveChanges();
             }
         }
-		#endregion
+
+	    public void RemovePageRating(int pageId, int rating)
+	    {
+	        PageEntity entity = UnitOfWork.FindById<PageEntity>(pageId);
+	        if (entity != null)
+	        {
+	            entity.TotalRating -= rating;
+	            entity.NbRating--;
+	            UnitOfWork.SaveChanges();
+	        }
+	    }
+
+	    #endregion
 
 		#region IUserRepository
 		public void DeleteUser(User user)
@@ -695,9 +737,16 @@ namespace Roadkill.Core.Database.LightSpeed
             UnitOfWork.SaveChanges();
         }
 
+	    public void UpdateRating(Guid commentId, int rating)
+	    {
+            CommentEntity entity = Comment.Where(x => x.Id == commentId).Single();
+	        entity.Rating = rating;
+            UnitOfWork.SaveChanges();
+	    }
+
         public IEnumerable<Comment> FindAllCommentByPage(int pageId)
         {
-            List<CommentEntity> entities = Comment.Where(x => x.PageId == pageId).ToList();
+            List<CommentEntity> entities = Comment.Where(x => x.PageId == pageId && x.Text != "").ToList();
             return FromEntity.ToCommentList(entities);
         }
 

@@ -14,7 +14,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         public string CreatedBy;
         public DateTime CreatedOn;
 
-        public string EncodeRating()
+        public string EncodeCommentRating()
         {
             string active = "active ";
             StringBuilder builder = new StringBuilder();

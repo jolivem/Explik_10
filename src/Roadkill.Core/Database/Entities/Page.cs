@@ -70,7 +70,7 @@ namespace Roadkill.Core.Database
 		/// <value>
 		/// The modified on.
 		/// </value>
-		public DateTime ModifiedOn { get; set; }
+		public DateTime PublishedOn { get; set; }
 
 		/// <summary>
 		/// Gets or sets the tags for the page, in the format "tag1,tag2,tag3" (no spaces between tags).
@@ -101,6 +101,10 @@ namespace Roadkill.Core.Database
         /// </summary>
         public bool IsRejected { get; set; }
 
+        /// Gets or sets whether the page has been controlled by a controller.
+        /// </summary>
+        public bool IsCopied { get; set; }
+
         /// <summary>
         /// Gets or sets the number of time the pages was rated
         /// </summary>
@@ -119,13 +123,18 @@ namespace Roadkill.Core.Database
         /// <summary>
         /// 
         /// </summary>
-        public string FilePath { get; set; } // MJO TODO to be removed or rename for other need
+        public string FilePath { get; set; }
         
         /// <summary>
         /// 
         /// </summary>
         public string VideoUrl { get; set; }
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Pseudonym { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

@@ -1,0 +1,49 @@
+﻿
+@model PageViewModel
+@{
+    ViewBag.Title = Model.Title;
+}
+
+@section ViewHistoryLink
+{
+    <div id="viewhistory">@Html.ActionLink(SiteStrings.Navigation_ViewHistory, "History", "Pages", new { id = Model.Id }, null)</div>
+}
+
+<h1 class="pagetitle">
+    <table style="width:100%">
+        <tr>
+            <td>@Model.Title</td>
+        </tr>
+    </table>
+</h1>
+
+
+<div id="pagecontent">
+    @MvcHtmlString.Create(Model.ContentAsHtml)
+</div>
+
+
+@section PageDetailsFooter
+{
+}
+
+@section PluginHead
+{
+    <!-- Plugins -->
+    @Html.Raw(Model.PluginHeadHtml)<!-- End plugins head -->
+}
+
+@section PluginPreContainer
+{
+    @MvcHtmlString.Create(Model.PluginPreContainer)
+}
+
+@section PluginPostContainer
+{
+    @MvcHtmlString.Create(Model.PluginPostContainer)
+}
+
+@section PluginFooter
+{
+    @MvcHtmlString.Create(Model.PluginFooterHtml)
+}

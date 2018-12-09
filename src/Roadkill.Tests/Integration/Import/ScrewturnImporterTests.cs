@@ -77,7 +77,7 @@ namespace Roadkill.Tests.Integration
 			PageContent pageContent1 = repository.GetLatestPageContent(page1.Id);			
 			Assert.That(page1.Tags, Is.EqualTo("Category1;"));
 			Assert.That(page1.CreatedOn.ToString("u"), Is.EqualTo("2013-08-11 19:05:49Z"));
-			Assert.That(page1.ModifiedOn.ToString("u"), Is.EqualTo("2013-08-11 19:05:49Z"));
+			Assert.That(page1.PublishedOn.ToString("u"), Is.EqualTo("2013-08-11 19:05:49Z"));
 			Assert.That(page1.CreatedBy, Is.EqualTo("admin"));
 			Assert.That(page1.ControlledBy, Is.EqualTo("admin"));
 			Assert.That(pageContent1.Text, Is.EqualTo("This is an amazing Screwturn page."));
@@ -86,7 +86,7 @@ namespace Roadkill.Tests.Integration
 			PageContent pageContent2 = repository.GetLatestPageContent(page2.Id);
 			Assert.That(page2.Tags, Is.EqualTo("Category1;Category2;"));
 			Assert.That(page2.CreatedOn.ToString("u"), Is.EqualTo("2013-08-11 19:06:54Z"));
-			Assert.That(page2.ModifiedOn.ToString("u"), Is.EqualTo("2013-08-11 19:06:54Z"));
+			Assert.That(page2.PublishedOn.ToString("u"), Is.EqualTo("2013-08-11 19:06:54Z"));
 			Assert.That(page2.CreatedBy, Is.EqualTo("user2"));
 			Assert.That(page2.ControlledBy, Is.EqualTo("user2"));
 			Assert.That(pageContent2.Text, Is.EqualTo("Amazing screwturn page 2"));

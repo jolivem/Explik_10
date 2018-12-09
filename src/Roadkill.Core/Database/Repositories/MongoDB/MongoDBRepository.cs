@@ -266,7 +266,17 @@ namespace Roadkill.Core.Database.MongoDB
 			return new List<string>(Pages.Select(p => p.Tags));
 		}
 
-		public Page GetPageByTitle(string title)
+	    public void DeletePage(int pageId)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public void DeletePage(Page page)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public Page GetPageByTitle(string title)
 		{
 			if (string.IsNullOrEmpty(title))
 				return null;
@@ -370,12 +380,22 @@ namespace Roadkill.Core.Database.MongoDB
 			
 		}
 
-		public void DeletePage(Page page)
-		{
-			Delete<Page>(page);
-		}
+        public void SetDraft(int pageId)
+        {
+            throw new NotImplementedException();
+        }
 
-		public void DeleteUser(User user)
+	    public void SubmitPage(int pageId)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public void RejectPage(int pageId)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public void DeleteUser(User user)
 		{
 			Delete<User>(user);
 		}
@@ -423,7 +443,7 @@ namespace Roadkill.Core.Database.MongoDB
 
 		public PageContent AddNewPageContentVersion(Page page, string text, string editedBy, DateTime editedOn, int version)
 		{
-			page.ModifiedOn = editedOn;
+			page.PublishedOn = editedOn;
 			page.ControlledBy = editedBy;
 			SaveOrUpdate<Page>(page);
 
@@ -512,15 +532,35 @@ namespace Roadkill.Core.Database.MongoDB
             throw new NotImplementedException();
         }
 
-	    public void IncrementNbView(int pageId)
+        public void RemovePageRating(int pageId, int rating)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void IncrementNbView(int pageId)
 	    {
             throw new NotImplementedException();
 	    }
+
+        public void SetNbView(int pageId, int nbView)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetRating(int pageId, int nbRating, int totalRating)
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<Page> FindPagesWithAlerts()
         {
             throw new NotImplementedException();
         }
+
+	    public void UpdateRating(Guid commentId, int rating)
+	    {
+            throw new NotImplementedException();
+	    }
 
         #endregion
     }

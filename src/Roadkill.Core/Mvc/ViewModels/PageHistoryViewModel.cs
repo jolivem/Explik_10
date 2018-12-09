@@ -45,7 +45,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 		{
 			get
 			{
-				// EditedOn (ModifiedOn in the domain) is stored in UTC time, so just add a Z to indicate this.
+				// EditedOn (PublishedOn in the domain) is stored in UTC time, so just add a Z to indicate this.
 				return string.Format("{0}Z", EditedOn.ToString("s"));
 			}
 		}

@@ -203,7 +203,7 @@ namespace Roadkill.Tests.Unit.Mvc.Attributes
 			WikiController wikiController = new WikiController(appSettings, userManager, pageService, userContext, settingsService);
 
 			// Create a page that the request is for
-			Page page = new Page() { Title = "title", ModifiedOn = _pageModifiedDate };
+			Page page = new Page() { Title = "title", PublishedOn = _pageModifiedDate };
 			_repositoryMock.AddNewPage(page, "text", "user", _pageCreatedDate);
 
 			// Update the BrowserCacheAttribute

@@ -18,9 +18,9 @@
 
                 <div class="form-group">
                     <label for="rating" class="col-lg-2 control-label">@SiteStrings.Rate_Title</label>
-                    <div id="newrating" class="post_rating col-lg-10 form-control" value="@Model.Rating">
+                    <div id="newrating" class="col-lg-10 form-control" value="@Model.Rating">
                         <span class="postRating">
-                            @MvcHtmlString.Create(@Model.EncodeRating())<span id="rate-info"></span>
+                            @MvcHtmlString.Create(@Model.EncodeCommentRating())<span id="rate-info"></span>
                         </span>
                     </div>
                 </div>

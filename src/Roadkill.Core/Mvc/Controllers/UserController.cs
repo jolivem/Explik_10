@@ -151,10 +151,17 @@ namespace Roadkill.Core.Mvc.Controllers
 			{
 				Context.CurrentUser = UserService.GetLoggedInUserName(HttpContext);
 
-				if (!string.IsNullOrWhiteSpace(fromUrl))
-					return Redirect(fromUrl);
-				else
-					return RedirectToAction("Index","Home");
+			    if (Context.IsController)
+			    {
+                    return RedirectToAction("AllNewPages", "Pages");
+			    }
+			    else
+			    {
+			        if (!string.IsNullOrWhiteSpace(fromUrl))
+			            return Redirect(fromUrl);
+			        else
+			            return RedirectToAction("Index", "Home");
+			    }
 			}
 			else
 			{

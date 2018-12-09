@@ -8,12 +8,55 @@
     <div id="viewhistory">@Html.ActionLink(SiteStrings.Navigation_ViewHistory, "History", "Pages", new { id = Model.Id }, null)</div>
 }
 
-<div class="container">
+@Html.DialogPartial("PageRating", Model)
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var span = $(".postRating");
+        setRating__(span, @ViewBag.userrating);
+    });
+
+    function setRating__(span, rating){ // change star display
+        span.find('.rating.stars').each(function () {
+            var value = parseFloat($(this).attr("value"));
+            var imgSrc = $(this).attr("class");
+            if (value <= rating) $(this).attr("class", imgSrc.replace("_off", "_on"));
+            else $(this).attr("class", imgSrc.replace("_on", "_off"));
+        });
+    }
+
+        // Bind the info icon on each page
+    $("#pagerate-button-btn").click(function () {
+            Web.Dialogs.openModal("#pagerating");
+        });
+
+
+</script>
+
+
+<style type="text/css">
+    #srating {
+        padding-top: 8px;
+    }
+
+    #rate-info {
+        padding-left: 1em;
+    }
+</style>
+<div class="container" id="page-view" pageid="@Model.Id">
     <div class="row">
         <div class="col-sm-8">
             <h2 class="pagetitle">@Model.Title</h2>
+            <hr size=2 align=left width="90%" />
+            <p align="justify">@Model.Summary</p>
+            <hr size=2 align=left width="90%" />
+
+            <div id="pagecontent" style="text-align: justify;text-justify: inter-word">
+                @MvcHtmlString.Create(Model.ContentAsHtml)
+            </div>
         </div>
         <div class="col-sm-4">
+            <h2> </h2>
             @if (@Model.NbRating > 0)
             {
                 @MvcHtmlString.Create(@Model.EncodePageRating32(@Model.TotalRating / @Model.NbRating))
@@ -22,66 +65,61 @@
             {
                 @MvcHtmlString.Create(@Model.EncodePageRating32(0))
             }
-            <p>Number of views: @Model.NbView</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-10">
-            <hr size=2 align=center width="80%" />
-            <p align="justify">@Model.Summary</p>
-            <hr size=2 align=center width="80%" />
+            <p>Views: @Model.NbView</p>
 
-            <div id="pagecontent">
-                @MvcHtmlString.Create(Model.ContentAsHtml)
-            </div>
-            <hr size=2 align=center width="80%" />
+            <hr size=2 align=left width="90%" />
+            <p><b>@SiteStrings.Page_Info_CreatedBy2</b> @Model.CreatedBy</p>
+            @if (@Model.IsControlled)
+            {
+                <p><b> @SiteStrings.Page_Info_PublishedOn</b>@Model.PublishedOn.Date.ToString("dd/MM/yyyy")</p>
+            }
         </div>
+</div>
+<div id="pageinfo" pageid="@Model.Id">
+    <a id="pagerate-button" href="javascript:;"><small>Comment</small></a>    <a id="pagealert-button" href="javascript:;"><small>Alert</small></a>   @*<a id="pageshare-button" href="javascript:;"><small>Share</small></a>*@
+</div>
+<div class="row">
+    <hr size=2 align=left width="90%" />
+    @Html.Hidden("srating", (object)ViewBag.userrating)
+    <div class="col-sm-2">
+        <b>My rating</b>
     </div>
-    <div id="pageinfo" pageid="@Model.Id">
-        <div class="row">
-            <div class="col-sm-8">
-                <b>@SiteStrings.Page_Info_CreatedBy2</b>
-                @Model.CreatedBy<b>@SiteStrings.Page_Info_On</b>
-                @Model.CreatedOn.Date.ToString("dd/MM/yyyy")<b>. @SiteStrings.Page_Info_PublishedOn</b>
-                @Model.ModifiedOn.Date.ToString("dd/MM/yyyy")<br />
-            </div>
-            <div class="col-sm-4">
-                <a href="@Url.Action("CommentPage", "Comment", new { id = @Model.Id })"><small>Rate</small></a>
-                <a href="javascript:;"><small>Alert</small></a>
-                <a href="javascript:;"><small>Share</small></a>
-            </div>
-        </div>
-    </div>
-    <hr size=1 align=center width="80%" />
-    <div id="pagecomments">
-        <!-- Comments and rating -->
-        @MvcHtmlString.Create(@Model.GetCommentsHtml())
+    <div id="newrating" class="col-sm-4">
+        <span class="postRating">
+            @MvcHtmlString.Create(@Model.EncodeUserRating())
+        </span><span id="rate-info" style="padding-bottom: 20px"></span>
     </div>
 </div>
+<div id="pagecomments">
+    <hr size=2 align=center width="80%" />
+    <!-- Comments and rating -->
+    @MvcHtmlString.Create(@Model.GetCommentsHtml())
+</div>
+    </div>
 
 
-        @section PageDetailsFooter
+@section PageDetailsFooter
 {
-            @SiteStrings.Shared_LastModified <span id="lastmodified-on" title="@Model.ModifiedOnWithOffset">@Model.ModifiedOnWithOffset</span>.
-        }
+    @SiteStrings.Shared_LastModified <span id="lastmodified-on" title="@Model.ModifiedOnWithOffset">@Model.ModifiedOnWithOffset</span>.
+}
 
-        @section PluginHead
+@section PluginHead
 {
-            <!-- Plugins -->
-            @Html.Raw(Model.PluginHeadHtml)<!-- End plugins head -->
-        }
+    <!-- Plugins -->
+    @Html.Raw(Model.PluginHeadHtml)<!-- End plugins head -->
+}
 
-        @section PluginPreContainer
+@section PluginPreContainer
 {
-            @MvcHtmlString.Create(Model.PluginPreContainer)
-        }
+    @MvcHtmlString.Create(Model.PluginPreContainer)
+}
 
-        @section PluginPostContainer
+@section PluginPostContainer
 {
-            @MvcHtmlString.Create(Model.PluginPostContainer)
-        }
+    @MvcHtmlString.Create(Model.PluginPostContainer)
+}
 
-        @section PluginFooter
+@section PluginFooter
 {
-            @MvcHtmlString.Create(Model.PluginFooterHtml)
-        }
+    @MvcHtmlString.Create(Model.PluginFooterHtml)
+}

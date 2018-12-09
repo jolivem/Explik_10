@@ -428,7 +428,7 @@
   <data name="Page_Info_CreatedBy" xml:space="preserve">
     <value>Gemaakt door:</value>
   </data>
-  <data name="Page_Info_ModifiedOn" xml:space="preserve">
+  <data name="Page_Info_PublishedOn" xml:space="preserve">
     <value>Laatst gewijzigd op:</value>
   </data>
   <data name="Page_Info_ControlledBy" xml:space="preserve">

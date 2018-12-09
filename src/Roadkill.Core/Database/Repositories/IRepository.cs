@@ -16,6 +16,7 @@ namespace Roadkill.Core.Database
 		void Startup(DataStoreType dataStoreType, string connectionString, bool enableCache);
 		void TestConnection(DataStoreType dataStoreType, string connectionString);
 
-	    void AddPageRating(int pageId, int rating);
-	}
+        void AddPageRating(int pageId, int rating);
+        void RemovePageRating(int pageId, int rating);
+    }
 }

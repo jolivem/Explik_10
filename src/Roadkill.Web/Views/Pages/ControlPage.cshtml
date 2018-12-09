@@ -6,24 +6,28 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var pageTags = [ @(Html.Raw(Model.JavascriptArrayForAllTags()))];
-        var controlPage = new Roadkill.Web.EditPage(pageTags);
+        var editPage = new Roadkill.Web.EditPage(pageTags);
         $("#reject-page").hide();
         $("#valid-page").show();
     });
-    $('#radio-validate').on("click", function () {
-        alert("validate fired");
-    });
-    $('#radio-reject').on("click", function () {
-        alert("reject fired");
-    });
+    //$('#radio-validate').on("click", function () {
+    //    $("#btnSubmit").text("Validate");
+    //});
+    //$('#radio-reject').on("click", function () {
+    //    $("#btnSubmit").text("Reject");
+    //});
     $(document).on('change', 'input:radio[id^="q_op_"]', function (event) {
         if ($("input[name='op']:checked").val() == 'validate') {
             $("#valid-page").show();
             $("#reject-page").hide();
+            $("#btnSubmit").attr("value", "Validate");
+            $("#svalidated").val("true");
         }
         if ($("input[name='op']:checked").val() == 'reject') {
             $("#valid-page").hide();
             $("#reject-page").show();
+            $("#btnSubmit").attr("value", "Reject");
+            $("#svalidated").val("false");
         }
     });
 
@@ -35,12 +39,9 @@
 </style>
 
 <div class="container-fluid">
-    @Html.BootstrapValidationSummary(SiteStrings.EditPage_Error)
-
-    @(Html.HiddenFor<PageViewModel, string>(p => p.RawTags))
 
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-sm-7">
             <div id="controlpage" pageid="@Model.Id">
                 <h2 class="pagetitle">@Model.Title</h2>
                 <p align="justify">@Model.Summary</p>
@@ -50,51 +51,87 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
-            <p>Author: @Model.CreatedBy</p>
-            <p>Author since: @Model.GetUserActivity().OldestPageDate</p>
-            <p>Nb page published: @Model.GetUserActivity().NbPublications</p>
-            <p>Global rating: @Model.GetUserActivity().GlobalRating</p>
-        </div>
-        <hr />
-    </div>
-</div>
-
-<div id="q_opt" class="btn-group" data-toggle="buttons">
-    <label class="btn btn-default active" id="radio-validate">
-        <input id="q_op_0" name="op" type="radio" value="validate">Validate
-    </label>
-    <label class="btn btn-default" id="radio-reject">
-        <input id="q_op_1" name="op" type="radio" value="reject">Reject
-    </label>
-</div>
-<hr />
-<button id="buttoncanvas" type="button" class="btn btn-primary">CANVAS</button>
-
-<form class="form-horizontal" role="form" method="post">
-
-    <div id="valid-page">
-        @Html.Hidden("srating", Model.Rating)
-
-        <label for="tags" class="control-label">Add tags TODO</label>
-        <br>
-        @(Html.TextBox("TagsEntry", null, new { @class = "form-control tm-input", autocomplete = "off", tabindex = 2, placeholder = SiteStrings.EditPage_Tags_Label }))
-        <br>
-
-        <label for="rating" class="control-label">@SiteStrings.Rate_Title</label>
-        <div id="newrating" class="post_rating" value="@Model.Rating">
-            <span class="postRating">
-                @MvcHtmlString.Create(@Model.EncodeRating())<span id="rate-info"></span>
-            </span>
+        <div class="col-sm-4">
+            <h2 class="pagetitle"> </h2>
+            <p>
+                <b>Author:</b> @Model.CreatedBy<br />
+                <b>Author since:</b> @Model.GetUserActivity().OldestPageDate.ToString("dd/MM/yyy")<br />
+                <b>Nb page published:</b> @Model.GetUserActivity().NbPublications<br />
+                <b>Global rating:</b> @Model.GetUserActivity().GlobalRating
+            </p>
         </div>
     </div>
 
-    <div id="reject-page">
-        <label for="RejectReason">Email message</label>
-        @Html.BootstrapDropDownListFor(s => s.RejectReason, new SelectList(Model.RejectReasonAvailable, Model.RejectReason), "TODO I don't know what")
-    </div>
     <hr />
-    <div class="form-group row col-lg-8">
-        <input type="submit" class="btn btn-primary right" value="@SiteStrings.Button_Submit" />
+
+    <div id="editpage" class="row">
+        <div class="col-sm-7">
+            <div id="q_opt" class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default active" id="radio-validate">
+                    <input id="q_op_0" name="op" type="radio" value="validate">Validate
+                </label>
+                <label class="btn btn-default" id="radio-reject">
+                    <input id="q_op_1" name="op" type="radio" value="reject">Reject
+                </label>
+            </div>
+            <hr />
+            <form role="form" method="post">
+                @Html.BootstrapValidationSummary(SiteStrings.EditPage_Error)
+                @Html.Hidden("svalidated", "true")
+                @Html.Hidden("srating", Model.Rating)
+                @Html.Hidden("RawTags", Model.RawTags)
+                <input type="hidden" id="scanvas" name="scanvas" value="">
+
+                <div id="valid-page">
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-5">
+                                <label for="tags" class="control-label">Add tags TODO</label>
+                            </div>
+                            <div class="col-sm-7">
+                                @(Html.TextBox("TagsEntry", null, new { @class = "form-control tm-input", autocomplete = "off", tabindex = 2, placeholder = SiteStrings.EditPage_Tags_Label }))
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-5">
+                                <label for="rating" class="control-label">@SiteStrings.Rate_Title</label>
+                            </div>
+                            <div class="col-sm-7">
+                                <div id="newrating" value="@Model.Rating">
+                                    <span class="postRating">
+                                        @MvcHtmlString.Create(@Model.EncodeControlRating())<div id="rate-info"> </div>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <button id="buttoncanvas" type="button" class="btn btn-info control-label">Canvas preview</button>
+                        </div>
+                        <div class="col-sm-7">
+                            <img id="canvas-preview" src="" height="120" />
+                        </div>
+                    </div>
+                </div>
+
+                <div id="reject-page">
+                    <label for="RejectReason">Email message</label>
+                    @Html.BootstrapDropDownListFor(s => s.RejectReason, new SelectList(Model.RejectReasonAvailable, Model.RejectReason), "TODO I don't know what")
+                </div>
+                <hr />
+
+
+                <div class="form-group">
+                    <input type="submit" id="btnSubmit" class="btn btn-primary right" value="@SiteStrings.Button_Validate" />
+                </div>
+            </form>
+        </div>
     </div>
-</form>
+</div>

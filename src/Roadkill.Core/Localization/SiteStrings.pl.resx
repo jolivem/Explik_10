@@ -426,7 +426,7 @@
   <data name="Page_Info_CreatedBy" xml:space="preserve">
     <value>Przez:</value>
   </data>
-  <data name="Page_Info_ModifiedOn" xml:space="preserve">
+  <data name="Page_Info_PublishedOn" xml:space="preserve">
     <value>Ostatnia zmiana:</value>
   </data>
   <data name="Page_Info_ControlledBy" xml:space="preserve">

@@ -111,7 +111,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 		{
 		}
 
-		public SearchResultViewModel(Document document, ScoreDoc scoreDoc)
+		public SearchResultViewModel(Document document, ScoreDoc scoreDoc, Page page)
 		{
 			if (document == null)
 				throw new ArgumentNullException("document");
@@ -134,10 +134,49 @@ namespace Roadkill.Core.Mvc.ViewModels
 				createdOn = DateTime.UtcNow;
 
 			CreatedOn = createdOn;
-            
+
+		    NbView = page.NbView;
+		    if (page.NbRating > 0)
+		    {
+		        Rating = page.TotalRating / page.NbRating;
+		    }
+		    else
+		    {
+		        Rating = 0.0;
+		    }
+		    Canvas = page.FilePath + "page_" + page.Id + ".png";
+
 		}
 
-		private void EnsureFieldsExist(Document document)
+        public string EncodePageRating(double rating)
+        {
+            if (rating == 0)
+            {
+                return "";
+            }
+
+            string active = "passive ";
+            StringBuilder builder = new StringBuilder();
+            string formatStr = "<span class='rating16 stars16 {2}star16-{0}' value='{1}'></span>";
+
+            //rating = Math.Round(rating, 1);
+
+            for (double i = .5; i <= 5.0; i = i + .5)
+            {
+                if (i <= rating)
+                {
+                    builder.AppendFormat(formatStr, (i * 2) % 2 == 1 ? "left_on" : "right_on", i, active);
+                }
+                else
+                {
+                    builder.AppendFormat(formatStr, (i * 2) % 2 == 1 ? "left_off" : "right_off", i, active);
+                }
+            }
+            //builder.AppendFormat("rating={0}", rating);
+            return builder.ToString();
+        }
+
+        private void EnsureFieldsExist(Document document)
 		{
 			IList<IFieldable> fields = document.GetFields();
 			EnsureFieldExists(fields, "id");

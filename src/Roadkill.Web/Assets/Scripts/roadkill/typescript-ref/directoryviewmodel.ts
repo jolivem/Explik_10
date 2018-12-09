@@ -6,7 +6,8 @@ module Roadkill.Web.FileManager
 		status: string;
 		message: string;
 		Name: string;
-		UrlPath: string;
+        UrlPath: string;
+        UserUrlPath: string;
 		ChildFolders: DirectoryViewModel[];
 		Files: FileModel[];
 	}

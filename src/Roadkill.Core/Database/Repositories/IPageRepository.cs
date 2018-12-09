@@ -20,8 +20,12 @@ namespace Roadkill.Core.Database
         IEnumerable<Page> MyPages(string username);
         IEnumerable<PageContent> AllPageContents();
 		IEnumerable<string> AllTags();
-		void DeletePage(Page page);
-		/// <summary>
+        void DeletePage(int pageId);
+        void SetDraft(int pageId);
+        void SubmitPage(int pageId);
+
+	    void RejectPage(int pageId);
+        /// <summary>
 		/// Removes a single version of page contents by its id.
 		/// </summary>
 		/// <param name="pageContent"></param>
@@ -56,6 +60,8 @@ namespace Roadkill.Core.Database
 		void UpdatePageContent(PageContent content); // no new version
 
         void IncrementNbView(int pageId);
+        void SetNbView(int pageId, int nbView);
+        void SetRating(int pageId, int nbRating, int totalRating);
 
 	}
 }

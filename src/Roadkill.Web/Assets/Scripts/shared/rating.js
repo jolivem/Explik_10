@@ -86,7 +86,6 @@ $(document).ready(function () {
     });
 
 
-
     //************** begin star 32 rating system *****************
     function setRating32(span, rating){ // change star display
         span.find('.rating32.stars32').each(function () {
@@ -123,20 +122,32 @@ $(document).ready(function () {
         $("#rate-info").html(title); 
         $("#srating").val(newRating);
         setRating32(span, newRating);
+
+        var pID = $("#page-view").attr("pageid");
+        //var pRating = $("#srating").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/Pages/PageRating",
+            data: {
+                id: pID,
+                rating: newRating
+            },
+            success: function (response) {
+                toastr.success("Taken into account");
+            },
+            failure: function (response) {
+                alert("failure");
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+
+        });
     });
 
-
-
-
-
-
-
-
-
-
-
-
-    function setRating(span, rating){ // change star display
+    //************** begin star 24 rating system *****************
+    function setRating(span, rating) { // change star display
         span.find('.rating.stars').each(function () {
             var value = parseFloat($(this).attr("value"));
             var imgSrc = $(this).attr("class");
@@ -146,46 +157,83 @@ $(document).ready(function () {
     }
 
     $(".rating.stars.active").mouseover(function () {
-        var span = $(this).parent("span");
-        var newRating = $(this).attr("value");
-        setRating(span, newRating);
+        var srating = $("#srating").attr("value");
+        if (srating == 0) {
+            var span = $(this).parent("span");
+            var rating = $(this).attr("value");
+            setRating(span, rating);
+        }
     });
 
     $(".rating.stars.active").mouseout(function () {
 
         var span = $(this).parent("span");
         var rating = $(this).attr("value");
-        setRating(span, rating);
+        if (rating == 0) {
+            setRating(span, rating);
+        }
     });
 
     $(".rating.stars.active").click(function () {
+        var span = $(this).parent("span");
         var newRating = $(this).attr("value");
         $("#newrating").attr("value", newRating);
-    });
+        var title = $(this).attr("title");
+        $("#rate-info").html(title);
+        $("#srating").val(newRating);
+        setRating(span, newRating);
 
-    $("#buttonrating").click(function () {
-        var newRating = $("#newrating").attr("value");
-        var pID = $("#newrating").attr("pageid");
-        var text = $("#commentarea").val();
+        var pID = $("#page-view").attr("pageid");
+        //var pRating = $("#srating").val();
+
         $.ajax({
-            type : "POST",
-            url : "/Pages/AddComment",
-            data : { id : pID, rating : newRating, comment : text },
-            success : function (response){
-                toastr.success("Comment taken into account");
+            type: "POST",
+            url: "/Pages/PageRating",
+            data: {
+                id: pID,
+                rating: newRating
             },
-            failure : function (response){
+            success: function (response) {
+                toastr.success("Taken into account");
+            },
+            failure: function (response) {
                 alert("failure");
             },
-            error : function (response){
+            error: function (response) {
                 alert(response.responseText);
             }
 
         });
     });
 
+
+
+    //$("#submit-rating").click(function () {
+    //    var pID = $("#page-view").attr("pageid");
+    //    var pRating = $("#srating").val();
+
+    //    $.ajax({
+    //        type : "POST",
+    //        url : "/Pages/PageRating",
+    //        data : {
+    //            id: pID,
+    //            rating: pRating
+    //        },
+    //        success: function (response) {
+    //            toastr.success("Taken into account");
+    //        },
+    //        failure: function (response) {
+    //            alert("failure");
+    //        },
+    //        error: function (response) {
+    //            alert(response.responseText);
+    //        }
+
+    //    });
+    //});
+
     $("#pagealert-button").click(function () {
-        var pID = $("#pagealert").attr("pageid");
+        var pID = $("#pageinfo").attr("pageid");
 
         $.ajax({
             type : "POST",
@@ -225,32 +273,39 @@ $(document).ready(function () {
     });
 
     $("#buttoncanvas").click(function () {
-        html2canvas($('#controlpage')[0], { scale : 0.5 }).
-            //document.querySelector("#pagecomments")).
-            then(canvas =>{
-                document.body.appendChild(canvas)
+        html2canvas($('#pagecontent__')[0], { scale: 1 }).
+            then(function(canvas) {
+                //canvas.style.height = "120";
+                //canvas.style.Width = "100";
+                //canvas.Height = "100px";
+                //$("#imgcanvas").replaceWith(canvas);
+                //canvas.id = "imgcanvas";
 
-                var pID = $("#controlpage").attr("pageid");
+                var pID = $("#pagecontent__").attr("pageid");
+                var datadisplay = canvas.toDataURL("image/png");
+                $("#canvas-preview").attr("src", datadisplay);
                 var dataURL = canvas.toDataURL("image/png");
                 var dataURL = dataURL.replace('data:image/png;base64,', '');
+                $("#scanvas").val(dataURL);
 
-                $.ajax({
-                    type : "POST",
-                    url : "/Pages/UploadCanvas",
-                    data : '{ "id" : "' + pID + '", "image" : "' + dataURL + '" }',
-                    contentType : 'application/json; charset=utf-8',
-                    dataType : 'json',
-                    success : function (response){
-                        toastr.success("Canvas taken into account");
-                    },
-                    failure : function (response){
-                        alert("failure");
-                    },
-                    error : function (response){
-                        alert(response.responseText);
-                    }
+                // sent via HTTP POST
+                //$.ajax({
+                //    type : "POST",
+                //    url : "/Pages/UploadCanvas",
+                //    data : '{ "id" : "' + pID + '", "image" : "' + dataURL + '" }',
+                //    contentType : 'application/json; charset=utf-8',
+                //    dataType : 'json',
+                //    success : function (response){
+                //        toastr.success("Canvas taken into account");
+                //    },
+                //    failure : function (response){
+                //        alert("failure");
+                //    },
+                //    error : function (response){
+                //        alert(response.responseText);
+                //    }
 
-                });
+                //});
 
             });
     });

@@ -651,7 +651,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Localization\SiteStrings.de.resx" />
-    <EmbeddedResource Include="Localization\SiteStrings.es.resx" />
+    <EmbeddedResource Include="Localization\SiteStrings.es.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Localization\SiteStrings.hi.resx" />
     <EmbeddedResource Include="Localization\SiteStrings.it.resx" />
     <EmbeddedResource Include="Localization\SiteStrings.nl.resx" />

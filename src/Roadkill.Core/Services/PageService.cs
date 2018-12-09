@@ -14,6 +14,7 @@ using System.Windows.Forms;
 
 using Lucene.Net.Support;
 
+using Roadkill.Core.Attachments;
 using Roadkill.Core.Logging;
 using Roadkill.Core.Mvc;
 using Roadkill.Core.Text;
@@ -50,6 +51,13 @@ namespace Roadkill.Core.Services
             _siteCache = sitecache;
             _pluginFactory = pluginFactory;
             _markupLinkUpdater = new MarkupLinkUpdater(_markupConverter.Parser);
+
+            //            foreach (Page page in pages)
+            //{
+            //     page.FilePath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath
+                
+            //}
+            //TODO change file path
         }
 
         /// <summary>
@@ -70,14 +78,17 @@ namespace Roadkill.Core.Services
                 page.Tags = model.CommaDelimitedTags();
                 page.CreatedBy = AppendIpForDemoSite(currentUser);
                 page.CreatedOn = DateTime.UtcNow;
-                page.ModifiedOn = DateTime.UtcNow;
+                page.PublishedOn = DateTime.UtcNow;
                 page.ControlledBy = AppendIpForDemoSite(currentUser);
                 page.Summary = model.Summary;
                 page.IsVideo = model.IsVideo;
                 page.IsControlled = false;
                 page.IsRejected = false;
+                page.IsCopied = false;
                 page.IsSubmitted = false;
                 page.VideoUrl = model.VideoUrl;
+                page.Pseudonym = model.Pseudonym;
+                page.FilePath = DateTime.UtcNow.ToString("yyyy-MM") + "\\" + _context.CurrentUsername;
 
                 // Double check, incase the HTML form was faked.
                 if (_context.IsAdmin)
@@ -130,8 +141,10 @@ namespace Roadkill.Core.Services
                         page.Tags = "tage"+i;
                         page.CreatedBy = AppendIpForDemoSite(currentUser);
                         page.CreatedOn = DateTime.UtcNow;
-                        page.ModifiedOn = DateTime.UtcNow;
+                        page.PublishedOn = DateTime.UtcNow;
                         page.ControlledBy = AppendIpForDemoSite(currentUser);
+                        page.FilePath = DateTime.UtcNow.ToString("yyyy-MM") + "\\" + _context.CurrentUsername;
+                        
 
                         // Double check, incase the HTML form was faked.
                         //if (_context.IsAdmin)
@@ -144,6 +157,15 @@ namespace Roadkill.Core.Services
                             "(coucous du Nouveau Monde). Le plus souvent toutefois, en disant « coucou » les francophones font référence au Coucou gris(Cuculus canorus). ";
 
                         PageContent pageContent = Repository.AddNewPage(page, content, AppendIpForDemoSite(currentUser), DateTime.UtcNow);
+
+                        //nb view
+                        Random r = new Random();
+                        Repository.SetNbView(pageContent.Page.Id, r.Next(0, 100000));
+
+                        //rating
+                        Repository.SetRating(pageContent.Page.Id, 10, r.Next(10, 500));
+
+                        ValidatePage(pageContent.Page.Id, "Controller", 3, "");
 
                         _listCache.RemoveAll();
                         _pageViewModelCache.RemoveAll(); // completely clear the cache to update any reciprocal links.
@@ -467,7 +489,7 @@ namespace Roadkill.Core.Services
                     Repository.DeletePageContent(children[i]);
                 }
 
-                Repository.DeletePage(page);
+                Repository.DeletePage(pageId);
 
                 // Remove everything for now, to avoid reciprocal link issues
                 _listCache.RemoveAll();
@@ -484,37 +506,41 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <param name="pageId">The id of the page to remove.</param>
         /// <exception cref="DatabaseException">An databaseerror occurred while deleting the page.</exception>
-        public void SubmitPage(int pageId)
-        {
-            try
-            {
-                Page page = Repository.GetPageById(pageId);
-                page.IsControlled = false;
-                page.IsRejected = false;
-                page.IsSubmitted = true;
-                Repository.SaveOrUpdatePage(page);
-            }
-            catch (DatabaseException ex)
-            {
-                throw new DatabaseException(ex, "An error occurred while submitting the page id {0} from the database", pageId);
-            }
-        }
+        //public void SubmitPage(int pageId)
+        //{
+        //    try
+        //    {
+        //        Page page = Repository.GetPageById(pageId);
+        //        page.IsControlled = false;
+        //        page.IsRejected = false;
+        //        page.IsSubmitted = true;
+        //        Repository.SaveOrUpdatePage(page);
+        //    }
+        //    catch (DatabaseException ex)
+        //    {
+        //        throw new DatabaseException(ex, "An error occurred while submitting the page id {0} from the database", pageId);
+        //    }
+        //}
 
         /// <summary>
         /// Validates a page from the database.
         /// </summary>
         /// <param name="pageId">The id of the page to validate.</param>
         /// <exception cref="DatabaseException">An databaseerror occurred while deleting the page.</exception>
-        public void ValidatePage(int pageId, string controllerName, int rating)
+        public void ValidatePage(int pageId, string controllerName, int rating, string tags=null)
         {
             try
             {
                 Page page = Repository.GetPageById(pageId);
                 page.IsControlled = true;
                 page.ControlledBy = controllerName;
-                page.ModifiedOn = DateTime.UtcNow;
+                page.PublishedOn = DateTime.UtcNow;
                 page.ControllerRating = rating;
                 page.IsRejected = false;
+                if (tags != null)
+                {
+                    page.Tags = tags; //TODO add controller tags to user tags, dont ecrase
+                }
                 Repository.SaveOrUpdatePage(page);
             }
             catch (DatabaseException ex)
@@ -528,37 +554,37 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <param name="pageId">The id of the page to reject.</param>
         /// <exception cref="DatabaseException">An databaseerror occurred while deleting the page.</exception>
-        public void RejectPage(int pageId)
-        {
-            try
-            {
-                Page page = Repository.GetPageById(pageId);
-                page.IsControlled = true;
-                page.IsRejected = true;
-                Repository.SaveOrUpdatePage(page);
-            }
-            catch (DatabaseException ex)
-            {
-                throw new DatabaseException(ex, "An error occurred while rejecting the page id {0} from the database", pageId);
-            }
-        }
+        //public void RejectPage(int pageId)
+        //{
+        //    try
+        //    {
+        //        Page page = Repository.GetPageById(pageId);
+        //        page.IsControlled = true;
+        //        page.IsRejected = true;
+        //        Repository.SaveOrUpdatePage(page);
+        //    }
+        //    catch (DatabaseException ex)
+        //    {
+        //        throw new DatabaseException(ex, "An error occurred while rejecting the page id {0} from the database", pageId);
+        //    }
+        //}
 
         /// <summary>
         /// Rejects a page from the database.
         /// </summary>
         /// <param name="pageId">The id of the page to reject.</param>
         /// <exception cref="DatabaseException">An databaseerror occurred while deleting the page.</exception>
-        public void DeletPageAlerts(int pageId) //TODO with new table
-        {
-            try
-            {
-                Repository.DeletPageAlerts(pageId);
-            }
-            catch (DatabaseException ex)
-            {
-                throw new DatabaseException(ex, "An error occurred while reseting alerts of the page id {0} from the database", pageId);
-            }
-        }
+        //public void DeletPageAlerts(int pageId) //TODO with new table
+        //{
+        //    try
+        //    {
+        //        Repository.DeletPageAlerts(pageId);
+        //    }
+        //    catch (DatabaseException ex)
+        //    {
+        //        throw new DatabaseException(ex, "An error occurred while reseting alerts of the page id {0} from the database", pageId);
+        //    }
+        //}
 
         public void DeletCommentAlerts(Guid commentGuid)
         {
@@ -754,8 +780,8 @@ namespace Roadkill.Core.Services
                 Page page = Repository.GetPageById(model.Id);
                 page.Title = model.Title;
                 page.Tags = model.CommaDelimitedTags();
-                page.ModifiedOn = DateTime.UtcNow;
-                page.ControlledBy = AppendIpForDemoSite(currentUser);
+                page.PublishedOn = DateTime.UtcNow;
+                page.ControlledBy = "";//AppendIpForDemoSite(currentUser);
 
                 page.IsControlled = false;
                 page.IsRejected = false;
@@ -765,6 +791,7 @@ namespace Roadkill.Core.Services
                 page.IsVideo = model.IsVideo;
                 page.VideoUrl = model.VideoUrl;
 
+                page.Pseudonym = model.Pseudonym;
 
                 // A second check to ensure a fake IsLocked POST doesn't work.
                 if (_context.IsAdmin)
@@ -1005,7 +1032,10 @@ namespace Roadkill.Core.Services
             try
             {
                 Repository.AddComment(comment);
-                Repository.AddPageRating(comment.PageId, comment.Rating);
+                if (comment.Rating != 0)
+                {
+                    Repository.AddPageRating(comment.PageId, comment.Rating);
+                }
 
             }
             catch (DatabaseException ex)
@@ -1096,7 +1126,7 @@ namespace Roadkill.Core.Services
                 page.Tags = "";
                 page.CreatedBy = user;
                 page.CreatedOn = DateTime.UtcNow;
-                page.ModifiedOn = DateTime.UtcNow;
+                page.PublishedOn = DateTime.UtcNow;
                 page.ControlledBy = user;
                 page.IsVideo = isVideo;
                 string content = "";
@@ -1112,10 +1142,12 @@ namespace Roadkill.Core.Services
                         "Anciennement, la majorité des espèces appartenait au genre Parus. Elles figurent actuellement au sein de ce genre et de quatre autres : Cyanistes, Lophophanes, Periparus et Poecile. La mésange à longue queue fait, quant à elle, partie de la famille des Aegithalidae. ";
 
                 }
+                page.Pseudonym = null;
                 page.IsControlled = false;
                 page.IsRejected = false;
                 page.IsSubmitted = false;
                 page.IsLocked = false;
+                page.FilePath = DateTime.UtcNow.ToString("yyyy-MM") + "\\" + _context.CurrentUsername;
 
 
                 PageContent pageContent = Repository.AddNewPage(page, content, AppendIpForDemoSite(currentUser), DateTime.UtcNow);
@@ -1181,16 +1213,57 @@ namespace Roadkill.Core.Services
                 // gloabl rating
                 long sumRatings = pages.Sum(p => p.TotalRating);
                 long nbRatings = pages.Sum(p => p.NbRating);
-                userActivity.GlobalRating = sumRatings / nbRatings;
+                userActivity.GlobalRating = 3.5; //TODO beware divided by zero sumRatings / nbRatings;
 
                 // oldest
-                Page oldestPage = pages.OrderBy(p => p.ModifiedOn).First();
-                userActivity.OldestPageDate = oldestPage.ModifiedOn; // PublishedOn
+                Page oldestPage = pages.OrderBy(p => p.PublishedOn).First();
+                userActivity.OldestPageDate = oldestPage.PublishedOn; // PublishedOn
 
                 return userActivity;
             }
 
             return null;
         }
+
+        /// <summary>
+        /// SetPageRatingForUser
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <param name="username"></param>
+        /// <param name="rating"></param>
+        public void SetPageRatingForUser(int pageId, string username, int rating)
+        {
+            Comment comment = FindCommentByPageAndUser(pageId, username);
+            if (comment != null)
+            {
+                if (comment.Rating != 0)
+                {
+                    Repository.RemovePageRating(pageId, comment.Rating);
+                }
+                Repository.UpdateRating(comment.Id, rating);
+            }
+            else
+            {
+                comment = new Comment(pageId, username, rating, "");
+                AddComment(comment);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public int GetPageRatingFromUser(int id, string username)
+        {
+            Comment comment = FindCommentByPageAndUser(id, username);
+            if (comment != null)
+            {
+                return comment.Rating;
+            }
+            return 0;
+        }
+    
     }
 }

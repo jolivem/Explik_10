@@ -300,7 +300,7 @@ namespace Roadkill.Tests.Integration
 				Content = textContent,
 				CreatedOn = createdOn.Value,
 				ControlledBy = createdBy,
-				ModifiedOn = createdOn.Value,
+				PublishedOn = createdOn.Value,
 				VersionNumber = 1
 			};
 		}

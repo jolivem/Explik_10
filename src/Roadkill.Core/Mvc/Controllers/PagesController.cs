@@ -17,6 +17,8 @@ using Roadkill.Core.Extensions;
 using Roadkill.Core.Database;
 using System.IO;
 
+using Roadkill.Core.Attachments;
+
 namespace Roadkill.Core.Mvc.Controllers
 {
 	/// <summary>
@@ -30,16 +32,24 @@ namespace Roadkill.Core.Mvc.Controllers
 		private IPageService _pageService;
 		private SearchService _searchService;
 		private PageHistoryService _historyService;
+        private AttachmentPathUtil _attachmentPathUtil;
+        private UserServiceBase _userServiceBase;
+        private IRepository _repository;
+
 
 		public PagesController(ApplicationSettings settings, UserServiceBase userManager,
 			SettingsService settingsService, IPageService pageService, SearchService searchService,
-			PageHistoryService historyService, IUserContext context)
+            PageHistoryService historyService, IUserContext context, IRepository repository)
 			: base(settings, userManager, context, settingsService)
 		{
 			_settingsService = settingsService;
 			_pageService = pageService;
 			_searchService = searchService;
 			_historyService = historyService;
+            _attachmentPathUtil = new AttachmentPathUtil(settings);
+		    _userServiceBase = userManager;
+		    _repository = repository;
+
 		}
 
 		/// <summary>
@@ -65,18 +75,19 @@ namespace Roadkill.Core.Mvc.Controllers
             return View(all);
         }
 
-        /// <summary>
-        /// Displays a list of all alerted page titles and ids in Roadkill.
-        /// </summary>
-        /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
-        //[BrowserCache]
-        //[ControllerRequired]
-        //public ActionResult AllAlerts()
-        //{
-        //    return View(_pageService.AllPagesWithAlerts());
-        //}
+	    /// <summary>
+	    /// Displays a list of all alerted page titles and ids in Roadkill.
+	    /// </summary>
+	    /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
+	    [BrowserCache]
+	    [ControllerRequired]
+	    public ActionResult AllPagesWithAlerts()
+	    {
+	        var all = _pageService.AllPagesWithAlerts();
+	        return View(all);
+	    }
 
-        /// <summary>
+	    /// <summary>
         /// Displays a list of current user page titles and ids in Roadkill.
         /// </summary>
         /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
@@ -86,6 +97,7 @@ namespace Roadkill.Core.Mvc.Controllers
             //TODO removeid, not needed !!!
             // after submit, id = null --> leads to an exception
             // when changing the user, the id is the older one
+            ViewBag.IsUserAdmin = Context.IsAdmin;
             string currentUser = Context.CurrentUsername;
             if (id == Context.CurrentUsername)
             {
@@ -170,6 +182,14 @@ namespace Roadkill.Core.Mvc.Controllers
             return RedirectToAction("MyPages");
         }
 
+        [EditorRequired]
+        public ActionResult Draft(int id)
+        {
+            _repository.SetDraft(id);
+
+            return RedirectToAction("MyPages");
+        }
+
         /// <summary>
         /// Deletes a wiki page.
         /// </summary>
@@ -179,7 +199,15 @@ namespace Roadkill.Core.Mvc.Controllers
         [EditorRequired]
         public ActionResult Submit(int id)
         {
-            _pageService.SubmitPage(id);
+            if (Context.IsAdmin)
+            {
+                // submit is a validate for the admin
+                _pageService.ValidatePage(id, Context.CurrentUsername, 0);
+            }
+            else
+            {
+                _repository.SubmitPage(id);
+            }
 
             return RedirectToAction("MyPages");
         }
@@ -217,17 +245,45 @@ namespace Roadkill.Core.Mvc.Controllers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="svalidated"></param>
+        /// <param name="srating"></param>
+        /// <param name="RawTags"></param>
+        /// <param name="scanvas"></param>
+        /// <returns></returns>
+        [ControllerRequired]
+        [HttpPost]
+        public ActionResult ControlPage(int id, string svalidated, string srating, string RawTags, string scanvas)
+        {
+            if (svalidated == "true")
+            {
+                _pageService.ValidatePage(id, Context.CurrentUsername, Int32.Parse(srating), RawTags);
+                //TODO save the canvas
+            }
+
+            if (svalidated == "false")
+            {
+                _repository.RejectPage(id);
+                
+            }
+
+            return RedirectToAction("AllNewPages");
+        }
+
+        /// <summary>
         /// Deletes a wiki page.
         /// </summary>
         /// <param name="id">The id of the page to reject.</param>
         /// <returns>Redirects to AllPages action.</returns>
         /// <remarks>This action requires admin rights.</remarks>
-        [ControllerRequired]
-        public ActionResult Reject(int id)
-        {
-            _pageService.RejectPage(id);
-            return RedirectToAction("AllNewPages");
-        }
+        //[ControllerRequired]
+        //public ActionResult Reject(int id)
+        //{
+        //    _repository.RejectPage(id);
+        //    return RedirectToAction("AllNewPages");
+        //}
 
         /// <summary>
         /// Deletes a wiki page.
@@ -238,7 +294,7 @@ namespace Roadkill.Core.Mvc.Controllers
         [ControllerRequired]
         public ActionResult DeletPageAlerts(int pageId)
         {
-            _pageService.DeletPageAlerts(pageId);
+            _repository.DeletPageAlerts(pageId);
             return RedirectToAction("AllNewPages");
         }
 
@@ -284,7 +340,10 @@ namespace Roadkill.Core.Mvc.Controllers
 			if (!ModelState.IsValid)
 				return View("Edit", model);
 
-			_pageService.UpdatePage(model);
+            // use viewBag because it is not a page data but a user data
+            //ViewBag.userrating = _pageService.GetPageRatingFromUser(model.Id, Context.CurrentUsername);
+            
+            _pageService.UpdatePage(model);
 
 			return RedirectToAction("Index", "Wiki", new { id = model.Id });
 		}
@@ -301,7 +360,9 @@ namespace Roadkill.Core.Mvc.Controllers
 		[HttpPost]
 		public ActionResult GetPreview(string id)
 		{
-			PageHtml pagehtml = "";
+			
+            
+            PageHtml pagehtml = "";
 
 			if (!string.IsNullOrEmpty(id))
 			{
@@ -358,6 +419,7 @@ namespace Roadkill.Core.Mvc.Controllers
                 return View("Edit", model);
 
             model = _pageService.AddPage(model);
+            //TODO validate the page automatically, nonono use validate in a specific window, need possibility to use draft
 
             return RedirectToAction("Index", "Wiki", new { id = model.Id });
         }
@@ -460,12 +522,11 @@ namespace Roadkill.Core.Mvc.Controllers
         [EditorRequired]
         public ActionResult Rate(int id)
         {
-            var pageViewModel = _pageService.GetById(id, true);
             RateViewModel model = new RateViewModel(_pageService.GetCurrentContent(id).Page);
 
             if (model != null)
             {
-                var view = View("Rate", (Object)model);
+                var view = View("Error", (Object)model);
                 return view;
             }
             else
@@ -474,23 +535,37 @@ namespace Roadkill.Core.Mvc.Controllers
             }
         }
 
-
-        static string path = @"C:\Temp\";
-        public ActionResult UploadCanvas(int ?id, string image)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        public ActionResult UploadCanvas(int ?id, string image) // TODO why not PageViewModel
         {
-            //Comment comment = new Comment(id, Context.CurrentUsername, string rating);
-            string fileNameWitPath = path + DateTime.Now.ToString().Replace("/", "-").Replace(" ", "- ").Replace(":", "") + ".png";
-            using (FileStream fs = new FileStream(fileNameWitPath, FileMode.Create))
-            {
-                using (BinaryWriter bw = new BinaryWriter(fs))
-                {
-                    byte[] data = Convert.FromBase64String(image);//convert from base64
-                    bw.Write(data);
-                    bw.Close();
-                }
-            }
+            string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath(_pageService.GetCurrentContent((int)id).Page.FilePath);
 
-            return Content("tout va tres bien Madame la Marquise");
+            if (physicalPath != null)
+            {
+                if (!Directory.Exists(physicalPath))
+                {
+                    Directory.CreateDirectory(physicalPath);
+                }
+
+                string physicalFilePath = Path.Combine(physicalPath, "page_" + id + ".png");
+                using (FileStream fs = new FileStream(physicalFilePath, FileMode.Create))
+                {
+                    using (BinaryWriter bw = new BinaryWriter(fs))
+                    {
+                        byte[] data = Convert.FromBase64String(image); //convert from base64
+                        bw.Write(data);
+                        bw.Close();
+                    }
+                }
+
+                return Content("tout va tres bien Madame la Marquise TODO");
+            }
+            return Content("BOF TODO");
         }
 
         /// <summary>
@@ -500,13 +575,18 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <returns>An filled <see cref="PageViewModel"/> as the model. If the page id cannot be found, the action
         /// redirects to the New page.</returns>
         /// <remarks>This action requires editor rights.</remarks>
-        public ActionResult PageAlert(int pageId)
+        public ActionResult PageAlert(int id)
         {
-            Alert alert = new Alert(pageId, Context.CurrentUsername);
+            Alert alert = new Alert(id, Context.CurrentUsername);
             _pageService.AddAlert(alert);
             return Content("Alert taken into account", MediaTypeNames.Text.Plain);
         }
 
+        /// <summary>
+        /// CommentAlert
+        /// </summary>
+        /// <param name="commenGuid"></param>
+        /// <returns></returns>
         public ActionResult CommentAlert(Guid commenGuid)
         {
             Alert alert = new Alert(commenGuid, Context.CurrentUsername);
@@ -534,23 +614,38 @@ namespace Roadkill.Core.Mvc.Controllers
             return RedirectToAction("Index", "Wiki", new { id = model.Id });
         }
 
+        [EditorRequired]
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Validate(int id)
+        public ActionResult PageRating(int id, string rating)
         {
+
+            //TODO if not editor, redirect to login
             //if (!ModelState.IsValid)
-            //    return View("Rate", model); //TODO check if hack the address !!!!
+            //    return View("Rate", model); //TODO
 
-            // update controller
-            // update date
-            string sRating = Request.Form["rating"];
-            int iRating = Int32.Parse(sRating);
-            _pageService.ValidatePage(id, Context.CurrentUsername, iRating); //TODO check now or UTCNow
-            //_pageService.UpdatePage(id); // update tags TODO
-            //TODO send a mail
+            _pageService.SetPageRatingForUser( id, Context.CurrentUsername, Int32.Parse(rating));
 
-            return RedirectToAction("AllNewPages", "Pages");
+            return RedirectToAction("Index", "Wiki");
         }
-    }
+
+        //[HttpPost]
+        //[ValidateInput(false)]
+        //public ActionResult Validate(int id)
+        //{
+        //    //if (!ModelState.IsValid)
+        //    //    return View("Rate", model); //TODO check if hack the address !!!!
+
+        //    // update controller
+        //    // update date
+        //    string sRating = Request.Form["rating"];
+        //    int iRating = Int32.Parse(sRating);
+        //    _pageService.ValidatePage(id, Context.CurrentUsername, iRating); //TODO check now or UTCNow
+        //    //_pageService.UpdatePage(id); // update tags TODO
+        //    //TODO send a mail
+
+        //    return RedirectToAction("AllNewPages", "Pages");
+        //}
+	}
 }
 

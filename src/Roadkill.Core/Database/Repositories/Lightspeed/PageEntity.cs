@@ -21,8 +21,8 @@ namespace Roadkill.Core.Database.LightSpeed
 		[Column("controlledby")]
 		private string _controlleddBy;
 
-		[Column("modifiedon")]
-		private DateTime _modifiedOn;
+		[Column("publishedon")]
+		private DateTime _publishedOn;
 
 		[Column("tags")]
 		private string _tags;
@@ -42,6 +42,9 @@ namespace Roadkill.Core.Database.LightSpeed
         [Column("isrejected")]
         private bool _isRejected;
 
+        [Column("iscopied")]
+        private bool _isCopied;
+
         [Column("nbrating")]
         private long _nbRating;
 
@@ -56,6 +59,9 @@ namespace Roadkill.Core.Database.LightSpeed
 
         [Column("videourl")]
         private string _videourl;
+
+        [Column("pseudonym")]
+        private string _pseudonym;
 
         [Column("controllerrating")]
         private long _controllerrating;
@@ -128,15 +134,15 @@ namespace Roadkill.Core.Database.LightSpeed
 			}
 		}
 
-		public DateTime ModifiedOn
+		public DateTime PublishedOn
 		{
 			get
 			{
-				return _modifiedOn;
+                return _publishedOn;
 			}
 			set
 			{
-				Set<DateTime>(ref _modifiedOn, value);
+                Set<DateTime>(ref _publishedOn, value);
 			}
 		}
 
@@ -172,6 +178,17 @@ namespace Roadkill.Core.Database.LightSpeed
             set
             {
                 Set<bool>(ref _isRejected, value);
+            }
+        }
+        public bool IsCopied
+        {
+            get
+            {
+                return _isCopied;
+            }
+            set
+            {
+                Set<bool>(ref _isCopied, value);
             }
         }
         public bool IsSubmitted
@@ -264,6 +281,17 @@ namespace Roadkill.Core.Database.LightSpeed
             set
             {
                 Set<string>(ref _videourl, value);
+            }
+        }
+        public string Pseudonym
+        {
+            get
+            {
+                return _pseudonym;
+            }
+            set
+            {
+                Set<string>(ref _pseudonym, value);
             }
         }
         public long ControllerRating

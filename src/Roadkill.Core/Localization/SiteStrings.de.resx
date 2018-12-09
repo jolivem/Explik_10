@@ -333,7 +333,7 @@
 <data name="Page_Info_CreatedBy" xml:space="preserve">
 	<value>Erstellt von:</value>
 </data>
-<data name="Page_Info_ModifiedOn" xml:space="preserve">
+<data name="Page_Info_PublishedOn" xml:space="preserve">
 	<value>Zuletzt geändert am:</value>
 </data>
 <data name="Page_Info_ControlledBy" xml:space="preserve">

@@ -135,7 +135,7 @@ namespace Roadkill.Tests.Unit
 				Id = 1,
 				IsLocked = true,
 				ControlledBy = "modified-by-user2",
-				ModifiedOn = page1ModifiedOn,
+				PublishedOn = page1ModifiedOn,
 				Tags = "tag1,tag2,tag3",
 				Title = "Page 1 title"
 			};
@@ -147,7 +147,7 @@ namespace Roadkill.Tests.Unit
 				Id = 2,
 				IsLocked = true,
 				ControlledBy = "modified-by-user2",
-				ModifiedOn = page2ModifiedOn,
+				PublishedOn = page2ModifiedOn,
 				Tags = "tagA,tagB,tagC",
 				Title = "Page 2 title"
 			};
@@ -159,7 +159,7 @@ namespace Roadkill.Tests.Unit
 				Id = 3,
 				IsLocked = false,
 				ControlledBy = "modified-by-user3",
-				ModifiedOn = page3ModifiedOn,
+				PublishedOn = page3ModifiedOn,
 				Tags = "tagX,tagY,tagZ",
 				Title = "Page 3 title"
 			};

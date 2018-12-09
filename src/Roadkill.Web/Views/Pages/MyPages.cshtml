@@ -18,8 +18,11 @@
         <thead>
             <tr>
                 <th>@SiteStrings.AllPages_TitleColumnHeading</th>
+                <th>@SiteStrings.MyPages_Status_Title</th>
                 @if (RoadkillContext.IsLoggedIn)
                 {
+                    <th></th>
+                    <th></th>
                     <th></th>
                     <th></th>
                 }
@@ -29,28 +32,13 @@
         {
         <tr>
             <td class="pagename stretch">@Html.ActionLink(pageModel.Title, "Index", "Wiki", new { id = pageModel.Id, title = pageModel.EncodedTitle }, null)</td>
-            <td class="pagename stretch">
-                @if (pageModel.IsControlled)
-                {
-                    @SiteStrings.Page_Info_Published
-                }
-                else if (pageModel.IsSubmitted)
-                {
-                    @SiteStrings.Page_Info_Submitted
-                }
-                else
-                {
-                    @SiteStrings.Page_Info_Draft
-                }
-            </td>
+            <td class="pagename stretch">@pageModel.Status</td>
             @if (RoadkillContext.IsLoggedIn)
             {
-                <td class="edit">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary" })</td>
-                if (!pageModel.IsSubmitted)
-                {
-                    <td class="submit">@Html.ActionLink(SiteStrings.Shared_SubmitLink, "Submit", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
-                }
-                <td class="delete">@Html.ActionLink(SiteStrings.Shared_DeleteLink, "Delete", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
+                <td class="edit">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary " + @pageModel.EditBtnAttribute })</td>
+                <td class="submit">@Html.ActionLink(SiteStrings.Shared_SubmitLink, "Submit", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary " + @pageModel.SubmitBtnAttribute })</td>
+                <td class="draft">@Html.ActionLink(SiteStrings.Shared_DraftLink, "Draft", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary " + @pageModel.DraftBtnAttribute })</td>
+                <td class="delete">@Html.ActionLink(SiteStrings.Shared_DeleteLink, "Delete", new { id = pageModel.Id })</td>
             }
         </tr>
         }

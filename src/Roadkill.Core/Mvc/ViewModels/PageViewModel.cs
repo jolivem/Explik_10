@@ -21,74 +21,74 @@ namespace Roadkill.Core.Mvc.ViewModels
     //    public string Comment;
     //    public int Rating; //from 1 to 5
     //}
-    
-    
-	/// <summary>
-	/// Provides summary data for a page.
-	/// </summary>
-	[CustomValidation(typeof(PageViewModel), "VerifyRawTags")]
-	public class PageViewModel
-	{
-		private static string[] _tagBlackList = 
-		{
-			"#", ";", "/", "?", ":", "@", "&", "=", "{", "}", "|", "\\", "^", "[", "]", "`"		
-		};
 
-		private List<string> _tags;
-		private string _rawTags;
-		private string _content;
 
-		/// <summary>
-		/// The page's unique id.
-		/// </summary>
-		public int Id { get; set; }
-		
-		/// <summary>
-		/// The text content for the page.
-		/// </summary>
-		public string Content
-		{
-			get { return _content; }
-			set
-			{
-				// Ensure the content isn't null for lucene's benefit
-				_content = value;
-				if (_content == null)
-					_content = "";
-			}
-		}
+    /// <summary>
+    /// Provides summary data for a page.
+    /// </summary>
+    [CustomValidation(typeof(PageViewModel), "VerifyRawTags")]
+    public class PageViewModel
+    {
+        private static string[] _tagBlackList =
+        {
+            "#", ";", "/", "?", ":", "@", "&", "=", "{", "}", "|", "\\", "^", "[", "]", "`"
+        };
 
-		/// <summary>
-		/// The content after it has been transformed into HTML by the current wiki markup converter. This property 
-		/// is only set when the PageContent object is passed into the constructor, and is empty unless explicitly 
-		/// set by the caller.
-		/// </summary>
-		public string ContentAsHtml { get; set; }
+        private List<string> _tags;
+        private string _rawTags;
+        private string _content;
 
-		/// <summary>
-		/// The user who created the page.
-		/// </summary>
-		public string CreatedBy { get; set; }
+        /// <summary>
+        /// The page's unique id.
+        /// </summary>
+        public int Id { get; set; }
 
-		/// <summary>
-		/// The date the page was created.
-		/// </summary>
-		public DateTime CreatedOn { get; set; }
+        /// <summary>
+        /// The text content for the page.
+        /// </summary>
+        public string Content
+        {
+            get { return _content; }
+            set
+            {
+                // Ensure the content isn't null for lucene's benefit
+                _content = value;
+                if (_content == null)
+                    _content = "";
+            }
+        }
 
-		/// <summary>
-		/// Returns true if no Id exists for the page.
-		/// </summary>
-		public bool IsNew
-		{
-			get
-			{
-				return Id == 0;
-			}
-		}
+        /// <summary>
+        /// The content after it has been transformed into HTML by the current wiki markup converter. This property 
+        /// is only set when the PageContent object is passed into the constructor, and is empty unless explicitly 
+        /// set by the caller.
+        /// </summary>
+        public string ContentAsHtml { get; set; }
 
-	    /// <summary>
-	    /// Used for Controlling pages
-	    /// </summary>
+        /// <summary>
+        /// The user who created the page.
+        /// </summary>
+        public string CreatedBy { get; set; }
+
+        /// <summary>
+        /// The date the page was created.
+        /// </summary>
+        public DateTime CreatedOn { get; set; }
+
+        /// <summary>
+        /// Returns true if no Id exists for the page.
+        /// </summary>
+        public bool IsNew
+        {
+            get
+            {
+                return Id == 0;
+            }
+        }
+
+        /// <summary>
+        /// Used for Controlling pages
+        /// </summary>
         private UserActivity _userActivity;
 
         /// <summary>
@@ -96,59 +96,59 @@ namespace Roadkill.Core.Mvc.ViewModels
 		/// </summary>
 		public string ControlledBy { get; set; }
 
-		/// <summary>
-		/// The date the page was last modified on.
-		/// </summary>
-		public DateTime ModifiedOn { get; set; }
+        /// <summary>
+        /// The date the page was last modified on.
+        /// </summary>
+        public DateTime PublishedOn { get; set; }
 
-		/// <summary>
-		/// Displays ModifiedOn in IS8601 format, plus the timezone offset included for timeago
-		/// </summary>
-		public string ModifiedOnWithOffset
-		{
-			get
-			{
-				// EditedOn (ModifiedOn in the domain) is stored in UTC time, so just add a Z to indicate this.
-				return string.Format("{0}Z", ModifiedOn.ToString("s"));
-			}
-		}
-		
-		/// <summary>
-		/// Gets the tags for the page as a list.
-		/// </summary>
-		public IEnumerable<string> Tags
-		{
-			get { return _tags; }
-		}
+        /// <summary>
+        /// Displays PublishedOn in IS8601 format, plus the timezone offset included for timeago
+        /// </summary>
+        public string ModifiedOnWithOffset
+        {
+            get
+            {
+                // EditedOn (PublishedOn in the domain) is stored in UTC time, so just add a Z to indicate this.
+                return string.Format("{0}Z", PublishedOn.ToString("s"));
+            }
+        }
 
-		/// <summary>
-		/// Sets or gets the tags for the page - these should be in comma separated format.
-		/// </summary>
-		public string RawTags
-		{
-			get 
-			{ 
-				return _rawTags; 
-			}
-			set
-			{
-				_rawTags = value;
-				ParseRawTags();
-			}
-		}
+        /// <summary>
+        /// Gets the tags for the page as a list.
+        /// </summary>
+        public IEnumerable<string> Tags
+        {
+            get { return _tags; }
+        }
 
-		/// <summary>
-		/// The page title before any update.
-		/// </summary>
-		public string PreviousTitle { get; set; }
+        /// <summary>
+        /// Sets or gets the tags for the page - these should be in comma separated format.
+        /// </summary>
+        public string RawTags
+        {
+            get
+            {
+                return _rawTags;
+            }
+            set
+            {
+                _rawTags = value;
+                ParseRawTags();
+            }
+        }
 
-		/// <summary>
-		/// The page title.
-		/// </summary>
-		[Required(ErrorMessageResourceType=typeof(SiteStrings), ErrorMessageResourceName="Page_Validation_Title")]
-		public string Title { get; set; }
+        /// <summary>
+        /// The page title before any update.
+        /// </summary>
+        public string PreviousTitle { get; set; }
 
-		/// <summary>
+        /// <summary>
+        /// The page title.
+        /// </summary>
+        [Required(ErrorMessageResourceType = typeof(SiteStrings), ErrorMessageResourceName = "Page_Validation_Title")]
+        public string Title { get; set; }
+
+        /// <summary>
         /// The page summary.
         /// </summary>
         public string Summary { get; set; }
@@ -157,14 +157,14 @@ namespace Roadkill.Core.Mvc.ViewModels
 		/// The page title, encoded so it is a safe search-engine friendly url.
 		/// </summary>
 		public string EncodedTitle
-		{
-			get
-			{
-				return PageViewModel.EncodePageTitle(Title);
-			}
-		}
-		
-		/// <summary>
+        {
+            get
+            {
+                return PageViewModel.EncodePageTitle(Title);
+            }
+        }
+
+        /// <summary>
         /// The global rating of the page.
         /// </summary>
         public int Rating { get; set; }
@@ -174,10 +174,10 @@ namespace Roadkill.Core.Mvc.ViewModels
 		/// </summary>
 		public int VersionNumber { get; set; }
 
-		/// <summary>
-		/// Whether the page has been locked so that only admins can edit it.
-		/// </summary>
-		public bool IsLocked { get; set; }
+        /// <summary>
+        /// Whether the page has been locked so that only admins can edit it.
+        /// </summary>
+        public bool IsLocked { get; set; }
 
         /// <summary>
         /// 
@@ -207,31 +207,31 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// </summary>
         public long TotalRating;
 
-		/// <summary>
-		/// Determines if the summary object can be cached on the browser and in the object cache. 
-		/// This is true by default, but plugins that run on a page can mark a page as not cacheable.
-		/// </summary>
-		public bool IsCacheable { get; set; }
+        /// <summary>
+        /// Determines if the summary object can be cached on the browser and in the object cache. 
+        /// This is true by default, but plugins that run on a page can mark a page as not cacheable.
+        /// </summary>
+        public bool IsCacheable { get; set; }
 
-		/// <summary>
-		/// Any additional head tag HTML generated by the text plugins.
-		/// </summary>
-		public string PluginHeadHtml { get; set; }
+        /// <summary>
+        /// Any additional head tag HTML generated by the text plugins.
+        /// </summary>
+        public string PluginHeadHtml { get; set; }
 
-		/// <summary>
-		/// Any additional footer HTML generated by the text plugins.
-		/// </summary>
-		public string PluginFooterHtml { get; set; }
+        /// <summary>
+        /// Any additional footer HTML generated by the text plugins.
+        /// </summary>
+        public string PluginFooterHtml { get; set; }
 
-		/// <summary>
-		///  Any additional HTML generated by the text plugins that sits before the #container element.
-		/// </summary>
-		public string PluginPreContainer { get; set; }
-        
-		/// <summary>
+        /// <summary>
+        ///  Any additional HTML generated by the text plugins that sits before the #container element.
+        /// </summary>
+        public string PluginPreContainer { get; set; }
+
+        /// <summary>
         ///  
         /// </summary>
-        //public string RatingStars { get; set; }
+        public string FilePath { get; set; }
 
         /// <summary>
         ///  
@@ -252,61 +252,66 @@ namespace Roadkill.Core.Mvc.ViewModels
         public bool IsSubmitted { get; set; }
         public bool IsControlled { get; set; }
         public bool IsRejected { get; set; }
+        public bool IsCopied { get; set; }
 
         public string VideoUrl { get; set; }
+        public string Pseudonym { get; set; }
 
         /// <summary>
         /// Retrieves all tags for all pages in the system. This is empty unless filled by the controller.
         /// </summary>
         [XmlIgnore]
-		public List<TagViewModel> AllTags { get; set; }
+        public List<TagViewModel> AllTags { get; set; }
 
-		public PageViewModel()
-		{
-			_tags = new List<string>();
-			IsCacheable = true;
+        public PageViewModel()
+        {
+            _tags = new List<string>();
+            IsCacheable = true;
             //RatingStars = "";
-			PluginHeadHtml = "";
-			PluginFooterHtml = "";
+            PluginHeadHtml = "";
+            PluginFooterHtml = "";
             PluginComments = "";
-			PluginPreContainer = "";
-			PluginPostContainer = "";
+            PluginPreContainer = "";
+            PluginPostContainer = "";
             PluginComments = "";
             AllTags = new List<TagViewModel>();
             AllComments = new List<Comment>();
-		}
+        }
 
-		public PageViewModel(Page page)
-		{
-			if (page == null)
-				throw new ArgumentNullException("page");
+        public PageViewModel(Page page)
+        {
+            if (page == null)
+                throw new ArgumentNullException("page");
 
-			Id = page.Id;
-			Title = page.Title;
-			PreviousTitle = page.Title;
-			CreatedBy = page.CreatedBy;
-			CreatedOn = page.CreatedOn;
+            Id = page.Id;
+            Title = page.Title;
+            PreviousTitle = page.Title;
+            CreatedBy = page.CreatedBy;
+            CreatedOn = page.CreatedOn;
             IsLocked = page.IsLocked;
             IsVideo = page.IsVideo;
             IsSubmitted = page.IsSubmitted;
             IsControlled = page.IsControlled;
             IsRejected = page.IsRejected;
+            IsCopied = page.IsCopied;
             ControlledBy = page.ControlledBy;
-			ModifiedOn = page.ModifiedOn;
-			RawTags = page.Tags;
-		    Summary = page.Summary;
-		    VideoUrl = page.VideoUrl;
+            PublishedOn = page.PublishedOn;
+            RawTags = page.Tags;
+            Summary = page.Summary;
+            VideoUrl = page.VideoUrl;
+            Pseudonym = page.Pseudonym;
+            FilePath = page.FilePath;
 
-			CreatedOn = DateTime.SpecifyKind(CreatedOn, DateTimeKind.Utc);
-			ModifiedOn = DateTime.SpecifyKind(ModifiedOn, DateTimeKind.Utc);
-			AllTags = new List<TagViewModel>();
+            CreatedOn = DateTime.SpecifyKind(CreatedOn, DateTimeKind.Utc);
+            PublishedOn = DateTime.SpecifyKind(PublishedOn, DateTimeKind.Utc);
+            AllTags = new List<TagViewModel>();
             //AllComments = page.GetAllComments();
 
             NbView = page.NbView;
             NbRating = page.NbRating;
             TotalRating = page.TotalRating;
-		}
-       /// <summary>
+        }
+        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
@@ -316,6 +321,7 @@ namespace Roadkill.Core.Mvc.ViewModels
             StringBuilder builder = new StringBuilder();
             if (AllComments != null)
             {
+
                 if (AllComments.Count == 0)
                 {
                     return builder.AppendLine("TODO be the first to comment").ToString();
@@ -331,7 +337,7 @@ namespace Roadkill.Core.Mvc.ViewModels
                         builder.AppendLine("<div class='col-sm-2'>");
                         {
                             builder.AppendLine("<p>By " + comment.CreatedBy + "</p>");
-                            builder.AppendLine("<p><small>On " + comment.CreatedOn + "</small></p>");
+                            builder.AppendLine("<p><small>On " + comment.CreatedOn.ToString("dd/MM/yyyy") + "</small></p>");
 
                             builder.AppendLine("</div>");
                         }
@@ -356,10 +362,10 @@ namespace Roadkill.Core.Mvc.ViewModels
         }
 
         /// <summary>
-                /// 
-                /// </summary>
-                /// <param name="rating"></param>
-                /// <returns></returns>
+        /// 
+        /// </summary>
+        /// <param name="rating"></param>
+        /// <returns></returns>
         public static string EncodePageRating16(int rating, string active)
         {
             StringBuilder builder = new StringBuilder();
@@ -411,32 +417,34 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// <param name="pageContent"></param>
         /// <param name="converter"></param>
 		public PageViewModel(PageContent pageContent, MarkupConverter converter)
-		{
-			if (pageContent == null)
-				throw new ArgumentNullException("pageContent");
+        {
+            if (pageContent == null)
+                throw new ArgumentNullException("pageContent");
 
-			if (pageContent.Page == null)
-				throw new ArgumentNullException("pageContent.Page");
+            if (pageContent.Page == null)
+                throw new ArgumentNullException("pageContent.Page");
 
-			if (converter == null)
-				throw new ArgumentNullException("converter");
+            if (converter == null)
+                throw new ArgumentNullException("converter");
 
-			Id = pageContent.Page.Id;
-			Title = pageContent.Page.Title;
-			PreviousTitle = pageContent.Page.Title;
-			CreatedBy = pageContent.Page.CreatedBy;
-			CreatedOn = pageContent.Page.CreatedOn;
+            Id = pageContent.Page.Id;
+            Title = pageContent.Page.Title;
+            PreviousTitle = pageContent.Page.Title;
+            CreatedBy = pageContent.Page.CreatedBy;
+            CreatedOn = pageContent.Page.CreatedOn;
             IsLocked = pageContent.Page.IsLocked;
             IsVideo = pageContent.Page.IsVideo;
             IsRejected = pageContent.Page.IsRejected;
+            IsCopied = pageContent.Page.IsCopied;
             IsSubmitted = pageContent.Page.IsSubmitted;
             IsControlled = pageContent.Page.IsControlled;
             ControlledBy = pageContent.Page.ControlledBy;
-			ModifiedOn = pageContent.Page.ModifiedOn;
-			RawTags = pageContent.Page.Tags;
-			Content = pageContent.Text;
-			VersionNumber = pageContent.VersionNumber;
+            PublishedOn = pageContent.Page.PublishedOn;
+            RawTags = pageContent.Page.Tags;
+            Content = pageContent.Text;
+            VersionNumber = pageContent.VersionNumber;
             PluginComments = ""; //TODO can be remove
+            FilePath = pageContent.Page.FilePath;
             //PluginComments = GetCommentsHtml();
             ControlledBy = pageContent.Page.ControlledBy;
             NbView = pageContent.Page.NbView;
@@ -444,130 +452,131 @@ namespace Roadkill.Core.Mvc.ViewModels
             TotalRating = pageContent.Page.TotalRating;
             Summary = pageContent.Page.Summary;
             VideoUrl = pageContent.Page.VideoUrl;
+            Pseudonym = pageContent.Page.Pseudonym;
 
             PageHtml pageHtml = converter.ToHtml(pageContent.Text);
-			ContentAsHtml = pageHtml.Html;
-			IsCacheable = pageHtml.IsCacheable;
-			PluginHeadHtml = pageHtml.HeadHtml;
-			PluginFooterHtml = pageHtml.FooterHtml;
-			PluginPreContainer = pageHtml.PreContainerHtml;
-			PluginPostContainer = pageHtml.PostContainerHtml;
+            ContentAsHtml = pageHtml.Html;
+            IsCacheable = pageHtml.IsCacheable;
+            PluginHeadHtml = pageHtml.HeadHtml;
+            PluginFooterHtml = pageHtml.FooterHtml;
+            PluginPreContainer = pageHtml.PreContainerHtml;
+            PluginPostContainer = pageHtml.PostContainerHtml;
 
             CreatedOn = DateTime.SpecifyKind(CreatedOn, DateTimeKind.Utc);
-			ModifiedOn = DateTime.SpecifyKind(ModifiedOn, DateTimeKind.Utc);
-			AllTags = new List<TagViewModel>();
+            PublishedOn = DateTime.SpecifyKind(PublishedOn, DateTimeKind.Utc);
+            AllTags = new List<TagViewModel>();
             //RatingStars = EncodePageRating32(4, "active ");
-		}
+        }
 
-		/// <summary>
-		/// Joins the parsed tags with a comma.
-		/// </summary>
-		public string CommaDelimitedTags()
-		{
-			return string.Join(",", _tags);
-		}
+        /// <summary>
+        /// Joins the parsed tags with a comma.
+        /// </summary>
+        public string CommaDelimitedTags()
+        {
+            return string.Join(",", _tags);
+        }
 
-		/// <summary>
-		/// Formats the <see cref="AllTags"/> to insert inside an array initializer like [];
-		/// </summary>
-		public string JavascriptArrayForAllTags()
-		{
-			IEnumerable<string> allTags = AllTags.OrderBy(x => x.Name).Select(t => t.Name);
-			return "\"" +string.Join("\", \"", allTags) + "\"";
-		}
+        /// <summary>
+        /// Formats the <see cref="AllTags"/> to insert inside an array initializer like [];
+        /// </summary>
+        public string JavascriptArrayForAllTags()
+        {
+            IEnumerable<string> allTags = AllTags.OrderBy(x => x.Name).Select(t => t.Name);
+            return "\"" + string.Join("\", \"", allTags) + "\"";
+        }
 
-		/// <summary>
-		/// Joins the tags with a space.
-		/// </summary>
-		public string SpaceDelimitedTags()
-		{
-			return string.Join(" ", _tags);
-		}
+        /// <summary>
+        /// Joins the tags with a space.
+        /// </summary>
+        public string SpaceDelimitedTags()
+        {
+            return string.Join(" ", _tags);
+        }
 
-		private void ParseRawTags()
-		{
-			_tags = ParseTags(_rawTags).ToList();
-		}
+        private void ParseRawTags()
+        {
+            _tags = ParseTags(_rawTags).ToList();
+        }
 
-		/// <summary>
-		/// Takes a string of tags: "tagone,tagtwo,tag3 " and returns a list.
-		/// </summary>
-		/// <param name="tags"></param>
-		/// <returns></returns>
-		public static IEnumerable<string> ParseTags(string tags)
-		{
-			List<string> tagList = new List<string>();
-			char delimiter = ',';
+        /// <summary>
+        /// Takes a string of tags: "tagone,tagtwo,tag3 " and returns a list.
+        /// </summary>
+        /// <param name="tags"></param>
+        /// <returns></returns>
+        public static IEnumerable<string> ParseTags(string tags)
+        {
+            List<string> tagList = new List<string>();
+            char delimiter = ',';
 
-			if (!string.IsNullOrEmpty(tags))
-			{
-				// For the legacy tag seperator format
-				if (tags.IndexOf(";") != -1)
-					delimiter = ';';
+            if (!string.IsNullOrEmpty(tags))
+            {
+                // For the legacy tag seperator format
+                if (tags.IndexOf(";") != -1)
+                    delimiter = ';';
 
-				if (tags.IndexOf(delimiter) != -1)
-				{
-					string[] parts = tags.Split(delimiter);
-					foreach (string item in parts)
-					{
-						if (item != "," && !string.IsNullOrWhiteSpace(item))
-							tagList.Add(item.Trim());
-					}
-				}
-				else
-				{
-					tagList.Add(tags.TrimEnd());
-				}
-			}
+                if (tags.IndexOf(delimiter) != -1)
+                {
+                    string[] parts = tags.Split(delimiter);
+                    foreach (string item in parts)
+                    {
+                        if (item != "," && !string.IsNullOrWhiteSpace(item))
+                            tagList.Add(item.Trim());
+                    }
+                }
+                else
+                {
+                    tagList.Add(tags.TrimEnd());
+                }
+            }
 
-			return tagList;
-		}
+            return tagList;
+        }
 
-		/// <summary>
-		/// Returns false if the tag contains ; / ? : @ & = { } | \ ^ [ ] `		
-		/// </summary>
-		/// <param name="tag">The tag</param>
-		/// <returns></returns>
-		public static ValidationResult VerifyRawTags(PageViewModel pageViewModel, ValidationContext context)
-		{
-			if (string.IsNullOrEmpty(pageViewModel.RawTags))
-				return ValidationResult.Success;
+        /// <summary>
+        /// Returns false if the tag contains ; / ? : @ & = { } | \ ^ [ ] `		
+        /// </summary>
+        /// <param name="tag">The tag</param>
+        /// <returns></returns>
+        public static ValidationResult VerifyRawTags(PageViewModel pageViewModel, ValidationContext context)
+        {
+            if (string.IsNullOrEmpty(pageViewModel.RawTags))
+                return ValidationResult.Success;
 
-			if (_tagBlackList.Any(x => pageViewModel.RawTags.Contains(x)))
-			{
-				return new ValidationResult("Invalid characters in tag"); // doesn't need to be localized as there's a javascript check
-			}
-			else
-			{
-				return ValidationResult.Success;
-			}
-		}
+            if (_tagBlackList.Any(x => pageViewModel.RawTags.Contains(x)))
+            {
+                return new ValidationResult("Invalid characters in tag"); // doesn't need to be localized as there's a javascript check
+            }
+            else
+            {
+                return ValidationResult.Success;
+            }
+        }
 
-		// TODO: tests
-		/// <summary>
-		/// Removes all bad characters (ones which cannot be used in a URL for a page) from a page title.
-		/// </summary>
-		public static string EncodePageTitle(string title)
-		{
-			if (string.IsNullOrEmpty(title))
-				return title;
+        // TODO: tests
+        /// <summary>
+        /// Removes all bad characters (ones which cannot be used in a URL for a page) from a page title.
+        /// </summary>
+        public static string EncodePageTitle(string title)
+        {
+            if (string.IsNullOrEmpty(title))
+                return title;
 
-			// Search engine friendly slug routine with help from http://www.intrepidstudios.com/blog/2009/2/10/function-to-generate-a-url-friendly-string.aspx
+            // Search engine friendly slug routine with help from http://www.intrepidstudios.com/blog/2009/2/10/function-to-generate-a-url-friendly-string.aspx
 
-			// remove invalid characters
-			title = Regex.Replace(title, @"[^\w\d\s-]", "");  // this is unicode safe, but may need to revert back to 'a-zA-Z0-9', need to check spec
+            // remove invalid characters
+            title = Regex.Replace(title, @"[^\w\d\s-]", "");  // this is unicode safe, but may need to revert back to 'a-zA-Z0-9', need to check spec
 
-			// convert multiple spaces/hyphens into one space       
-			title = Regex.Replace(title, @"[\s-]+", " ").Trim();
+            // convert multiple spaces/hyphens into one space       
+            title = Regex.Replace(title, @"[\s-]+", " ").Trim();
 
-			// If it's over 30 chars, take the first 30.
-			title = title.Substring(0, title.Length <= 75 ? title.Length : 75).Trim();
+            // If it's over 30 chars, take the first 30.
+            title = title.Substring(0, title.Length <= 75 ? title.Length : 75).Trim();
 
-			// hyphenate spaces
-			title = Regex.Replace(title, @"\s", "-");
+            // hyphenate spaces
+            title = Regex.Replace(title, @"\s", "-");
 
-			return title;
-		}
+            return title;
+        }
 
         public void SetUserActivity(UserActivity activity)
         {
@@ -583,7 +592,8 @@ namespace Roadkill.Core.Mvc.ViewModels
         {
             return _userActivity;
         }
-        public string EncodeRating()
+
+        public string EncodeControlRating()
         {
             string active = "active ";
             StringBuilder builder = new StringBuilder();
@@ -619,6 +629,116 @@ namespace Roadkill.Core.Mvc.ViewModels
             //}
             //builder.AppendFormat("rating={0}", rating);
             return builder.ToString();
+        }
+        public string EncodeUserRating()
+        {
+            string active = "active ";
+            StringBuilder builder = new StringBuilder();
+
+            string[] titles = { SiteStrings.Rating_level1, SiteStrings.Rating_level2, SiteStrings.Rating_level3, SiteStrings.Rating_level4, SiteStrings.Rating_level5 };
+
+            for (int i = 1; i <= 5; i++)
+            {
+                string formatStr = "<span class='rating stars {2}star-{0}' title='{3}' value='{1}'></span>";
+                if (i <= Rating)
+                {
+                    builder.AppendFormat(formatStr, "left_on", i, active, titles[i - 1]);
+                    builder.AppendFormat(formatStr, "right_on", i, active, titles[i - 1]);
+                }
+                else
+                {
+                    builder.AppendFormat(formatStr, "left_off", i, active, titles[i - 1]);
+                    builder.AppendFormat(formatStr, "right_off", i, active, titles[i - 1]);
+                }
+            }
+
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private bool IsDraft
+        {
+            get
+            {
+                if (!IsSubmitted && !IsControlled && !IsRejected)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string EditBtnAttribute
+        {
+            get
+            {
+                if (IsDraft)
+                {
+                    return "confirm";
+                }
+
+                return "disabled";
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string DraftBtnAttribute
+        {
+            get
+            {
+                if (!IsDraft)
+                {
+                    return "confirm";
+                }
+
+                return "disabled";
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SubmitBtnAttribute
+        {
+            get
+            {
+                if (IsDraft)
+                {
+                    return "confirm";
+                }
+
+                return "disabled";
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Status
+        {
+            get
+            {
+                if(IsControlled)
+                {
+                    return @SiteStrings.Page_Info_Published; 
+                }
+                else if (IsSubmitted)
+                {
+                    return @SiteStrings.Page_Info_Submitted;
+                }
+                else if (IsRejected)
+                {
+                    return @SiteStrings.Page_Info_Rejected;
+                }
+                return @SiteStrings.Page_Info_Draft;
+            }
         }
     }
 }

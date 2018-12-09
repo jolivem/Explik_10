@@ -74,7 +74,7 @@ namespace Roadkill.Tests.Integration.WebApi
 				page.Tags = "tag1, tag2";
 				page.CreatedBy = "admin";
 				page.CreatedOn = DateTime.UtcNow;
-				page.ModifiedOn = DateTime.UtcNow;
+				page.PublishedOn = DateTime.UtcNow;
 				page.ControlledBy = "admin";
 
 				return repository.AddNewPage(page, content, "admin", DateTime.UtcNow);

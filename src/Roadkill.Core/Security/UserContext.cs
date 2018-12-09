@@ -60,7 +60,7 @@ namespace Roadkill.Core.Security
 							else
 							{
 								_userService.Logout();
-								return "(User id no longer exists)";
+								return "(User id no longer exists)"; //TODO
 							}
 						}
 						else
@@ -98,7 +98,7 @@ namespace Roadkill.Core.Security
 			}
 		}
 
-		/// <summary>
+        /// <summary>
 		/// Indicates whether the current user is a member of the editor role.
 		/// </summary>
 		public bool IsEditor
@@ -154,5 +154,22 @@ namespace Roadkill.Core.Security
 				return !string.IsNullOrWhiteSpace(CurrentUser);
 			}
 		}
-	}
+
+
+        /// <summary>
+        /// The path for the user documents (images, ...)
+        /// </summary>
+        public string AttachmentsPath
+        {
+            get
+            {
+                if (_user == null)
+                {
+                    var init_user = CurrentUsername;
+                }
+
+                return _user.AttachmentsPath;
+            }
+        }
+    }
 }

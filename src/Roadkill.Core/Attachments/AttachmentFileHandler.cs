@@ -85,7 +85,8 @@ namespace Roadkill.Core.Attachments
 					Log.Warn("The url {0} (translated to {1}) does not exist on the server.", localPath, fullPath);
 
 					// Throw so the web.config catches it
-					throw new HttpException(404, string.Format("{0} does not exist on the server.", localPath));
+                    // the Page may have no canvas
+					//throw new HttpException(404, string.Format("{0} does not exist on the server.", localPath));
 				}
 			}
 			catch (IOException ex)

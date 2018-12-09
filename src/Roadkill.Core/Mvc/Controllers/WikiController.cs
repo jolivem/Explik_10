@@ -41,6 +41,15 @@ namespace Roadkill.Core.Mvc.Controllers
 
 			PageViewModel model = PageService.GetById(id.Value, true);
 
+		    if (model.CreatedBy == Context.CurrentUsername)
+		    {
+                return View("MyPage", model);
+		    }
+            
+            // remove the comment of the current username
+            model.AllComments.RemoveAll(c => c.CreatedBy == Context.CurrentUsername);
+            ViewBag.userrating = PageService.GetPageRatingFromUser(model.Id, Context.CurrentUsername);
+
             PageService.IncrementNbView(model.Id);
 
 			if (model == null)

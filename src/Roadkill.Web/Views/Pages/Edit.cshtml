@@ -9,28 +9,52 @@
 		var pageTags = [ @(Html.Raw(Model.JavascriptArrayForAllTags())) ];
 		var editPage = new Roadkill.Web.EditPage(pageTags);
 
-	    ToggleIsVideo();
+		ToggleIsVideo();
+		ToggleIsCopied();
 
 	    function ToggleIsVideo(){
 	        
-	        if (!$('#IsVideo').is(':checked')) {
+	        if ($('#IsVideo').is(':checked')) {
+	            $('#content-page').hide();
+	            $('#previewpanel-container').hide();
+	            $('#video-url').show();
+	            $('#video-url').removeClass("hidden");
+	            $('#summary').show();
+	            $('#summary').removeClass("hidden");
+	        }
+	        else {
 	            $('#content-page').show();
 	            $('#content-page').removeClass("hidden");
 	            $('#previewpanel-container').show();
 	            $('#previewpanel-container').removeClass("hidden");
 	            $('#video-url').hide();
-	        }
-	        else {
-	            $('#content-page').hide();
-	            $('#previewpanel-container').hide();
-	            $('#video-url').show();
-	            $("#video-url").removeClass("hidden");
-	        }
+	            $('#summary').hide();
+            }
 	    }
 
 	    $('#IsVideo').click(function () {
 	        ToggleIsVideo();
 	    });
+
+
+
+	    $('#IsCopied').click(function () {
+	        ToggleIsCopied();
+	    });
+
+	    function ToggleIsCopied() {
+
+	        if ($('#IsCopied').is(':checked')) {
+	            $('#pseudonym').show();
+	            $('#pseudonym').removeClass("hidden");
+	            $('#pseudonym-title').show();
+	            $('#pseudonym-title').removeClass("hidden");
+            }
+	        else {
+	            $('#pseudonym').hide();
+	            $('#pseudonym-title').hide();
+            }
+	    }
 	});
 </script>
 <style>
@@ -38,48 +62,67 @@
 </style>
 
 <div id="editpage" class="row">
-	<div id="editpage-form-container" class="col-lg-6">
-		@Html.BootstrapValidationSummary(SiteStrings.EditPage_Error)
+    <div id="editpage-form-container" class="col-lg-6">
+        @Html.BootstrapValidationSummary(SiteStrings.EditPage_Error)
 
         <form class="form-horizontal" role="form" method="post" id="editpage-form">
             @(Html.HiddenFor<PageViewModel, int>(p => p.Id))
             @(Html.HiddenFor<PageViewModel, string>(p => p.PreviousTitle))
             @(Html.HiddenFor<PageViewModel, string>(p => p.RawTags))
 
-            <div class="form-group col-sm-12">
+            @*<div class="form-group col-sm-12">*@
             @if (RoadkillContext.IsAdmin)
             {
-                <div class="form-inline">
-                    <h6>
-                        @(Html.BootstrapCheckBoxFor<PageViewModel>(p => p.IsLocked, SiteStrings.EditPage_AdminOnly, 3))
-                        @SiteStrings.EditPage_AdminOnly
-                    </h6>
+                <label for="IsLocked" class="checkbox">
+                    @(Html.BootstrapCheckBoxFor<PageViewModel>(p => p.IsLocked, SiteStrings.EditPage_AdminOnly, 3))
+                    @SiteStrings.EditPage_AdminOnly
+                </label>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="IsCopied" class="checkbox">
+                            @(Html.BootstrapCheckBoxFor<PageViewModel>(p => p.IsCopied, SiteStrings.EditPage_CopiedFromOtherSite, 4))
+                            @SiteStrings.EditPage_CopiedFromOtherSite
+                        </label>
+                    </div>
+                    <div id="pseudonym-title" class="form-inline col-sm-2">
+                        <label for="Pseudonym">@SiteStrings.EditPage_Pseudonym</label>
+                    </div>
+                    <div id="pseudonym" class="form-inline  col-sm-4">
+                        @(Html.BootstrapTextBoxFor<PageViewModel, string>(p => p.Pseudonym, SiteStrings.EditPage_Pseudonym, false, 5))
+                    </div>
                 </div>
             }
-
-                <label for="Title"> Title___</label>
-                @(Html.BootstrapTextBoxFor<PageViewModel, string>(p => p.Title, SiteStrings.EditPage_Title_Label, false, 1))
-
-                <label for="Summary"> Summary___</label>
-                @(Html.BootstrapTextAreaFor(p => p.Summary, SiteStrings.EditPage_Summary_Label))
-
-                <label for="IsVideo" class="checkbox">
-                    @SiteStrings.EditPage_IsVideo_Label
-                    @(Html.BootstrapCheckBoxFor<PageViewModel>(p => p.IsVideo, SiteStrings.EditPage_IsVideo_Label))
-                </label>
-                @*<div class="form-inline">
-                        @(Html.TextBox("TagsEntry", null, new { @class = "form-control tm-input", autocomplete = "off", tabindex = 2, placeholder = SiteStrings.EditPage_Tags_Label }))
-                    </div>*@
-
-                <div id="video-url" class="hidden">
-                    <label for="VideoUrl">@SiteStrings.EditPage_VideoUrl_Label</label>
-                    @(Html.BootstrapTextBoxFor<PageViewModel, string>(p => p.VideoUrl, SiteStrings.EditPage_Title_Label, false, 1))
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <label for="Title">Title___</label>
+                    @(Html.BootstrapTextBoxFor<PageViewModel, string>(p => p.Title, SiteStrings.EditPage_Title_Label, false, 1))
                 </div>
-
             </div>
+
+            <div class="form-inline">
+                @(Html.TextBox("TagsEntry", null, new { @class = "form-control tm-input", autocomplete = "off", tabindex = 2, placeholder = SiteStrings.EditPage_Tags_Label }))
+            </div>
+
+            <div class="form-inline">
+                <label for="IsVideo" class="checkbox">
+                    @(Html.BootstrapCheckBoxFor<PageViewModel>(p => p.IsVideo, SiteStrings.EditPage_IsVideo_Label))
+                    @SiteStrings.EditPage_IsVideo_Label
+                </label>
+            </div>
+
+            <div id="summary" class="hidden form-inline">
+                <label for="Summary">Summary___</label>
+                @(Html.BootstrapTextAreaFor(p => p.Summary, SiteStrings.EditPage_Summary_Label))
+            </div>
+
+            <div id="video-url" class="hidden form-inline">
+                <label for="VideoUrl">@SiteStrings.EditPage_VideoUrl_Label</label>
+                @(Html.BootstrapTextBoxFor<PageViewModel, string>(p => p.VideoUrl, SiteStrings.EditPage_Title_Label, false, 1))
+            </div>
+
             <div id="content-page">
-            @Html.Partial("WysiwgToolbar")
-            @(Html.TextAreaFor<PageViewModel, string>(p => p.Content, new { @class = "form-control", tabindex = 5 }))
+                @Html.Partial("WysiwgToolbar")
+                @(Html.TextAreaFor<PageViewModel, string>(p => p.Content, new { @class = "form-control", tabindex = 5 }))
             </div>
 
             <div id="editpage-button-container" class="row">
@@ -103,17 +146,19 @@
             @Html.DialogPartial("ChooseImage")
             @Html.DialogPartial("MarkupHelp")
         </form>
-	</div>
+    </div>
 
-	<!-- Preview panel -->
-	<div class="col-lg-6" id="previewpanel-container">
-		<div id="previewpanel-inner" class="panel panel-default">
-			<div id="preview-heading" class="panel-heading">@SiteStrings.EditPage_Preview</div>
-			<div class="panel-body" id="preview-wrapper">
-				<div id="previewLoading" class="hide"><img src="@(Url.Content("~/Assets/Images/white-loading.gif"))" border="0" alt="loading" /></div>
-				<div id="preview"><br class="clear" /></div>
-			</div>
-		</div>
-	</div>
+
+
+    <!-- Preview panel -->
+    <div class="col-lg-6" id="previewpanel-container">
+        <div id="previewpanel-inner" class="panel panel-default">
+            <div id="preview-heading" class="panel-heading">@SiteStrings.EditPage_Preview</div>
+            <div class="panel-body" id="preview-wrapper">
+                <div id="previewLoading" class="hide"><img src="@(Url.Content("~/Assets/Images/white-loading.gif"))" border="0" alt="loading" /></div>
+                <div id="preview"><br class="clear" /></div>
+            </div>
+        </div>
+    </div>
 </div>
 

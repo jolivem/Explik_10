@@ -60,6 +60,12 @@ namespace Roadkill.Core.Mvc
             );
 
             routes.MapRoute(
+                "PageRating",
+                "Pages/PageRating/{id}",
+                new { controller = "Pages", action = "PageRating", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 "UploadCanvas",
                 "Pages/UploadCanvas/{id}/{image}",
                 new { controller = "Pages", action = "UploadCanvas", id = UrlParameter.Optional }

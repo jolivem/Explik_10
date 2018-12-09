@@ -57,7 +57,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		[HttpPost]
 		public JsonResult DeleteFile(string filePath, string fileName)
 		{
-            string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + "bibi" + filePath);
+            string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + Context.AttachmentsPath + filePath);
             //string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath(filePath);
 			string physicalFilePath = Path.Combine(physicalPath, fileName);
 
@@ -93,7 +93,7 @@ namespace Roadkill.Core.Mvc.Controllers
 				return Json(new { status = "error", message = SiteStrings.FileManager_Error_DeleteFolder });
 			}
 
-            string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + "bibi" + folder);
+            string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + Context.AttachmentsPath + folder);
 
             if (!_attachmentPathUtil.IsAttachmentPathValid(physicalPath, false))
 			{
@@ -131,10 +131,11 @@ namespace Roadkill.Core.Mvc.Controllers
 		[HttpPost]
 		public ActionResult FolderInfo(string dir)
 		{
+
 			if (!Directory.Exists(ApplicationSettings.AttachmentsDirectoryPath))
 				return Json(new { status = "error", message = "The attachments directory does not exist - please create it." });
 
-            string userRootPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + "bibi");
+            string userRootPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + Context.AttachmentsPath);
             if (dir == "/")
             {
                 if (!Directory.Exists(userRootPath))
@@ -146,7 +147,7 @@ namespace Roadkill.Core.Mvc.Controllers
             string folder = dir;
 			folder = Server.UrlDecode(folder);
 
-			string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + "bibi" + folder);
+            string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + Context.AttachmentsPath + folder);
 
 			if (!_attachmentPathUtil.IsAttachmentPathValid(physicalPath))
 			{
@@ -159,11 +160,12 @@ namespace Roadkill.Core.Mvc.Controllers
 				if (!string.IsNullOrEmpty(currentFolderName) && currentFolderName != "/")
 					currentFolderName = Path.GetFileName(dir);
 
-				DirectoryViewModel directoryModel = new DirectoryViewModel(currentFolderName, dir);
+                DirectoryViewModel directoryModel = new DirectoryViewModel(currentFolderName, dir, Context.AttachmentsPath);
 				if (Directory.Exists(physicalPath))
 				{
 					foreach (string directory in Directory.GetDirectories(physicalPath))
 					{
+                        //physical takes into account user attachment path 
 						DirectoryInfo info = new DirectoryInfo(directory);
 						string fullPath = info.FullName;
                         //fullPath = fullPath.Replace(ApplicationSettings.AttachmentsDirectoryPath, "");
@@ -171,7 +173,8 @@ namespace Roadkill.Core.Mvc.Controllers
                         fullPath = fullPath.Replace(Path.DirectorySeparatorChar.ToString(), "/");
 						fullPath = "/" + fullPath; // removed in the 1st replace
 
-						DirectoryViewModel childModel = new DirectoryViewModel(info.Name, fullPath);
+                        //fullpath is fullpath from userRootPath
+                        DirectoryViewModel childModel = new DirectoryViewModel(info.Name, fullPath, Context.AttachmentsPath);
 						directoryModel.ChildFolders.Add(childModel);
 					}
 
@@ -209,7 +212,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		[HttpPost]
 		public JsonResult NewFolder(string currentFolderPath, string newFolderName)
 		{
-			var physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + "bibi" + currentFolderPath);
+            var physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + Context.AttachmentsPath + currentFolderPath);
 
 			if (!_attachmentPathUtil.IsAttachmentPathValid(physicalPath))
 			{
@@ -243,7 +246,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		public JsonResult Upload()
 		{
 			string destinationFolder = Request.Form["destination_folder"];
-			string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + "bibi" + destinationFolder);
+            string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + Context.AttachmentsPath + destinationFolder);
 
             if (!_attachmentPathUtil.IsAttachmentPathValid(physicalPath))
 			{

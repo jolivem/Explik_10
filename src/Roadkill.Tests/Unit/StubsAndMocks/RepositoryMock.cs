@@ -80,7 +80,7 @@ namespace Roadkill.Tests.Unit
 				existingPage.CreatedOn = page.CreatedOn;
 				existingPage.IsLocked = page.IsLocked;
 				existingPage.ControlledBy = page.ControlledBy;
-				existingPage.ModifiedOn = page.ModifiedOn;
+				existingPage.PublishedOn = page.PublishedOn;
 				existingPage.Tags = page.Tags;
 				existingPage.Title = page.Title;
 			}
@@ -110,7 +110,7 @@ namespace Roadkill.Tests.Unit
 			PageContent content = new PageContent();
 			content.Id = Guid.NewGuid();
 			page.ControlledBy = content.EditedBy = editedBy;
-			page.ModifiedOn = content.EditedOn = editedOn;
+			page.PublishedOn = content.EditedOn = editedOn;
 			content.Page = page;
 			content.Text = text;
 			content.VersionNumber = FindPageContentsByPageId(page.Id).Max(x => x.VersionNumber) +1;

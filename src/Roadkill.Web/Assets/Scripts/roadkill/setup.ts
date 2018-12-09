@@ -28,7 +28,7 @@ module Roadkill.Web
 		{
 			this.hideTemporaryAlerts();
 			/*this.bindInfoButton();*/
-            //this.bindRateButton();
+            this.bindRateButton();
 			this.bindTimeAgo();
 		}
 
@@ -61,12 +61,12 @@ module Roadkill.Web
 		}
         */
 
-        //public static bindRateButton() {
-        //    // Bind the info icon on each page
-        //    $("#pagerate-button").click(function () {
-        //        Dialogs.openModal("#pagerating");
-        //    });
-        //}
+        public static bindRateButton() {
+            // Bind the info icon on each page
+            $("#pagerate-button").click(function () {
+                Dialogs.openModal("#pagerating");
+            });
+        }
 
         public static bindRateLink() {
                 Dialogs.openModal("#pagerating");

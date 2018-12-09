@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using Roadkill.Core.Database;
+using System.Web.Mvc;
 
 namespace Roadkill.Core.Mvc.ViewModels
 {
@@ -24,37 +25,68 @@ namespace Roadkill.Core.Mvc.ViewModels
             listMostViewed = new List<Page>();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public string GetCanvas(Page page)
+        {
+            return page.FilePath + "page_" + page.Id + ".png";
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public string EncodeThumbNail(Page page, int b) //TODO remove b
         {
-            string image;
-            
-            image = b == 0 ? "/Assets/Images/RaspberryPiBoard.png" : "/Assets/Images/spectrogram_zoomed.png";
-
+            //image = b == 0 ? "/Assets/Images/RaspberryPiBoard.png" : "/Assets/Images/spectrogram_zoomed.png";
             StringBuilder builder = new StringBuilder();
+            string canvas = page.FilePath + "page_" + page.Id + ".png";
 
-            builder.AppendLine("<div class='thumbnail row' style='margin-left:0'>");
+            builder.AppendLine("<table style='width:100%'>");
             {
+                builder.AppendLine("<tr>");
 
-                //builder.AppendLine("<div>");
-                //{
-                //    builder.AppendLine(string.Format("<a href='/wiki/{0}'>", page.Id));
-                //    {
-                //        builder.AppendLine(string.Format("<img class='img-responsive' src='{0}' alt='Lights' style='float:left;width:112px;height:42px;'>", image));
-
-                //        builder.AppendLine(string.Format("<p><strong>{0}</strong></p>", page.Title));
-                //        builder.AppendLine(string.Format("<p>{0}</p>", page.Summary));
-                //        builder.AppendLine(string.Format("<p>{1}  Views: {0}</p>", page.NbView, EncodePageRating(rating, "active")));
-                //        builder.AppendLine("</a>");
-                //    }
-                //    builder.AppendLine("</div>");
-                //}
-
-                builder.AppendLine("<div class='col-xs-4 caption'  style='padding-left:0'>");
+                builder.AppendLine("<td class='thumb-crop'>");
                 {
                     builder.AppendLine(string.Format("<a href='/wiki/{0}'>", page.Id));
                     {
-                        builder.AppendLine(string.Format("<img class='img-responsive' src='{0}' alt='Lights' height='120'>", image));
+                        builder.AppendLine(string.Format("<img class='img-responsive' src='{0}' alt='Lights'>", canvas));
+                        builder.AppendLine("</a>");
+                    }
+                    builder.AppendLine("</td>");
+                }
+                builder.AppendLine("<td>");
+                {
+                    builder.AppendLine(string.Format("<p class='block-with-text'>{0}<br>", page.Title)); //TODO 1 line only
+                    builder.AppendLine(string.Format("<p class='block-with-text'><small>{0}</small><br></p>", page.Summary));
+                    builder.AppendLine(string.Format("<p><small>{1}  Views: {0}</small></p>", page.NbView, EncodePageRating(page)));
+                    builder.AppendLine("</td");
+                }
+                builder.AppendLine("</tr>");
+                builder.AppendLine("</table>");
+            }
+            return builder.ToString();
+        }
+        
+        public string EncodeThumbNail_with_rows(Page page, int b) //TODO remove b
+        {
+
+            //image = b == 0 ? "/Assets/Images/RaspberryPiBoard.png" : "/Assets/Images/spectrogram_zoomed.png";
+            StringBuilder builder = new StringBuilder();
+            string canvas = page.FilePath + "page_" + page.Id + ".png";
+
+            builder.AppendLine("<div class='row' style='margin-left:0'>");
+            {
+                builder.AppendLine("<div class='col-xs-4 thumb-crop'  style='padding-left:0'>");
+                {
+                    builder.AppendLine(string.Format("<a href='/wiki/{0}'>", page.Id));
+                    {
+                        builder.AppendLine(string.Format("<img class='img-responsive' src='{0}' alt='Lights'>", canvas));
                         builder.AppendLine("</a>");
                     }
                     builder.AppendLine("</div>");
@@ -71,11 +103,16 @@ namespace Roadkill.Core.Mvc.ViewModels
             return builder.ToString();
         }
 
-        private static string EncodePageRating(Page page)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public string EncodePageRating(Page page)
         {
             string active = "active ";
             StringBuilder builder = new StringBuilder();
-            string formatStr = "<span class='rating stars {2}star-{0}' value='{1}'></span>";
+            string formatStr = "<span class='rating16 stars16 {2}star16-{0}' value='{1}'></span>";
 
             double rating;
             if (page.TotalRating == 0)
@@ -109,11 +146,6 @@ namespace Roadkill.Core.Mvc.ViewModels
             StringBuilder builder = new StringBuilder();
 
             return builder.ToString();
-        }
-       
-        public string EncodeRating(float rating)
-        {
-            return "";
         }
     }
 }

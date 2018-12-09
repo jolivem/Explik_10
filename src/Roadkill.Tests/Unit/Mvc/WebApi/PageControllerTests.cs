@@ -89,13 +89,13 @@ namespace Roadkill.Tests.Unit.WebApi
 			page.Title = "Hello world";
 			page.Tags = "tag1, tag2";
 			page.CreatedOn = version1Date;
-			page.ModifiedOn = version1Date;
+			page.PublishedOn = version1Date;
 			PageContent pageContent = _repositoryMock.AddNewPage(page, "Some content1", "editor", version1Date);
 
 			PageViewModel model = new PageViewModel(pageContent.Page);
 			model.Title = "New title";
 			model.Content = "Some content2";
-			model.ModifiedOn = DateTime.UtcNow;
+			model.PublishedOn = DateTime.UtcNow;
 
 			// Act
 			_pagesController.Put(model);

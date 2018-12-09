@@ -8,7 +8,19 @@ CREATE TABLE roadkill_pages
 	CreatedOn DATETIME NOT NULL,
 	IsLocked BOOLEAN NOT NULL,
 	ControlledBy NVARCHAR(255) NULL,
-	ModifiedOn DATETIME NULL,
+	PublishedOn DATETIME NULL,
+    IsVideo BOOLEAN NOT NULL, 
+    IsSubmitted BOOLEAN NOT NULL, 
+    IsControlled BOOLEAN NOT NULL, 
+    IsRejected BOOLEAN NOT NULL,
+    IsCopied BOOLEAN NOT NULL,
+    NbRating INT,
+    TotalRating INT,
+    NbView INT,
+    FilePath NVARCHAR(255) NULL, 
+    VideoUrl NVARCHAR(255) NULL,
+    Pseudonym NVARCHAR(255) NULL,
+    ControllerRating INT,
 	PRIMARY KEY (Id)
 );
 
@@ -33,6 +45,8 @@ CREATE TABLE roadkill_users
 	Firstname NVARCHAR(255) NULL,
 	Lastname NVARCHAR(255) NULL,
 	IsEditor BOOLEAN NOT NULL,
+    IsController BOOLEAN NOT NULL, 
+    AttachmentsPath NVARCHAR(255), 
 	IsAdmin BOOLEAN NOT NULL,
 	IsActivated BOOLEAN NOT NULL,
 	Password NVARCHAR(255) NOT NULL,
@@ -52,19 +66,19 @@ CREATE TABLE roadkill_siteconfiguration
 
 CREATE TABLE roadkill_comments
 (
-  Id CHAR(36) not null,
+  Id VARCHAR(36) NOT NULL,
   PageId INT, 
-  CreatedBy NTEXT, 
-  CreatedOn DATETIME, 
+  CreatedBy NVARCHAR(255) NOT NULL, 
+  CreatedOn DATETIME  NOT NULL, 
   Rating INT, 
-  Text NTEXT
+  Text MEDIUMTEXT NULL
 );
 
-CREATE TABLE [roadkill_alerts]
+CREATE TABLE roadkill_alerts
 (
-  [id] CHAR(36) not null,
-  [pageid] INT, 
-  [commentid]CHAR(36),
-  [createdby] NTEXT, 
-  [createdon] DATETIME
+  Id VARCHAR(36) NOT NULL,
+  PageId INT, 
+  CommentId VARCHAR(36) NOT NULL,
+  CreatedBy NVARCHAR(255) NOT NULL, 
+  CreatedOn DATETIME  NOT NULL
 );

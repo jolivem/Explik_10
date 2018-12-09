@@ -83,7 +83,7 @@ namespace Roadkill.Core.Security
 					user.IsAdmin = isAdmin;
 					user.IsEditor = true;
                     user.IsController = isController;
-                    user.AttachmentsPath = DateTime.UtcNow.ToString("yyyy-MM") + "\\" + email;
+                    user.AttachmentsPath = DateTime.UtcNow.ToString("yyyy-MM") + "\\" + username;
                     user.IsBlackListed = false;
 					user.IsActivated = true;
 					Repository.SaveOrUpdateUser(user);
@@ -683,6 +683,29 @@ namespace Roadkill.Core.Security
             catch (DatabaseException ex)
             {
                 throw new SecurityException(ex, "An error occurred checking if {0} is an editor", cookieValue);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public override string GetAttachmentPath(string username)
+        {
+            try
+            {
+                User user = Repository.GetUserByUsername(username);
+                if (user != null)
+                {
+                    return user.AttachmentsPath;
+                }
+
+                return null;
+            }
+            catch (DatabaseException ex)
+            {
+                throw new SecurityException(ex, "An error occurred authentication user {0}", username);
             }
         }
     }

@@ -377,6 +377,10 @@ namespace Roadkill.Core.Security.Windows
         {
             throw new NotImplementedException();
         }
+        public override string GetAttachmentPath(string email)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

@@ -61,13 +61,15 @@ namespace Roadkill.Core.Database.LightSpeed
             entity.IsSubmitted = page.IsSubmitted;
             entity.IsControlled = page.IsControlled;
             entity.IsRejected = page.IsRejected;
-            entity.ModifiedOn = page.ModifiedOn;
+            entity.IsCopied = page.IsCopied;
+            entity.PublishedOn = page.PublishedOn;
 			entity.ControlledBy = page.ControlledBy;
 			entity.Tags = page.Tags;
             entity.Summary = page.Summary;
             entity.Title = page.Title;
             entity.FilePath = page.FilePath;
             entity.VideoUrl = page.VideoUrl;
+            entity.Pseudonym = page.Pseudonym;
             entity.ControllerRating = page.ControllerRating;
         }
 

@@ -170,25 +170,27 @@ namespace Roadkill.Core.Database.Export
 			if (page == null)
 				return "";
 
-			string sql = "INSERT INTO roadkill_pages (id, title, summary, createdby, createdon, controlledby, modifiedon, tags, islocked, issubmitted, iscontrolled, isrejected, isvideo, nbrating, totalrating, nbview, filepath, videourl, controllerrating) VALUES (";
+			string sql = "INSERT INTO roadkill_pages (id, title, summary, createdby, createdon, controlledby, publishedon, tags, islocked, issubmitted, iscontrolled, isrejected, iscopied, isvideo, nbrating, totalrating, nbview, filepath, videourl, pseudonym, controllerrating) VALUES (";
 			sql += string.Format("'{0}',", page.Id);
 			sql += string.Format("'{0}',", page.Title.ReplaceSingleQuotes());
             sql += string.Format("'{0}',", page.Summary.ReplaceSingleQuotes());
             sql += string.Format("'{0}',", page.CreatedBy.ReplaceSingleQuotes());
             sql += string.Format("'{0}',", page.CreatedOn.ToString("yyyy-MM-dd"));
 			sql += string.Format("'{0}',", page.ControlledBy.ReplaceSingleQuotes());
-			sql += string.Format("'{0}',", page.ModifiedOn.ToString("yyyy-MM-dd"));
+			sql += string.Format("'{0}',", page.PublishedOn.ToString("yyyy-MM-dd"));
 			sql += string.Format("'{0}',", page.Tags.ReplaceSingleQuotes());
             sql += string.Format("'{0}',", page.IsLocked);
             sql += string.Format("'{0}',", page.IsSubmitted);
             sql += string.Format("'{0}',", page.IsControlled);
             sql += string.Format("'{0}',", page.IsRejected);
+            sql += string.Format("'{0}',", page.IsCopied);
             sql += string.Format("'{0}',", page.IsVideo);
             sql += string.Format("'{0},'", page.NbRating);
             sql += string.Format("'{0}',", page.TotalRating);
             sql += string.Format("'{0}',", page.NbView);
             sql += string.Format("'{0}',", page.FilePath);
             sql += string.Format("'{0}',", page.VideoUrl);
+            sql += string.Format("'{0}',", page.Pseudonym);
             sql += string.Format("'{0}'", page.ControllerRating);
 			sql += ");";
 

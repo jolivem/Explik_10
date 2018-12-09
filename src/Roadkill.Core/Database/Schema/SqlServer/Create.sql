@@ -7,7 +7,7 @@ CREATE TABLE [dbo].[roadkill_pages]
 	[CreatedOn] [datetime] NOT NULL,
 	[IsLocked] [bit] NOT NULL,
 	[ControlledBy] [nvarchar](255) NULL,
-	[ModifiedOn] [datetime] NULL,
+	[PublishedOn] [datetime] NULL,
 	[NbRating] [int] NOT NULL,
 	[TotalRating] [int] NOT NULL,
 	[NbView] [int] NOT NULL,

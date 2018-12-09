@@ -208,7 +208,7 @@ namespace Roadkill.Tests.Unit
 				CreatedOn = DateTime.Today,
 				CreatedBy = author,
 				ControlledBy = author,
-				ModifiedOn = DateTime.Today,
+				PublishedOn = DateTime.Today,
 				Tags = tags
 			};
 

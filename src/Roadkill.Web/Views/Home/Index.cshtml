@@ -28,13 +28,13 @@
                         {
                             @MvcHtmlString.Create(@Model.EncodePageRating32(0))
                         }
-                        Nb views = @Model.NbView;
+                        @SiteStrings.Page_Info_NbViews @Model.NbView;
                     </div>
                 </div>
                 <div id="pagecontent" itemscope itemtype="http://schema.org/Article">
                     <meta itemprop="dateCreated" content="@Model.CreatedOn"/> <!-- MJO not used -->
                     <meta itemprop="creator" content="@Model.CreatedBy"/>
-                    <meta itemprop="dateModified" content="@Model.ModifiedOn"/>
+                    <meta itemprop="dateModified" content="@Model.PublishedOn"/>
                     <meta itemprop="keywords" content="@Model.SpaceDelimitedTags()"/>
                     @MvcHtmlString.Create(Model.ContentAsHtml)
                 </div>
@@ -43,8 +43,8 @@
                     <div id="pageinfo" pageid="@Model.Id">
                         <b>@SiteStrings.Page_Info_CreatedBy2</b>
                         @Model.CreatedBy<b>@SiteStrings.Page_Info_On</b>
-                        @Model.CreatedOn.Date.ToString("dd/MM/yyyy")<b>. @SiteStrings.Page_Info_ModifiedOn</b>
-                        @Model.ModifiedOn.Date.ToString("dd/MM/yyyy")<br/>
+                        @Model.CreatedOn.Date.ToString("dd/MM/yyyy")<b>. @SiteStrings.Page_Info_PublishedOn</b>
+                        @Model.PublishedOn.Date.ToString("dd/MM/yyyy")<br/>
                         <a href="@Url.Action("CommentPage", "Comment", new { id = @Model.Id })" clas class="btn btn-default btn-sm">
                             RATE TODO
                         </a>

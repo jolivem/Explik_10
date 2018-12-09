@@ -29,11 +29,12 @@ module Roadkill.Web.FileManager
 					"</tr></thead>";
 			html.push(header);
 			
-			for (var i = 0; i < directoryViewModel.ChildFolders.length; i++)
-			{
+			for (var i = 0; i < directoryViewModel.ChildFolders.length; i++) {
+
+			    var userUrlPath: string = directoryViewModel.ChildFolders[i].UserUrlPath + directoryViewModel.ChildFolders[i].UrlPath;
 				var htmlRow: string = "";
 
-				htmlRow += "<tr class=\"listrow\" data-itemtype=\"folder\" data-urlpath=\"" + directoryViewModel.ChildFolders[i].UrlPath + "\">";
+                htmlRow += "<tr class=\"listrow\" data-itemtype=\"folder\" data-urlpath=\"" + directoryViewModel.ChildFolders[i].UrlPath + "\" data-userurlpath=\"" + userUrlPath + "\">";
 				htmlRow += "<td width='1%'>";
 				htmlRow += "<img src='" + ROADKILL_COREASSETPATH + "Images/filemanager/directory.png'></td>";
 				htmlRow += "<td nowrap width=\"50%\">" + directoryViewModel.ChildFolders[i].Name + "</td>";
@@ -56,9 +57,10 @@ module Roadkill.Web.FileManager
 
 		public getBreadCrumb(directoryViewModel : DirectoryViewModel, count: number) : string
 		{
-			var html: string = "";
+            var userUrlPath: string = directoryViewModel.UserUrlPath + directoryViewModel.UrlPath;
+            var html: string = "";
 
-			html += "<li data-level=\"" + count + "\" data-urlpath=\"" + directoryViewModel.UrlPath + "\">";
+            html += "<li data-level=\"" + count + "\" data-urlpath=\"" + directoryViewModel.UrlPath + "\" data-userurlpath=\"" + userUrlPath + "\">";
 			html += "<a href=\"javascript:;\">" +directoryViewModel.Name+ "</a>";
 			html += "</li>";
 
