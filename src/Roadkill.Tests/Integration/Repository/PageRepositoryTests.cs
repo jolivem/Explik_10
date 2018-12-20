@@ -349,7 +349,7 @@ namespace Roadkill.Tests.Integration.Repository
 			Page page = Repository.GetPageById(1);
 
 			// Act
-			Repository.DeletePage(page);
+			Repository.DeletePage(page.Id);
 
 			// Assert
 			Assert.That(page, Is.Not.Null);

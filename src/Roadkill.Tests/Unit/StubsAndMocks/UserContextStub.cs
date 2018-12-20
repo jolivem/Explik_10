@@ -16,5 +16,9 @@ namespace Roadkill.Tests.Unit
 		public bool IsEditor { get; set; }
 		public bool IsLoggedIn { get; set; }
 		public PageViewModel Page { get; set; }
-	}
+
+        public bool IsController => throw new NotImplementedException();
+
+        public string AttachmentsPath => throw new NotImplementedException();
+    }
 }

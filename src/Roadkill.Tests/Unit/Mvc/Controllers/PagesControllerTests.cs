@@ -78,7 +78,7 @@ namespace Roadkill.Tests.Unit
 			_pageServiceMock.Setup(x => x.FindByTag(It.IsAny<string>()));
 			_pageService = _pageServiceMock.Object;
 
-			_pagesController = new PagesController(_applicationSettings, _userService, _settingsService, _pageService, _searchService, _historyService, _contextStub);
+			_pagesController = new PagesController(_applicationSettings, _userService, _settingsService, _pageService, _searchService, _historyService, _contextStub, _repository);
 			_mocksContainer = _pagesController.SetFakeControllerContext();
 		}
 

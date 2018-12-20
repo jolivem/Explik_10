@@ -382,6 +382,131 @@ namespace Roadkill.Tests.Unit
 			
 		}
 
-		#endregion
-	}
+        public void AddPageRating(int pageId, int rating)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemovePageRating(int pageId, int rating)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletePage(int pageId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetDraft(int pageId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SubmitPage(int pageId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RejectPage(int pageId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Page> FindMostRecentPages(int number)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Page> FindPagesMostViewed(int number)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Page> FindPagesBestRated(int number)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Page> FindPagesWithAlerts()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void IncrementNbView(int pageId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetNbView(int pageId, int nbView)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetRating(int pageId, int nbRating, int totalRating)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User GetControllerById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteComment(Guid commentId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Comment> FindAllCommentByPage(int pageId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddComment(Comment comment)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateRating(Guid commentId, int rating)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Comment FindCommentByPageAndUser(int pageId, string username)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteAlert(Guid alertId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletPageAlerts(int pageId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletCommentAlerts(Guid commentId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Alert> FindAlertsByPage(int pageId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Alert> FindAlertsByComment(Guid commentGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddAlert(Alert alert)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+    }
 }

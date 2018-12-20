@@ -17,10 +17,13 @@ namespace Roadkill.Core.Mvc.ViewModels
 	/// </summary>
 	public class SearchResultViewModel
 	{
-		/// <summary>
-		/// The page id 
-		/// </summary>
-		public int Id { get; internal set; }
+        private global::Lucene.Net.Documents.Document document;
+        private global::Lucene.Net.Search.ScoreDoc scoreDoc;
+
+        /// <summary>
+        /// The page id 
+        /// </summary>
+        public int Id { get; internal set; }
 
 		/// <summary>
 		/// The page title.
@@ -147,6 +150,12 @@ namespace Roadkill.Core.Mvc.ViewModels
 		    Canvas = page.FilePath + "page_" + page.Id + ".png";
 
 		}
+
+        public SearchResultViewModel(global::Lucene.Net.Documents.Document document, global::Lucene.Net.Search.ScoreDoc scoreDoc)
+        {
+            this.document = document;
+            this.scoreDoc = scoreDoc;
+        }
 
         public string EncodePageRating(double rating)
         {

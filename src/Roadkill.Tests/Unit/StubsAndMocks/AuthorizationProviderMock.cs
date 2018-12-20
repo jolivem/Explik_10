@@ -19,7 +19,12 @@ namespace Roadkill.Tests.Unit.StubsAndMocks
 			return IsAdminResult;
 		}
 
-		public bool IsEditor(IPrincipal principal)
+        public bool IsController(IPrincipal principal)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsEditor(IPrincipal principal)
 		{
 			return IsEditorResult;
 		}

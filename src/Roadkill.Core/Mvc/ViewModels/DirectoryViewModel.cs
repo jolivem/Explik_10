@@ -51,5 +51,11 @@ namespace Roadkill.Core.Mvc.ViewModels
 			Files = new List<FileViewModel>();
 			ChildFolders = new List<DirectoryViewModel>();
 		}
-	}
+
+        public DirectoryViewModel(string name, string urlPath)
+        {
+            Name = name;
+            UrlPath = urlPath;
+        }
+    }
 }

@@ -238,5 +238,15 @@ namespace Roadkill.Tests
 		{
 			return LoggedInUserId;
 		}
-	}
+
+        public override bool IsController(string cookieValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetAttachmentPath(string email)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
