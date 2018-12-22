@@ -1135,4 +1135,10 @@
   <data name="Page_Info_Rejected" xml:space="preserve">
     <value>Rejected</value>
   </data>
+  <data name="Page_Link_Rate" xml:space="preserve">
+    <value>Rate</value>
+  </data>
+  <data name="Page_Link_Unrate" xml:space="preserve">
+    <value>Cancel rating</value>
+  </data>
 </root>

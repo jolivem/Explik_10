@@ -156,6 +156,19 @@ $(document).ready(function () {
         });
     }
 
+    //function setPassive(span) {
+    //    span.find('.rating.stars').each(function () {
+    //        $(this).removeClass("active");
+    //        $(this).addClass("passive");
+    //    });
+    //}
+    //function setActive(span) {
+    //    span.find('.rating.stars').each(function () {
+    //        $(this).removeClass("passive");
+    //        $(this).addClass("active");
+    //    });
+    //}
+
     $(".rating.stars.active").mouseover(function () {
         var srating = $("#srating").attr("value");
         if (srating == 0) {
@@ -175,17 +188,31 @@ $(document).ready(function () {
     });
 
     $(".rating.stars.active").click(function () {
-        var span = $(this).parent("span");
-        var newRating = $(this).attr("value");
-        $("#newrating").attr("value", newRating);
-        var title = $(this).attr("title");
-        $("#rate-info").html(title);
-        $("#srating").val(newRating);
-        setRating(span, newRating);
+        var previousRating = $("#current-rating").val();
+        if (previousRating == 0) {
+            var span = $(this).parent("span");
+            var newRating = $(this).attr("value");
+            $("#newrating").attr("value", newRating);
+            var title = $(this).attr("title");
+            $("#rate-info").html(title);
+            $("#srating").val(newRating);
+            setRating(span, newRating);
+        }
+        //var pID = $("#page-view").attr("pageid");
+        //var pRating = $("#srating").val();
+    });
+
+    $("#submit-rating").click(function () {
+        var unrateText = $("#text-unrate").attr("value");
+        var rateText = $("#text-rate").attr("value");
 
         var pID = $("#page-view").attr("pageid");
-        //var pRating = $("#srating").val();
-
+        var previousRating = $("#current-rating").val();
+        var newRating = $("#srating").val();
+        if (previousRating != 0) {
+            // this is "cancel rating"
+            newRating = 0;
+        }
         $.ajax({
             type: "POST",
             url: "/Pages/PageRating",
@@ -195,6 +222,25 @@ $(document).ready(function () {
             },
             success: function (response) {
                 toastr.success("Taken into account");
+                var newtext = "";
+
+                if (previousRating == 0) {
+                    newtext = unrateText;
+                    var span = $("#ratings");
+                    $("#current-rating").val(newRating);
+                    $(".rating.stars").css("background-image", 'url("/Assets/CSS/images/grey-yellow-24.png")');
+                }
+                else {
+                    newtext = rateText;
+                    var span = $("#ratings");
+                    setRating(span, 0);
+                    //setActive(span);
+                    $("#current-rating").val(0);
+                    $("#srating").val(0);
+                    $("#rate-info").html(".");
+                    $(".rating.stars").css("background-image", 'url("/Assets/CSS/images/grey-bibi-24.png")');
+                }
+                document.getElementById("submit-rating").text = newtext;
             },
             failure: function (response) {
                 alert("failure");

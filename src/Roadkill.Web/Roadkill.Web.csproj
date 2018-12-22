@@ -323,6 +323,10 @@
     <Content Include="Assets\CSS\htmldiff.css" />
     <Content Include="Assets\CSS\images\animated-overlay.gif" />
     <Content Include="Assets\CSS\images\blank.gif" />
+    <Content Include="Assets\CSS\images\grey-bibi-24.png" />
+    <Content Include="Assets\CSS\images\grey-yellow-16.png" />
+    <Content Include="Assets\CSS\images\grey-yellow-24.png" />
+    <Content Include="Assets\CSS\images\grey-yellow-32.png" />
     <Content Include="Assets\CSS\images\grey-yellow-48.png" />
     <Content Include="Assets\CSS\images\plugin-disabled.png" />
     <Content Include="Assets\CSS\images\plugin-enabled.png" />

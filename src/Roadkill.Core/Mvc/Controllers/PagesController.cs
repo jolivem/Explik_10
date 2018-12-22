@@ -626,6 +626,7 @@ namespace Roadkill.Core.Mvc.Controllers
 
             _pageService.SetPageRatingForUser( id, Context.CurrentUsername, Int32.Parse(rating));
 
+            // TODO redirect strange because it is an ajax post
             return RedirectToAction("Index", "Wiki");
         }
 
@@ -646,6 +647,6 @@ namespace Roadkill.Core.Mvc.Controllers
 
         //    return RedirectToAction("AllNewPages", "Pages");
         //}
-	}
+    }
 }
 

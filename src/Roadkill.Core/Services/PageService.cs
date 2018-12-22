@@ -1230,16 +1230,19 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <param name="pageId"></param>
         /// <param name="username"></param>
-        /// <param name="rating"></param>
+        /// <param name="rating">if 0, remove rating</param>
         public void SetPageRatingForUser(int pageId, string username, int rating)
         {
             Comment comment = FindCommentByPageAndUser(pageId, username);
             if (comment != null)
             {
+                // if already rated, remove
                 if (comment.Rating != 0)
                 {
                     Repository.RemovePageRating(pageId, comment.Rating);
                 }
+
+                // add new rating only if it is a rating (rating != 0)
                 Repository.UpdateRating(comment.Id, rating);
             }
             else

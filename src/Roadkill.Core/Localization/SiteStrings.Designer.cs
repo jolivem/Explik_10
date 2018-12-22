@@ -1204,6 +1204,24 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Rate.
+        /// </summary>
+        public static string Page_Link_Rate {
+            get {
+                return ResourceManager.GetString("Page_Link_Rate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cancel rating.
+        /// </summary>
+        public static string Page_Link_Unrate {
+            get {
+                return ResourceManager.GetString("Page_Link_Unrate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à The title field is required..
         /// </summary>
         public static string Page_Validation_Title {

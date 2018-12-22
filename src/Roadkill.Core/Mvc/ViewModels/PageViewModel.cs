@@ -630,6 +630,12 @@ namespace Roadkill.Core.Mvc.ViewModels
             //builder.AppendFormat("rating={0}", rating);
             return builder.ToString();
         }
+
+
+        /// <summary>
+        /// uses 24 pixels stars
+        /// </summary>
+        /// <returns></returns>
         public string EncodeUserRating()
         {
             string active = "active ";
@@ -637,22 +643,35 @@ namespace Roadkill.Core.Mvc.ViewModels
 
             string[] titles = { SiteStrings.Rating_level1, SiteStrings.Rating_level2, SiteStrings.Rating_level3, SiteStrings.Rating_level4, SiteStrings.Rating_level5 };
 
+
+            // The state of stars is initiate when page is ready, in setRating__()
             for (int i = 1; i <= 5; i++)
             {
                 string formatStr = "<span class='rating stars {2}star-{0}' title='{3}' value='{1}'></span>";
-                if (i <= Rating)
-                {
-                    builder.AppendFormat(formatStr, "left_on", i, active, titles[i - 1]);
-                    builder.AppendFormat(formatStr, "right_on", i, active, titles[i - 1]);
-                }
-                else
-                {
+                //if (i <= Rating)
+                //{
+                //    builder.AppendFormat(formatStr, "left_on", i, active, titles[i - 1]);
+                //    builder.AppendFormat(formatStr, "right_on", i, active, titles[i - 1]);
+                //}
+                //else
+                //{
                     builder.AppendFormat(formatStr, "left_off", i, active, titles[i - 1]);
                     builder.AppendFormat(formatStr, "right_off", i, active, titles[i - 1]);
-                }
+                //}
             }
 
             return builder.ToString();
+        }
+
+        /// <summary>
+        /// EncodeRateInfo
+        /// </summary>
+        /// <returns></returns>
+        public string EncodeRateInfo(int userRating)
+        {
+            // value for rating 0 is '.' to avoid height change
+            string[] titles = { ".", SiteStrings.Rating_level1, SiteStrings.Rating_level2, SiteStrings.Rating_level3, SiteStrings.Rating_level4, SiteStrings.Rating_level5 };
+            return titles[userRating];
         }
 
         /// <summary>
