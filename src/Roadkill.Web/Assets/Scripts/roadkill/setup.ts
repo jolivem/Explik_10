@@ -63,7 +63,7 @@ module Roadkill.Web
 
         public static bindRateButton() {
             // Bind the info icon on each page
-            $("#pagerate-button").click(function () {
+            $("#pagecomment-button").click(function () {
                 Dialogs.openModal("#pagerating");
             });
         }

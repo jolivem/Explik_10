@@ -15,6 +15,7 @@
         var span = $(".postRating");
         if (@ViewBag.userrating == 0) {
             $(".rating.stars").css("background-image", 'url("/Assets/CSS/images/grey-bibi-24.png")');
+            $("#submit-rating").css("display", "none");
         }
         else {
             setRating__(span, @ViewBag.userrating);
@@ -31,9 +32,9 @@
     }
 
         // Bind the info icon on each page
-    $("#pagerate-button-btn").click(function () {
-            Web.Dialogs.openModal("#pagerating");
-        });
+    //$("#pagerate-button-btn").click(function () {
+    //        Web.Dialogs.openModal("#pagerating");
+    //    });
 
 
 </script>
@@ -67,7 +68,7 @@
             {
                 @MvcHtmlString.Create(@Model.EncodePageRating32(0))
             }
-            <p>Views: @Model.NbView</p>
+            <p>@Model.NbView @SiteStrings.Page_Info_NbView</p>
 
             <hr size=2 align=left width="90%" />
             <p><b>@SiteStrings.Page_Info_CreatedBy2</b> @Model.CreatedBy</p>
@@ -75,46 +76,68 @@
             {
                 <p><b> @SiteStrings.Page_Info_PublishedOn</b>@Model.PublishedOn.Date.ToString("dd/MM/yyyy")</p>
             }
+            <hr size=2 align=left width="90%" />
         </div>
     </div>
     <div class="row">
         <div id="pageinfo" class="col-sm-8" pageid="@Model.Id">
-            <a id="pagerate-button" href="javascript:;"><small>Comment</small></a><a id="pagealert-button" href="javascript:;" style="float:right;"><small>Alert</small></a>
+            <a id="pagecomment-button" href="javascript:;">
+                <small>
+                    @if (@Model.AllComments.Count == 0)
+                    {
+                        @SiteStrings.Comment_Be_The_First
+                    }
+                    else
+                    {
+                        @SiteStrings.Comment_Link
+                    }
+                </small>
+            </a>
+            <a id="pagealert-button" href="javascript:;" style="float:right;"><small>Alert</small></a>
         </div>
     </div>
-    <div class="row">
+    <div class="row col-sm-8">
         @Html.Hidden("text-unrate", @SiteStrings.Page_Link_Unrate)
         @Html.Hidden("text-rate", @SiteStrings.Page_Link_Rate)
         @Html.Hidden("srating", (object)ViewBag.userrating)
         @Html.Hidden("current-rating", (object)ViewBag.userrating)
         <hr size=2 align=left width="90%" />
-        <div class="col-sm-2">
-            My rating
+        <div id="newrating">
+            <table>
+                <tr>
+                    <td>@SiteStrings.Page_Info_My_Rating &nbsp;</td>
+                    <td>
+                        <span id="ratings" class="postRating" style="padding-top:5px;">
+                            @MvcHtmlString.Create(@Model.EncodeUserRating())
+                        </span>
+                    </td>
+                    <td>
+                        <small>
+
+                            <a id="submit-rating" href="javascript:;" style="padding-top:5px; padding-left:25px;">
+                                @if (@ViewBag.userrating > 0)
+                                {
+                                    @SiteStrings.Page_Link_Unrate
+                                }
+                                else
+                                {
+                                    @SiteStrings.Page_Link_Rate
+                                }
+                            </a>
+                        </small>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><small><div id="rate-info">@MvcHtmlString.Create(@Model.EncodeRateInfo(@ViewBag.userrating))</div></small></td>
+                </tr>
+            </table>
         </div>
-        <div id="newrating" class="col-sm-3">
-            <span id="ratings" class="postRating">
-                @MvcHtmlString.Create(@Model.EncodeUserRating())
-            </span>
-            <small><div id="rate-info"> @MvcHtmlString.Create(@Model.EncodeRateInfo(@ViewBag.userrating))</div></small>
-        </div>
-        <div class="col-sm-2">
-            <small>
-                <a id="submit-rating" href="javascript:;">
-                    @if (@ViewBag.userrating > 0)
-                    {
-                        @SiteStrings.Page_Link_Unrate
-                    }
-                    else
-                    {
-                        @SiteStrings.Page_Link_Rate
-                    }
-                </a>
-            </small>
-        </div>
+        <hr size=2 align=left width="90%" />
     </div>
     <div class="row">
         <div id="pagecomments">
-            <hr size=2 align=left width="90%" />
+            
             <!-- list of Comments -->
             @MvcHtmlString.Create(@Model.GetCommentsHtml())
         </div>

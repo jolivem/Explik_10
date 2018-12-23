@@ -367,6 +367,24 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Be the firt to comment.
+        /// </summary>
+        public static string Comment_Be_The_First {
+            get {
+                return ResourceManager.GetString("Comment_Be_The_First", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Comment.
+        /// </summary>
+        public static string Comment_Link {
+            get {
+                return ResourceManager.GetString("Comment_Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Comment.
         /// </summary>
         public static string Comment_Title {
@@ -1123,6 +1141,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à My rating:.
+        /// </summary>
+        public static string Page_Info_My_Rating {
+            get {
+                return ResourceManager.GetString("Page_Info_My_Rating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Average ratings:.
         /// </summary>
         public static string Page_Info_NbRating {
@@ -1132,7 +1159,7 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Views: .
+        ///   Recherche une chaîne localisée semblable à views.
         /// </summary>
         public static string Page_Info_NbView {
             get {
@@ -1168,7 +1195,7 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Published on:.
+        ///   Recherche une chaîne localisée semblable à Published on .
         /// </summary>
         public static string Page_Info_PublishedOn {
             get {

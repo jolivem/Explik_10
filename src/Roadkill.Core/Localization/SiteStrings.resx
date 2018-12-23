@@ -427,7 +427,7 @@
     <value>Created by:</value>
   </data>
   <data name="Page_Info_PublishedOn" xml:space="preserve">
-    <value>Published on:</value>
+    <value>Published on </value>
   </data>
   <data name="Page_Info_ControlledBy" xml:space="preserve">
     <value>Last modified by:</value>
@@ -1012,7 +1012,7 @@
     <value>Average ratings:</value>
   </data>
   <data name="Page_Info_NbView" xml:space="preserve">
-    <value>Views: </value>
+    <value>views</value>
   </data>
   <data name="Page_Info_TotalRating" xml:space="preserve">
     <value>Number of ratings:</value>
@@ -1140,5 +1140,14 @@
   </data>
   <data name="Page_Link_Unrate" xml:space="preserve">
     <value>Cancel rating</value>
+  </data>
+  <data name="Comment_Be_The_First" xml:space="preserve">
+    <value>Be the firt to comment</value>
+  </data>
+  <data name="Comment_Link" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="Page_Info_My_Rating" xml:space="preserve">
+    <value>My rating:</value>
   </data>
 </root>

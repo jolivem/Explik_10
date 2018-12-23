@@ -324,7 +324,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 
                 if (AllComments.Count == 0)
                 {
-                    return builder.AppendLine("TODO be the first to comment").ToString();
+                    return "";
                 }
 
                 builder.AppendLine("<div>");
@@ -670,7 +670,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         public string EncodeRateInfo(int userRating)
         {
             // value for rating 0 is '.' to avoid height change
-            string[] titles = { ".", SiteStrings.Rating_level1, SiteStrings.Rating_level2, SiteStrings.Rating_level3, SiteStrings.Rating_level4, SiteStrings.Rating_level5 };
+            string[] titles = { "&nbsp;", SiteStrings.Rating_level1, SiteStrings.Rating_level2, SiteStrings.Rating_level3, SiteStrings.Rating_level4, SiteStrings.Rating_level5 };
             return titles[userRating];
         }
 

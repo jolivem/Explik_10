@@ -197,15 +197,14 @@ $(document).ready(function () {
             $("#rate-info").html(title);
             $("#srating").val(newRating);
             setRating(span, newRating);
+            $("#submit-rating").css("display", "inline");
+
         }
         //var pID = $("#page-view").attr("pageid");
         //var pRating = $("#srating").val();
     });
 
     $("#submit-rating").click(function () {
-        var unrateText = $("#text-unrate").attr("value");
-        var rateText = $("#text-rate").attr("value");
-
         var pID = $("#page-view").attr("pageid");
         var previousRating = $("#current-rating").val();
         var newRating = $("#srating").val();
@@ -222,16 +221,14 @@ $(document).ready(function () {
             },
             success: function (response) {
                 toastr.success("Taken into account");
-                var newtext = "";
-
                 if (previousRating == 0) {
-                    newtext = unrateText;
                     var span = $("#ratings");
                     $("#current-rating").val(newRating);
                     $(".rating.stars").css("background-image", 'url("/Assets/CSS/images/grey-yellow-24.png")');
+                    $("#submit-rating").css("display", "inline");
+                    document.getElementById("submit-rating").text = $("#text-unrate").attr("value");
                 }
                 else {
-                    newtext = rateText;
                     var span = $("#ratings");
                     setRating(span, 0);
                     //setActive(span);
@@ -239,8 +236,9 @@ $(document).ready(function () {
                     $("#srating").val(0);
                     $("#rate-info").html(".");
                     $(".rating.stars").css("background-image", 'url("/Assets/CSS/images/grey-bibi-24.png")');
+                    $("#submit-rating").css("display", "none");
+                    document.getElementById("submit-rating").text = $("#text-rate").attr("value");
                 }
-                document.getElementById("submit-rating").text = newtext;
             },
             failure: function (response) {
                 alert("failure");
