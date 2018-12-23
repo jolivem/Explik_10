@@ -45,7 +45,7 @@
 
 </style>
 
-<div class="container-fluid">
+<div class="container">
     <h4>Best rated</h4>
     @for (int i = 0; i < Model.listBestRated.Count; i++) /* TODO Min or Max */
     {
@@ -74,7 +74,7 @@
                 <span class=" searchresult-title">@Html.ActionLink(@Model.listMostRecent[i].Title, "Index", "Wiki", new { id = @Model.listMostRecent[i].Id, title = @Model.listMostRecent[i].Title }, null)</span><br />
                 <span class="searchresult-summary">@MvcHtmlString.Create(@Model.listMostRecent[i].Summary)...</span><br />
                 <span>
-                    <span class="searchresult-date">@Model.listMostRecent[i].CreatedBy - @Model.listMostRecent[i].CreatedOn.ToString("dd MMM yyyy") - nb views=@Model.listMostRecent[i].NbView<</span>
+                    <span class="searchresult-date">@Model.listMostRecent[i].CreatedBy - @Model.listMostRecent[i].CreatedOn.ToString("dd MMM yyyy") -@Model.listMostRecent[i].NbView views - </span>
                     <span class="searchresult-date">@MvcHtmlString.Create(@Model.EncodePageRating(@Model.listMostRecent[i]))</span>
                 </span>
             </div>

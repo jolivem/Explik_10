@@ -718,12 +718,14 @@ namespace Roadkill.Core.Services
         {
             try
             {
-                PageViewModel pageModel = _pageViewModelCache.Get(id);
-                if (pageModel != null)
-                {
-                    return pageModel;
-                }
-                else
+                //PageViewModel pageModel = _pageViewModelCache.Get(id);
+                //if (pageModel != null)
+                //{
+                //    return pageModel;
+                //}
+                //else
+                PageViewModel pageModel;
+                if (true)
                 {
                     Page page = Repository.GetPageById(id);
 
@@ -1253,6 +1255,29 @@ namespace Roadkill.Core.Services
         }
 
         /// <summary>
+        /// SetPageRatingForUser
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <param name="username"></param>
+        /// <param name="rating">if 0, remove rating</param>
+        public void SetPageCommentForUser(int pageId, string username, string text)
+        {
+            Comment comment = FindCommentByPageAndUser(pageId, username);
+            if (comment != null)
+            {
+                Repository.UpdateComment(comment.Id, text);
+            }
+            else
+            {
+                comment = new Comment(pageId, username, 0, text);
+                AddComment(comment);
+            }
+
+            // because comment has changed, force reloading
+            _pageViewModelCache.Remove(pageId);
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="id"></param>
@@ -1267,6 +1292,22 @@ namespace Roadkill.Core.Services
             }
             return 0;
         }
-    
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public string GetPageCommentFromUser(int id, string username)
+        {
+            Comment comment = FindCommentByPageAndUser(id, username);
+            if (comment != null)
+            {
+                return comment.Text;
+            }
+            return "";
+        }
+
     }
 }

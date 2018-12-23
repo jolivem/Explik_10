@@ -52,12 +52,25 @@ a.external-link	{ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA
 #pageinformation .tags a:hover	{ color:#7c7c7c !important; }
     */
 
-/* Page rate dialog */
-#pagerating { padding-top: 10%; }
-#pagerating .tags		{  }
-#pagerating .tagblock	{ border:1px solid #c2c2c2;background-color:#dcdcdc;margin-right:3px;padding:5px;border-radius: 4px; }
-#pagerating .tags a	{ color:#000 !important; }
-#pagerating .tags a:hover	{ color:#7c7c7c !important; }
+/* Page comment dialog */
+#page-add-comment { padding-top: 10%; }
+#page-add-comment .tags		{  }
+#page-add-comment .tagblock	{ border:1px solid #c2c2c2;background-color:#dcdcdc;margin-right:3px;padding:5px;border-radius: 4px; }
+#page-add-comment .tags a	{ color:#000 !important; }
+#page-add-comment .tags a:hover	{ color:#7c7c7c !important; }
+
+#page-remove-comment { padding-top: 10%; }
+#page-remove-comment .tags		{  }
+#page-remove-comment .tagblock	{ border:1px solid #c2c2c2;background-color:#dcdcdc;margin-right:3px;padding:5px;border-radius: 4px; }
+#page-remove-comment .tags a	{ color:#000 !important; }
+#page-remove-comment .tags a:hover	{ color:#7c7c7c !important; }
+
+/* Page alert dialog */
+#pagealert { padding-top: 10%; }
+#pagealert .tags		{  }
+#pagealert .tagblock	{ border:1px solid #c2c2c2;background-color:#dcdcdc;margin-right:3px;padding:5px;border-radius: 4px; }
+#pagealert .tags a	{ color:#000 !important; }
+#pagealert .tags a:hover	{ color:#7c7c7c !important; }
 
 /* Login,profile,reset password pages */
 #profile		{ background-color:#fbfafa;padding:1em; }

@@ -223,12 +223,20 @@ namespace Roadkill.Core.Services
 	    /// <param name="rating"></param>
         void SetPageRatingForUser(int pageId, string username, int rating);
 
-	    /// <summary>
-	    /// 
-	    /// </summary>
-	    /// <param name="id"></param>
-	    /// <param name="currentUsername"></param>
-	    /// <returns></returns>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <param name="username"></param>
+        /// <param name="rating"></param>
+        void SetPageCommentForUser(int pageId, string username, string text);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="currentUsername"></param>
+        /// <returns></returns>
         int GetPageRatingFromUser(int id, string username);
 	}
 }

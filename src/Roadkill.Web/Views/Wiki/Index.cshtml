@@ -8,7 +8,9 @@
     <div id="viewhistory">@Html.ActionLink(SiteStrings.Navigation_ViewHistory, "History", "Pages", new { id = Model.Id }, null)</div>
 }
 
-@Html.DialogPartial("PageRating", Model)
+@Html.DialogPartial("PageAddComment", Model)
+@Html.DialogPartial("PageRemoveComment", Model)
+@Html.DialogPartial("PageAlert", Model)
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -30,13 +32,6 @@
             else $(this).attr("class", imgSrc.replace("_on", "_off"));
         });
     }
-
-        // Bind the info icon on each page
-    //$("#pagerate-button-btn").click(function () {
-    //        Web.Dialogs.openModal("#pagerating");
-    //    });
-
-
 </script>
 
 
@@ -46,101 +41,106 @@
     }
 </style>
 
-<div class="container" id="page-view" pageid="@Model.Id">
-    <div class="row">
-        <div class="col-sm-8">
-            <h2 class="pagetitle">@Model.Title</h2>
-            <hr size=2 align=left width="90%" />
-            <p align="justify">@Model.Summary</p>
-            <hr size=2 align=left width="90%" />
+<div id="page-view" pageid="@Model.Id" style="visibility:hidden;"></div>
+<div class="row">
+    <div class="col-sm-8">
+        <h2 class="pagetitle">@Model.Title</h2>
+        <hr size=2 align=left width="90%" />
+        <p align="justify">@Model.Summary</p>
+        <hr size=2 align=left width="90%" />
 
-            <div id="pagecontent" style="text-align: justify;text-justify: inter-word">
-                @MvcHtmlString.Create(Model.ContentAsHtml)
-            </div>
+        <div id="pagecontent" style="text-align: justify;text-justify: inter-word">
+            @MvcHtmlString.Create(Model.ContentAsHtml)
         </div>
-        <div class="col-sm-4">
-            <h2> </h2>
-            @if (@Model.NbRating > 0)
+    </div>
+    <div class="col-sm-4">
+        <h2> </h2>
+        @if (@Model.NbRating > 0)
+        {
+            @MvcHtmlString.Create(@Model.EncodePageRating32(@Model.TotalRating / @Model.NbRating))
+        }
+        else
+        {
+            @MvcHtmlString.Create(@Model.EncodePageRating32(0))
+        }
+        <p>@Model.NbView @SiteStrings.Page_Info_NbView</p>
+
+        <hr size=2 align=left width="90%" />
+        <p><b>@SiteStrings.Page_Info_CreatedBy2</b> @Model.CreatedBy</p>
+        @if (@Model.IsControlled)
+        {
+            <p><b> @SiteStrings.Page_Info_PublishedOn</b>@Model.PublishedOn.Date.ToString("dd/MM/yyyy")</p>
+        }
+    </div>
+</div>
+<div class="row">
+    <div id="pageinfo" class="col-sm-8" pageid="@Model.Id">
+        @if (@Model.AllComments.Count == 0)
+        {
+            <a id="page-add-comment-link" href="javascript:;">
+                <small>
+                    @SiteStrings.Comment_Be_The_First
+                </small>
+            </a>
+        }
+        else
+        {
+            if (@ViewBag.usercomment != "")
             {
-                @MvcHtmlString.Create(@Model.EncodePageRating32(@Model.TotalRating / @Model.NbRating))
+                <a id="page-remove-comment-link" href="javascript:;">
+                    <small>
+                        @SiteStrings.Comment_Remove_Link
+                    </small>
+                </a>
             }
             else
             {
-                @MvcHtmlString.Create(@Model.EncodePageRating32(0))
-            }
-            <p>@Model.NbView @SiteStrings.Page_Info_NbView</p>
-
-            <hr size=2 align=left width="90%" />
-            <p><b>@SiteStrings.Page_Info_CreatedBy2</b> @Model.CreatedBy</p>
-            @if (@Model.IsControlled)
-            {
-                <p><b> @SiteStrings.Page_Info_PublishedOn</b>@Model.PublishedOn.Date.ToString("dd/MM/yyyy")</p>
-            }
-            <hr size=2 align=left width="90%" />
-        </div>
-    </div>
-    <div class="row">
-        <div id="pageinfo" class="col-sm-8" pageid="@Model.Id">
-            <a id="pagecomment-button" href="javascript:;">
-                <small>
-                    @if (@Model.AllComments.Count == 0)
-                    {
-                        @SiteStrings.Comment_Be_The_First
-                    }
-                    else
-                    {
+                <a id="page-add-comment-link" href="javascript:;">
+                    <small>
                         @SiteStrings.Comment_Link
-                    }
-                </small>
-            </a>
-            <a id="pagealert-button" href="javascript:;" style="float:right;"><small>Alert</small></a>
-        </div>
+                    </small>
+                </a>
+            }
+        }
+        <a id="pagealert-link" href="javascript:;" style="float:right;"><small>Alert</small></a>
     </div>
-    <div class="row col-sm-8">
-        @Html.Hidden("text-unrate", @SiteStrings.Page_Link_Unrate)
-        @Html.Hidden("text-rate", @SiteStrings.Page_Link_Rate)
-        @Html.Hidden("srating", (object)ViewBag.userrating)
-        @Html.Hidden("current-rating", (object)ViewBag.userrating)
-        <hr size=2 align=left width="90%" />
-        <div id="newrating">
-            <table>
-                <tr>
-                    <td>@SiteStrings.Page_Info_My_Rating &nbsp;</td>
-                    <td>
-                        <span id="ratings" class="postRating" style="padding-top:5px;">
-                            @MvcHtmlString.Create(@Model.EncodeUserRating())
-                        </span>
-                    </td>
-                    <td>
-                        <small>
+</div>
+<div class="row col-sm-8">
+    @Html.Hidden("text-unrate", @SiteStrings.Page_Link_Unrate)
+    @Html.Hidden("text-rate", @SiteStrings.Page_Link_Rate)
+    @Html.Hidden("srating", (object)ViewBag.userrating)
+    @Html.Hidden("current-rating", (object)ViewBag.userrating)
+    <hr size=2 align=left width="90%" />
+    <div id="newrating">
+        <table>
+            <tr>
+                <td>@SiteStrings.Page_Info_My_Rating &nbsp;</td>
+                <td>
+                    <span id="ratings" class="postRating" style="padding-top:5px;">
+                        @MvcHtmlString.Create(@Model.EncodeUserRating())
+                    </span>
+                </td>
+                <td>
+                    <small>
 
-                            <a id="submit-rating" href="javascript:;" style="padding-top:5px; padding-left:25px;">
-                                @if (@ViewBag.userrating > 0)
-                                {
-                                    @SiteStrings.Page_Link_Unrate
-                                }
-                                else
-                                {
-                                    @SiteStrings.Page_Link_Rate
-                                }
-                            </a>
-                        </small>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><small><div id="rate-info">@MvcHtmlString.Create(@Model.EncodeRateInfo(@ViewBag.userrating))</div></small></td>
-                </tr>
-            </table>
-        </div>
-        <hr size=2 align=left width="90%" />
-    </div>
-    <div class="row">
-        <div id="pagecomments">
-            
-            <!-- list of Comments -->
-            @MvcHtmlString.Create(@Model.GetCommentsHtml())
-        </div>
+                        <a id="submit-rating" href="javascript:;" style="padding-top:5px; padding-left:25px;">
+                            @if (@ViewBag.userrating > 0)
+                            {
+                                @SiteStrings.Page_Link_Unrate
+                            }
+                            else
+                            {
+                                @SiteStrings.Page_Link_Rate
+                            }
+                        </a>
+                    </small>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><small><div id="rate-info">@MvcHtmlString.Create(@Model.EncodeRateInfo(@ViewBag.userrating))</div></small></td>
+            </tr>
+        </table>
     </div>
 </div>
 
@@ -148,6 +148,12 @@
 @section PageDetailsFooter
 {
     @SiteStrings.Shared_LastModified <span id="lastmodified-on" title="@Model.ModifiedOnWithOffset">@Model.ModifiedOnWithOffset</span>.
+}
+
+@section PageComments
+{
+    <!-- list of Comments -->
+    @MvcHtmlString.Create(@Model.GetCommentsHtml())
 }
 
 @section PluginHead

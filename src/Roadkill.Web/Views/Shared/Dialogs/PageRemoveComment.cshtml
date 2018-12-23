@@ -1,0 +1,22 @@
+﻿@model PageViewModel
+
+<div class="modal" id="page-remove-comment" role="dialog" aria-describedby="Contains meta information about the current page">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="default-header">@Model.Title</h4>
+            </div>
+
+            <div class="modal-body">
+                <label for="HeadContent">@SiteStrings.Page_Remove_Comment</label>
+                <textarea readonly id="commenttext" name="commenttext" tabindex="0" class="form-control" rows="6" cols="20">@ViewBag.usercomment</textarea> <!--localization-->
+            </div>
+
+            <div class="modal-footer">
+                <button id="removecommentbtn" type="button" class="btn btn-primary confirm">@SiteStrings.Button_Remove</button>
+                @*<input type="submit" class="btn btn-primary confirm" value="@SiteStrings.Button_Remove" />*@
+            </div>
+        </div>
+    </div>
+</div>

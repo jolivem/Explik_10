@@ -45,10 +45,11 @@ namespace Roadkill.Core.Mvc.Controllers
 		    {
                 return View("MyPage", model);
 		    }
-            
+
             // remove the comment of the current username
-            model.AllComments.RemoveAll(c => c.CreatedBy == Context.CurrentUsername);
+            // NO don't agree model.AllComments.RemoveAll(c => c.CreatedBy == Context.CurrentUsername);
             ViewBag.userrating = PageService.GetPageRatingFromUser(model.Id, Context.CurrentUsername);
+            ViewBag.usercomment = PageService.GetPageCommentFromUser(model.Id, Context.CurrentUsername);
 
             PageService.IncrementNbView(model.Id);
 

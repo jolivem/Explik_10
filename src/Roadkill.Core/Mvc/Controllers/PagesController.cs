@@ -583,7 +583,7 @@ namespace Roadkill.Core.Mvc.Controllers
         }
 
         /// <summary>
-        /// CommentAlert
+        /// Comment Alert, not page alert !!!
         /// </summary>
         /// <param name="commenGuid"></param>
         /// <returns></returns>
@@ -625,6 +625,28 @@ namespace Roadkill.Core.Mvc.Controllers
             //    return View("Rate", model); //TODO
 
             _pageService.SetPageRatingForUser( id, Context.CurrentUsername, Int32.Parse(rating));
+
+            // TODO redirect strange because it is an ajax post
+            return RedirectToAction("Index", "Wiki");
+        }
+
+        [EditorRequired]
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult PageAddComment(int id, string commenttext)
+        {
+            _pageService.SetPageCommentForUser(id, Context.CurrentUsername, commenttext);
+
+            // TODO redirect strange because it is an ajax post
+            return RedirectToAction("Index", "Wiki");
+        }
+
+        [EditorRequired]
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult PageRemoveComment(int id)
+        {
+            _pageService.SetPageCommentForUser(id, Context.CurrentUsername, "");
 
             // TODO redirect strange because it is an ajax post
             return RedirectToAction("Index", "Wiki");

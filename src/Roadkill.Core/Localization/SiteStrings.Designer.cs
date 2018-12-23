@@ -277,6 +277,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Remove.
+        /// </summary>
+        public static string Button_Remove {
+            get {
+                return ResourceManager.GetString("Button_Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Rename.
         /// </summary>
         public static string Button_Rename {
@@ -376,11 +385,29 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Published on .
+        /// </summary>
+        public static string Comment_Info_PublishedOn {
+            get {
+                return ResourceManager.GetString("Comment_Info_PublishedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Comment.
         /// </summary>
         public static string Comment_Link {
             get {
                 return ResourceManager.GetString("Comment_Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Remove comment.
+        /// </summary>
+        public static string Comment_Remove_Link {
+            get {
+                return ResourceManager.GetString("Comment_Remove_Link", resourceCulture);
             }
         }
         
@@ -1096,6 +1123,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Comments.
+        /// </summary>
+        public static string Page_Comments_Title {
+            get {
+                return ResourceManager.GetString("Page_Comments_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Last modified by:.
         /// </summary>
         public static string Page_Info_ControlledBy {
@@ -1245,6 +1281,15 @@ namespace Roadkill.Core.Localization {
         public static string Page_Link_Unrate {
             get {
                 return ResourceManager.GetString("Page_Link_Unrate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Remove comment.
+        /// </summary>
+        public static string Page_Remove_Comment {
+            get {
+                return ResourceManager.GetString("Page_Remove_Comment", resourceCulture);
             }
         }
         

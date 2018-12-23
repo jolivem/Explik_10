@@ -66,6 +66,18 @@ namespace Roadkill.Core.Mvc
             );
 
             routes.MapRoute(
+                "PageAddComment",
+                "Pages/PageAddComment/{id}",
+                new { controller = "Pages", action = "PageAddComment", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                "PageRemoveComment",
+                "Pages/PageRemoveComment/{id}",
+                new { controller = "Pages", action = "PageRemoveComment", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 "UploadCanvas",
                 "Pages/UploadCanvas/{id}/{image}",
                 new { controller = "Pages", action = "UploadCanvas", id = UrlParameter.Optional }

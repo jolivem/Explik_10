@@ -234,7 +234,7 @@ $(document).ready(function () {
                     //setActive(span);
                     $("#current-rating").val(0);
                     $("#srating").val(0);
-                    $("#rate-info").html(".");
+                    $("#rate-info").html("&nbsp;");
                     $(".rating.stars").css("background-image", 'url("/Assets/CSS/images/grey-bibi-24.png")');
                     $("#submit-rating").css("display", "none");
                     document.getElementById("submit-rating").text = $("#text-rate").attr("value");
@@ -276,20 +276,39 @@ $(document).ready(function () {
     //    });
     //});
 
-    $("#pagealert-button").click(function () {
-        var pID = $("#pageinfo").attr("pageid");
+    //$("#pagealert-button").click(function () {
+    //    var pID = $("#pageinfo").attr("pageid");
 
+    //    $.ajax({
+    //        type : "POST",
+    //        url : "/Pages/PageAlert",
+    //        data : { id : pID },
+    //        success : function (response){
+    //            toastr.success("Alert taken into account");
+    //        },
+    //        failure : function (response){
+    //            alert("failure");
+    //        },
+    //        error : function (response){
+    //            alert(response.responseText);
+    //        }
+
+    //    });
+    //});
+    $("#removecommentbtn").click(function () {
+        var pID = $("#page-view").attr("pageid");
+        $("#page-remove-comment").modal('hide');
         $.ajax({
-            type : "POST",
-            url : "/Pages/PageAlert",
-            data : { id : pID },
-            success : function (response){
-                toastr.success("Alert taken into account");
+            type: "POST",
+            url: "/Pages/PageRemoveComment",
+            data: { id: pID },
+            success: function (response) {
+                toastr.success("Commend taken into account");
             },
-            failure : function (response){
+            failure: function (response) {
                 alert("failure");
             },
-            error : function (response){
+            error: function (response) {
                 alert(response.responseText);
             }
 

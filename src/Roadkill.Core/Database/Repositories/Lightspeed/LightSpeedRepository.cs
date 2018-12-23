@@ -737,19 +737,45 @@ namespace Roadkill.Core.Database.LightSpeed
             UnitOfWork.SaveChanges();
         }
 
-	    public void UpdateRating(Guid commentId, int rating)
-	    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="commentId"></param>
+        /// <param name="rating"></param>
+        public void UpdateRating(Guid commentId, int rating)
+        {
             CommentEntity entity = Comment.Where(x => x.Id == commentId).Single();
-	        entity.Rating = rating;
+            entity.Rating = rating;
             UnitOfWork.SaveChanges();
-	    }
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="commentId"></param>
+        /// <param name="text"></param>
+        public void UpdateComment(Guid commentId, string text)
+        {
+            CommentEntity entity = Comment.Where(x => x.Id == commentId).Single();
+            entity.Text = text;
+            UnitOfWork.SaveChanges();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <returns></returns>
         public IEnumerable<Comment> FindAllCommentByPage(int pageId)
         {
             List<CommentEntity> entities = Comment.Where(x => x.PageId == pageId && x.Text != "").ToList();
             return FromEntity.ToCommentList(entities);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="comment"></param>
         public void AddComment(Comment comment)
         {
             CommentEntity entity = new CommentEntity();
@@ -758,7 +784,13 @@ namespace Roadkill.Core.Database.LightSpeed
             UnitOfWork.SaveChanges();
         }
 
-	    public Comment FindCommentByPageAndUser(int pageId, string username)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public Comment FindCommentByPageAndUser(int pageId, string username)
 	    {
             List<CommentEntity> entities = Comment.Where(x => x.PageId == pageId && x.CreatedBy == username).ToList();
 	        if (entities.Count > 0)
@@ -767,6 +799,40 @@ namespace Roadkill.Core.Database.LightSpeed
 	        }
 	        return null;
 	    }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <returns></returns>
+        //public List<Comment> FindCommentByPage(int pageId)
+        //{
+        //    List<CommentEntity> entities = Comment.Where(x => x.PageId == pageId).ToList();
+        //    if (entities.Count > 0)
+        //    {
+        //        List<Comment> comments = new List<Comment>();
+        //        foreach (Entity entity in entities)
+        //        {
+        //            comments.Add(FromEntity.ToComment(entities[0]));
+        //        }
+        //        return comments;
+        //    }
+        //    return null;
+        //}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageId"></param>
+        public void DeleteComments(int pageId)
+        {
+            var entities = Comment.Where(x => x.PageId == pageId).ToList();
+            foreach (Entity entity in entities)
+            {
+                UnitOfWork.Remove(entity);
+            }
+            UnitOfWork.SaveChanges();
+        }
 
         #endregion
 

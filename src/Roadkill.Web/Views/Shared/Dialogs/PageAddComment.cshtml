@@ -1,0 +1,25 @@
+﻿@model PageViewModel
+
+<div class="modal" id="page-add-comment" role="dialog" aria-describedby="Contains meta information about the current page">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="default-header">@Model.Title</h4>
+            </div>
+
+            @using (Html.BeginForm("PageAddComment", "Pages", FormMethod.Post))
+            {
+                @Html.Hidden("id", Model.Id)
+                <div class="modal-body">
+                    <label for="HeadContent">@SiteStrings.Page_Add_Your_Comment</label>
+                    <textarea id="commenttext" name="commenttext" tabindex="0" class="form-control" rows="6" cols="20" rel="popover" data-content="Any additional HTML or scripts you enter here will be added to the &amp;lt;head&amp;gt; tag of the page." placeholder="Enter a comment - optional"></textarea> <!--localization-->
+                </div>
+
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="@SiteStrings.Button_Confirm" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

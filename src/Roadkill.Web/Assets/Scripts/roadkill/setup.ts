@@ -28,7 +28,9 @@ module Roadkill.Web
 		{
 			this.hideTemporaryAlerts();
 			/*this.bindInfoButton();*/
-            this.bindRateButton();
+            this.bindAddCommentLink();
+            this.bindRemoveCommentLink();
+            this.bindAlertLink();
 			this.bindTimeAgo();
 		}
 
@@ -50,27 +52,31 @@ module Roadkill.Web
 			$("#lastmodified-on").timeago();
 			$("#historytable .editedon").timeago();
 		}
-/*
-		public static bindInfoButton()
-		{
-			// Bind the info icon on each page
-			$("#pageinfo-button").click(function ()
-			{
-				Dialogs.openModal("#pageinformation");
-			});
-		}
-        */
 
-        public static bindRateButton() {
+        public static bindAddCommentLink() {
             // Bind the info icon on each page
-            $("#pagecomment-button").click(function () {
-                Dialogs.openModal("#pagerating");
+            $("#page-add-comment-link").click(function () {
+                Dialogs.openModal("#page-add-comment");
             });
         }
 
-        public static bindRateLink() {
-                Dialogs.openModal("#pagerating");
+        public static bindRemoveCommentLink() {
+            // Bind the info icon on each page
+            $("#page-remove-comment-link").click(function () {
+                Dialogs.openModal("#page-remove-comment");
+            });
         }
+
+        public static bindAlertLink() {
+            // Bind the info icon on each page
+            $("#pagealert-link").click(function () {
+                Dialogs.openModal("#pagealert");
+            });
+        }
+
+        //public static bindRateLink() {
+        //    Dialogs.openModal("#pagecomment");
+        //}
 
 		/**
 		Sets all links with the .confirm class so they have to click confirm to 

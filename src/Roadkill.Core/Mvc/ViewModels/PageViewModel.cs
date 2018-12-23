@@ -311,6 +311,7 @@ namespace Roadkill.Core.Mvc.ViewModels
             NbRating = page.NbRating;
             TotalRating = page.TotalRating;
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -321,34 +322,43 @@ namespace Roadkill.Core.Mvc.ViewModels
             StringBuilder builder = new StringBuilder();
             if (AllComments != null)
             {
-
                 if (AllComments.Count == 0)
                 {
                     return "";
                 }
 
-                builder.AppendLine("<div>");
+                builder.AppendLine("<h4>"+ SiteStrings.Page_Comments_Title + "</h4>");
+ 
+                //builder.AppendLine("<div>");
                 foreach (var comment in AllComments)
                 {
+                    builder.AppendLine("<hr size=2 align=left width='90%'/>");
                     builder.AppendLine("<div class='row'>");
                     {
 
                         // first the user on the left
-                        builder.AppendLine("<div class='col-sm-2'>");
+                        builder.AppendLine("<div class='col-xs-2'>");
                         {
-                            builder.AppendLine("<p>By " + comment.CreatedBy + "</p>");
-                            builder.AppendLine("<p><small>On " + comment.CreatedOn.ToString("dd/MM/yyyy") + "</small></p>");
+                            builder.AppendLine("<small>" + comment.CreatedBy + "</small>");
+                            //builder.AppendLine("<p><small>On " + comment.CreatedOn.ToString("dd/MM/yyyy") + "</small></p>");
 
                             builder.AppendLine("</div>");
                         }
                         // then the comment text
 
-                        builder.AppendLine("<div class='col-sm-10'>");
+                        builder.AppendLine("<div class='col-xs-8'>");
                         {
-                            builder.AppendLine(EncodePageRating16(comment.Rating, "active "));
+                            if (comment.Rating > 0)
+                            {
+                                builder.AppendLine("<table><tr><td><span style='padding-top:10px;'>");
+                                builder.AppendLine(EncodePageRating16(comment.Rating));
+                                builder.AppendLine("</span></td><td>");
+                                builder.AppendLine("<span style='padding-left:10px;'><small>" + EncodeRateInfo(comment.Rating) + "</small></span>");
+                                builder.AppendLine("</td></tr></table>");
+                            }
+                            builder.AppendLine("<p><small>" + SiteStrings.Comment_Info_PublishedOn + comment.CreatedOn.ToString("dd/MM/yyyy") + "</small></p>");
 
-                            builder.AppendLine("<p>");
-                            builder.AppendLine(comment.Text);
+                            builder.AppendLine("<p>"+comment.Text + "</p>");
                             builder.AppendLine("</div>");
                         }
                         builder.AppendLine("</div>");
@@ -356,7 +366,7 @@ namespace Roadkill.Core.Mvc.ViewModels
                     }
                     //builder.AppendLine("<hr>");
                 }//foreach
-                builder.AppendLine("</div>");
+                //builder.AppendLine("</div>");
             }
             return builder.ToString();
         }
@@ -366,10 +376,11 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// </summary>
         /// <param name="rating"></param>
         /// <returns></returns>
-        public static string EncodePageRating16(int rating, string active)
+        public static string EncodePageRating16(int rating)
         {
             StringBuilder builder = new StringBuilder();
-            string formatStr = "<span class='rating16 stars16 {2}star16-{0}' value='{1}'></span>";
+            string active = "passive";
+            string formatStr = "<span class='rating16 stars16 {2} star16-{0}' value='{1}'></span>";
 
             for (double i = .5; i <= 5.0; i = i + .5)
             {
@@ -648,16 +659,8 @@ namespace Roadkill.Core.Mvc.ViewModels
             for (int i = 1; i <= 5; i++)
             {
                 string formatStr = "<span class='rating stars {2}star-{0}' title='{3}' value='{1}'></span>";
-                //if (i <= Rating)
-                //{
-                //    builder.AppendFormat(formatStr, "left_on", i, active, titles[i - 1]);
-                //    builder.AppendFormat(formatStr, "right_on", i, active, titles[i - 1]);
-                //}
-                //else
-                //{
-                    builder.AppendFormat(formatStr, "left_off", i, active, titles[i - 1]);
-                    builder.AppendFormat(formatStr, "right_off", i, active, titles[i - 1]);
-                //}
+                builder.AppendFormat(formatStr, "left_off", i, active, titles[i - 1]);
+                builder.AppendFormat(formatStr, "right_off", i, active, titles[i - 1]);
             }
 
             return builder.ToString();

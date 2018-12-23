@@ -12,6 +12,8 @@ namespace Roadkill.Core.Database
         IEnumerable<Comment> FindAllCommentByPage(int pageId);
         void AddComment(Comment comment);
         void UpdateRating(Guid commentId, int rating);
+        void UpdateComment(Guid commentId, string text);
         Comment FindCommentByPageAndUser(int pageId, string username);
+        void DeleteComments(int pageId);
     }
 }

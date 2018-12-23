@@ -630,7 +630,7 @@
     <Content Include="Views\Pages\Alerts.cshtml" />
     <Content Include="Rate.cshtml" />
     <Content Include="Views\PageRating.cshtml" />
-    <Content Include="Views\Shared\Dialogs\PageRating.cshtml" />
+    <Content Include="Views\Shared\Dialogs\PageAddComment.cshtml" />
     <Content Include="Views\Shared\Dialogs\PageAlert.cshtml" />
     <Content Include="Views\Shared\Dialogs\CommentAlert.cshtml" />
     <Content Include="Views\Pages\ControlPage.cshtml" />
@@ -639,6 +639,7 @@
     <Content Include="Views\Comment\EditComment.cshtml" />
     <Content Include="Views\Wiki\MyPage.cshtml" />
     <Content Include="Views\Pages\AllPagesWithAlerts.cshtml" />
+    <Content Include="Views\Shared\Dialogs\PageRemoveComment.cshtml" />
     <None Include="Web.Mono.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

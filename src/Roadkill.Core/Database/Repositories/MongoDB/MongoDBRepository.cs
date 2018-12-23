@@ -562,6 +562,16 @@ namespace Roadkill.Core.Database.MongoDB
             throw new NotImplementedException();
 	    }
 
+        public void UpdateComment(Guid commentId, string text)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteComments(int pageId)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }
