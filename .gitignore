@@ -368,3 +368,4 @@ ASALocalRun/
 /src/Roadkill.Web/Assets/Scripts/roadkill/installer/step1.js
 /src/Roadkill.Web/Assets/Scripts/roadkill/installer/installwizard.js.map
 /src/Roadkill.Web/Assets/Scripts/roadkill/installer/installwizard.js
+*.bak
