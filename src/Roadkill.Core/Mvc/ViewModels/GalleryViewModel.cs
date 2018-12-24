@@ -147,5 +147,48 @@ namespace Roadkill.Core.Mvc.ViewModels
 
             return builder.ToString();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="pages"></param>
+        /// <returns></returns>
+        public string EncodeListPages(string title,List<Page> pages)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine("<h4>"+ title + "</h4>");
+            builder.AppendLine("<table>");
+            {
+                foreach (Page page in pages) /* TODO Min or Max */
+                {
+                    builder.AppendLine("<tr>");
+                    {
+                        builder.AppendLine("<td style='padding:2px; width:80px; border-bottom-width:1px; border-bottom-style:solid; color:#888888;'>");
+                        {
+                            builder.AppendLine("<img src='" + GetCanvas(page) + "' style='float: left;'>");
+                            builder.AppendLine("</td>");
+                        }
+                        builder.AppendLine("<td style='padding:2px; border-bottom-width:1px; border-bottom-style:solid; color:#888888;'>");
+                        {
+                            builder.AppendLine("<span class='searchresult-title'><a href='/Wiki/" + page.Id + "/"+ page.Title + "'>"+page.Title+"</a></span><br />");
+                            builder.AppendLine("<span class='searchresult-summary'>"+page.Summary+"...</span><br/>");
+                            builder.AppendLine("<span>");
+                            {
+                                builder.AppendLine("<span class='searchresult-date'>" + page.CreatedBy + " - " + page.PublishedOn.ToString("dd MMM yyyy") + " - " + page.NbView + " views</span>");
+                                builder.AppendLine("<span class='searchresult-date'>" + EncodePageRating(page) + "</span>");
+                                builder.AppendLine("</span>");
+                            }
+                            builder.AppendLine("</td>");
+                        }
+                        builder.AppendLine("</tr>");
+                    }
+                    
+                }
+                builder.AppendLine("</table>");
+            }
+
+            return builder.ToString();
+        }
     }
 }

@@ -46,23 +46,7 @@
 </style>
 
 <div class="container">
-    <h4>Best rated</h4>
-    @for (int i = 0; i < Model.listBestRated.Count; i++) /* TODO Min or Max */
-    {
-        <div class="searchresult row">
-            <div class="col-sm-2 padded thumb-crop" style="border: 2px solid #4CAF50;">
-                <img src=@Model.GetCanvas(@Model.listBestRated[i]) style="float: left;">
-            </div>
-            <div class="col-sm-8 padded " style="border: 2px solid red; overflow: auto;">
-                <span class=" searchresult-title">@Html.ActionLink(@Model.listBestRated[i].Title, "Index", "Wiki", new { id = @Model.listBestRated[i].Id, title = @Model.listBestRated[i].Title }, null)</span><br />
-                <span class="searchresult-summary">@MvcHtmlString.Create(@Model.listBestRated[i].Summary)...</span><br />
-                <span>
-                    <span class="searchresult-date">@Model.listBestRated[i].CreatedBy - @Model.listBestRated[i].PublishedOn.ToString("dd MMM yyyy") - nb views=@Model.listBestRated[i].NbView</span>
-                    <span class="searchresult-date">@MvcHtmlString.Create(@Model.EncodePageRating(@Model.listBestRated[i]))</span>
-                </span>
-            </div>
-        </div>
-    }
+    @MvcHtmlString.Create( @Model.EncodeListPages("Best rated", @Model.listBestRated))
     <h4>Last pages published</h4>
     @for (int i = 0; i < Model.listMostRecent.Count; i++) /* TODO Min or Max */
     {

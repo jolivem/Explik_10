@@ -326,47 +326,51 @@ namespace Roadkill.Core.Mvc.ViewModels
                 {
                     return "";
                 }
+                builder.AppendLine("<p>&nbsp;</p>");
 
+                builder.AppendLine("<div class='container'>");
                 builder.AppendLine("<h4>"+ SiteStrings.Page_Comments_Title + "</h4>");
- 
-                //builder.AppendLine("<div>");
-                foreach (var comment in AllComments)
+                builder.AppendLine("<table>");
                 {
-                    builder.AppendLine("<hr size=2 align=left width='90%'/>");
-                    builder.AppendLine("<div class='row'>");
+                    //builder.AppendLine("<div>");
+                    foreach (var comment in AllComments)
                     {
-
-                        // first the user on the left
-                        builder.AppendLine("<div class='col-xs-2'>");
+                        //builder.AppendLine("<hr size=2 align=left width='90%'/>");
+                        builder.AppendLine("<tr>");
                         {
-                            builder.AppendLine("<small>" + comment.CreatedBy + "</small>");
-                            //builder.AppendLine("<p><small>On " + comment.CreatedOn.ToString("dd/MM/yyyy") + "</small></p>");
 
-                            builder.AppendLine("</div>");
-                        }
-                        // then the comment text
-
-                        builder.AppendLine("<div class='col-xs-8'>");
-                        {
-                            if (comment.Rating > 0)
+                            // first the user on the left
+                            builder.AppendLine("<td style='padding:2px; width:80px; border-bottom-width:1px; border-bottom-style:solid; color:#888888;'>");
                             {
-                                builder.AppendLine("<table><tr><td><span style='padding-top:10px;'>");
-                                builder.AppendLine(EncodePageRating16(comment.Rating));
-                                builder.AppendLine("</span></td><td>");
-                                builder.AppendLine("<span style='padding-left:10px;'><small>" + EncodeRateInfo(comment.Rating) + "</small></span>");
-                                builder.AppendLine("</td></tr></table>");
+                                builder.AppendLine("<small>" + comment.CreatedBy + "</small>");
+                                //builder.AppendLine("<p><small>On " + comment.CreatedOn.ToString("dd/MM/yyyy") + "</small></p>");
+
+                                builder.AppendLine("</td>");
                             }
-                            builder.AppendLine("<p><small>" + SiteStrings.Comment_Info_PublishedOn + comment.CreatedOn.ToString("dd/MM/yyyy") + "</small></p>");
+                            // then the comment text
 
-                            builder.AppendLine("<p>"+comment.Text + "</p>");
-                            builder.AppendLine("</div>");
+                            builder.AppendLine("<td style='padding:2px; border-bottom-width:1px; border-bottom-style:solid; color:#888888;'>");
+                            {
+                                if (comment.Rating > 0)
+                                {
+                                    builder.AppendLine("<table><tr><td><span style='padding-top:10px;'>");
+                                    builder.AppendLine(EncodeCommentRating(comment.Rating));
+                                    builder.AppendLine("</span></td><td>");
+                                    builder.AppendLine("<span style='padding-left:10px; style='color:#888888;'><small>" + SiteStrings.Comment_Info_PublishedOn + comment.CreatedOn.ToString("dd/MM/yyyy") + "</small></span>");
+                                    builder.AppendLine("</td></tr></table>");
+                                }
+                                builder.AppendLine("<p><small>" + SiteStrings.Comment_Info_PublishedOn + comment.CreatedOn.ToString("dd/MM/yyyy") + "</small></p>");
+
+                                builder.AppendLine(comment.Text);
+                                builder.AppendLine("</tr>");
+                            }
+                            builder.AppendLine("</tr>");
                         }
-                        builder.AppendLine("</div>");
-
-                    }
-                    //builder.AppendLine("<hr>");
-                }//foreach
-                //builder.AppendLine("</div>");
+                        //builder.AppendLine("<hr>");
+                    }//foreach
+                    builder.AppendLine("</table>");
+                }
+                builder.AppendLine("</div>");
             }
             return builder.ToString();
         }
@@ -376,7 +380,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// </summary>
         /// <param name="rating"></param>
         /// <returns></returns>
-        public static string EncodePageRating16(int rating)
+        public static string EncodeCommentRating(int rating)
         {
             StringBuilder builder = new StringBuilder();
             string active = "passive";
