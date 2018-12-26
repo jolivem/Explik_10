@@ -110,9 +110,9 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// <returns></returns>
         public string EncodePageRating(Page page)
         {
-            string active = "active ";
+            string active = "passive";
             StringBuilder builder = new StringBuilder();
-            string formatStr = "<span class='rating16 stars16 {2}star16-{0}' value='{1}'></span>";
+            string formatStr = "<span class='rating16 stars16 {2} star16-{0}' value='{1}'></span>";
 
             double rating;
             if (page.TotalRating == 0)
@@ -176,7 +176,7 @@ namespace Roadkill.Core.Mvc.ViewModels
                             builder.AppendLine("<span>");
                             {
                                 builder.AppendLine("<span class='searchresult-date'>" + page.CreatedBy + " - " + page.PublishedOn.ToString("dd MMM yyyy") + " - " + page.NbView + " views</span>");
-                                builder.AppendLine("<span class='searchresult-date'>" + EncodePageRating(page) + "</span>");
+                                builder.AppendLine("<span style='display: inline-block;margin-bottom:-2px;'>" + EncodePageRating(page) + "</span>");
                                 builder.AppendLine("</span>");
                             }
                             builder.AppendLine("</td>");

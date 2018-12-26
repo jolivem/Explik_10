@@ -46,40 +46,8 @@
 </style>
 
 <div class="container">
-    @MvcHtmlString.Create( @Model.EncodeListPages("Best rated", @Model.listBestRated))
-    <h4>Last pages published</h4>
-    @for (int i = 0; i < Model.listMostRecent.Count; i++) /* TODO Min or Max */
-    {
-        <div class="searchresult row">
-            <div class="col-sm-2 padded thumb-crop" style="border: 2px solid #4CAF50;">
-                <img src=@Model.GetCanvas(@Model.listMostRecent[i]) style="float: left;">
-            </div>
-            <div class="col-sm-8 padded " style="border: 2px solid red; overflow: auto;">
-                <span class=" searchresult-title">@Html.ActionLink(@Model.listMostRecent[i].Title, "Index", "Wiki", new { id = @Model.listMostRecent[i].Id, title = @Model.listMostRecent[i].Title }, null)</span><br />
-                <span class="searchresult-summary">@MvcHtmlString.Create(@Model.listMostRecent[i].Summary)...</span><br />
-                <span>
-                    <span class="searchresult-date">@Model.listMostRecent[i].CreatedBy - @Model.listMostRecent[i].CreatedOn.ToString("dd MMM yyyy") -@Model.listMostRecent[i].NbView views - </span>
-                    <span class="searchresult-date">@MvcHtmlString.Create(@Model.EncodePageRating(@Model.listMostRecent[i]))</span>
-                </span>
-            </div>
-        </div>
-    }
-    <h4>Most viewed pages</h4>
-    @for (int i = 0; i < Model.listMostViewed.Count; i++) /* TODO Min or Max */
-    {
-        <div class="searchresult row">
-            <div class="col-sm-2 padded thumb-crop" style="border: 2px solid #4CAF50;">
-                <img src=@Model.GetCanvas(@Model.listMostViewed[i]) style="float: left;">
-            </div>
-            <div class="col-sm-8 padded " style="border: 2px solid red; overflow: auto;">
-                <span class=" searchresult-title">@Html.ActionLink(@Model.listMostViewed[i].Title, "Index", "Wiki", new { id = @Model.listMostViewed[i].Id, title = @Model.listMostViewed[i].Title }, null)</span><br />
-                <span class="searchresult-summary">@MvcHtmlString.Create(@Model.listMostViewed[i].Summary)...</span><br />
-                <span>
-                    <span class="searchresult-date">@Model.listMostViewed[i].CreatedBy - @Model.listMostViewed[i].CreatedOn.ToString("dd MMM yyyy") - nb views=@Model.listMostViewed[i].NbView</span>
-                    <span class="searchresult-date">@MvcHtmlString.Create(@Model.EncodePageRating(@Model.listMostViewed[i]))</span>
-                </span>
-            </div>
-        </div>
-    }
+    @MvcHtmlString.Create(@Model.EncodeListPages("Best rated", @Model.listBestRated))
+    @MvcHtmlString.Create(@Model.EncodeListPages("Last publications", @Model.listMostRecent))
+    @MvcHtmlString.Create(@Model.EncodeListPages("Most viewed pages", @Model.listMostViewed))
 </div>
 

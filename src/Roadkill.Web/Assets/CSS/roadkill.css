@@ -82,7 +82,8 @@ a.external-link	{ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA
 .searchresult			{ padding-bottom: 20px; }
 .searchresult-title		{ color:Black; }
 .searchresult-summary	{ font-size:95%; }
-.searchresult-date		{ color:green;font-size:97%; }
+.searchresult-date		{ color:green;font-size:80%; }
+.searchresult-info		{ color:green;font-size:80%; }
 .searchresult-tags span	{ margin-left:5px; }
 .searchresult-tags span a	{ color:#4e6fa3 !important;text-decoration:none; }
 .searchresult-tags span a:hover	{ color:#000 !important;text-decoration:underline; }

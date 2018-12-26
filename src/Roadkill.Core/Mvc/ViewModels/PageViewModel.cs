@@ -356,11 +356,9 @@ namespace Roadkill.Core.Mvc.ViewModels
                                     builder.AppendLine("<table><tr><td><span style='padding-top:10px;'>");
                                     builder.AppendLine(EncodeCommentRating(comment.Rating));
                                     builder.AppendLine("</span></td><td>");
-                                    builder.AppendLine("<span style='padding-left:10px; style='color:#888888;'><small>" + SiteStrings.Comment_Info_PublishedOn + comment.CreatedOn.ToString("dd/MM/yyyy") + "</small></span>");
+                                    builder.AppendLine("<span style='padding-left:10px;color:#888888;'><small>" + SiteStrings.Comment_Info_PublishedOn + comment.CreatedOn.ToString("dd/MM/yyyy") + "</small></span>");
                                     builder.AppendLine("</td></tr></table>");
                                 }
-                                builder.AppendLine("<p><small>" + SiteStrings.Comment_Info_PublishedOn + comment.CreatedOn.ToString("dd/MM/yyyy") + "</small></p>");
-
                                 builder.AppendLine(comment.Text);
                                 builder.AppendLine("</tr>");
                             }
@@ -401,7 +399,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         }
 
         /// <summary>
-        /// 
+        /// Global rating for the page. The one at the right of the title
         /// </summary>
         /// <param name="rating"></param>
         /// <param name="active"></param>
@@ -410,7 +408,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         {
             string passive = "passive ";
             StringBuilder builder = new StringBuilder();
-            string formatStr = "<span class='rating32 stars32 {2}star32-{0}' value='{1}'></span>";
+            string formatStr = "<span class='rating stars {2}star-{0}' value='{1}'></span>";
 
             for (double d = .5; d <= 5.0; d = d + .5)
             {

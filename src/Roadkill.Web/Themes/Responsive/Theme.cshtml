@@ -20,27 +20,13 @@
             top: 0;
         }
 
-/* star 16 rating system 
-.rating { text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; display: inline-block; width: 8px; height: 16px; }
-.rating.stars { background-image: url('/Assets/CSS/images/star_rating.png');}
-.rating.stars.active {  cursor:pointer;}
-.star-left_off { background-position: -0px -0px; }
-.star-left_on { background-position: -16px -0px; }
-.star-right_off { background-position: -8px -0px; }
-.star-right_on { background-position: -24px -0px; }
-    */
-
-
-.rating16 { text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; display: inline-block; width: 8px; height: 16px; margin-top: 5px;}
+.rating16 { text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; display: inline-block; width: 8px; height: 16px; margin-bottom: -3px;}
 .rating16.stars16 { background-image: url('/Assets/CSS/images/grey-yellow-16.png');}
 .rating16.stars16.active {  cursor:pointer;}
 .star16-left_off { background-position: -0px -0px; }
 .star16-left_on { background-position: -16px -0px; }
 .star16-right_off { background-position: -8px -0px; }
 .star16-right_on { background-position: -24px -0px; }
-
-
-
 
 .rating { text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; display: inline-block; width: 12px; height: 24px; }
 .rating.stars { background-image: url('/Assets/CSS/images/grey-yellow-24.png');}
@@ -49,16 +35,6 @@
 .star-left_on { background-position: -24px -0px; }
 .star-right_off { background-position: -12px -0px; }
 .star-right_on { background-position: -36px -0px; }
-
-
-
-.rating48 { text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; display: inline-block; width: 24px; height: 48px; }
-.rating48.stars48 { background-image: url('/Assets/CSS/images/grey-yellow-48.png');}
-.rating48.stars48.active {  cursor:pointer;}
-.star48-left_off { background-position: -0px -0px; }
-.star48-left_on { background-position: -48px -0px; }
-.star48-right_off { background-position: -24px -0px; }
-.star48-right_on { background-position: -72px -0px; }
 
 .rating32 { text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; display: inline-block; width: 16px; height: 32px; }
 .rating32.stars32 { background-image: url('/Assets/CSS/images/grey-yellow-32-3.png');}
@@ -127,7 +103,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-11">
-                        <h6 id="powered-by">@SiteStrings.Shared_PoweredBy (@ApplicationSettings.ProductVersion).</h6>
+                        @*<h6 id="powered-by">@SiteStrings.Shared_PoweredBy (@ApplicationSettings.ProductVersion).</h6>*@
                         <h6>
                             @RenderSection("PageDetailsFooter", false)
                             @RenderSection("ViewHistoryLink", false)
