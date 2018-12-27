@@ -1168,7 +1168,7 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Created by.
+        ///   Recherche une chaîne localisée semblable à By.
         /// </summary>
         public static string Page_Info_CreatedBy2 {
             get {
@@ -1267,7 +1267,7 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Published on .
+        ///   Recherche une chaîne localisée semblable à On .
         /// </summary>
         public static string Page_Info_PublishedOn {
             get {
@@ -1668,6 +1668,15 @@ namespace Roadkill.Core.Localization {
         public static string Shared_ConfirmLink {
             get {
                 return ResourceManager.GetString("Shared_ConfirmLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Control.
+        /// </summary>
+        public static string Shared_Control_Link {
+            get {
+                return ResourceManager.GetString("Shared_Control_Link", resourceCulture);
             }
         }
         

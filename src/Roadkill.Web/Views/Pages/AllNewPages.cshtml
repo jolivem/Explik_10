@@ -40,7 +40,7 @@
                 {
                     //if (!pageModel.IsLocked || (pageModel.IsLocked && RoadkillContext.IsAdmin))
                     //{
-                        <td class="edit">@Html.ActionLink(@SiteStrings.Shared_ValidateLink, "ControlPage", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
+                        <td class="edit">@Html.ActionLink(@SiteStrings.Shared_Control_Link, "ControlPage", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
                     //}
                     if (RoadkillContext.IsAdmin)
                     {

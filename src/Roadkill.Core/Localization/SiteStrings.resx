@@ -427,7 +427,7 @@
     <value>Created by:</value>
   </data>
   <data name="Page_Info_PublishedOn" xml:space="preserve">
-    <value>Published on </value>
+    <value>On </value>
   </data>
   <data name="Page_Info_ControlledBy" xml:space="preserve">
     <value>Last modified by:</value>
@@ -1061,7 +1061,7 @@
     <value>Submit</value>
   </data>
   <data name="Page_Info_CreatedBy2" xml:space="preserve">
-    <value>Created by</value>
+    <value>By</value>
   </data>
   <data name="Page_Info_On" xml:space="preserve">
     <value>, on:</value>
@@ -1185,5 +1185,8 @@
   </data>
   <data name="Shared_Back_Link" xml:space="preserve">
     <value>Back</value>
+  </data>
+  <data name="Shared_Control_Link" xml:space="preserve">
+    <value>Control</value>
   </data>
 </root>

@@ -392,8 +392,12 @@ namespace Roadkill.Core.Mvc.ViewModels
                         {
 
                             // first the user on the left
-                            builder.AppendLine("<td style='padding:2px; width:80px; border-bottom-width:1px; border-bottom-style:solid; color:#888888;'>");
+                            builder.AppendLine("<td style='padding:2px; width:80px; border-bottom-width:1px; border-bottom-style:solid; color:#888888;' align='center' valign='top'>");
                             {
+                                string src = "/Assets/Images/letters/letter-" + CreatedBy.First().ToString().ToUpper() + ".jpg";
+
+                                builder.AppendLine("<img src='" + src + "' border='0' alt='loading' style='width:20px;height:20px;'/>");
+                                builder.AppendLine("<br />");
                                 builder.AppendLine("<small>" + comment.CreatedBy + "</small>");
                                 builder.AppendLine("</td>");
                             }
@@ -744,6 +748,16 @@ namespace Roadkill.Core.Mvc.ViewModels
             // value for rating 0 is '.' to avoid height change
             string[] titles = { "&nbsp;", SiteStrings.Rating_level1, SiteStrings.Rating_level2, SiteStrings.Rating_level3, SiteStrings.Rating_level4, SiteStrings.Rating_level5 };
             return titles[userRating];
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public string GetPortraitImage()
+        {
+            string first = CreatedBy.First().ToString().ToUpper();
+            return "~/Assets/Images/letters/letter-" + first + ".jpg";
         }
 
         /// <summary>

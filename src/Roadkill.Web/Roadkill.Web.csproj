@@ -372,6 +372,32 @@
     <Content Include="Assets\Bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Assets\Bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Assets\CSS\tagmanager.css" />
+    <Content Include="Assets\Images\letters\letter-A.jpg" />
+    <Content Include="Assets\Images\letters\letter-B.jpg" />
+    <Content Include="Assets\Images\letters\letter-C.jpg" />
+    <Content Include="Assets\Images\letters\letter-D.jpg" />
+    <Content Include="Assets\Images\letters\letter-E.jpg" />
+    <Content Include="Assets\Images\letters\letter-F.jpg" />
+    <Content Include="Assets\Images\letters\letter-G.jpg" />
+    <Content Include="Assets\Images\letters\letter-H.jpg" />
+    <Content Include="Assets\Images\letters\letter-I.jpg" />
+    <Content Include="Assets\Images\letters\letter-J.jpg" />
+    <Content Include="Assets\Images\letters\letter-K.jpg" />
+    <Content Include="Assets\Images\letters\letter-L.jpg" />
+    <Content Include="Assets\Images\letters\letter-M.jpg" />
+    <Content Include="Assets\Images\letters\letter-N.jpg" />
+    <Content Include="Assets\Images\letters\letter-O.jpg" />
+    <Content Include="Assets\Images\letters\letter-P.jpg" />
+    <Content Include="Assets\Images\letters\letter-Q.jpg" />
+    <Content Include="Assets\Images\letters\letter-R.jpg" />
+    <Content Include="Assets\Images\letters\letter-S.jpg" />
+    <Content Include="Assets\Images\letters\letter-T.jpg" />
+    <Content Include="Assets\Images\letters\letter-U.jpg" />
+    <Content Include="Assets\Images\letters\letter-V.jpg" />
+    <Content Include="Assets\Images\letters\letter-W.jpg" />
+    <Content Include="Assets\Images\letters\letter-X.jpg" />
+    <Content Include="Assets\Images\letters\letter-Y.jpg" />
+    <Content Include="Assets\Images\letters\letter-Z.jpg" />
     <Content Include="Assets\Images\RaspberryPiBoard.png" />
     <Content Include="Assets\Images\roadkill.png" />
     <Content Include="Assets\Images\spectrogram_zoomed.png" />
@@ -396,6 +422,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Areas\SiteSettings\Views\_ViewStart.cshtml" />
+    <Content Include="Assets\Images\logo1.pdn" />
     <None Include="Assets\Scripts\roadkill\typescript-ref\constants.ts" />
     <None Include="Assets\Scripts\roadkill\typescript-ref\references.ts" />
     <Content Include="Assets\Scripts\shared\head.js" />
