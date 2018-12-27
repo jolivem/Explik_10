@@ -385,6 +385,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Enter you comment.
+        /// </summary>
+        public static string Comment_Enter_Comment {
+            get {
+                return ResourceManager.GetString("Comment_Enter_Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Published on .
         /// </summary>
         public static string Comment_Info_PublishedOn {
@@ -403,7 +412,7 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Remove comment.
+        ///   Recherche une chaîne localisée semblable à Remove my comment.
         /// </summary>
         public static string Comment_Remove_Link {
             get {
@@ -952,6 +961,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Action.
+        /// </summary>
+        public static string MyPages_Action_Title {
+            get {
+                return ResourceManager.GetString("MyPages_Action_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Status.
         /// </summary>
         public static string MyPages_Status_Title {
@@ -1177,6 +1195,24 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à My comment.
+        /// </summary>
+        public static string Page_Info_My_Comment {
+            get {
+                return ResourceManager.GetString("Page_Info_My_Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à My comment:.
+        /// </summary>
+        public static string Page_Info_My_Comment_2 {
+            get {
+                return ResourceManager.GetString("Page_Info_My_Comment_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à My rating:.
         /// </summary>
         public static string Page_Info_My_Rating {
@@ -1285,7 +1321,7 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Remove comment.
+        ///   Recherche une chaîne localisée semblable à Remove my comment.
         /// </summary>
         public static string Page_Remove_Comment {
             get {
@@ -1402,6 +1438,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Rating added.
+        /// </summary>
+        public static string Rating_added {
+            get {
+                return ResourceManager.GetString("Rating_added", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Unclear.
         /// </summary>
         public static string Rating_level1 {
@@ -1443,6 +1488,15 @@ namespace Roadkill.Core.Localization {
         public static string Rating_level5 {
             get {
                 return ResourceManager.GetString("Rating_level5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Rating removed.
+        /// </summary>
+        public static string Rating_removed {
+            get {
+                return ResourceManager.GetString("Rating_removed", resourceCulture);
             }
         }
         
@@ -1596,6 +1650,15 @@ namespace Roadkill.Core.Localization {
         public static string Search_Results {
             get {
                 return ResourceManager.GetString("Search_Results", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Back.
+        /// </summary>
+        public static string Shared_Back_Link {
+            get {
+                return ResourceManager.GetString("Shared_Back_Link", resourceCulture);
             }
         }
         

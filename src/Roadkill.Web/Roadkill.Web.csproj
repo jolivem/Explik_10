@@ -636,7 +636,6 @@
     <Content Include="Views\Pages\ControlPage.cshtml" />
     <Content Include="Views\Home\Gallery.cshtml" />
     <Content Include="Views\Shared\Dialogs\RejectPage.cshtml" />
-    <Content Include="Views\Comment\EditComment.cshtml" />
     <Content Include="Views\Wiki\MyPage.cshtml" />
     <Content Include="Views\Pages\AllPagesWithAlerts.cshtml" />
     <Content Include="Views\Shared\Dialogs\PageRemoveComment.cshtml" />

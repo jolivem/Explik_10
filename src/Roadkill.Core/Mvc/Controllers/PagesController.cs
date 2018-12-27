@@ -360,8 +360,6 @@ namespace Roadkill.Core.Mvc.Controllers
 		[HttpPost]
 		public ActionResult GetPreview(string id)
 		{
-			
-            
             PageHtml pagehtml = "";
 
 			if (!string.IsNullOrEmpty(id))

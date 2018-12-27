@@ -46,13 +46,7 @@ namespace Roadkill.Core.Mvc
 				new { controller = "Wiki", action = "Index", title = UrlParameter.Optional }
 			);
 
-            // Don't lowercase pages that use Base64
-            routes.MapRoute(
-                "Rating",
-                "Comment/CommentPage/{id}",
-                new { controller = "Comment", action = "CommentPage", id = UrlParameter.Optional }
-            );
-
+            // Don't lowercase pages that use Base6477
             routes.MapRoute(
                 "PageAlert",
                 "Pages/PageAlert/{id}",

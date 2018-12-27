@@ -33,6 +33,9 @@ h1, h2, h3, h4, h5, h6 { font-family: "Verdana", sans-serif;padding: 5px 0px 5px
 /* The main page container*/
 #container { padding: 20px !important; font-size: 1em; }
 
+/* the list of comments */
+#container-comments { padding: 20px !important; font-size: 1em; }
+
 /* Change the default footer */
 #footer-wrapper { background-color: #F8F8F8; }
 #footer-inner { padding: 0px 20px; border-top: 1px solid #F8F8F8; min-height: 100%; }

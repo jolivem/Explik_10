@@ -75,19 +75,6 @@ $(document).ready(function () {
         });
     }
 
-    //function setPassive(span) {
-    //    span.find('.rating.stars').each(function () {
-    //        $(this).removeClass("active");
-    //        $(this).addClass("passive");
-    //    });
-    //}
-    //function setActive(span) {
-    //    span.find('.rating.stars').each(function () {
-    //        $(this).removeClass("passive");
-    //        $(this).addClass("active");
-    //    });
-    //}
-
     $(".rating.stars.active").mouseover(function () {
         var srating = $("#srating").attr("value");
         if (srating == 0) {
@@ -139,8 +126,9 @@ $(document).ready(function () {
                 rating: newRating
             },
             success: function (response) {
-                toastr.success("Taken into account");
+                
                 if (previousRating == 0) {
+                    toastr.success($("#rating-added").attr("value"));
                     var span = $("#ratings");
                     $("#current-rating").val(newRating);
                     $(".rating.stars").css("background-image", 'url("/Assets/CSS/images/grey-yellow-24.png")');
@@ -148,6 +136,7 @@ $(document).ready(function () {
                     document.getElementById("submit-rating").text = $("#text-unrate").attr("value");
                 }
                 else {
+                    toastr.success($("#rating-removed").attr("value"));
                     var span = $("#ratings");
                     setRating(span, 0);
                     //setActive(span);
@@ -169,70 +158,6 @@ $(document).ready(function () {
         });
     });
 
-
-
-    //$("#submit-rating").click(function () {
-    //    var pID = $("#page-view").attr("pageid");
-    //    var pRating = $("#srating").val();
-
-    //    $.ajax({
-    //        type : "POST",
-    //        url : "/Pages/PageRating",
-    //        data : {
-    //            id: pID,
-    //            rating: pRating
-    //        },
-    //        success: function (response) {
-    //            toastr.success("Taken into account");
-    //        },
-    //        failure: function (response) {
-    //            alert("failure");
-    //        },
-    //        error: function (response) {
-    //            alert(response.responseText);
-    //        }
-
-    //    });
-    //});
-
-    //$("#pagealert-button").click(function () {
-    //    var pID = $("#pageinfo").attr("pageid");
-
-    //    $.ajax({
-    //        type : "POST",
-    //        url : "/Pages/PageAlert",
-    //        data : { id : pID },
-    //        success : function (response){
-    //            toastr.success("Alert taken into account");
-    //        },
-    //        failure : function (response){
-    //            alert("failure");
-    //        },
-    //        error : function (response){
-    //            alert(response.responseText);
-    //        }
-
-    //    });
-    //});
-    $("#removecommentbtn").click(function () {
-        var pID = $("#page-view").attr("pageid");
-        $("#page-remove-comment").modal('hide');
-        $.ajax({
-            type: "POST",
-            url: "/Pages/PageRemoveComment",
-            data: { id: pID },
-            success: function (response) {
-                toastr.success("Commend taken into account");
-            },
-            failure: function (response) {
-                alert("failure");
-            },
-            error: function (response) {
-                alert(response.responseText);
-            }
-
-        });
-    });
 
     $("#buttoncommentalert").click(function () {
         var pID = $("#commentalert").attr("commentid");

@@ -36,6 +36,9 @@
 .star-right_off { background-position: -12px -0px; }
 .star-right_on { background-position: -36px -0px; }
 
+.rating-average { text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; display: inline-block; width: 12px; height: 24px; }
+.rating-average.stars { background-image: url('/Assets/CSS/images/grey-yellow-24.png');}
+
 .rating32 { text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; display: inline-block; width: 16px; height: 32px; }
 .rating32.stars32 { background-image: url('/Assets/CSS/images/grey-yellow-32-3.png');}
 .rating32.stars32.active {  cursor:pointer;}
@@ -83,19 +86,18 @@
     }
 
     <!-- Content -->
-        <div id="content-wrapper">
-            @RenderSection("PluginPreContainer", false)
+    <div id="content-wrapper">
+        @RenderSection("PluginPreContainer", false)
 
-            <div id="container" class="container">
-                <div id="content">
-                    @RenderBody()
-                </div>
+        <div id="container" class="container">
+            <div id="content">
+                @RenderBody()
             </div>
-            @RenderSection("PageComments", false)
-            @RenderSection("PluginPostContainer", false)
-
         </div>
+        @RenderSection("PageComments", false)
+        @RenderSection("PluginPostContainer", false)
 
+    </div>
 
     <!-- Footer -->
     <div id="footer-wrapper">

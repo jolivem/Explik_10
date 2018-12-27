@@ -8,15 +8,19 @@
                 <h4 class="default-header">@Model.Title</h4>
             </div>
 
+            @using (Html.BeginForm("PageRemoveComment", "Pages", FormMethod.Post))
+            {
+                @Html.Hidden("id", Model.Id)
             <div class="modal-body">
                 <label for="HeadContent">@SiteStrings.Page_Remove_Comment</label>
-                <textarea readonly id="commenttext" name="commenttext" tabindex="0" class="form-control" rows="6" cols="20">@ViewBag.usercomment</textarea> <!--localization-->
+                <textarea readonly id="commenttext" name="commenttext" tabindex="0" class="form-control" rows="6" cols="20">@Model.CurrentUserComment</textarea> <!--localization-->
             </div>
 
-            <div class="modal-footer">
-                <button id="removecommentbtn" type="button" class="btn btn-primary confirm">@SiteStrings.Button_Remove</button>
-                @*<input type="submit" class="btn btn-primary confirm" value="@SiteStrings.Button_Remove" />*@
-            </div>
+                <div class="modal-footer">
+                    <a href="#" data-dismiss="modal" class="btn pull-left">< @SiteStrings.Shared_Back_Link</a>
+                    <input type="submit" class="btn btn-primary confirm" value="@SiteStrings.Button_Remove" />
+                </div>
+            }
         </div>
     </div>
 </div>

@@ -5,7 +5,7 @@
 
 @section ViewHistoryLink
 {
-    <div id="viewhistory">@Html.ActionLink(SiteStrings.Navigation_ViewHistory, "History", "Pages", new { id = Model.Id }, null)</div>
+    @*<div id="viewhistory">@Html.ActionLink(SiteStrings.Navigation_ViewHistory, "History", "Pages", new { id = Model.Id }, null)</div>*@
 }
 
 @Html.DialogPartial("PageAddComment", Model)
@@ -55,53 +55,20 @@
     </div>
     <div class="col-sm-4">
         <h2> </h2>
-        @if (@Model.NbRating > 0)
-        {
-            @MvcHtmlString.Create(@Model.EncodePageRating32(@Model.TotalRating / @Model.NbRating))
-        }
-        else
-        {
-            @MvcHtmlString.Create(@Model.EncodePageRating32(0))
-        }
-        <p>@Model.NbView @SiteStrings.Page_Info_NbView</p>
+        @MvcHtmlString.Create(@Model.EncodePageAverageRating())
+        <p style="color:green;">@Model.NbView @SiteStrings.Page_Info_NbView</p>
 
         <hr size=2 align=left width="90%" />
-        <p><b>@SiteStrings.Page_Info_CreatedBy2</b> @Model.CreatedBy</p>
+        <p><span style="color:green;">@SiteStrings.Page_Info_CreatedBy2</span> @Model.CreatedBy</p>
         @if (@Model.IsControlled)
         {
-            <p><b> @SiteStrings.Page_Info_PublishedOn</b>@Model.PublishedOn.Date.ToString("dd/MM/yyyy")</p>
+            <p><span style="color:green;">@SiteStrings.Page_Info_PublishedOn</span> @Model.PublishedOn.Date.ToString("dd/MM/yyyy")</p>
         }
     </div>
 </div>
 <div class="row">
     <div id="pageinfo" class="col-sm-8" pageid="@Model.Id">
-        @if (@Model.AllComments.Count == 0)
-        {
-            <a id="page-add-comment-link" href="javascript:;">
-                <small>
-                    @SiteStrings.Comment_Be_The_First
-                </small>
-            </a>
-        }
-        else
-        {
-            if (@ViewBag.usercomment != "")
-            {
-                <a id="page-remove-comment-link" href="javascript:;">
-                    <small>
-                        @SiteStrings.Comment_Remove_Link
-                    </small>
-                </a>
-            }
-            else
-            {
-                <a id="page-add-comment-link" href="javascript:;">
-                    <small>
-                        @SiteStrings.Comment_Link
-                    </small>
-                </a>
-            }
-        }
+
         <a id="pagealert-link" href="javascript:;" style="float:right;"><small>Alert</small></a>
     </div>
 </div>
@@ -110,20 +77,26 @@
     @Html.Hidden("text-rate", @SiteStrings.Page_Link_Rate)
     @Html.Hidden("srating", (object)ViewBag.userrating)
     @Html.Hidden("current-rating", (object)ViewBag.userrating)
-    <hr size=2 align=left width="90%" />
+    @Html.Hidden("rating-removed", @SiteStrings.Rating_removed)
+    @Html.Hidden("rating-added", @SiteStrings.Rating_added)
+    <hr size=2 align=left width="100%" />
     <div id="newrating">
         <table>
             <tr>
-                <td>@SiteStrings.Page_Info_My_Rating &nbsp;</td>
-                <td>
-                    <span id="ratings" class="postRating" style="padding-top:5px;">
+                <td style="min-width:110px;">@SiteStrings.Page_Info_My_Rating &nbsp;</td>
+                <td style="display:inline-flex;">
+                    <span id="ratings" class="postRating">
                         @MvcHtmlString.Create(@Model.EncodeUserRating())
                     </span>
+                    <span id="rate-info" style="padding-left:25px; display:inline-block;color:rgb(180,180,180);"><small>@MvcHtmlString.Create(@Model.EncodeRateInfo(@ViewBag.userrating))</small></span>
                 </td>
-                <td>
-                    <small>
 
-                        <a id="submit-rating" href="javascript:;" style="padding-top:5px; padding-left:25px;">
+            </tr>
+            <tr>
+                <td></td>
+                <td style="min-height:25px">
+                    <small>
+                        <a id="submit-rating" href="javascript:;" style="display:inline-block;">
                             @if (@ViewBag.userrating > 0)
                             {
                                 @SiteStrings.Page_Link_Unrate
@@ -134,15 +107,51 @@
                             }
                         </a>
                     </small>
+
+                </td>
+            </tr>
+            <!-- My comment-->
+            <tr>
+                <td style="vertical-align:top; min-width:110px; padding-top:20px">@SiteStrings.Page_Info_My_Comment_2</td>
+                <td style="padding-top:20px">
+                    @if (@ViewBag.usercomment != "")
+                    {
+                        <small>
+                            @MvcHtmlString.Create(@ViewBag.usercomment)
+                            <div>
+                                <a id='page-remove-comment-link' href='javascript:; '>
+                                    @SiteStrings.Comment_Remove_Link
+                                </a>
+                            </div>
+                        </small>
+                    }
+                    else
+                    {
+                        <small>
+                            <a id='page-add-comment-link' href='javascript:; '>
+                                @if (@Model.AllComments.Count == 0)
+                                {
+                                    @SiteStrings.Comment_Be_The_First
+                                }
+                                else
+                                {
+                                    @SiteStrings.Page_Add_Your_Comment
+                                }
+                            </a>
+                        </small>
+                    }
                 </td>
             </tr>
             <tr>
                 <td></td>
-                <td><small><div id="rate-info">@MvcHtmlString.Create(@Model.EncodeRateInfo(@ViewBag.userrating))</div></small></td>
+                <td></td>
             </tr>
         </table>
     </div>
+    <hr size=2 align=left width="100%" />
 </div>
+
+@MvcHtmlString.Create(@Model.EncodeCommentsHtml())
 
 
 @section PageDetailsFooter
@@ -152,27 +161,27 @@
 
 @section PageComments
 {
-    <!-- list of Comments -->
-    @MvcHtmlString.Create(@Model.GetCommentsHtml())
+        <!-- all about comments -->
+        @*@MvcHtmlString.Create(@Model.GetCommentsHtml())*@
 }
 
-@section PluginHead
+        @section PluginHead
 {
-    <!-- Plugins -->
-    @Html.Raw(Model.PluginHeadHtml)<!-- End plugins head -->
-}
+            <!-- Plugins -->
+            @Html.Raw(Model.PluginHeadHtml)<!-- End plugins head -->
+        }
 
-@section PluginPreContainer
+        @section PluginPreContainer
 {
-    @MvcHtmlString.Create(Model.PluginPreContainer)
-}
+            @MvcHtmlString.Create(Model.PluginPreContainer)
+        }
 
-@section PluginPostContainer
+        @section PluginPostContainer
 {
-    @MvcHtmlString.Create(Model.PluginPostContainer)
-}
+            @MvcHtmlString.Create(Model.PluginPostContainer)
+        }
 
-@section PluginFooter
+        @section PluginFooter
 {
-    @MvcHtmlString.Create(Model.PluginFooterHtml)
-}
+            @MvcHtmlString.Create(Model.PluginFooterHtml)
+        }
