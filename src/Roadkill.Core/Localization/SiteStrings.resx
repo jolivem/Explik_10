@@ -1189,4 +1189,7 @@
   <data name="Shared_Control_Link" xml:space="preserve">
     <value>Control</value>
   </data>
+  <data name="Shared_ViewLink" xml:space="preserve">
+    <value>View</value>
+  </data>
 </root>

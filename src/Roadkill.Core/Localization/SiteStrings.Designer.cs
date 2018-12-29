@@ -1888,6 +1888,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à View.
+        /// </summary>
+        public static string Shared_ViewLink {
+            get {
+                return ResourceManager.GetString("Shared_ViewLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à The confirmation email was resent..
         /// </summary>
         public static string Signup_Complete_EmailResent {

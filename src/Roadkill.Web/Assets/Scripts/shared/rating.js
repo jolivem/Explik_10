@@ -180,7 +180,7 @@ $(document).ready(function () {
     });
 
     $("#buttoncanvas").click(function () {
-        html2canvas($('#pagecontent__')[0], { scale: 1 }).
+        html2canvas($('#pagecontent__')[0], { scale:1 }).
             then(function(canvas) {
                 //canvas.style.height = "120";
                 //canvas.style.Width = "100";
@@ -188,11 +188,11 @@ $(document).ready(function () {
                 //$("#imgcanvas").replaceWith(canvas);
                 //canvas.id = "imgcanvas";
 
-                var pID = $("#pagecontent__").attr("pageid");
-                var datadisplay = canvas.toDataURL("image/png");
+                //var pID = $("#pagecontent__").attr("pageid");
+                var datadisplay = canvas.toDataURL("image/jpg");
                 $("#canvas-preview").attr("src", datadisplay);
-                var dataURL = canvas.toDataURL("image/png");
-                var dataURL = dataURL.replace('data:image/png;base64,', '');
+                //var dataURL = canvas.toDataURL("image/jpg");
+                var dataURL = datadisplay.replace('data:image/jpg;base64,', 0.2);
                 $("#scanvas").val(dataURL);
 
                 // sent via HTTP POST

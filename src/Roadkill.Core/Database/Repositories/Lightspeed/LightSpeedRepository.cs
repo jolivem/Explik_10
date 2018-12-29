@@ -416,7 +416,7 @@ namespace Roadkill.Core.Database.LightSpeed
 	    {
             List<PageEntity> entities = Pages
                 .Where(p => p.IsControlled)
-                .OrderBy( p => p.PublishedOn) // used fo SubmittedOn
+                .OrderByDescending( p => p.PublishedOn)
                 .Take(number)
                 .ToList();
             return FromEntity.ToPageList(entities);

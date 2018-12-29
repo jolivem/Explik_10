@@ -778,7 +778,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// <summary>
         /// 
         /// </summary>
-        public string EditBtnAttribute
+        public string EditBtnDisable
         {
             get
             {
@@ -794,7 +794,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// <summary>
         /// 
         /// </summary>
-        public string DraftBtnAttribute
+        public string DraftBtnDisable
         {
             get
             {
@@ -810,7 +810,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// <summary>
         /// 
         /// </summary>
-        public string SubmitBtnAttribute
+        public string SubmitBtnDisable
         {
             get
             {
@@ -820,6 +820,54 @@ namespace Roadkill.Core.Mvc.ViewModels
                 }
 
                 return "disabled";
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string EditBtnHidden
+        {
+            get
+            {
+                if (IsDraft)
+                {
+                    return ""; // means display
+                }
+
+                return "display:none;";
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string DraftBtnHidden
+        {
+            get
+            {
+                if (IsDraft)
+                {
+                    return "display:none;";
+                    
+                }
+                return "";
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SubmitBtnHidden
+        {
+            get
+            {
+                if (IsDraft)
+                {
+                    return ""; // means display
+                }
+
+                return "display:none;";
             }
         }
 

@@ -43,7 +43,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		[EditorRequired]
 		public ActionResult Index()
 		{
-            ViewBag.username = Context.CurrentUsername;
+            ViewBag.userpath = Context.AttachmentsPath;
 			return View();
 		}
 
@@ -314,7 +314,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		[EditorRequired]
 		public ActionResult Select()
 		{
-            ViewBag.username = Context.CurrentUsername;
+            ViewBag.userpath = Context.AttachmentsPath;
             return View();
 		}
 

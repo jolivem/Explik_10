@@ -32,7 +32,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// <returns></returns>
         public string GetCanvas(Page page)
         {
-            return page.FilePath + "page_" + page.Id + ".png";
+            return page.FilePath + "page_" + page.Id + ".jpg";
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         {
             //image = b == 0 ? "/Assets/Images/RaspberryPiBoard.png" : "/Assets/Images/spectrogram_zoomed.png";
             StringBuilder builder = new StringBuilder();
-            string canvas = page.FilePath + "page_" + page.Id + ".png";
+            string canvas = page.FilePath + "page_" + page.Id + ".jpg";
 
             builder.AppendLine("<table style='width:100%'>");
             {
@@ -78,7 +78,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 
             //image = b == 0 ? "/Assets/Images/RaspberryPiBoard.png" : "/Assets/Images/spectrogram_zoomed.png";
             StringBuilder builder = new StringBuilder();
-            string canvas = page.FilePath + "page_" + page.Id + ".png";
+            string canvas = page.FilePath + "page_" + page.Id + ".jpg";
 
             builder.AppendLine("<div class='row' style='margin-left:0'>");
             {
@@ -166,7 +166,7 @@ namespace Roadkill.Core.Mvc.ViewModels
                     {
                         builder.AppendLine("<td style='padding:2px; width:80px; border-bottom-width:1px; border-bottom-style:solid; color:#888888;'>");
                         {
-                            builder.AppendLine("<img src='" + GetCanvas(page) + "' style='float: left;'>");
+                            builder.AppendLine("<img src='" + GetCanvas(page) + "' style='float:left; width:60px; display:block; margin-left:auto; margin-right:auto;'>");
                             builder.AppendLine("</td>");
                         }
                         builder.AppendLine("<td style='padding:2px; border-bottom-width:1px; border-bottom-style:solid; color:#888888;'>");

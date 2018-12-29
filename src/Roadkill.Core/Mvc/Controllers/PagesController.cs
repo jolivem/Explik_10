@@ -260,7 +260,8 @@ namespace Roadkill.Core.Mvc.Controllers
             if (svalidated == "true")
             {
                 _pageService.ValidatePage(id, Context.CurrentUsername, Int32.Parse(srating), RawTags);
-                //TODO save the canvas
+
+                SaveCanvas(id, scanvas);
             }
 
             if (svalidated == "false")
@@ -539,7 +540,7 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <param name="id"></param>
         /// <param name="image"></param>
         /// <returns></returns>
-        public ActionResult UploadCanvas(int ?id, string image) // TODO why not PageViewModel
+        public void SaveCanvas(int id, string image)
         {
             string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath(_pageService.GetCurrentContent((int)id).Page.FilePath);
 
@@ -550,7 +551,7 @@ namespace Roadkill.Core.Mvc.Controllers
                     Directory.CreateDirectory(physicalPath);
                 }
 
-                string physicalFilePath = Path.Combine(physicalPath, "page_" + id + ".png");
+                string physicalFilePath = Path.Combine(physicalPath, "page_" + id + ".jpg");
                 using (FileStream fs = new FileStream(physicalFilePath, FileMode.Create))
                 {
                     using (BinaryWriter bw = new BinaryWriter(fs))
@@ -560,10 +561,7 @@ namespace Roadkill.Core.Mvc.Controllers
                         bw.Close();
                     }
                 }
-
-                return Content("tout va tres bien Madame la Marquise TODO");
             }
-            return Content("BOF TODO");
         }
 
         /// <summary>
