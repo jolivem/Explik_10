@@ -63,12 +63,25 @@
                 <div id="login-status">
                     @Html.Action("LoggedInAs", "User")
                 </div>
-                <div id="bootstrap-nav-menu">
-                    @Html.Action("BootstrapNavMenu", "Home")
-                </div>
-                <div id="search" class="searchbar navbar-right hidden-xs hidden-sm">
-                    <input type="text" name="q" placeholder="@SiteStrings.Search_PlaceHolder" class="form-control" />
-                </div>
+                <table>
+                    <tr>
+                        <td style="padding-left:10px;">
+                            <a href="@Url.Action("Index", "Home")">
+                                <img src="@Url.Content("/Assets/Images/Explik-48.png")" alt="logo" style="width:80px;" />
+                            </a>
+                        </td>
+                        <td style="width:100%;">
+                            <div id="bootstrap-nav-menu">
+                                @Html.Action("BootstrapNavMenu", "Home")
+                            </div>
+                        </td>
+                        <td>
+                            <div id="search" class="searchbar navbar-right hidden-xs hidden-sm">
+                                <input type="text" name="q" placeholder="@SiteStrings.Search_PlaceHolder" class="form-control" style="min-width:220px;"/>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
     }
@@ -78,7 +91,7 @@
         <!-- Search bar for tablets and below -->
         <div class="container hidden-lg hidden-md">
             <div class="row">
-                <div id="search-mobile" class="searchbar">
+                <div id="search-mobile" class="searchbar" style="padding-left:15px;">
                     <input type="text" name="q" placeholder="@SiteStrings.Search_PlaceHolder" class="form-control" />
                 </div>
             </div>

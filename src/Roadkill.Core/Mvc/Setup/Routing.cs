@@ -117,11 +117,11 @@ namespace Roadkill.Core.Mvc
                 new { controller = "FileManager", action = "User", id = UrlParameter.Optional }
             );
 
-            routes.MapRoute(
-                "Gallery",
-                "Gallery",
-                new { controller = "Home", action = "Gallery"}
-            );
+            //routes.MapRoute(
+            //    "Gallery",
+            //    "Gallery",
+            //    new { controller = "Home", action = "Gallery"}
+            //);
 
 			// Default
 			routes.MapLowercaseRoute(

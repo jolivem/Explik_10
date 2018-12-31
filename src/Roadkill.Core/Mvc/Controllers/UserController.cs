@@ -157,7 +157,7 @@ namespace Roadkill.Core.Mvc.Controllers
 			    }
 			    else
 			    {
-			        if (!string.IsNullOrWhiteSpace(fromUrl))
+			        if (!string.IsNullOrWhiteSpace(fromUrl) && !fromUrl.ToLower().Contains("/login"))
 			            return Redirect(fromUrl);
 			        else
 			            return RedirectToAction("Index", "Home");

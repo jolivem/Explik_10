@@ -80,7 +80,7 @@ namespace Roadkill.Core.Services
                 page.CreatedOn = DateTime.UtcNow;
                 page.PublishedOn = DateTime.UtcNow;
                 page.ControlledBy = AppendIpForDemoSite(currentUser);
-                page.Summary = model.Summary;
+                //page.Summary = model.Summary;
                 page.IsVideo = model.IsVideo;
                 page.IsControlled = false;
                 page.IsRejected = false;
@@ -137,7 +137,7 @@ namespace Roadkill.Core.Services
                     {
                         Page page = new Page();
                         page.Title = "Title of this wondefull page n° " + p;
-                        page.Summary = "This is a short summary to say that it is a page test and nothing more";
+                        //page.Summary = "This is a short summary to say that it is a page test and nothing more";
                         page.Tags = "tage"+i;
                         page.CreatedBy = AppendIpForDemoSite(currentUser);
                         page.CreatedOn = DateTime.UtcNow;
@@ -789,7 +789,7 @@ namespace Roadkill.Core.Services
                 page.IsRejected = false;
                 page.IsSubmitted = false;
 
-                page.Summary = model.Summary;
+                //page.Summary = model.Summary;
                 page.IsVideo = model.IsVideo;
                 page.VideoUrl = model.VideoUrl;
 
@@ -1124,7 +1124,7 @@ namespace Roadkill.Core.Services
 
                 Page page = new Page();
                 page.Title = "Title for the page n° " + number;
-                page.Summary = "This is a short summary to say that it is a page test and nothing more";
+                //page.Summary = "This is a short summary to say that it is a page test and nothing more";
                 page.Tags = "";
                 page.CreatedBy = user;
                 page.CreatedOn = DateTime.UtcNow;

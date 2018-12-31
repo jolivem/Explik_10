@@ -691,6 +691,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Description of the video.
+        /// </summary>
+        public static string EditPage_Video_description {
+            get {
+                return ResourceManager.GetString("EditPage_Video_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Address of the video.
         /// </summary>
         public static string EditPage_VideoUrl_Label {
@@ -1128,6 +1137,24 @@ namespace Roadkill.Core.Localization {
         public static string NoMainPage_Title {
             get {
                 return ResourceManager.GetString("NoMainPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Adding comments needs login. Do you want to login ?.
+        /// </summary>
+        public static string Page_Add_Comment_Login_Confirm {
+            get {
+                return ResourceManager.GetString("Page_Add_Comment_Login_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Rating needs login. Do you want to login ?.
+        /// </summary>
+        public static string Page_Add_Rating_Login_Confirm {
+            get {
+                return ResourceManager.GetString("Page_Add_Rating_Login_Confirm", resourceCulture);
             }
         }
         
@@ -1893,6 +1920,15 @@ namespace Roadkill.Core.Localization {
         public static string Shared_ViewLink {
             get {
                 return ResourceManager.GetString("Shared_ViewLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Yes.
+        /// </summary>
+        public static string Shared_Yes_Link {
+            get {
+                return ResourceManager.GetString("Shared_Yes_Link", resourceCulture);
             }
         }
         

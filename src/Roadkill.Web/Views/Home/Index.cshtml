@@ -1,14 +1,54 @@
-﻿@model PageViewModel
+﻿@model GalleryViewModel
 @{
-    ViewBag.Title = Model.Title;
+    //ViewBag.Title = Model.Title;
 }
+<style type="text/css">
 
-@section ViewHistoryLink
-{
-    <div id="viewhistory">@Html.ActionLink(SiteStrings.Navigation_ViewHistory, "History", "Pages", new { id = Model.Id }, null)</div>
-}
+    .textwidget {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    /* mixin for multiline */
+    .block-with-text {
+        overflow: hidden;
+        position: relative;
+        line-height: 1.2em;
+        max-height: 5.0em;
+        text-align: justify;
+        margin-right: -1em;
+        padding-right: 1em;
+    }
 
+        .block-with-text:before {
+            content: "...";
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+
+        .block-with-text:after {
+            content: "";
+            position: absolute;
+            right: 0;
+            width: 1em;
+            height: 1em;
+            margin-top: 0.2em;
+            background: white;
+        }
+
+    .thumb-crop {
+        display: inline-block;
+        height: 100px;
+        overflow: hidden;
+    }
+
+        .thumb-crop img {
+            width: 120px;
+        }
+</style>
 
 <div class="container">
+    @MvcHtmlString.Create(@Model.EncodeListPages("Last publications", @Model.listMostRecent))
+    @MvcHtmlString.Create(@Model.EncodeListPages("Best rated", @Model.listBestRated))
 </div>
-

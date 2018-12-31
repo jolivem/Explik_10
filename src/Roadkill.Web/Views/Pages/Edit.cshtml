@@ -15,28 +15,33 @@
 	    function ToggleIsVideo(){
 	        
 	        if ($('#IsVideo').is(':checked')) {
-	            $('#content-page').hide();
-	            $('#previewpanel-container').hide();
-	            $('#video-url').show();
-	            $('#video-url').removeClass("hidden");
-	            $('#summary').show();
-	            $('#summary').removeClass("hidden");
+	            //$('#content-page').hide();
+	            //$('#previewpanel-container').hide();
+                //$('#wysiwyg-toolbar').hide();
+                $('#video-url').show();
+                $('#video-url').removeClass("hidden");
+                //$('#summary').show();
+                //$('#summary').removeClass("hidden");
+                $('#video-description').show();
+                $('#video-description').removeClass("hidden");
+                
 	        }
 	        else {
-	            $('#content-page').show();
-	            $('#content-page').removeClass("hidden");
-	            $('#previewpanel-container').show();
-	            $('#previewpanel-container').removeClass("hidden");
+	            //$('#content-page').show();
+	            //$('#content-page').removeClass("hidden");
+                //$('#previewpanel-container').show();
+                //$('#previewpanel-container').removeClass("hidden");
+                //$('#wysiwyg-toolbar').show();
+                //$('#wysiwyg-toolbar').removeClass("hidden");
 	            $('#video-url').hide();
-	            $('#summary').hide();
+	            //$('#summary').hide();
+                $('#video-description').hide();
             }
 	    }
 
 	    $('#IsVideo').click(function () {
 	        ToggleIsVideo();
 	    });
-
-
 
 	    $('#IsCopied').click(function () {
 	        ToggleIsCopied();
@@ -94,7 +99,7 @@
             }
             <div class="form-group">
                 <div class="col-sm-12">
-                    <label for="Title">Title___</label>
+                    <label for="Title">@SiteStrings.EditPage_Title_Label</label>
                     @(Html.BootstrapTextBoxFor<PageViewModel, string>(p => p.Title, SiteStrings.EditPage_Title_Label, false, 1))
                 </div>
             </div>
@@ -110,16 +115,19 @@
                 </label>
             </div>
 
-            <div id="summary" class="hidden form-inline">
-                <label for="Summary">Summary___</label>
-                @(Html.BootstrapTextAreaFor(p => p.Summary, SiteStrings.EditPage_Summary_Label))
-            </div>
+            @*<div id="summary" class="hidden form-inline">
+            <label for="Summary">Summary___</label>
+            @(Html.BootstrapTextAreaFor(p => p.Summary, SiteStrings.EditPage_Summary_Label))
+        </div>*@
 
             <div id="video-url" class="hidden form-inline">
                 <label for="VideoUrl">@SiteStrings.EditPage_VideoUrl_Label</label>
                 @(Html.BootstrapTextBoxFor<PageViewModel, string>(p => p.VideoUrl, SiteStrings.EditPage_Title_Label, false, 1))
             </div>
 
+            <div id="video-description" style="margin-top:17px">
+                @SiteStrings.EditPage_Video_description
+            </div>
             <div id="content-page">
                 @Html.Partial("WysiwgToolbar")
                 @(Html.TextAreaFor<PageViewModel, string>(p => p.Content, new { @class = "form-control", tabindex = 5 }))

@@ -4,6 +4,7 @@ using System.Text;
 
 using Roadkill.Core.Database;
 using System.Web.Mvc;
+using System.Text.RegularExpressions;
 
 namespace Roadkill.Core.Mvc.ViewModels
 {
@@ -12,17 +13,17 @@ namespace Roadkill.Core.Mvc.ViewModels
     /// </summary>
     public class GalleryViewModel
     {
-        public List<Page> listMostRecent;
+        public List<PageViewModel> listMostRecent;
         //List<Thumbnail> listRecommended;
-        public List<Page> listBestRated;
-        public List<Page> listMostViewed;
+        public List<PageViewModel> listBestRated;
+        public List<PageViewModel> listMostViewed;
 
         public GalleryViewModel()
         {
-            listMostRecent = new List<Page>();
+            listMostRecent = new List<PageViewModel>();
             //listRecommended = new List<Thumbnail>();
-            listBestRated = new List<Page>();
-            listMostViewed = new List<Page>();
+            listBestRated = new List<PageViewModel>();
+            listMostViewed = new List<PageViewModel>();
         }
 
         /// <summary>
@@ -164,15 +165,15 @@ namespace Roadkill.Core.Mvc.ViewModels
                 {
                     builder.AppendLine("<tr>");
                     {
-                        builder.AppendLine("<td style='padding:2px; width:80px; border-bottom-width:1px; border-bottom-style:solid; color:#888888;'>");
+                        builder.AppendLine("<td class='searchresult-td' style='width:80px;'>");
                         {
                             builder.AppendLine("<img src='" + GetCanvas(page) + "' style='float:left; width:60px; display:block; margin-left:auto; margin-right:auto;'>");
                             builder.AppendLine("</td>");
                         }
-                        builder.AppendLine("<td style='padding:2px; border-bottom-width:1px; border-bottom-style:solid; color:#888888;'>");
+                        builder.AppendLine("<td class='searchresult-td'>");
                         {
                             builder.AppendLine("<span class='searchresult-title'><a href='/Wiki/" + page.Id + "/"+ page.Title + "'>"+page.Title+"</a></span><br />");
-                            builder.AppendLine("<span class='searchresult-summary'>"+page.Summary+"...</span><br/>");
+                            builder.AppendLine("<span class='searchresult-summary'>"+ GetContentSummary( page) + "...</span><br/>");
                             builder.AppendLine("<span>");
                             {
                                 builder.AppendLine("<span class='searchresult-date'>" + page.CreatedBy + " - " + page.PublishedOn.ToString("dd MMM yyyy") + " - " + page.NbView + " views</span>");
@@ -189,6 +190,20 @@ namespace Roadkill.Core.Mvc.ViewModels
             }
 
             return builder.ToString();
+        }
+
+        private string GetContentSummary(Page page)
+        {
+                // Turn the contents into HTML, then strip the tags for the mini summary. This needs some works
+                string modelHtml = page.Content;
+            Regex _removeTagsRegex = new Regex("<(.|\n)*?>");
+        MarkupConverter.ToHtml(modelHtml);
+                modelHtml = _removeTagsRegex.Replace(modelHtml, "");
+
+                if (modelHtml.Length > 150)
+                    modelHtml = modelHtml.Substring(0, 149);
+
+                return modelHtml;
         }
     }
 }

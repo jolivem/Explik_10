@@ -32,20 +32,21 @@
 <div class="row">
     <div class="col-sm-9" style="padding-top:20px;">
         <span style="float:right; margin-left:10px; @Model.EditBtnHidden">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", "Pages", new { id = Model.Id }, new { @class = "btn btn-mini btn-primary" })</span>
-        <span style="float:right; margin-left:10px; @Model.SubmitBtnHidden">@Html.ActionLink(SiteStrings.Shared_SubmitLink, "Submit", "Pages", new { id = Model.Id }, new { @class = "btn btn-mini btn-primary"})</span>
-        <span style="float:right; margin-left:10px; @Model.DraftBtnHidden">@Html.ActionLink(SiteStrings.Shared_DraftLink, "Draft", "Pages", new { id = Model.Id }, new { @class = "btn btn-mini btn-primary"})</span>
+        <span style="float:right; margin-left:10px; @Model.SubmitBtnHidden">@Html.ActionLink(SiteStrings.Shared_SubmitLink, "Submit", "Pages", new { id = Model.Id }, new { @class = "btn btn-mini btn-primary" })</span>
+        <span style="float:right; margin-left:10px; @Model.DraftBtnHidden">@Html.ActionLink(SiteStrings.Shared_DraftLink, "Draft", "Pages", new { id = Model.Id }, new { @class = "btn btn-mini btn-primary" })</span>
     </div>
 </div>
 
 
 @section PageDetailsFooter
 {
+    @Html.Raw("coucou les gars");
 }
 
 @section PluginHead
 {
-    <!-- Plugins -->
-    @Html.Raw(Model.PluginHeadHtml)<!-- End plugins head -->
+<!-- Plugins -->
+@Html.Raw(Model.PluginHeadHtml)<!-- End plugins head -->
 }
 
 @section PluginPreContainer

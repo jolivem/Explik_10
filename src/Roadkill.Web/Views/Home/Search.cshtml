@@ -47,16 +47,18 @@ else
             @foreach (SearchResultViewModel result in Model)
             {
             <tr class="searchresult">
-                <td style="border: 1px solid; padding:2px;">
+                <td class="searchresult-td" style="width: 80px;">
                     <img src="@result.Canvas" style="float: left;">
                 </td>
-                <td style="border: 1px solid; overflow: auto; padding:2px;">
+                <td class="searchresult-td">
                     <span class=" searchresult-title">@Html.ActionLink(result.Title, "Index", "Wiki", new { id = result.Id, title = result.EncodedTitle }, null)</span><br />
                     <span class="searchresult-summary">@MvcHtmlString.Create(result.ContentSummary)...</span><br />
                     <span>
                         <span class="searchresult-date">@result.CreatedBy - @result.CreatedOn.ToString("dd MMM yyyy")</span>
                         <span class="searchresult-tags">@Html.Partial("TagBlocks", result.TagsAsList())</span>
-                        <span class="searchresult-date">@MvcHtmlString.Create(@result.EncodePageRating(result.Rating))</span>
+                        <span class="searchresult-date">
+                            <span style="display: inline-block;margin-bottom:-2px;">@MvcHtmlString.Create(@result.EncodePageRating(result.Rating))</span>                        
+                        </span>
                     </span>
                 </td>
             </tr>

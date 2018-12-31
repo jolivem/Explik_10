@@ -1192,4 +1192,16 @@
   <data name="Shared_ViewLink" xml:space="preserve">
     <value>View</value>
   </data>
+  <data name="EditPage_Video_description" xml:space="preserve">
+    <value>Description of the video</value>
+  </data>
+  <data name="Page_Add_Comment_Login_Confirm" xml:space="preserve">
+    <value>Adding comments needs login. Do you want to login ?</value>
+  </data>
+  <data name="Page_Add_Rating_Login_Confirm" xml:space="preserve">
+    <value>Rating needs login. Do you want to login ?</value>
+  </data>
+  <data name="Shared_Yes_Link" xml:space="preserve">
+    <value>Yes</value>
+  </data>
 </root>

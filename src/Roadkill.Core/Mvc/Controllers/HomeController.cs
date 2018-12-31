@@ -29,7 +29,7 @@ namespace Roadkill.Core.Mvc.Controllers
 	    private PageService _pageService;
 		private SearchService _searchService;
 		private MarkupConverter _markupConverter;
-        //private AttachmentPathUtil _attachmentPathUtil;
+        
         private ApplicationSettings _applicationSettings ;
 
 		public HomeController(ApplicationSettings settings, UserServiceBase userManager, MarkupConverter markupConverter,
@@ -47,22 +47,22 @@ namespace Roadkill.Core.Mvc.Controllers
 		/// Display the homepage/mainpage. If no page has been tagged with the 'homepage' tag,
 		/// then a dummy PageViewModel is put in its place.
 		/// </summary>
-		[BrowserCache]
-		public ActionResult Index()
-		{
-		    if (Context.IsController)
-		    {
-                return RedirectToAction("AllNewPages", "Pages");
-		    }
-            return RedirectToAction("Gallery");
+		//[BrowserCache]
+		//public ActionResult Index()
+		//{
+		//    if (Context.IsController)
+		//    {
+  //              return RedirectToAction("AllNewPages", "Pages");
+		//    }
+  //          return RedirectToAction("Index");
 
-			//return View(model);
-		    //return null;
-        }
+		//	//return View(model);
+		//    //return null;
+  //      }
 
 
         [BrowserCache]
-        public ActionResult Gallery()
+        public ActionResult Index()
         {
             PageViewModel pmodel = _pageService.FindHomePage();
             var zaza = pmodel;
@@ -70,13 +70,13 @@ namespace Roadkill.Core.Mvc.Controllers
             GalleryViewModel model = new GalleryViewModel();
             var toto = _pageService.MyPages(Context.CurrentUsername);
             var titi = toto;
-            model.listMostRecent = (List<Page>)_pageService.PagesMostRecent(5);
+            model.listMostRecent = (List<Page>)_pageService.PagesMostRecent(10);
             foreach (Page page in model.listMostRecent)
             {
                 page.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + page.FilePath + "/";
             }
             
-            model.listMostViewed = (List<Page>)_pageService.PagesMostViewed(5);
+            model.listMostViewed = (List<Page>)_pageService.PagesMostViewed(10);
             foreach (Page page in model.listMostViewed)
             {
                 page.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + page.FilePath + "/";
@@ -88,7 +88,7 @@ namespace Roadkill.Core.Mvc.Controllers
                 page.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + page.FilePath + "/";
             }
 
-            return View("Gallery", model);
+            return View("Index", model);
             // display a galery of pages
 
 		}
@@ -101,40 +101,6 @@ namespace Roadkill.Core.Mvc.Controllers
 			ViewData["search"] = q;
 
 			List<SearchResultViewModel> results = _searchService.Search(q).ToList();
-            //foreach (var result in results)
-            //{
-            //    Page page = _pageService.FindById(result.Id);
-            //    if (page != null)
-            //    {
-            //        result.NbView = page.NbView;
-            //        result.Rating = page.TotalRating / page.NbRating;
-            //        //Image = page.FilePath + "thumb.png"; //TODO
-            //        result.Canvas = "/Assets/Images/RaspberryPiBoard.png";
-            //    }
-            //}
-
-
- //string image;
-            
- //           image = b == 0 ? "/Assets/Images/RaspberryPiBoard.png" 
- //               builder.AppendLine("<div class='col-xs-4 caption'  style='padding-left:0'>");
- //               {
- //                   builder.AppendLine(string.Format("<a href='/wiki/{0}'>", page.Id));
- //                   {
- //                       builder.AppendLine(string.Format("<img class='img-responsive' src='{0}' alt='Lights' height='120'>", image));
- //                       builder.AppendLine("</a>");
- //                   }
- //                   builder.AppendLine("</div>");
- //               }
- //               builder.AppendLine("<div class='col-xs-8'  style='padding-left:0'>");
- //               {
- //                   builder.AppendLine(string.Format("<p class='block-with-text'>{0}<br>", page.Title)); //TODO 1 line only
- //                   builder.AppendLine(string.Format("<p class='block-with-text'><small>{0}</small><br></p>", page.Summary));
- //                   builder.AppendLine(string.Format("<p><small>{1}  Views: {0}</small></p>", page.NbView, EncodePageRating(page)));
- //                   builder.AppendLine("</div>");
- //               }
- //               builder.AppendLine("</div>");
-
 			return View(results);
 		}
 

@@ -164,7 +164,7 @@ namespace Roadkill.Core.Text
                 allNewPages = "";
                 myPages = "";
                 alerts = "";
-                mainPage = "";
+                //mainPage = "";
                 newpage = "";
                 manageFiles = "";
                 siteSettings = "";

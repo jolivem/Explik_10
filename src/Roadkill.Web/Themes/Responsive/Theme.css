@@ -1,7 +1,7 @@
 ﻿@import url(http://fonts.googleapis.com/css?family=Noticia+Text);
 
 /* Make the page have 100% height */
-html, body { height: 100%; min-height: 100%; padding: 0px; margin: 0px; background-color: lightyellow}
+html, body { height: 100%; min-height: 100%; padding: 0px; margin: 0px;}
 body, h1, h2, h3, h4, h5, h6 { font-family: "Verdana", sans-serif; }
 h1, h2, h3, h4, h5, h6 { font-family: "Verdana", sans-serif;padding: 5px 0px 5px 0px; }
 

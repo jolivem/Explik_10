@@ -63,6 +63,7 @@ namespace Roadkill.Core.Services
 
 			StandardAnalyzer analyzer = new StandardAnalyzer(LUCENEVERSION);
 			MultiFieldQueryParser parser = new MultiFieldQueryParser(LuceneVersion.LUCENE_29, new string[] { "content", "title" }, analyzer);
+            parser.DefaultOperator = QueryParser.Operator.AND;
 
 			Query query = null;
 			try
@@ -214,7 +215,7 @@ namespace Roadkill.Core.Services
 						document.Add(new Field("createdby", pageModel.CreatedBy, Field.Store.YES, Field.Index.NOT_ANALYZED));
 						document.Add(new Field("createdon", pageModel.CreatedOn.ToShortDateString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
                         document.Add(new Field("contentlength", pageModel.Content.Length.ToString(), Field.Store.YES, Field.Index.NO));
-                        document.Add(new Field("summary", pageModel.Summary.ToString(), Field.Store.YES, Field.Index.ANALYZED));
+                        //document.Add(new Field("summary", pageModel.Summary.ToString(), Field.Store.YES, Field.Index.ANALYZED));
                         //document.Add(new Field("nbview", pageModel.NbView.ToString(), Field.Store.YES, Field.Index.NO));
                         //document.Add(new Field("nbrating", pageModel.NbRating.ToString(), Field.Store.YES, Field.Index.NO));
                         //document.Add(new Field("totalrating", pageModel.TotalRating.ToString(), Field.Store.YES, Field.Index.NO));

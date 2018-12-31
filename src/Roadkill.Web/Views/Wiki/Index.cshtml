@@ -5,7 +5,7 @@
 
 @section ViewHistoryLink
 {
-    @*<div id="viewhistory">@Html.ActionLink(SiteStrings.Navigation_ViewHistory, "History", "Pages", new { id = Model.Id }, null)</div>*@
+    <div id="viewhistory">@Html.ActionLink(SiteStrings.Navigation_ViewHistory, "History", "Pages", new { id = Model.Id }, null)</div>
 }
 
 @Html.DialogPartial("PageAddComment", Model)
@@ -46,9 +46,6 @@
     <div class="col-sm-8">
         <h2 class="pagetitle">@Model.Title</h2>
         <hr size=2 align=left width="90%" />
-        <p align="justify">@Model.Summary</p>
-        <hr size=2 align=left width="90%" />
-
         <div id="pagecontent" style="text-align: justify;text-justify: inter-word">
             @MvcHtmlString.Create(Model.ContentAsHtml)
         </div>
@@ -156,32 +153,31 @@
 
 @section PageDetailsFooter
 {
-    @*@SiteStrings.Shared_LastModified <span id="lastmodified-on" title="@Model.ModifiedOnWithOffset">@Model.ModifiedOnWithOffset</span>.*@
+    @SiteStrings.Shared_LastModified <span id="lastmodified-on" title="@Model.ModifiedOnWithOffset">@Model.ModifiedOnWithOffset</span>.
 }
 
 @section PageComments
 {
-        <!-- all about comments -->
-        @*@MvcHtmlString.Create(@Model.GetCommentsHtml())*@
+    <!-- all about comments -->
 }
 
-        @section PluginHead
+@section PluginHead
 {
-            <!-- Plugins -->
-            @Html.Raw(Model.PluginHeadHtml)<!-- End plugins head -->
-        }
+    <!-- Plugins -->
+    @Html.Raw(Model.PluginHeadHtml)<!-- End plugins head -->
+}
 
-        @section PluginPreContainer
+@section PluginPreContainer
 {
-            @MvcHtmlString.Create(Model.PluginPreContainer)
-        }
+    @MvcHtmlString.Create(Model.PluginPreContainer)
+}
 
-        @section PluginPostContainer
+@section PluginPostContainer
 {
-            @MvcHtmlString.Create(Model.PluginPostContainer)
-        }
+    @MvcHtmlString.Create(Model.PluginPostContainer)
+}
 
-        @section PluginFooter
+@section PluginFooter
 {
-            @MvcHtmlString.Create(Model.PluginFooterHtml)
-        }
+    @MvcHtmlString.Create(Model.PluginFooterHtml)
+}

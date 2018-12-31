@@ -151,12 +151,13 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// <summary>
         /// The page summary.
         /// </summary>
-        public string Summary { get; set; }
+        //public string Summary { get; set; } see content page
+        public string ContentSummary { get; set; }
 
-        /// <summary>
-		/// The page title, encoded so it is a safe search-engine friendly url.
-		/// </summary>
-		public string EncodedTitle
+            /// <summary>
+        /// The page title, encoded so it is a safe search-engine friendly url.
+        /// </summary>
+        public string EncodedTitle
         {
             get
             {
@@ -269,7 +270,7 @@ namespace Roadkill.Core.Mvc.ViewModels
             IsCacheable = true;
             //RatingStars = "";
             PluginHeadHtml = "";
-            PluginFooterHtml = "";
+            PluginFooterHtml = "TODO_______";
             CurrentUserComment = "";
             PluginPreContainer = "";
             PluginPostContainer = "";
@@ -296,7 +297,7 @@ namespace Roadkill.Core.Mvc.ViewModels
             ControlledBy = page.ControlledBy;
             PublishedOn = page.PublishedOn;
             RawTags = page.Tags;
-            Summary = page.Summary;
+            //Summary = page.Summary;
             VideoUrl = page.VideoUrl;
             Pseudonym = page.Pseudonym;
             FilePath = page.FilePath;
@@ -320,55 +321,15 @@ namespace Roadkill.Core.Mvc.ViewModels
         {
 
             StringBuilder builder = new StringBuilder();
-            if (AllComments != null && AllComments.Count != 0)
-            {
-                builder.AppendLine("<p>&nbsp;</p>");
+                builder.AppendLine("<h4>USE ENCODECOMMENTHTML()</h4>");
 
-                builder.AppendLine("<div id='container-comments' class='container'>");
-                builder.AppendLine("<h4>" + SiteStrings.Page_Comments_Title + "</h4>");
-
-                builder.AppendLine("<table>");
-                {
-                    //builder.AppendLine("<div>");
-                    foreach (var comment in AllComments)
-                    {
-                        //builder.AppendLine("<hr size=2 align=left width='90%'/>");
-                        builder.AppendLine("<tr>");
-                        {
-
-                            // first the user on the left
-                            builder.AppendLine("<td style='padding:2px; width:80px; border-bottom-width:1px; border-bottom-style:solid; color:#888888;'>");
-                            {
-                                builder.AppendLine("<small>" + comment.CreatedBy + "</small>");
-                                builder.AppendLine("</td>");
-                            }
-
-                            // then the comment text
-                            builder.AppendLine("<td style='padding:2px; border-bottom-width:1px; border-bottom-style:solid; color:#888888;'>");
-                            {
-                                if (comment.Rating > 0)
-                                {
-                                    // another table for alignment
-                                    builder.AppendLine("<table><tr><td><span style='display:inline-flex;'>");
-                                    builder.AppendLine(EncodeCommentRating(comment.Rating));
-                                    builder.AppendLine("</span></td><td>");
-                                    builder.AppendLine("<span style='padding-left:10px;color:green;'><small>" + SiteStrings.Comment_Info_PublishedOn + comment.CreatedOn.ToString("dd/MM/yyyy") + "</small></span>");
-                                    builder.AppendLine("</td></tr></table>");
-                                }
-                                builder.AppendLine("<small>" + comment.Text + "</small>");
-                                builder.AppendLine("</tr>");
-                            }
-                            builder.AppendLine("</tr>");
-                        }
-                        //builder.AppendLine("<hr>");
-                    }//foreach
-                    builder.AppendLine("</table>");
-                }
-                builder.AppendLine("</div>");
-            }
             return builder.ToString();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public string EncodeCommentsHtml()
         {
 
@@ -414,8 +375,12 @@ namespace Roadkill.Core.Mvc.ViewModels
                                     builder.AppendLine("<span style='padding-left:10px;color:green;'><small>" + SiteStrings.Comment_Info_PublishedOn + comment.CreatedOn.ToString("dd/MM/yyyy") + "</small></span>");
                                     builder.AppendLine("</td></tr></table>");
                                 }
+                                else
+                                {
+                                    builder.AppendLine("<div style='color:green;'><small>" + SiteStrings.Comment_Info_PublishedOn + comment.CreatedOn.ToString("dd/MM/yyyy") + "</small></div>");
+                                }
                                 builder.AppendLine("<small>" + comment.Text + "</small>");
-                                builder.AppendLine("</tr>");
+                                builder.AppendLine("</td>");
                             }
                             builder.AppendLine("</tr>");
                         }
@@ -535,7 +500,7 @@ namespace Roadkill.Core.Mvc.ViewModels
             NbView = pageContent.Page.NbView;
             NbRating = pageContent.Page.NbRating;
             TotalRating = pageContent.Page.TotalRating;
-            Summary = pageContent.Page.Summary;
+            //Summary = pageContent.Page.Summary;
             VideoUrl = pageContent.Page.VideoUrl;
             Pseudonym = pageContent.Page.Pseudonym;
 

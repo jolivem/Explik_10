@@ -164,9 +164,8 @@ namespace Roadkill.Core.Mvc.ViewModels
                 return "";
             }
 
-            string active = "passive ";
             StringBuilder builder = new StringBuilder();
-            string formatStr = "<span class='rating16 stars16 {2}star16-{0}' value='{1}'></span>";
+            string formatStr = "<span class='rating16 stars16 passive star16-{0}' value='{1}'></span>";
 
             //rating = Math.Round(rating, 1);
 
@@ -174,11 +173,11 @@ namespace Roadkill.Core.Mvc.ViewModels
             {
                 if (i <= rating)
                 {
-                    builder.AppendFormat(formatStr, (i * 2) % 2 == 1 ? "left_on" : "right_on", i, active);
+                    builder.AppendFormat(formatStr, (i * 2) % 2 == 1 ? "left_on" : "right_on", i);
                 }
                 else
                 {
-                    builder.AppendFormat(formatStr, (i * 2) % 2 == 1 ? "left_off" : "right_off", i, active);
+                    builder.AppendFormat(formatStr, (i * 2) % 2 == 1 ? "left_off" : "right_off", i);
                 }
             }
             //builder.AppendFormat("rating={0}", rating);
