@@ -67,28 +67,28 @@ namespace Roadkill.Core.Mvc.Controllers
             PageViewModel pmodel = _pageService.FindHomePage();
             var zaza = pmodel;
 
-            GalleryViewModel model = new GalleryViewModel();
+            GalleryViewModel galleryModel = new GalleryViewModel(_markupConverter);
             var toto = _pageService.MyPages(Context.CurrentUsername);
             var titi = toto;
-            model.listMostRecent = (List<Page>)_pageService.PagesMostRecent(10);
-            foreach (Page page in model.listMostRecent)
+            galleryModel.listMostRecent = (List<PageViewModel>)_pageService.PagesMostRecent(10);
+            foreach (PageViewModel model in galleryModel.listMostRecent)
             {
-                page.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + page.FilePath + "/";
-            }
-            
-            model.listMostViewed = (List<Page>)_pageService.PagesMostViewed(10);
-            foreach (Page page in model.listMostViewed)
-            {
-                page.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + page.FilePath + "/";
+                model.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + model.FilePath + "/";
             }
 
-            model.listBestRated = (List<Page>)_pageService.PagesBestRated(5);
-            foreach (Page page in model.listBestRated)
+            //galleryModel.listMostViewed = (List<PageViewModel>)_pageService.PagesMostViewed(10);
+            //foreach (PageViewModel model in galleryModel.listMostViewed)
+            //{
+            //    model.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + model.FilePath + "/";
+            //}
+
+            galleryModel.listBestRated = (List<PageViewModel>)_pageService.PagesBestRated(10);
+            foreach (PageViewModel model in galleryModel.listBestRated)
             {
-                page.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + page.FilePath + "/";
+                model.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + model.FilePath + "/";
             }
 
-            return View("Index", model);
+            return View("Index", galleryModel);
             // display a galery of pages
 
 		}

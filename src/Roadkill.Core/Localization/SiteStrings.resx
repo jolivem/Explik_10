@@ -1204,4 +1204,19 @@
   <data name="Shared_Yes_Link" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="Navigation_About_Explik" xml:space="preserve">
+    <value>About Explik</value>
+  </data>
+  <data name="Navigation_Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="Navigation_Disclaimers" xml:space="preserve">
+    <value>Disclaimers</value>
+  </data>
+  <data name="Navigation_Privacy_Policy" xml:space="preserve">
+    <value>Privacy policy</value>
+  </data>
+  <data name="Navigation_Top" xml:space="preserve">
+    <value>Top</value>
+  </data>
 </root>

@@ -390,25 +390,52 @@ namespace Roadkill.Core.Services
             }
         }
 
-        public IEnumerable<Page> PagesMostRecent(int number)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public List<PageViewModel> PagesMostRecent(int number)
         {
-            //TODO add in cache
+            List<PageViewModel> models=new List<PageViewModel>();
             IEnumerable<Page> pages = Repository.FindMostRecentPages(number);
-            return pages;
+            foreach(Page page in pages)
+            {
+                models.Add(GetById(page.Id));
+            }
+            return models;
         }
 
-        public IEnumerable<Page> PagesBestRated(int number)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public List<PageViewModel> PagesBestRated(int number)
         {
-            //TODO add in cache
+            List<PageViewModel> models = new List<PageViewModel>();
             IEnumerable<Page> pages = Repository.FindPagesBestRated(number);
-            return pages;
+            foreach (Page page in pages)
+            {
+                models.Add(GetById(page.Id));
+            }
+            return models;
         }
 
-        public IEnumerable<Page> PagesMostViewed(int number)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public List<PageViewModel> PagesMostViewed(int number)
         {
-            //TODO add in cache
+            List<PageViewModel> models = new List<PageViewModel>();
             IEnumerable<Page> pages = Repository.FindPagesMostViewed(number);
-            return pages;
+            foreach (Page page in pages)
+            {
+                models.Add(GetById(page.Id));
+            }
+            return models;
         }
 
         /// <summary>

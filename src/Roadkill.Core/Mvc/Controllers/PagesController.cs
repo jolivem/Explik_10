@@ -613,9 +613,8 @@ namespace Roadkill.Core.Mvc.Controllers
         [EditorRequired]
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult PageRating(int id, string rating)
+        public ActionResult  PageRating(int id, string rating)
         {
-
             //TODO if not editor, redirect to login
             //if (!ModelState.IsValid)
             //    return View("Rate", model); //TODO

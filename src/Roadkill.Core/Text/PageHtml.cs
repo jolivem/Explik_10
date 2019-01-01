@@ -54,7 +54,7 @@ namespace Roadkill.Core.Text
 			Html = html;
 			IsCacheable = true;
 			HeadHtml = "";
-			FooterHtml = "gloubiboulga";
+			FooterHtml = "";
 			PreContainerHtml = "";
 			PostContainerHtml = "";
             CommentsHtml = "";

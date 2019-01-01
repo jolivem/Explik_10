@@ -117,15 +117,31 @@
         <div id="footer-inner">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-11">
+                    <div class="col-xs-11">
                         @*<h6 id="powered-by">@SiteStrings.Shared_PoweredBy (@ApplicationSettings.ProductVersion).</h6>*@
                         <h6>
                             @RenderSection("PageDetailsFooter", false)
                             @RenderSection("ViewHistoryLink", false)
                         </h6>
                     </div>
-                    <div id="top-link" class="col-md-1">
-                        <h6><a href="#">Top</a></h6>
+                    <div id="top-link" class="col-xs-1">
+                        <h6><a href="#">@SiteStrings.Navigation_Top</a></h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-1">
+                    </div>
+                    <div class="col-xs-2">
+                        <h6><small><a href="#">@SiteStrings.Navigation_About_Explik</a></small></h6>
+                    </div>
+                    <div class="col-xs-2">
+                        <h6><small><a href="#">@SiteStrings.Navigation_Contact</a></small></h6>
+                    </div>
+                    <div class="col-xs-2">
+                        <h6><small><a href="#">@SiteStrings.Navigation_Privacy_Policy</a></small></h6>
+                    </div>
+                    <div class="col-xs-2">
+                        <h6><small><a href="#">@SiteStrings.Navigation_Disclaimers</a></small></h6>
                     </div>
                 </div>
 

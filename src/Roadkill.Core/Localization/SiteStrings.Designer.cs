@@ -988,6 +988,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à About Explik.
+        /// </summary>
+        public static string Navigation_About_Explik {
+            get {
+                return ResourceManager.GetString("Navigation_About_Explik", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Alerts.
         /// </summary>
         public static string Navigation_Alerts {
@@ -1024,11 +1033,29 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Contact.
+        /// </summary>
+        public static string Navigation_Contact {
+            get {
+                return ResourceManager.GetString("Navigation_Contact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Delete.
         /// </summary>
         public static string Navigation_Delete {
             get {
                 return ResourceManager.GetString("Navigation_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Disclaimers.
+        /// </summary>
+        public static string Navigation_Disclaimers {
+            get {
+                return ResourceManager.GetString("Navigation_Disclaimers", resourceCulture);
             }
         }
         
@@ -1096,6 +1123,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Privacy policy.
+        /// </summary>
+        public static string Navigation_Privacy_Policy {
+            get {
+                return ResourceManager.GetString("Navigation_Privacy_Policy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Register.
         /// </summary>
         public static string Navigation_Register {
@@ -1110,6 +1146,15 @@ namespace Roadkill.Core.Localization {
         public static string Navigation_SiteSettings {
             get {
                 return ResourceManager.GetString("Navigation_SiteSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Top.
+        /// </summary>
+        public static string Navigation_Top {
+            get {
+                return ResourceManager.GetString("Navigation_Top", resourceCulture);
             }
         }
         
