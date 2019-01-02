@@ -49,6 +49,8 @@ CREATE TABLE roadkill_users
     AttachmentsPath NVARCHAR(255), 
 	IsAdmin BOOLEAN NOT NULL,
 	IsActivated BOOLEAN NOT NULL,
+	ContributionLevel INT,
+	DisplayFlags INT,
 	Password NVARCHAR(255) NOT NULL,
 	PasswordResetKey NVARCHAR(255) NULL,
 	Salt NVARCHAR(255) NOT NULL,

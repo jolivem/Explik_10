@@ -97,7 +97,12 @@ namespace Roadkill.Core.Database
         /// <summary>
         /// Gets or sets a value indicating the teaching level of the editor.
         /// </summary>
-        public long TeachLevel { get; set; }
+        public long ContributionLevel { get; set; }
+
+        /// <summary>
+        /// Gets or sets flags indicating display or not.
+        /// </summary>
+        public long DisplayFlags { get; set; }
 
         /// <summary>
         /// Gets or sets the lastname of the user.

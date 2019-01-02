@@ -220,7 +220,7 @@ namespace Roadkill.Core.Database.Export
 			if (user == null)
 				return "";
 
-            string sql = "INSERT INTO roadkill_users (id, activationkey, email, firstname, iseditor, iscontroller, attachmentspath, isadmin, isactivated, lastname, password, passwordresetkey, salt, username) VALUES (";
+            string sql = "INSERT INTO roadkill_users (id, activationkey, email, firstname, iseditor, iscontroller, attachmentspath, isadmin, isactivated, contributionlevel, displayflags, lastname, password, passwordresetkey, salt, username) VALUES (";
 			sql += string.Format("'{0}',", user.Id);
 			sql += string.Format("'{0}',", user.ActivationKey);
 			sql += string.Format("'{0}',", user.Email.ReplaceSingleQuotes());
@@ -229,8 +229,10 @@ namespace Roadkill.Core.Database.Export
             sql += string.Format("'{0}',", user.IsController ? "1" : "0");
             sql += string.Format("'{0}',", user.AttachmentsPath);
             sql += string.Format("'{0}',", user.IsAdmin ? "1" : "0");
-			sql += string.Format("'{0}',", user.IsActivated ? "1" : "0");
-			sql += string.Format("'{0}',", user.Lastname.ReplaceSingleQuotes());
+            sql += string.Format("'{0}',", user.IsActivated ? "1" : "0");
+            sql += string.Format("'{0}',", user.ContributionLevel);
+            sql += string.Format("'{0}',", user.DisplayFlags);
+            sql += string.Format("'{0}',", user.Lastname.ReplaceSingleQuotes());
 			sql += string.Format("'{0}',", user.Password.ReplaceSingleQuotes());
 			sql += string.Format("'{0}',", user.PasswordResetKey);
 			sql += string.Format("'{0}',", user.Salt.ReplaceSingleQuotes());

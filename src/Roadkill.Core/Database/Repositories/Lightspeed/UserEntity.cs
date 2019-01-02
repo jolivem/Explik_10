@@ -40,7 +40,13 @@ namespace Roadkill.Core.Database.LightSpeed
 		[Column("isactivated")]
 		private bool _isActivated;
 
-		[Column("activationkey")]
+        [Column("contributionlevel")]
+        private long _contributionLevel;
+
+        [Column("displayflags")]
+        private long _displayFlags;
+
+        [Column("activationkey")]
 		private string _activationKey;
 
 		[Column("passwordresetkey")]
@@ -178,7 +184,31 @@ namespace Roadkill.Core.Database.LightSpeed
 			}
 		}
 
-		public string ActivationKey
+        public long ContributionLevel
+        {
+            get
+            {
+                return _contributionLevel;
+            }
+            set
+            {
+                Set<long>(ref _contributionLevel, value);
+            }
+        }
+
+        public long DisplayFlags
+        {
+            get
+            {
+                return _displayFlags;
+            }
+            set
+            {
+                Set<long>(ref _displayFlags, value);
+            }
+        }
+
+        public string ActivationKey
 		{
 			get
 			{

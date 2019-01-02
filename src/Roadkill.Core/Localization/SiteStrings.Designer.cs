@@ -376,7 +376,7 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Be the firt to comment.
+        ///   Recherche une chaîne localisée semblable à Be the first to comment.
         /// </summary>
         public static string Comment_Be_The_First {
             get {
@@ -394,7 +394,7 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Published on .
+        ///   Recherche une chaîne localisée semblable à Added on .
         /// </summary>
         public static string Comment_Info_PublishedOn {
             get {
@@ -408,6 +408,15 @@ namespace Roadkill.Core.Localization {
         public static string Comment_Link {
             get {
                 return ResourceManager.GetString("Comment_Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Please, log in before adding a comment.
+        /// </summary>
+        public static string Comment_Login_Before {
+            get {
+                return ResourceManager.GetString("Comment_Login_Before", resourceCulture);
             }
         }
         
@@ -867,6 +876,24 @@ namespace Roadkill.Core.Localization {
         public static string FileManager_UploadingProgress {
             get {
                 return ResourceManager.GetString("FileManager_UploadingProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Best rated.
+        /// </summary>
+        public static string Gallery_Best_Rated {
+            get {
+                return ResourceManager.GetString("Gallery_Best_Rated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Last publications.
+        /// </summary>
+        public static string Gallery_Last_Publications {
+            get {
+                return ResourceManager.GetString("Gallery_Last_Publications", resourceCulture);
             }
         }
         
@@ -1560,6 +1587,15 @@ namespace Roadkill.Core.Localization {
         public static string Rating_level5 {
             get {
                 return ResourceManager.GetString("Rating_level5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Please, log in before rating.
+        /// </summary>
+        public static string Rating_Login_Before {
+            get {
+                return ResourceManager.GetString("Rating_Login_Before", resourceCulture);
             }
         }
         

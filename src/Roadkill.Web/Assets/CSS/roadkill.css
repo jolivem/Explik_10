@@ -88,7 +88,7 @@ a.external-link	{ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA
 .searchresult-tags span a	{ color:#4e6fa3 !important;text-decoration:none; }
 .searchresult-tags span a:hover	{ color:#000 !important;text-decoration:underline; }
 .searchbox				{ width:20em; margin-right:10px; }
-.searchresult-td        { padding-top: 10px; border-color: rgb(200, 200, 200); border-bottom-width: 1px; border-bottom-style: solid; }
+.searchresult-td        { padding-top: 10px; border-color: rgb(220,220,220); border-bottom-width: 1px; border-bottom-style: solid; }
 
 /* History table */
 #historytable .version	{ width:10%; }
@@ -190,3 +190,5 @@ table#files tr.listrow	{ cursor:pointer; }
 .plugin-disabled	{ min-width:15px;min-height:16px;background: url('images/plugin-disabled.png');margin-top:2px; }
 
 #pluginsettings-save { margin-top:20px; }
+.canvas-td { width: 80px;height:70px;overflow:hidden; }
+.canvas-td img { width:60px; }

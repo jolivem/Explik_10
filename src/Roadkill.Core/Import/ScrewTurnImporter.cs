@@ -74,6 +74,8 @@ namespace Roadkill.Core.Import
 									user.Email = email;
 									user.Username = username;
 									user.IsActivated = false;
+                                    user.ContributionLevel = 0;
+                                    user.DisplayFlags = 0;
 									user.SetPassword("password");
 
 									Repository.SaveOrUpdateUser(user);

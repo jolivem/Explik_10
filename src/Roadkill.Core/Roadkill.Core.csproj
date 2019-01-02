@@ -490,7 +490,6 @@
     <Compile Include="Database\Schema\SqlServerCE\SqlServerCESchema.cs" />
     <Compile Include="Database\Schema\SqlServer\SqlServerSchema.cs" />
     <Compile Include="Services\IPageService.cs" />
-    <Compile Include="Database\Repositories\MongoDB\MongoDBRepository.cs" />
     <Compile Include="Exceptions\UpgradeException.cs" />
     <Compile Include="Attachments\MimeTypes.cs" />
     <Compile Include="DI\DependencyManager.cs" />

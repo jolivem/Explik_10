@@ -114,9 +114,10 @@ namespace Roadkill.Core.Mvc.ViewModels
 		{
 			get
 			{
-				return new string[] { "Creole","Markdown","MediaWiki" };
-			}
-		}
+                return new string[] { "Markdown" };
+                //return new string[] { "Creole", "Markdown", "MediaWiki" };
+            }
+        }
 
 		public IEnumerable<string> ThemesAvailable
 		{

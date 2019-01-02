@@ -3,11 +3,6 @@
     ViewBag.Title = Model.Title;
 }
 
-@section ViewHistoryLink
-{
-    <div id="viewhistory">@Html.ActionLink(SiteStrings.Navigation_ViewHistory, "History", "Pages", new { id = Model.Id }, null)</div>
-}
-
 @Html.DialogPartial("PageAddComment", Model)
 @Html.DialogPartial("PageRemoveComment", Model)
 @Html.DialogPartial("PageAlert", Model)
@@ -41,7 +36,10 @@
     }
 </style>
 
+@Html.Hidden("text-login-comment", @SiteStrings.Comment_Login_Before)
+@Html.Hidden("text-login-rating", @SiteStrings.Rating_Login_Before)
 <div id="page-view" pageid="@Model.Id" style="visibility:hidden;"></div>
+<div id="current-user" name="@ViewBag.currentuser" style="visibility:hidden;"></div>
 <div class="row">
     <div class="col-sm-8">
         <h2 class="pagetitle">@Model.Title</h2>
@@ -149,12 +147,6 @@
 </div>
 
 @MvcHtmlString.Create(@Model.EncodeCommentsHtml())
-
-
-@section PageDetailsFooter
-{
-    @SiteStrings.Shared_LastModified <span id="lastmodified-on" title="@Model.ModifiedOnWithOffset">@Model.ModifiedOnWithOffset</span>.
-}
 
 @section PageComments
 {

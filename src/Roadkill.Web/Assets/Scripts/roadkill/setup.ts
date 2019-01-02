@@ -56,7 +56,15 @@ module Roadkill.Web
         public static bindAddCommentLink() {
             // Bind the info icon on each page
             $("#page-add-comment-link").click(function () {
-                Dialogs.openModal("#page-add-comment");
+                // check login
+                var currentUser = $("#current-user").attr("name");
+                if (currentUser == "") {
+
+                    Dialogs.alert($("#text-login-comment").attr("value"));
+                }
+                else {
+                    Dialogs.openModal("#page-add-comment");
+                }
             });
         }
 

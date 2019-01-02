@@ -398,9 +398,7 @@
     <Content Include="Assets\Images\letters\letter-X.jpg" />
     <Content Include="Assets\Images\letters\letter-Y.jpg" />
     <Content Include="Assets\Images\letters\letter-Z.jpg" />
-    <Content Include="Assets\Images\RaspberryPiBoard.png" />
     <Content Include="Assets\Images\roadkill.png" />
-    <Content Include="Assets\Images\spectrogram_zoomed.png" />
     <Content Include="Assets\opensearch.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -422,7 +420,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Areas\SiteSettings\Views\_ViewStart.cshtml" />
-    <Content Include="Assets\Images\logo1.pdn" />
     <None Include="Assets\Scripts\roadkill\typescript-ref\constants.ts" />
     <None Include="Assets\Scripts\roadkill\typescript-ref\references.ts" />
     <Content Include="Assets\Scripts\shared\head.js" />
@@ -647,7 +644,6 @@
     <Content Include="Views\Shared\Dialogs\PageAlert.cshtml" />
     <Content Include="Views\Shared\Dialogs\CommentAlert.cshtml" />
     <Content Include="Views\Pages\ControlPage.cshtml" />
-    <Content Include="Views\Home\Gallery.cshtml" />
     <Content Include="Views\Shared\Dialogs\RejectPage.cshtml" />
     <Content Include="Views\Wiki\MyPage.cshtml" />
     <Content Include="Views\Pages\AllPagesWithAlerts.cshtml" />

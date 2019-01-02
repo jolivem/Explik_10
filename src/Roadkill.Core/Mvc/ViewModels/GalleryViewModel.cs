@@ -36,7 +36,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// <returns></returns>
         public string GetCanvas(PageViewModel model)
         {
-            return model.FilePath + "page_" + model.Id + ".jpg";
+            return model.FilePath + "page_" + model.Id + ".png";
         }
 
         ///// <summary>
@@ -49,7 +49,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         //{
         //    //image = b == 0 ? "/Assets/Images/RaspberryPiBoard.png" : "/Assets/Images/spectrogram_zoomed.png";
         //    StringBuilder builder = new StringBuilder();
-        //    string canvas = page.FilePath + "page_" + page.Id + ".jpg";
+        //    string canvas = page.FilePath + "page_" + page.Id + ".png";
 
         //    builder.AppendLine("<table style='width:100%'>");
         //    {
@@ -82,7 +82,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 
         //    //image = b == 0 ? "/Assets/Images/RaspberryPiBoard.png" : "/Assets/Images/spectrogram_zoomed.png";
         //    StringBuilder builder = new StringBuilder();
-        //    string canvas = page.FilePath + "page_" + page.Id + ".jpg";
+        //    string canvas = page.FilePath + "page_" + page.Id + ".png";
 
         //    builder.AppendLine("<div class='row' style='margin-left:0'>");
         //    {
@@ -162,19 +162,21 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// <param name="title"></param>
         /// <param name="pages"></param>
         /// <returns></returns>
-        public string EncodeListPages(string title,List<PageViewModel> models)
+        public string EncodeListPages(List<PageViewModel> models)
         {
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine("<h4>"+ title + "</h4>");
+
             builder.AppendLine("<table>");
             {
                 foreach (PageViewModel model in models) /* TODO Min or Max */
                 {
                     builder.AppendLine("<tr>");
                     {
-                        builder.AppendLine("<td class='searchresult-td' style='width:80px;'>");
+                        builder.AppendLine("<td class='searchresult-td'>");
                         {
-                            builder.AppendLine("<img src='" + GetCanvas(model) + "' style='float:left; width:60px; display:block; margin-left:auto; margin-right:auto;'>");
+                            builder.AppendLine("<div class='canvas-td'>");
+                            builder.AppendLine("<img src='" + GetCanvas(model) + "'>");
+                            builder.AppendLine("</div>");
                             builder.AppendLine("</td>");
                         }
                         builder.AppendLine("<td class='searchresult-td'>");

@@ -4,11 +4,6 @@
     ViewBag.Title = Model.Title;
 }
 
-@section ViewHistoryLink
-{
-    <div id="viewhistory">@Html.ActionLink(SiteStrings.Navigation_ViewHistory, "History", "Pages", new { id = Model.Id }, null)</div>
-}
-
 <div class="row">
     <div class="col-sm-8">
         <h1 class="pagetitle">

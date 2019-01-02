@@ -147,7 +147,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 		    {
 		        Rating = 0.0;
 		    }
-		    Canvas = page.FilePath + "page_" + page.Id + ".jpg";
+		    Canvas = page.FilePath + "page_" + page.Id + ".png";
 
 		}
 

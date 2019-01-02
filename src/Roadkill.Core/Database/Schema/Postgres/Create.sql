@@ -47,6 +47,8 @@ CREATE TABLE roadkill_users
   "attachmentspath" TEXT, 
   "isadmin" BOOLEAN NOT NULL, 
   "isactivated" BOOLEAN NOT NULL, 
+  "contributionlevel" INTEGER,
+  "displayflags" INTEGER,
   "password" TEXT NOT NULL, 
   "passwordresetkey" TEXT, 
   "salt" TEXT NOT NULL, 

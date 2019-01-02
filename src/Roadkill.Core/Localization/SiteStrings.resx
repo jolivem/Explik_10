@@ -1145,10 +1145,10 @@
     <value>Remove</value>
   </data>
   <data name="Comment_Be_The_First" xml:space="preserve">
-    <value>Be the firt to comment</value>
+    <value>Be the first to comment</value>
   </data>
   <data name="Comment_Info_PublishedOn" xml:space="preserve">
-    <value>Published on </value>
+    <value>Added on </value>
   </data>
   <data name="Comment_Link" xml:space="preserve">
     <value>Comment</value>
@@ -1218,5 +1218,17 @@
   </data>
   <data name="Navigation_Top" xml:space="preserve">
     <value>Top</value>
+  </data>
+  <data name="Gallery_Best_Rated" xml:space="preserve">
+    <value>Best rated</value>
+  </data>
+  <data name="Gallery_Last_Publications" xml:space="preserve">
+    <value>Last publications</value>
+  </data>
+  <data name="Comment_Login_Before" xml:space="preserve">
+    <value>Please, log in before adding a comment</value>
+  </data>
+  <data name="Rating_Login_Before" xml:space="preserve">
+    <value>Please, log in before rating</value>
   </data>
 </root>

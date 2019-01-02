@@ -551,7 +551,7 @@ namespace Roadkill.Core.Mvc.Controllers
                     Directory.CreateDirectory(physicalPath);
                 }
 
-                string physicalFilePath = Path.Combine(physicalPath, "page_" + id + ".jpg");
+                string physicalFilePath = Path.Combine(physicalPath, "page_" + id + ".png");
                 using (FileStream fs = new FileStream(physicalFilePath, FileMode.Create))
                 {
                     using (BinaryWriter bw = new BinaryWriter(fs))

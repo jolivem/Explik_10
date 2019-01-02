@@ -111,6 +111,15 @@ $(document).ready(function () {
     });
 
     $("#submit-rating").click(function () {
+
+        // check login
+        var currentUser = $("#current-user").attr("name");
+        if (currentUser == "") {
+            bootbox.setDefaults({ animate: false });
+            bootbox.alert($("#text-login-rating").attr("value"))
+            return;
+        }
+
         var pID = $("#page-view").attr("pageid");
         var previousRating = $("#current-rating").val();
         var newRating = $("#srating").val();
@@ -180,7 +189,7 @@ $(document).ready(function () {
     });
 
     $("#buttoncanvas").click(function () {
-        html2canvas($('#pagecontent__')[0], { scale:1 }).
+        html2canvas($('#pagecontent__')[0], { scale: 1 }).
             then(function(canvas) {
                 //canvas.style.height = "120";
                 //canvas.style.Width = "100";
@@ -189,10 +198,10 @@ $(document).ready(function () {
                 //canvas.id = "imgcanvas";
 
                 //var pID = $("#pagecontent__").attr("pageid");
-                var datadisplay = canvas.toDataURL("image/jpg");
+                var datadisplay = canvas.toDataURL("image/png");
                 $("#canvas-preview").attr("src", datadisplay);
-                //var dataURL = canvas.toDataURL("image/jpg");
-                var dataURL = datadisplay.replace('data:image/jpg;base64,', 0.2);
+                //var dataURL = canvas.toDataURL("image/png");
+                var dataURL = datadisplay.replace('data:image/png;base64,', '');
                 $("#scanvas").val(dataURL);
 
                 // sent via HTTP POST
