@@ -73,6 +73,7 @@ CREATE TABLE explik_comments
   "rating" INTEGER, 
   "controlledby" TEXT NOT NULL, 
   "iscontrolled" BOOLEAN NOT NULL, 
+  "isrejected" BOOLEAN NOT NULL, 
   "text" TEXT NOT NULL
 );
 

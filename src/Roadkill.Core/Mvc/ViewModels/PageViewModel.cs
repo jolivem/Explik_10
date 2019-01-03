@@ -364,7 +364,7 @@ namespace Roadkill.Core.Mvc.ViewModels
                             }
 
                             // then the comment text
-                            builder.AppendLine("<td width='100%' style='padding:2px; border-bottom-width:1px; border-bottom-style:solid; border-color:#dddddd; padding-top:10px'>");
+                            builder.AppendLine("<td width='100%' style='padding:2px; border-bottom-width:1px; border-bottom-style:solid; border-color:#dddddd; padding-top:10px; padding-left:10px;'>");
                             {
                                 if (comment.Rating > 0)
                                 {

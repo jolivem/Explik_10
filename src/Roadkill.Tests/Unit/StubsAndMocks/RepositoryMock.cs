@@ -457,7 +457,7 @@ namespace Roadkill.Tests.Unit
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Comment> FindAllCommentByPage(int pageId)
+        public IEnumerable<Comment> FindCommentsByPage(int pageId)
         {
             throw new NotImplementedException();
         }

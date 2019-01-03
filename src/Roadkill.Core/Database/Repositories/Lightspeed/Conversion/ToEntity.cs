@@ -39,8 +39,9 @@ namespace Roadkill.Core.Database.LightSpeed
             entity.Id = comment.Id;
             entity.PageId = comment.PageId;
             entity.Rating = comment.Rating;
-            entity.ControlledBy = comment.ControlleddBy;
+            entity.ControlledBy = comment.ControlledBy;
             entity.IsControlled = comment.IsControlled;
+            entity.IsRejected = comment.IsRejected;
             entity.Text = comment.Text;
         }
 

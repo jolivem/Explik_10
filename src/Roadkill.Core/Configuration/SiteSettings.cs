@@ -178,6 +178,7 @@ namespace Roadkill.Core.Configuration
 					"* %categories%\r\n" +
                     "* %allpages%\r\n" +
                     "* %allnewpages%\r\n" +
+                    "* %allnewcomments%\r\n" +
                     "* %mypages%\r\n" +
                     "* %alerts%\r\n" +
                     "* %newpage%\r\n" +

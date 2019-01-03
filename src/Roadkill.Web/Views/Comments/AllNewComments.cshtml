@@ -1,0 +1,31 @@
+﻿@model List<CommentViewModel>
+@{
+    ViewBag.Title = SiteStrings.AllNewComments_Title;
+}
+
+<h1>@SiteStrings.AllNewComments_Title</h1>
+
+@if (Model.Count() > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Comment</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        @foreach (CommentViewModel comment in Model)
+        {
+            <tr>
+                <td><smmall>@comment.Text</smmall></td>
+                <td class="edit">@Html.ActionLink(@SiteStrings.Shared_ValidateLink, "Validate", new { id = comment.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
+                <td class="delete">@Html.ActionLink(@SiteStrings.AllNewComments_Reject_Button, "Reject", new { id = comment.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>@SiteStrings.AllNewComments_No_Comment</p>
+}

@@ -25,6 +25,9 @@ namespace Roadkill.Core.Database.LightSpeed
         [Column("iscontrolled")]
         private bool _isControlled;
 
+        [Column("isrejected")]
+        private bool _isRejected;
+
         [Column("text")]
         private string _text;
 
@@ -97,6 +100,18 @@ namespace Roadkill.Core.Database.LightSpeed
             set
             {
                 Set<bool>(ref _isControlled, value);
+            }
+        }
+
+        public bool IsRejected
+        {
+            get
+            {
+                return _isRejected;
+            }
+            set
+            {
+                Set<bool>(ref _isRejected, value);
             }
         }
 

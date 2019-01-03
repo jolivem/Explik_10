@@ -133,6 +133,33 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à No comments found.
+        /// </summary>
+        public static string AllNewComments_No_Comment {
+            get {
+                return ResourceManager.GetString("AllNewComments_No_Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Reject.
+        /// </summary>
+        public static string AllNewComments_Reject_Button {
+            get {
+                return ResourceManager.GetString("AllNewComments_Reject_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à New comments.
+        /// </summary>
+        public static string AllNewComments_Title {
+            get {
+                return ResourceManager.GetString("AllNewComments_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à New Pages.
         /// </summary>
         public static string AllNewPages_Title {
@@ -1056,6 +1083,15 @@ namespace Roadkill.Core.Localization {
         public static string Navigation_Alerts {
             get {
                 return ResourceManager.GetString("Navigation_Alerts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à New comments.
+        /// </summary>
+        public static string Navigation_AllNewComments {
+            get {
+                return ResourceManager.GetString("Navigation_AllNewComments", resourceCulture);
             }
         }
         
@@ -3252,6 +3288,15 @@ namespace Roadkill.Core.Localization {
         public static string SiteSettings_Validation_ThemeEmpty {
             get {
                 return ResourceManager.GetString("SiteSettings_Validation_ThemeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à .
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         

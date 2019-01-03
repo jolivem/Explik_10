@@ -18,6 +18,7 @@ namespace Roadkill.Core.Text
 		private static readonly string CATEGORIES_TOKEN = "%categories%";
         private static readonly string ALLPAGES_TOKEN = "%allpages%";
         private static readonly string ALLNEWPAGES_TOKEN = "%allnewpages%";
+        private static readonly string ALLNEWCOMMENTS_TOKEN = "%allnewcomments%";
         private static readonly string MYPAGES_TOKEN = "%mypages%";
         private static readonly string ALERTS_TOKEN = "%alerts%";
         private static readonly string MAINPAGE_TOKEN = "%mainpage%";
@@ -93,6 +94,7 @@ namespace Roadkill.Core.Text
         /// [Categories]
         /// [AllPages]
 		/// [AllNewPages]
+		/// [AllNewComments]
 		/// [MyPages]
 		/// [Alerts]
         /// [MainPage]
@@ -108,6 +110,7 @@ namespace Roadkill.Core.Text
 			string categories = CreateAnchorTag("/pages/alltags", SiteStrings.Navigation_Categories);
             string allPages = CreateAnchorTag("/pages/allpages", SiteStrings.Navigation_AllPages);
             string allNewPages = CreateAnchorTag("/pages/allnewpages", SiteStrings.Navigation_AllNewPages);
+            string allNewComments = CreateAnchorTag("/comments/allnewcomments", SiteStrings.Navigation_AllNewComments);
             string myPages = CreateAnchorTag("/pages/mypages/", SiteStrings.Navigation_MyPages);
             string alerts = CreateAnchorTag("/pages/AllPagesWithAlerts/", SiteStrings.Navigation_Alerts);
             string mainPage = CreateAnchorTag("/", SiteStrings.Navigation_MainPage);
@@ -122,6 +125,7 @@ namespace Roadkill.Core.Text
 				categories = CreateAnchorTag(urlHelper.Action("AllTags", "Pages"), SiteStrings.Navigation_Categories);
                 allPages = CreateAnchorTag(urlHelper.Action("AllPages", "Pages"), SiteStrings.Navigation_AllPages);
                 allNewPages = CreateAnchorTag(urlHelper.Action("AllNewPages", "Pages"), SiteStrings.Navigation_AllNewPages);
+                allNewComments = CreateAnchorTag(urlHelper.Action("AllNewComments", "Comments"), SiteStrings.Navigation_AllNewComments);
                 myPages = CreateAnchorTag(urlHelper.Action("MyPages", "Pages") + "/" + _userContext.CurrentUsername, SiteStrings.Navigation_MyPages);
                 alerts = CreateAnchorTag(urlHelper.Action("AllPagesWithAlerts", "Pages"), SiteStrings.Navigation_Alerts);
                 mainPage = CreateAnchorTag(urlHelper.Action("Index", "Home"), SiteStrings.Navigation_MainPage);
@@ -146,6 +150,7 @@ namespace Roadkill.Core.Text
                 categories = "";
                 allPages = "";
                 allNewPages = "";
+                allNewComments = "";
                 alerts = "";
             }
             else if (_userContext.IsLoggedIn) // logged but no specific right
@@ -153,6 +158,7 @@ namespace Roadkill.Core.Text
                 categories = "";
                 allPages = "";
                 allNewPages = "";
+                allNewComments = "";
                 alerts = "";
                 siteSettings = ""; 
             }
@@ -162,6 +168,7 @@ namespace Roadkill.Core.Text
                 categories = ""; 
                 allPages = "";
                 allNewPages = "";
+                allNewComments = "";
                 myPages = "";
                 alerts = "";
                 //mainPage = "";
@@ -174,6 +181,7 @@ namespace Roadkill.Core.Text
             html = html.Replace(CATEGORIES_TOKEN, categories);
             html = html.Replace(ALLPAGES_TOKEN, allPages);
             html = html.Replace(ALLNEWPAGES_TOKEN, allNewPages);
+            html = html.Replace(ALLNEWCOMMENTS_TOKEN, allNewComments);
             html = html.Replace(ALERTS_TOKEN, alerts);
             html = html.Replace(MYPAGES_TOKEN, myPages);
             html = html.Replace(MAINPAGE_TOKEN, mainPage);

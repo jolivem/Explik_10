@@ -1115,7 +1115,7 @@ namespace Roadkill.Core.Services
         {
             try
             {
-                List<Comment> comments = (List<Comment>)Repository.FindAllCommentByPage(pageId);
+                List<Comment> comments = (List<Comment>)Repository.FindCommentsByPage(pageId);
                 return comments;
             }
             catch (DatabaseException ex)
@@ -1125,7 +1125,7 @@ namespace Roadkill.Core.Services
         }
 
         /// <summary>
-        /// FindAllCommentByPage
+        /// FindCommentByPageAndUser
         /// </summary>
         /// <param name="pageId"></param>
         /// <returns></returns>

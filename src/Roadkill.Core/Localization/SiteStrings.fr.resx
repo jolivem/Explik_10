@@ -1207,10 +1207,22 @@
   <data name="MyPage_Status" xml:space="preserve">
     <value>Etat :</value>
   </data>
+  <data name="AllNewComments_No_Comment" xml:space="preserve">
+    <value>Pas de nouveaux commentaires</value>
+  </data>
+  <data name="AllNewComments_Title" xml:space="preserve">
+    <value>Nouveaux commentaires</value>
+  </data>
   <data name="ChooseImage_Cancel_Button" xml:space="preserve">
     <value>Annuler</value>
   </data>
   <data name="ChooseImage_Title" xml:space="preserve">
     <value>Sélectionner une image</value>
+  </data>
+  <data name="Navigation_AllNewComments" xml:space="preserve">
+    <value>Nouveaux commentaires</value>
+  </data>
+  <data name="AllNewComments_Reject_Button" xml:space="preserve">
+    <value>Rejeter</value>
   </data>
 </root>

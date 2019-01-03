@@ -25,8 +25,9 @@ namespace Roadkill.Core.Database
         public string CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public int Rating { get; set; }
-        public string ControlleddBy { get; set; }
+        public string ControlledBy { get; set; }
         public bool IsControlled { get; set; }
+        public bool IsRejected { get; set; }
         public string Text { get; set; }
 
         /// <summary>
@@ -44,8 +45,9 @@ namespace Roadkill.Core.Database
             PageId = 0;
             CreatedBy = "";
             Rating = 0;
-            ControlleddBy = "";
+            ControlledBy = "";
             IsControlled = false;
+            IsRejected = false;
             Text = "";
             CreatedOn = DateTime.Now;
         }
@@ -63,8 +65,9 @@ namespace Roadkill.Core.Database
             PageId = pageId;
             CreatedBy = createdBy;
             Rating = rating;
-            ControlleddBy = "";
+            ControlledBy = "";
             IsControlled = false;
+            IsRejected = false;
             Text = text;
             CreatedOn = DateTime.Now;
         }

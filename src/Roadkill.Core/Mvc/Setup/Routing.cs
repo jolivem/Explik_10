@@ -117,14 +117,26 @@ namespace Roadkill.Core.Mvc
                 new { controller = "FileManager", action = "User", id = UrlParameter.Optional }
             );
 
-            //routes.MapRoute(
-            //    "Gallery",
-            //    "Gallery",
-            //    new { controller = "Home", action = "Gallery"}
-            //);
+            routes.MapRoute(
+                "CommentsControl",
+                "Comments/AllNewComments",
+                new { controller = "Comments", action = "AllNewComments" }
+            );
 
-			// Default
-			routes.MapLowercaseRoute(
+            routes.MapRoute(
+                "CommentReject",
+                "Comments/Reject/{id}",
+                new { controller = "Comments", action = "Reject", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                "CommentValidate",
+                "Comments/Validate/{id}",
+                new { controller = "Comments", action = "Validate", id = UrlParameter.Optional }
+            );
+
+            // Default
+            routes.MapLowercaseRoute(
 				"Default", // Route name
 				"{controller}/{action}/{id}", // URL with parameters
 				new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults

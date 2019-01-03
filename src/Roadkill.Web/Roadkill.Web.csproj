@@ -647,6 +647,7 @@
     <Content Include="Views\Wiki\MyPage.cshtml" />
     <Content Include="Views\Pages\AllPagesWithAlerts.cshtml" />
     <Content Include="Views\Shared\Dialogs\PageRemoveComment.cshtml" />
+    <Content Include="Views\Comments\AllNewComments.cshtml" />
     <None Include="Web.Mono.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

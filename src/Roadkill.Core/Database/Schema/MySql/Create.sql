@@ -75,6 +75,7 @@ CREATE TABLE explik_comments
   Rating INT, 
   ControlledBy NVARCHAR(255) NOT NULL, 
   IsControlled BOOLEAN NOT NULL,
+  IsRejected BOOLEAN NOT NULL,
   Text MEDIUMTEXT NULL
 );
 
