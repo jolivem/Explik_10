@@ -274,7 +274,7 @@ namespace Roadkill.Core.Import
 							text = CleanContent(text);
 							int versionNumber = (int.Parse(reader["Revision"].ToString())) + 1;
 
-							Repository.AddNewPageContentVersion(page, text, editedBy, EditedOn, versionNumber);
+							Repository.AddNewPageContentVersion(page, text, EditedOn, versionNumber);
 							hasContent = true;
 						}
 					}

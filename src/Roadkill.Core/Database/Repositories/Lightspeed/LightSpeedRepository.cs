@@ -274,7 +274,7 @@ namespace Roadkill.Core.Database.LightSpeed
 				Id = Guid.NewGuid(),
 				Page = pageEntity,
 				Text = text,
-				EditedBy = editedBy,
+				ControlledBy = "",
 				EditedOn = editedOn,
 				VersionNumber = 1,
 			};
@@ -287,7 +287,7 @@ namespace Roadkill.Core.Database.LightSpeed
 			return pageContent;
 		}
 
-		public PageContent AddNewPageContentVersion(Page page, string text, string editedBy, DateTime editedOn, int version)
+		public PageContent AddNewPageContentVersion(Page page, string text, DateTime editedOn, int version)
 		{
 			if (version < 1)
 				version = 1;
@@ -301,7 +301,7 @@ namespace Roadkill.Core.Database.LightSpeed
 					Id = Guid.NewGuid(),
 					Page = pageEntity,
 					Text = text,
-					EditedBy = editedBy,
+					ControlledBy = "",
 					EditedOn = editedOn,
 					VersionNumber = version,
 				};
@@ -311,7 +311,7 @@ namespace Roadkill.Core.Database.LightSpeed
 
 				// The page modified fields
 				pageEntity.PublishedOn = editedOn;
-				pageEntity.ControlledBy = editedBy;
+				pageEntity.ControlledBy = "";
 				UnitOfWork.SaveChanges();
 
 				// Turn the content database entity back into a domain object
@@ -474,11 +474,11 @@ namespace Roadkill.Core.Database.LightSpeed
 			return FromEntity.ToPageContentList(entities);
 		}
 
-		public IEnumerable<PageContent> FindPageContentsEditedBy(string username)
-		{
-			List<PageContentEntity> entities = PageContents.Where(p => p.EditedBy == username).ToList();
-			return FromEntity.ToPageContentList(entities);
-		}
+		//public IEnumerable<PageContent> FindPageContentsEditedBy(string username)
+		//{
+		//	List<PageContentEntity> entities = PageContents.Where(p => p.ControlledBy == username).ToList();
+		//	return FromEntity.ToPageContentList(entities);
+		//}
 
 		public Page GetPageById(int id)
 		{
@@ -510,11 +510,11 @@ namespace Roadkill.Core.Database.LightSpeed
 			return FromEntity.ToPageContent(entity);
 		}
 
-		public IEnumerable<PageContent> GetPageContentByEditedBy(string username)
-		{
-			List<PageContentEntity> entities = PageContents.Where(p => p.EditedBy == username).ToList();
-			return FromEntity.ToPageContentList(entities);
-		}
+		//public IEnumerable<PageContent> GetPageContentByEditedBy(string username)
+		//{
+		//	List<PageContentEntity> entities = PageContents.Where(p => p.EditedBy == username).ToList();
+		//	return FromEntity.ToPageContentList(entities);
+		//}
 
 		public Page SaveOrUpdatePage(Page page)
 		{

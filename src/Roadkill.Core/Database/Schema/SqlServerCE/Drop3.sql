@@ -1,1 +1,1 @@
-﻿DROP TABLE [roadkill_users];
+﻿DROP TABLE explik_users;

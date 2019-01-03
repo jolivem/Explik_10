@@ -1,8 +1,8 @@
 ﻿SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS roadkill_pages;
-DROP TABLE IF EXISTS roadkill_pagecontent;
-DROP TABLE IF EXISTS roadkill_users;
-DROP TABLE IF EXISTS roadkill_siteconfiguration;
-DROP TABLE IF EXISTS roadkill_comments;
-DROP TABLE IF EXISTS roadkill_alerts;
+DROP TABLE IF EXISTS explik_pages;
+DROP TABLE IF EXISTS explik_pagecontent;
+DROP TABLE IF EXISTS explik_users;
+DROP TABLE IF EXISTS explik_siteconfiguration;
+DROP TABLE IF EXISTS explik_comments;
+DROP TABLE IF EXISTS explik_alerts;
 SET FOREIGN_KEY_CHECKS = 1;

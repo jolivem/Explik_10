@@ -71,7 +71,7 @@ module Roadkill.Web.Installer
 
 		private OnTestDatabaseClick(e: any)
 		{
-			var url: string = ROADKILL_INSTALLER_TESTDATABASE_URL;
+			var url: string = EXPLIK_INSTALLER_TESTDATABASE_URL;
 			var jsonData: any =
 			{
 				"connectionString": $("#ConnectionString").val(),
@@ -83,7 +83,7 @@ module Roadkill.Web.Installer
 
 		private OnCopySqliteClick(e: any)
 		{
-			var url: string = ROADKILL_INSTALLER_COPYSQLITE_URL;
+			var url: string = EXPLIK_INSTALLER_COPYSQLITE_URL;
 			this._wizard.makeAjaxRequest(url, {}, (data: any) => { this.OnCopySqliteSuccess(data); });
 		}
 

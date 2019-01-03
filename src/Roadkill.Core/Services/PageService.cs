@@ -88,7 +88,7 @@ namespace Roadkill.Core.Services
                 page.IsSubmitted = false;
                 page.VideoUrl = model.VideoUrl;
                 page.Pseudonym = model.Pseudonym;
-                page.FilePath = DateTime.UtcNow.ToString("yyyy-MM") + "\\" + _context.CurrentUsername;
+                page.FilePath = DateTime.UtcNow.ToString("yyyy-MM") + "/" + _context.CurrentUsername;
 
                 // Double check, incase the HTML form was faked.
                 if (_context.IsAdmin)
@@ -143,7 +143,7 @@ namespace Roadkill.Core.Services
                         page.CreatedOn = DateTime.UtcNow;
                         page.PublishedOn = DateTime.UtcNow;
                         page.ControlledBy = AppendIpForDemoSite(currentUser);
-                        page.FilePath = DateTime.UtcNow.ToString("yyyy-MM") + "\\" + _context.CurrentUsername;
+                        page.FilePath = DateTime.UtcNow.ToString("yyyy-MM") + "/" + _context.CurrentUsername;
                         
 
                         // Double check, incase the HTML form was faked.
@@ -840,8 +840,9 @@ namespace Roadkill.Core.Services
                 _listCache.RemoveAll();
 
                 int newVersion = _historyService.MaxVersion(model.Id) + 1;
-                PageContent pageContent = Repository.AddNewPageContentVersion(page, model.Content, AppendIpForDemoSite(currentUser), DateTime.UtcNow, newVersion);
-
+                //PageContent pageContent = Repository.AddNewPageContentVersion(page, model.Content, AppendIpForDemoSite(currentUser), DateTime.UtcNow, newVersion);
+                PageContent pageContent = Repository.AddNewPageContentVersion(page, model.Content, DateTime.UtcNow, newVersion);
+                
                 // Update all links to this page (if it has had its title renamed). Case changes don't need any updates.
                 if (model.PreviousTitle != null && model.PreviousTitle.ToLower() != model.Title.ToLower())
                 {

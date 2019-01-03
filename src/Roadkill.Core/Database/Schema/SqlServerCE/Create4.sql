@@ -1,4 +1,4 @@
-CREATE TABLE [roadkill_users]
+CREATE TABLE explik_users
 (
 	[Id] [uniqueidentifier] NOT NULL,
 	[ActivationKey] [nvarchar](255) NULL,

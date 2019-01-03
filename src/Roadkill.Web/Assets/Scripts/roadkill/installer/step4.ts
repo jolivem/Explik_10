@@ -58,7 +58,7 @@ module Roadkill.Web.Installer
 				"folder": $("#AttachmentsFolder").val()
 			};
 
-			var url: string = ROADKILL_INSTALLER_TESTATTACHMENTS_URL;
+			var url: string = EXPLIK_INSTALLER_TESTATTACHMENTS_URL;
 			this._wizard.makeAjaxRequest(url, jsonData, (data: any) => { this.OnTestAttachmentsSuccess(data); });
 		}
 

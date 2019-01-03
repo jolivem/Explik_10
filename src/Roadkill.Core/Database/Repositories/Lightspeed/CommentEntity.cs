@@ -4,7 +4,7 @@ using Mindscape.LightSpeed;
 namespace Roadkill.Core.Database.LightSpeed
 {
 
-    [Table("roadkill_comments")]
+    [Table("explik_comments")]
     public class CommentEntity : Entity<Guid>
     {
         [Column("pageid")]
@@ -18,6 +18,12 @@ namespace Roadkill.Core.Database.LightSpeed
 
         [Column("rating")]
         private int _rating;
+
+        [Column("controlledby")]
+        private string _controlledby;
+
+        [Column("iscontrolled")]
+        private bool _isControlled;
 
         [Column("text")]
         private string _text;
@@ -67,6 +73,30 @@ namespace Roadkill.Core.Database.LightSpeed
             set
             {
                 Set<int>(ref _rating, value);
+            }
+        }
+
+        public string ControlledBy
+        {
+            get
+            {
+                return _controlledby;
+            }
+            set
+            {
+                Set<string>(ref _controlledby, value);
+            }
+        }
+
+        public bool IsControlled
+        {
+            get
+            {
+                return _isControlled;
+            }
+            set
+            {
+                Set<bool>(ref _isControlled, value);
             }
         }
 

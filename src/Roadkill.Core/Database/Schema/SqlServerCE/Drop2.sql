@@ -1,1 +1,1 @@
-﻿DROP TABLE [roadkill_pages];
+﻿DROP TABLE [explik_pages];

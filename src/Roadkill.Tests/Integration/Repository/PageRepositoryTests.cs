@@ -28,24 +28,24 @@ namespace Roadkill.Tests.Integration.Repository
 			_page1 = NewPage("admin", "homepage, newpage");
 			_pageContent1 = Repository.AddNewPage(_page1, "text", "admin", _createdDate);
 			_page1 = _pageContent1.Page;
-			_pageContent2 = Repository.AddNewPageContentVersion(_page1, "v2", "admin", _editedDate, 2);
+			_pageContent2 = Repository.AddNewPageContentVersion(_page1, "v2", _editedDate, 2);
 			_page1 = _pageContent2.Page; // update the modified date
 
 			Page page2 = NewPage("editor1");
 			PageContent pageContent2 = Repository.AddNewPage(page2, "text", "editor1", _createdDate);
-			Repository.AddNewPageContentVersion(pageContent2.Page, "v2", "editor1", _editedDate, 1);
+			Repository.AddNewPageContentVersion(pageContent2.Page, "v2",  _editedDate, 1);
 
 			Page page3 = NewPage("editor2");
 			PageContent pageContent3 = Repository.AddNewPage(page3, "text", "editor2", _createdDate);
-			Repository.AddNewPageContentVersion(pageContent3.Page, "v2", "editor2", _editedDate, 1);
+			Repository.AddNewPageContentVersion(pageContent3.Page, "v2", _editedDate, 1);
 
 			Page page4 = NewPage("editor3");
 			PageContent pageContent4 = Repository.AddNewPage(page4, "text", "editor3", _createdDate);
-			Repository.AddNewPageContentVersion(pageContent4.Page, "v2", "editor3", _editedDate, 1);
+			Repository.AddNewPageContentVersion(pageContent4.Page, "v2", _editedDate, 1);
 
 			Page page5 = NewPage("editor4");
 			PageContent pageContent5 = Repository.AddNewPage(page5, "text", "editor4", _createdDate);
-			Repository.AddNewPageContentVersion(pageContent5.Page, "v2", "editor4", _editedDate, 1);
+			Repository.AddNewPageContentVersion(pageContent5.Page, "v2", _editedDate, 1);
 		}
 
 		protected Page NewPage(string author, string tags = "tag1,tag2,tag3", string title = "Title")
@@ -127,7 +127,7 @@ namespace Roadkill.Tests.Integration.Repository
 		public void FindPagesByControlledBy()
 		{
 			// Arrange
-			PageContent newContent = Repository.AddNewPageContentVersion(_page1, "new text", "bob", _createdDate, 3);
+			PageContent newContent = Repository.AddNewPageContentVersion(_page1, "new text", _createdDate, 3);
 			Page expectedPage = newContent.Page;
 
 			// Act
@@ -207,7 +207,7 @@ namespace Roadkill.Tests.Integration.Repository
 			Page actualPage = actualContent.Page;
 
 			// Assert
-			Assert.That(actualContent.EditedBy, Is.EqualTo(expectedContent.EditedBy));
+			Assert.That(actualContent.ControlledBy, Is.EqualTo(expectedContent.ControlledBy));
 			Assert.That(actualContent.EditedOn, Is.EqualTo(expectedContent.EditedOn));
 			Assert.That(actualContent.Id, Is.EqualTo(expectedContent.Id));
 			Assert.That(actualContent.Text, Is.EqualTo(expectedContent.Text));
@@ -235,7 +235,7 @@ namespace Roadkill.Tests.Integration.Repository
 			Page actualPage = actualContent.Page;
 
 			// Assert
-			Assert.That(actualContent.EditedBy, Is.EqualTo(expectedContent.EditedBy));
+			Assert.That(actualContent.ControlledBy, Is.EqualTo(expectedContent.ControlledBy));
 			Assert.That(actualContent.EditedOn, Is.EqualTo(expectedContent.EditedOn));
 			Assert.That(actualContent.Id, Is.EqualTo(expectedContent.Id));
 			Assert.That(actualContent.Text, Is.EqualTo(expectedContent.Text));
@@ -263,7 +263,7 @@ namespace Roadkill.Tests.Integration.Repository
 			Page actualPage = actualContent.Page;
 
 			// Assert
-			Assert.That(actualContent.EditedBy, Is.EqualTo(expectedContent.EditedBy));
+			Assert.That(actualContent.ControlledBy, Is.EqualTo(expectedContent.ControlledBy));
 			Assert.That(actualContent.EditedOn, Is.EqualTo(expectedContent.EditedOn));
 			Assert.That(actualContent.Id, Is.EqualTo(expectedContent.Id));
 			Assert.That(actualContent.Text, Is.EqualTo(expectedContent.Text));
@@ -279,17 +279,17 @@ namespace Roadkill.Tests.Integration.Repository
 			Assert.That(actualPage.Title, Is.EqualTo(expectedPage.Title));
 		}
 
-		[Test]
-		public void GetPageContentByEditedBy()
-		{
-			// Arrange
+		//[Test]
+		//public void GetPageContentByEditedBy()
+		//{
+		//	// Arrange
 
-			// Act
-			List<PageContent> allContent = Repository.GetPageContentByEditedBy("admin").ToList();
+		//	// Act
+		//	List<PageContent> allContent = Repository.GetPageContentByEditedBy("admin").ToList();
 
-			// Assert
-			Assert.That(allContent.Count, Is.EqualTo(2));
-		}
+		//	// Assert
+		//	Assert.That(allContent.Count, Is.EqualTo(2));
+		//}
 
 		[Test]
 		public void FindPageContentsByPageId()
@@ -308,22 +308,22 @@ namespace Roadkill.Tests.Integration.Repository
 			Assert.That(expectedPageContent, Is.Not.Null);
 		}
 
-		[Test]
-		public void FindPageContentsEditedBy()
-		{
-			// Arrange
+		//[Test]
+		//public void FindPageContentsEditedBy()
+		//{
+		//	// Arrange
 
 
-			// Act
-			List<PageContent> pagesContents = Repository.FindPageContentsEditedBy("admin").ToList();
+		//	// Act
+		//	List<PageContent> pagesContents = Repository.FindPageContentsEditedBy("admin").ToList();
 
-			// Assert
-			Assert.That(pagesContents.Count, Is.EqualTo(2));
-			Assert.That(pagesContents[0], Is.Not.Null);
+		//	// Assert
+		//	Assert.That(pagesContents.Count, Is.EqualTo(2));
+		//	Assert.That(pagesContents[0], Is.Not.Null);
 
-			PageContent expectedPageContent = pagesContents.FirstOrDefault(x => x.Id == _pageContent1.Id);
-			Assert.That(expectedPageContent, Is.Not.Null);
-		}
+		//	PageContent expectedPageContent = pagesContents.FirstOrDefault(x => x.Id == _pageContent1.Id);
+		//	Assert.That(expectedPageContent, Is.Not.Null);
+		//}
 
 		[Test]
 		public void AllPageContents()
@@ -430,7 +430,7 @@ namespace Roadkill.Tests.Integration.Repository
 			Page existingPage = _page1;
 
 			// Act
-			PageContent newContent = Repository.AddNewPageContentVersion(existingPage, "new text", "admin", _createdDate, 2);
+			PageContent newContent = Repository.AddNewPageContentVersion(existingPage, "new text", _createdDate, 2);
 
 			// Assert
 			Assert.That(Repository.AllPageContents().Count(), Is.EqualTo(11));
@@ -458,7 +458,7 @@ namespace Roadkill.Tests.Integration.Repository
 			int pageId = existingContent.Page.Id;
 
 			existingContent.Text = "new text";
-			existingContent.EditedBy = "editor1";
+			existingContent.ControlledBy = "editor1";
 			existingContent.EditedOn = editedDate;
 			existingContent.VersionNumber = versionNumber;
 
@@ -469,7 +469,7 @@ namespace Roadkill.Tests.Integration.Repository
 			// Assert
 			Assert.That(actualContent, Is.Not.Null);
 			Assert.That(actualContent.Text, Is.EqualTo("new text"));
-			Assert.That(actualContent.EditedBy, Is.EqualTo("editor1"));
+			Assert.That(actualContent.ControlledBy, Is.EqualTo("editor1"));
 			Assert.That(actualContent.EditedOn, Is.EqualTo(editedDate));
 			Assert.That(actualContent.VersionNumber, Is.EqualTo(versionNumber));
 		}

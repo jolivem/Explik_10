@@ -63,7 +63,7 @@ module Roadkill.Web.Installer
 
 		private testActiveDirectory(groupName)
 		{
-			var url: string = ROADKILL_INSTALLER_TESTLDAP_URL;
+			var url: string = EXPLIK_INSTALLER_TESTLDAP_URL;
 			var jsonData: any =
 			{
 				"connectionstring": $("#LdapConnectionString").val(),

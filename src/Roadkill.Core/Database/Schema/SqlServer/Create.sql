@@ -1,4 +1,4 @@
-CREATE TABLE [dbo].[roadkill_pages]
+CREATE TABLE [dbo].[explik_pages]
 (
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Title] [nvarchar](255) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE [dbo].[roadkill_pages]
 	PRIMARY KEY CLUSTERED (Id)
 );
 
-CREATE TABLE [dbo].[roadkill_pagecontent]
+CREATE TABLE [dbo].[explik_pagecontent]
 (
 	[Id] [uniqueidentifier] NOT NULL,
 	[EditedBy] [nvarchar](255) NOT NULL,
@@ -25,9 +25,9 @@ CREATE TABLE [dbo].[roadkill_pagecontent]
 	PRIMARY KEY NONCLUSTERED (Id)
 );
 
-ALTER TABLE [dbo].[roadkill_pagecontent] ADD CONSTRAINT [FK_roadkill_pageid] FOREIGN KEY([pageid]) REFERENCES [dbo].[roadkill_pages] ([id]);
+ALTER TABLE [dbo].[explik_pagecontent] ADD CONSTRAINT [FK_explik_pageid] FOREIGN KEY([pageid]) REFERENCES [dbo].[explik_pages] ([id]);
 
-CREATE TABLE [dbo].[roadkill_users]
+CREATE TABLE [dbo].explik_users
 (
 	[Id] [uniqueidentifier] NOT NULL,
 	[ActivationKey] [nvarchar](255) NULL,
@@ -44,7 +44,7 @@ CREATE TABLE [dbo].[roadkill_users]
 	PRIMARY KEY NONCLUSTERED (Id)
 );
 
-CREATE TABLE [dbo].[roadkill_siteconfiguration]
+CREATE TABLE [dbo].[explik_siteconfiguration]
 (
 	[Id] [uniqueidentifier] NOT NULL,
 	[Version] [nvarchar](255) NOT NULL,
@@ -52,6 +52,6 @@ CREATE TABLE [dbo].[roadkill_siteconfiguration]
 	PRIMARY KEY NONCLUSTERED (Id)
 );
 
-CREATE CLUSTERED INDEX [roadkill_pagecontent_idx] ON [dbo].[roadkill_pagecontent] (PageId, VersionNumber);
-CREATE CLUSTERED INDEX [roadkill_users_idx] ON [dbo].[roadkill_users] (Email);
-CREATE CLUSTERED INDEX [roadkill_siteconfiguration_idx] ON [dbo].[roadkill_siteconfiguration] ([Version]);
+CREATE CLUSTERED INDEX [explik_pagecontent_idx] ON [dbo].[explik_pagecontent] (PageId, VersionNumber);
+CREATE CLUSTERED INDEX [explik_users_idx] ON [dbo].explik_users (Email);
+CREATE CLUSTERED INDEX [explik_siteconfiguration_idx] ON [dbo].[explik_siteconfiguration] ([Version]);

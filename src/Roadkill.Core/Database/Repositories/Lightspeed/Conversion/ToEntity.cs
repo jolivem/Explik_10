@@ -39,6 +39,8 @@ namespace Roadkill.Core.Database.LightSpeed
             entity.Id = comment.Id;
             entity.PageId = comment.PageId;
             entity.Rating = comment.Rating;
+            entity.ControlledBy = comment.ControlleddBy;
+            entity.IsControlled = comment.IsControlled;
             entity.Text = comment.Text;
         }
 
@@ -78,7 +80,7 @@ namespace Roadkill.Core.Database.LightSpeed
         public static void FromPageContent(PageContent pageContent, PageContentEntity entity)
 		{
 			entity.EditedOn = pageContent.EditedOn;
-			entity.EditedBy = pageContent.EditedBy;
+			entity.ControlledBy = pageContent.ControlledBy;
 			entity.Text = pageContent.Text;
 			entity.VersionNumber = pageContent.VersionNumber;
 		}

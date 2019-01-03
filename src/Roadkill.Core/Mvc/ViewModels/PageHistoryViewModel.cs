@@ -29,7 +29,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 		/// <summary>
 		/// Who edited this version.
 		/// </summary>
-		public string EditedBy { get; set; }
+		public string ControlledBy { get; set; }
 
 		/// <summary>
 		/// When this version was created. This should always be a UTC time / date.
@@ -71,7 +71,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 
 			Id = pageContent.Id;
 			PageId = pageContent.Page.Id;
-			EditedBy = pageContent.EditedBy;
+			ControlledBy = pageContent.ControlledBy;
 			EditedOn = pageContent.EditedOn;
 			VersionNumber = pageContent.VersionNumber;
 			IsPageAdminOnly = pageContent.Page.IsLocked;

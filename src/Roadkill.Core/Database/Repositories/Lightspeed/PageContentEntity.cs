@@ -3,14 +3,14 @@ using Mindscape.LightSpeed;
 
 namespace Roadkill.Core.Database.LightSpeed
 {
-	[Table("roadkill_pagecontent")]
+	[Table("explik_pagecontent")]
 	public class PageContentEntity : Entity<Guid>
 	{
 		[Column("text")]
 		private string _text;
 
-		[Column("editedby")]
-		private string _editedBy;
+		[Column("controlledby")]
+		private string _controlledBy;
 
 		[Column("editedon")]
 		private DateTime _editedOn;
@@ -52,15 +52,15 @@ namespace Roadkill.Core.Database.LightSpeed
 			}
 		}
 
-		public string EditedBy
+		public string ControlledBy
 		{
 			get
 			{
-				return _editedBy;
+				return _controlledBy;
 			}
 			set
 			{
-				Set<string>(ref _editedBy, value);
+				Set<string>(ref _controlledBy, value);
 			}
 		}
 

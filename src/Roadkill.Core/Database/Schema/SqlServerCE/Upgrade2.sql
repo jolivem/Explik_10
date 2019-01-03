@@ -1,4 +1,4 @@
-﻿CREATE TABLE [roadkill_siteconfiguration]
+﻿CREATE TABLE [explik_siteconfiguration]
 (
 	[Id] [uniqueidentifier] NOT NULL,
 	[Version] [nvarchar](255) NOT NULL,

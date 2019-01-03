@@ -37,7 +37,7 @@ namespace Roadkill.Core.Database
 		/// <value>
 		/// The edited by.
 		/// </value>
-		public string EditedBy { get; set; }
+		public string ControlledBy { get; set; }
 
 		/// <summary>
 		/// Gets or sets the date the version was edited on.

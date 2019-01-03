@@ -5,36 +5,36 @@ module Roadkill.Web.FileManager
 	{
 		public getFolderInfo(path: string, successFunction : (data: DirectoryViewModel) => void)
 		{
-			var url = ROADKILL_FILEMANAGERURL + "/folderinfo";
+			var url = EXPLIK_FILEMANAGERURL + "/folderinfo";
 			var data = { dir: path };
-			var errorMessage = ROADKILL_FILEMANAGER_ERROR_DIRECTORYLISTING +" <br/>";
+			var errorMessage = EXPLIK_FILEMANAGER_ERROR_DIRECTORYLISTING +" <br/>";
 
 			this.makeAjaxRequest(url, data, errorMessage, successFunction);
 		}
 
 		public deleteFolder(folder: string, successFunction: (data: any) => void)
 		{
-			var url = ROADKILL_FILEMANAGERURL + "/deletefolder";
+			var url = EXPLIK_FILEMANAGERURL + "/deletefolder";
 			var data = { folder: folder };
-			var errorMessage = ROADKILL_FILEMANAGER_ERROR_DELETEFOLDER +" <br/>";
+			var errorMessage = EXPLIK_FILEMANAGER_ERROR_DELETEFOLDER +" <br/>";
 
 			this.makeAjaxRequest(url, data, errorMessage, successFunction);
 		}
 
 		public deleteFile(fileName: string, filePath: string, successFunction: (data: any) => void)
 		{
-			var url = ROADKILL_FILEMANAGERURL + "/deletefile";
+			var url = EXPLIK_FILEMANAGERURL + "/deletefile";
 			var data = { filename: fileName, filepath: filePath };
-			var errorMessage = ROADKILL_FILEMANAGER_ERROR_DELETEFILE +" <br/>";
+			var errorMessage = EXPLIK_FILEMANAGER_ERROR_DELETEFILE +" <br/>";
 
 			this.makeAjaxRequest(url, data, errorMessage, successFunction);
 		}
 
 		public newFolder(currentPath: string, newFolder: string, successFunction: (data: any) => void )
 		{
-			var url = ROADKILL_FILEMANAGERURL + "/newFolder";
+			var url = EXPLIK_FILEMANAGERURL + "/newFolder";
 			var data = { currentFolderPath: currentPath, newFolderName: newFolder };
-			var errorMessage = ROADKILL_FILEMANAGER_ERROR_CREATEFOLDER +" <br/>";
+			var errorMessage = EXPLIK_FILEMANAGER_ERROR_CREATEFOLDER +" <br/>";
 
 			this.makeAjaxRequest(url, data, errorMessage, successFunction);
 		}

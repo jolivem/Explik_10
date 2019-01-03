@@ -1,5 +1,5 @@
-﻿DROP TABLE IF EXISTS roadkill_siteconfiguration;
-CREATE TABLE roadkill_siteconfiguration 
+﻿DROP TABLE IF EXISTS explik_siteconfiguration;
+CREATE TABLE explik_siteconfiguration 
 (
   "id" UUID NOT NULL, 
   "version" TEXT NOT NULL, 

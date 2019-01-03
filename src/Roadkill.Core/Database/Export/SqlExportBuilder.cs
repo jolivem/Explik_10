@@ -77,7 +77,7 @@ namespace Roadkill.Core.Database.Export
 
 				StringBuilder sqlBuilder = new StringBuilder();
 				sqlBuilder.AppendLine("-- You will need to enable identity inserts for your chosen db before running this Script, for example in SQL Server:");
-				sqlBuilder.AppendLine("-- SET IDENTITY_INSERT roadkill_pages ON;");
+				sqlBuilder.AppendLine("-- SET IDENTITY_INSERT explik_pages ON;");
 
 				// Always output the users, it's used by the pages
 				sqlBuilder.AppendLine();
@@ -170,7 +170,7 @@ namespace Roadkill.Core.Database.Export
 			if (page == null)
 				return "";
 
-			string sql = "INSERT INTO roadkill_pages (id, title, summary, createdby, createdon, controlledby, publishedon, tags, islocked, issubmitted, iscontrolled, isrejected, iscopied, isvideo, nbrating, totalrating, nbview, filepath, videourl, pseudonym, controllerrating) VALUES (";
+			string sql = "INSERT INTO explik_pages (id, title, summary, createdby, createdon, controlledby, publishedon, tags, islocked, issubmitted, iscontrolled, isrejected, iscopied, isvideo, nbrating, totalrating, nbview, filepath, videourl, pseudonym, controllerrating) VALUES (";
 			sql += string.Format("'{0}',", page.Id);
 			sql += string.Format("'{0}',", page.Title.ReplaceSingleQuotes());
             sql += string.Format("'{0}',", page.Summary.ReplaceSingleQuotes());
@@ -202,11 +202,11 @@ namespace Roadkill.Core.Database.Export
 			if (content == null)
 				return "";
 
-			string sql = "INSERT INTO roadkill_pagecontent (id, pageid, text, editedby, editedon, versionnumber) VALUES (";
+			string sql = "INSERT INTO explik_pagecontent (id, pageid, text, controlledby, editedon, versionnumber) VALUES (";
 			sql += string.Format("'{0}',", content.Id);
 			sql += string.Format("'{0}',", content.Page.Id);
 			sql += string.Format("'{0}',", content.Text.ReplaceSingleQuotes());
-			sql += string.Format("'{0}',", content.EditedBy.ReplaceSingleQuotes());
+			sql += string.Format("'{0}',", content.ControlledBy.ReplaceSingleQuotes());
 			sql += string.Format("'{0}',", content.EditedOn.ToString("yyyy-MM-dd"));
 			sql += string.Format("'{0}'",  content.VersionNumber);
 
@@ -220,7 +220,7 @@ namespace Roadkill.Core.Database.Export
 			if (user == null)
 				return "";
 
-            string sql = "INSERT INTO roadkill_users (id, activationkey, email, firstname, iseditor, iscontroller, attachmentspath, isadmin, isactivated, contributionlevel, displayflags, lastname, password, passwordresetkey, salt, username) VALUES (";
+            string sql = "INSERT INTO explik_users (id, activationkey, email, firstname, iseditor, iscontroller, attachmentspath, isadmin, isactivated, contributionlevel, displayflags, lastname, password, passwordresetkey, salt, username) VALUES (";
 			sql += string.Format("'{0}',", user.Id);
 			sql += string.Format("'{0}',", user.ActivationKey);
 			sql += string.Format("'{0}',", user.Email.ReplaceSingleQuotes());
@@ -248,7 +248,7 @@ namespace Roadkill.Core.Database.Export
 			if (row == null)
 				return "";
 
-			string sql = "INSERT INTO roadkill_siteconfiguration (id, version, content) VALUES (";
+			string sql = "INSERT INTO explik_siteconfiguration (id, version, content) VALUES (";
 			sql += string.Format("'{0}',", row.Id);
 			sql += string.Format("'{0}',", row.Version);
 			sql += string.Format("'{0}'", row.Json.ReplaceSingleQuotes());

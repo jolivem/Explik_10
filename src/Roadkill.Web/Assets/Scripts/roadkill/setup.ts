@@ -104,8 +104,8 @@ module Roadkill.Web
 					value = button.val();
 					text = button.text();
 
-					button.val(ROADKILL_LINK_CONFIRM);
-					button.text(ROADKILL_LINK_CONFIRM);
+					button.val(EXPLIK_LINK_CONFIRM);
+					button.text(EXPLIK_LINK_CONFIRM);
 					button.addClass("jqConfirm btn-danger");
 
 					var handler = function() : boolean

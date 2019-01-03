@@ -1012,4 +1012,7 @@
   <data name="Page_Info_TotalRating" xml:space="preserve">
     <value>TODO</value>
   </data>
+  <data name="ChooseImage_Title" xml:space="preserve">
+    <value>Choose an image</value>
+  </data>
 </root>

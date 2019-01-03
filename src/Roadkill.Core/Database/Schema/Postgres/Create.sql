@@ -1,4 +1,4 @@
-﻿CREATE TABLE roadkill_pages
+﻿CREATE TABLE explik_pages
 (
   "id" SERIAL NOT NULL, 
   "title" TEXT NOT NULL, 
@@ -24,10 +24,10 @@
 PRIMARY KEY("id")
 );
 
-CREATE TABLE roadkill_pagecontent
+CREATE TABLE explik_pagecontent
 (
   "id" UUID NOT NULL, 
-  "editedby" TEXT NOT NULL, 
+  "controlledby" TEXT NOT NULL, 
   "editedon" TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
   "versionnumber" INTEGER NOT NULL, 
   "text" TEXT, 
@@ -35,7 +35,7 @@ CREATE TABLE roadkill_pagecontent
   PRIMARY KEY("id")
 );
 
-CREATE TABLE roadkill_users
+CREATE TABLE explik_users
 (
   "id" UUID NOT NULL, 
   "activationkey" TEXT, 
@@ -56,7 +56,7 @@ CREATE TABLE roadkill_users
   PRIMARY KEY("id")
 );
 
-CREATE TABLE roadkill_siteconfiguration 
+CREATE TABLE explik_siteconfiguration 
 (
   "id" UUID NOT NULL, 
   "version" TEXT NOT NULL, 
@@ -64,17 +64,19 @@ CREATE TABLE roadkill_siteconfiguration
   PRIMARY KEY("id")
 );
 
-CREATE TABLE roadkill_comments
+CREATE TABLE explik_comments
 (
   "id"  UUID NOT NULL,
   "pageid" INTEGER, 
   "createdby" TEXT NOT NULL, 
   "createdon" TIMESTAMP(20) WITHOUT TIME ZONE, 
   "rating" INTEGER, 
+  "controlledby" TEXT NOT NULL, 
+  "iscontrolled" BOOLEAN NOT NULL, 
   "text" TEXT NOT NULL
 );
 
-CREATE TABLE roadkill_alerts
+CREATE TABLE explik_alerts
 (
   "id" UUID NOT NULL,
   "pageid" INTEGER, 

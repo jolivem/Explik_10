@@ -52,7 +52,7 @@ module Roadkill.Web.Installer
 
 			request.fail(function (jqXHR, textStatus, errorThrown: SyntaxError)
 			{
-				toastr.error(ROADKILL_INSTALLER_WOOPS + errorThrown);
+				toastr.error(EXPLIK_INSTALLER_WOOPS + errorThrown);
 			});
 		}
 	}

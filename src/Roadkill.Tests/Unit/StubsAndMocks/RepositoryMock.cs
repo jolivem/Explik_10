@@ -293,20 +293,20 @@ namespace Roadkill.Tests.Unit
 			return PageContents.FirstOrDefault(p => p.Id == versionId);
 		}
 
-		public IEnumerable<PageContent> GetPageContentByEditedBy(string username)
-		{
-			return PageContents.Where(p => p.EditedBy == username);
-		}
+		//public IEnumerable<PageContent> GetPageContentByEditedBy(string username)
+		//{
+		//	return PageContents.Where(p => p.EditedBy == username);
+		//}
 
 		public IEnumerable<PageContent> FindPageContentsByPageId(int pageId)
 		{
 			return PageContents.Where(p => p.Page.Id == pageId).ToList();
 		}
 
-		public IEnumerable<PageContent> FindPageContentsEditedBy(string username)
-		{
-			return PageContents.Where(p => p.EditedBy == username);
-		}
+		//public IEnumerable<PageContent> FindPageContentsEditedBy(string username)
+		//{
+		//	return PageContents.Where(p => p.EditedBy == username);
+		//}
 
 		public IEnumerable<PageContent> AllPageContents()
 		{

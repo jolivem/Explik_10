@@ -34,7 +34,7 @@ module Roadkill.Web.FileManager
 				return;
 			}
 
-			var confirmMessage: string = Util.FormatString(ROADKILL_FILEMANAGER_DELETE_CONFIRM, folder);
+			var confirmMessage: string = Util.FormatString(EXPLIK_FILEMANAGER_DELETE_CONFIRM, folder);
 			Dialogs.confirm(confirmMessage, function (result)
 			{
 				if (!result)
@@ -50,12 +50,12 @@ module Roadkill.Web.FileManager
 						var currentFolder: string = li.attr("data-urlpath");
 						TableEvents.update(currentFolder, false);
 
-                        var message: string = Util.FormatString(ROADKILL_FILEMANAGER_DELETE_SUCCESS, folder);
+                        var message: string = Util.FormatString(EXPLIK_FILEMANAGER_DELETE_SUCCESS, folder);
 						toastr.info(message);
 					}
 					else
 					{
-						var errorMessage: string = Util.FormatString(ROADKILL_FILEMANAGER_DELETE_ERROR, folder);
+						var errorMessage: string = Util.FormatString(EXPLIK_FILEMANAGER_DELETE_ERROR, folder);
 						toastr.error(errorMessage + " :<br/>" + data.message);
 					}
 				};
@@ -74,7 +74,7 @@ module Roadkill.Web.FileManager
 				var currentPath: string = TableEvents.getCurrentPath();
 				var filename: string = $("td.file", tr).text();
 
-				var message = Util.FormatString(ROADKILL_FILEMANAGER_DELETE_CONFIRM, filename);
+				var message = Util.FormatString(EXPLIK_FILEMANAGER_DELETE_CONFIRM, filename);
 				Dialogs.confirm(message, function (result)
 				{
 					if (!result)
@@ -87,12 +87,12 @@ module Roadkill.Web.FileManager
 						{
                             $(tr).remove();
 
-                            var message: string = Util.FormatString(ROADKILL_FILEMANAGER_DELETE_SUCCESS, filename);
+                            var message: string = Util.FormatString(EXPLIK_FILEMANAGER_DELETE_SUCCESS, filename);
                             toastr.info(message);
 						}
 						else
 						{
-							var errorMessage: string = Util.FormatString(ROADKILL_FILEMANAGER_DELETE_ERROR, filename);
+							var errorMessage: string = Util.FormatString(EXPLIK_FILEMANAGER_DELETE_ERROR, filename);
 							toastr.error(errorMessage + " :<br/>" + data.message);
 						}
 					};
@@ -151,7 +151,7 @@ module Roadkill.Web.FileManager
 				{
 					if (data.status == "error")
 					{
-						toastr.error(ROADKILL_FILEMANAGER_ERROR_CREATEFOLDER + ":<br/>" +data.message);
+						toastr.error(EXPLIK_FILEMANAGER_ERROR_CREATEFOLDER + ":<br/>" +data.message);
 						return;
 					}
 

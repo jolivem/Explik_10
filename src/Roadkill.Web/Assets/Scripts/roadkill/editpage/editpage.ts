@@ -208,7 +208,7 @@ module Roadkill.Web
 
 			var request = $.ajax({
 				type: "POST",
-				url: ROADKILL_PREVIEWURL,
+				url: EXPLIK_PREVIEWURL,
 				data: { "id": text },
 				cache: false,
 				dataType: "text"

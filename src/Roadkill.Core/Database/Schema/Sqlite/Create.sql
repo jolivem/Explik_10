@@ -1,4 +1,4 @@
-CREATE TABLE roadkill_pages 
+CREATE TABLE explik_pages 
 (
 	[id] integer primary key autoincrement, 
 	[title] TEXT, 
@@ -23,7 +23,7 @@ CREATE TABLE roadkill_pages
     [controllerrating] integer
 );
 
-CREATE TABLE roadkill_pagecontent 
+CREATE TABLE explik_pagecontent 
 (
 	[id] CHAR(36) not null, 
 	[editedby] TEXT,
@@ -32,12 +32,12 @@ CREATE TABLE roadkill_pagecontent
 	[text] NTEXT, 
 	[pageid] INT, 
 	PRIMARY KEY (Id)
-	/*,constraint fk_roadkillpageid foreign key (pageid) references roadkill_pages*/
+	/*,constraint fk_roadkillpageid foreign key (pageid) references explik_pages*/
 );
 
-CREATE INDEX pageid on roadkill_pagecontent (pageid);
+CREATE INDEX pageid on explik_pagecontent (pageid);
 
-CREATE TABLE roadkill_users 
+CREATE TABLE explik_users 
 (
 	[id] CHAR(36) not null, 
 	[activationkey] TEXT, 
@@ -59,9 +59,9 @@ CREATE TABLE roadkill_users
 	PRIMARY KEY (Id)
 );
 
-CREATE INDEX email on roadkill_users (email);
+CREATE INDEX email on explik_users (email);
 
-CREATE TABLE [roadkill_siteconfiguration] 
+CREATE TABLE [explik_siteconfiguration] 
 (
   [id] CHAR(36) NOT NULL, 
   [version] TEXT, 
@@ -69,7 +69,7 @@ CREATE TABLE [roadkill_siteconfiguration]
   PRIMARY KEY (Id)
 );
 
-CREATE TABLE [roadkill_comments]
+CREATE TABLE [explik_comments]
 (
   [id] CHAR(36) not null,
   [pageid] INT, 
@@ -79,7 +79,7 @@ CREATE TABLE [roadkill_comments]
   [text] NTEXT
 );
 
-CREATE TABLE [roadkill_alerts]
+CREATE TABLE explik_alerts
 (
   [id] CHAR(36) not null,
   [pageid] INT, 

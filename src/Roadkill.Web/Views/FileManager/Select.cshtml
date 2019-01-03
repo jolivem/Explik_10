@@ -17,21 +17,20 @@
 		</style>
 </head>
 <body>
-	<div id="filechooser-select">
-		<div style="padding:3px">
-			@Html.Partial("Navigator", false)
-		</div>
-		<script type="text/javascript">
-			$(function ()
-			{
-				Roadkill.Web.FileManager.Setup.configure();
-				$("body").on("fileselected", "table#files",
-				function (e, data)
-				{
-					window.top.Roadkill.Web.WysiwygEditor.addImage(data.file);
-				});
-			});
-		</script>
-	</div>
+    <div id="filechooser-select">
+        <div style="padding:3px">
+            @Html.Partial("Navigator", false)
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                Roadkill.Web.FileManager.Setup.configure();
+                $("body").on("fileselected", "table#files",
+                    function (e, data) {
+                        window.top.Roadkill.Web.WysiwygEditor.addImage(data.file);
+                    });
+            });
+        </script>
+    </div>
+    <div id="user-path" title="@ViewBag.userpath"></div>
 </body>
 </html>

@@ -83,7 +83,7 @@ namespace Roadkill.Core.Security
 					user.IsAdmin = isAdmin;
 					user.IsEditor = true;
                     user.IsController = isController;
-                    user.AttachmentsPath = DateTime.UtcNow.ToString("yyyy-MM") + "\\" + username;
+                    user.AttachmentsPath = DateTime.UtcNow.ToString("yyyy-MM") + "/" + username;
                     user.IsBlackListed = false;
 					user.IsActivated = true;
 					Repository.SaveOrUpdateUser(user);
@@ -555,12 +555,12 @@ namespace Roadkill.Core.Security
 						//
 						// Update the PageContent.EditedBy history
 						//
-						IList<PageContent> pageContents = Repository.FindPageContentsEditedBy(model.ExistingUsername).ToList();
-						for (int i = 0; i < pageContents.Count; i++)
-						{
-							pageContents[i].EditedBy = model.NewUsername;
-							Repository.UpdatePageContent(pageContents[i]);
-						}
+						//IList<PageContent> pageContents = Repository.FindPageContentsEditedBy(model.ExistingUsername).ToList();
+						//for (int i = 0; i < pageContents.Count; i++)
+						//{
+						//	pageContents[i].EditedBy = model.NewUsername;
+						//	Repository.UpdatePageContent(pageContents[i]);
+						//}
 
 						//
 						// Update all Page.CreatedBy and Page.ControlledBy

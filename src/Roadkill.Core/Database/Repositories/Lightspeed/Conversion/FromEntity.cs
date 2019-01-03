@@ -51,7 +51,7 @@ namespace Roadkill.Core.Database.LightSpeed
 			PageContent pageContent = new PageContent();
 			pageContent.Id = entity.Id;
 			pageContent.EditedOn = entity.EditedOn;
-			pageContent.EditedBy = entity.EditedBy;
+			pageContent.ControlledBy = entity.ControlledBy;
 			pageContent.Text = entity.Text;
 			pageContent.VersionNumber = entity.VersionNumber;
 			pageContent.Page = ToPage(entity.Page);
@@ -102,6 +102,8 @@ namespace Roadkill.Core.Database.LightSpeed
             comment.CreatedOn = entity.CreatedOn;
             comment.PageId = entity.PageId;
             comment.Rating = entity.Rating;
+            comment.ControlleddBy = entity.ControlledBy;
+            comment.IsControlled = entity.IsControlled;
             comment.Text = entity.Text;
 
             return comment;

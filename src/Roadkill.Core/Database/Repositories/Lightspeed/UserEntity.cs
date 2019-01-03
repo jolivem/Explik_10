@@ -3,7 +3,7 @@ using Mindscape.LightSpeed;
 
 namespace Roadkill.Core.Database.LightSpeed
 {
-	[Table("roadkill_users")]
+	[Table("explik_users")]
 	[Cached(ExpiryMinutes = 1)]
 	public class UserEntity : Entity<Guid>
 	{

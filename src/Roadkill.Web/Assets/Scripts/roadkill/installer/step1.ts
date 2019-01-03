@@ -32,7 +32,7 @@ module Roadkill.Web.Installer
 
 		private OnTestWebConfigClick(e : any)
 		{
-			var url: string = ROADKILL_INSTALLER_TESTWEBCONFIG_URL;
+			var url: string = EXPLIK_INSTALLER_TESTWEBCONFIG_URL;
 			this._wizard.makeAjaxRequest(url, {}, (data: any) => { this.OnTestWebConfigSuccess(data); });
 		}
 

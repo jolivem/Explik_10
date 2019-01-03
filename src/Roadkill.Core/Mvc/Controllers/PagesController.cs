@@ -326,7 +326,9 @@ namespace Roadkill.Core.Mvc.Controllers
 		{
 			PageViewModel model = _pageService.GetById(id, true);
 
-			if (model != null)
+            ViewBag.userpath = Context.AttachmentsPath;
+
+            if (model != null)
 			{
 				if (model.IsLocked && !Context.IsAdmin)
 					return new HttpStatusCodeResult(403, string.Format("The page '{0}' can only be edited by administrators.", model.Title));

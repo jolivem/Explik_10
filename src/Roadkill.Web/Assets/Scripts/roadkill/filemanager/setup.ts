@@ -37,7 +37,7 @@ module Roadkill.Web.FileManager
                     var imgUrl: string;
                     var username: string;
                     username = (document.getElementById("user-path") as HTMLInputElement).title;
-                    imgUrl = ROADKILL_ATTACHMENTSPATH + "/" + username + TableEvents.getCurrentPath();
+                    imgUrl = EXPLIK_ATTACHMENTSPATH + "/" + username + TableEvents.getCurrentPath() + "/";
 					imgUrl = imgUrl.replace("//", "/") + $("td.file", this).text();
 
 					$("body").append("<p id='image-preview'><img src='" + imgUrl + "' alt='Image Preview' /></p>");

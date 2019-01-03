@@ -1,4 +1,4 @@
-CREATE TABLE [roadkill_pagecontent]
+CREATE TABLE [explik_pagecontent]
 (
 	[Id] [uniqueidentifier] NOT NULL,
 	[EditedBy] [nvarchar](255) NOT NULL,

@@ -9,7 +9,7 @@ namespace Roadkill.Core.Database
 	{
         //TODO add ini of NbRatings... in AddNewPage...
 		PageContent AddNewPage(Page page, string text, string editedBy, DateTime editedOn);
-		PageContent AddNewPageContentVersion(Page page, string text, string editedBy, DateTime editedOn, int version);
+		PageContent AddNewPageContentVersion(Page page, string text, DateTime editedOn, int version);
         /// <summary>
         /// Returns a list of tags for all pages. Each item is a list of tags seperated by ,
         /// e.g. { "tag1, tag2, tag3", "blah, blah2" } 
@@ -43,7 +43,7 @@ namespace Roadkill.Core.Database
         IEnumerable<Page> FindPagesControlledBy(string username);
 		IEnumerable<Page> FindPagesContainingTag(string tag);
 		IEnumerable<PageContent> FindPageContentsByPageId(int pageId);
-		IEnumerable<PageContent> FindPageContentsEditedBy(string username);
+		//IEnumerable<PageContent> FindPageContentsEditedBy(string username);
 		PageContent GetLatestPageContent(int pageId);
 		Page GetPageById(int id);
 
@@ -55,7 +55,7 @@ namespace Roadkill.Core.Database
 		Page GetPageByTitle(string title);
 		PageContent GetPageContentById(Guid id);
 		PageContent GetPageContentByPageIdAndVersionNumber(int id, int versionNumber);
-		IEnumerable<PageContent> GetPageContentByEditedBy(string username);
+		//IEnumerable<PageContent> GetPageContentByEditedBy(string username);
 		Page SaveOrUpdatePage(Page page);
 		void UpdatePageContent(PageContent content); // no new version
 

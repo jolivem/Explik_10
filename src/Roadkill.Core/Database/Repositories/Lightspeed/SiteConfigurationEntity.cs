@@ -4,7 +4,7 @@ using Roadkill.Core.Configuration;
 
 namespace Roadkill.Core.Database.LightSpeed
 {
-	[Table("roadkill_siteconfiguration")]
+	[Table("explik_siteconfiguration")]
 	[Cached(ExpiryMinutes = 10)]
 	public class SiteConfigurationEntity : Entity<Guid>
 	{

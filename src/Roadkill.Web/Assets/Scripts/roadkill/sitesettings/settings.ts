@@ -66,7 +66,7 @@ module Roadkill.Web.Admin
 			};
 
 			// Make sure to use a lambda, so the "this" references is kept intact
-			this.makeAjaxRequest(ROADKILL_TESTDB_URL, jsonData, this._messages.unexpectedError, (data) => { this.TestDatabaseSuccess(data); });
+			this.makeAjaxRequest(EXPLIK_TESTDB_URL, jsonData, this._messages.unexpectedError, (data) => { this.TestDatabaseSuccess(data); });
 		}
 
 		public TestDatabaseSuccess(data : any)
@@ -90,7 +90,7 @@ module Roadkill.Web.Admin
 			}
 
 			// Make sure to use a lambda, so the "this" references is kept intact
-			this.makeAjaxRequest(ROADKILL_TESTATTACHMENTS_URL, jsonData, this._messages.unexpectedError, (data) => { this.TestAttachmentsSuccess(data) } );
+			this.makeAjaxRequest(EXPLIK_TESTATTACHMENTS_URL, jsonData, this._messages.unexpectedError, (data) => { this.TestAttachmentsSuccess(data) } );
 		}
 
 		public TestAttachmentsSuccess(data: any)

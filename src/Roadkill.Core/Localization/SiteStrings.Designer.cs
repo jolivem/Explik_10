@@ -376,6 +376,24 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cancel.
+        /// </summary>
+        public static string ChooseImage_Cancel_Button {
+            get {
+                return ResourceManager.GetString("ChooseImage_Cancel_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Choose an image.
+        /// </summary>
+        public static string ChooseImage_Title {
+            get {
+                return ResourceManager.GetString("ChooseImage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Be the first to comment.
         /// </summary>
         public static string Comment_Be_The_First {

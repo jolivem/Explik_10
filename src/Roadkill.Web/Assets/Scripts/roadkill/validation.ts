@@ -14,7 +14,7 @@ module Roadkill.Web
 		public Configure(formSelector: string, rules : any)
 		{
 			$.validator.messages = {
-				required: ROADKILL_REQUIRED_FIELD
+				required: EXPLIK_REQUIRED_FIELD
 			};
 			
 			$(formSelector).validate({

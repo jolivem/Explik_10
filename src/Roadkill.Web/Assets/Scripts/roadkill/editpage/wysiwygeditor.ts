@@ -11,53 +11,53 @@ module Roadkill.Web
 			// Bind the toolbar button clicks.
 			$(".wysiwyg-bold").click((e) =>
 			{
-				this.insertStyle(ROADKILL_EDIT_BOLD_TOKEN);
+				this.insertStyle(EXPLIK_EDIT_BOLD_TOKEN);
 				return false;
 			});
 			$(".wysiwyg-italic").click((e) =>
 			{
-				this.insertStyle(ROADKILL_EDIT_ITALIC_TOKEN);
+				this.insertStyle(EXPLIK_EDIT_ITALIC_TOKEN);
 				return false;
 			});
 			$(".wysiwyg-underline").click((e) =>
 			{
-				this.insertStyle(ROADKILL_EDIT_UNDERLINE_TOKEN);
+				this.insertStyle(EXPLIK_EDIT_UNDERLINE_TOKEN);
 				return false;
 			});
 			$(".wysiwyg-h2").click((e) =>
 			{
-				this.insertStyle(this.repeat(ROADKILL_EDIT_HEADING_TOKEN, 2));
+				this.insertStyle(this.repeat(EXPLIK_EDIT_HEADING_TOKEN, 2));
 				return false;
 			});
 			$(".wysiwyg-h3").click((e) =>
 			{
-				this.insertStyle(this.repeat(ROADKILL_EDIT_HEADING_TOKEN, 3));
+				this.insertStyle(this.repeat(EXPLIK_EDIT_HEADING_TOKEN, 3));
 				return false;
 			});
 			$(".wysiwyg-h4").click((e) =>
 			{
-				this.insertStyle(this.repeat(ROADKILL_EDIT_HEADING_TOKEN, 4));
+				this.insertStyle(this.repeat(EXPLIK_EDIT_HEADING_TOKEN, 4));
 				return false;
 			});
 			$(".wysiwyg-h5").click((e) =>
 			{
-				this.insertStyle(this.repeat(ROADKILL_EDIT_HEADING_TOKEN, 5));
+				this.insertStyle(this.repeat(EXPLIK_EDIT_HEADING_TOKEN, 5));
 				return false;
 			});
 			$(".wysiwyg-bullets").click((e) =>
 			{
-				this.insertListItem(ROADKILL_EDIT_BULLETLIST_TOKEN);
+				this.insertListItem(EXPLIK_EDIT_BULLETLIST_TOKEN);
 				return false;
 			});
 			$(".wysiwyg-numbers").click((e) =>
 			{
 				// Obselete
-				this.insertListItem(ROADKILL_EDIT_NUMBERLIST_TOKEN);
+				this.insertListItem(EXPLIK_EDIT_NUMBERLIST_TOKEN);
 				return false;
 			});
 			$(".wysiwyg-picture").click((e) =>
 			{
-				Dialogs.openImageChooserModal("<iframe src='" + ROADKILL_FILESELECTURL + "' id='filechooser-iframe'></iframe>");
+				Dialogs.openImageChooserModal("<iframe src='" + EXPLIK_FILESELECTURL + "' id='filechooser-iframe'></iframe>");
 				return false;
 			});
 			$(".wysiwyg-link").click((e) =>
@@ -67,7 +67,7 @@ module Roadkill.Web
 			});
 			$(".wysiwyg-help").click((e) =>
 			{
-				Dialogs.openMarkupHelpModal("<iframe src='" + ROADKILL_WIKIMARKUPHELP + "' id='help-iframe'></iframe>");
+				Dialogs.openMarkupHelpModal("<iframe src='" + EXPLIK_WIKIMARKUPHELP + "' id='help-iframe'></iframe>");
 				return false;
 			});
 		}
@@ -108,14 +108,14 @@ module Roadkill.Web
 			{
 				var text = range.text;
 				if (range.text === "")
-					text = ROADKILL_EDIT_LINK_TEXTPLACEHOLDER;
+					text = EXPLIK_EDIT_LINK_TEXTPLACEHOLDER;
 
-				var prefix = ROADKILL_EDIT_LINK_STARTTOKEN.toString();
-				prefix = prefix.replace("%URL%", ROADKILL_EDIT_LINK_URLPLACEHOLDER);
+				var prefix = EXPLIK_EDIT_LINK_STARTTOKEN.toString();
+				prefix = prefix.replace("%URL%", EXPLIK_EDIT_LINK_URLPLACEHOLDER);
 				prefix = prefix.replace("%LINKTEXT%", text);
 
-				var suffix = ROADKILL_EDIT_LINK_ENDTOKEN.toString();
-				suffix = suffix.replace("%URL%", ROADKILL_EDIT_LINK_URLPLACEHOLDER);
+				var suffix = EXPLIK_EDIT_LINK_ENDTOKEN.toString();
+				suffix = suffix.replace("%URL%", EXPLIK_EDIT_LINK_URLPLACEHOLDER);
 				suffix = suffix.replace("%LINKTEXT%", text);
 
 				$("#Content").replaceSelection(prefix + suffix);
@@ -175,13 +175,13 @@ module Roadkill.Web
 			{
 				var text = range.text;
 				if (range.text === "")
-					text = ROADKILL_EDIT_IMAGE_TITLE;
+					text = EXPLIK_EDIT_IMAGE_TITLE;
 
-				var prefix = ROADKILL_EDIT_IMAGE_STARTTOKEN.toString();
+				var prefix = EXPLIK_EDIT_IMAGE_STARTTOKEN.toString();
 				prefix = prefix.replace("%ALT%", text);
 				prefix = prefix.replace("%FILENAME%", image);
 
-				var suffix = ROADKILL_EDIT_IMAGE_ENDTOKEN.toString();
+				var suffix = EXPLIK_EDIT_IMAGE_ENDTOKEN.toString();
 				suffix = suffix.replace("%ALT%", text);
 				suffix = suffix.replace("%FILENAME%", image);
 

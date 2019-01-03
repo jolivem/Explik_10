@@ -1,1 +1,1 @@
-﻿DROP TABLE [roadkill_siteconfiguration];
+﻿DROP TABLE [explik_siteconfiguration];

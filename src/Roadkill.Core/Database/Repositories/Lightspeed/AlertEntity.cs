@@ -4,7 +4,7 @@ using Mindscape.LightSpeed;
 namespace Roadkill.Core.Database.LightSpeed
 {
 
-    [Table("roadkill_alerts")]
+    [Table("explik_alerts")]
     public class AlertEntity : Entity<Guid>
     {
         [Column("pageid")]

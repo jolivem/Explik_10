@@ -1,4 +1,4 @@
-CREATE TABLE roadkill_pages
+CREATE TABLE explik_pages
 (
 	Id INT AUTO_INCREMENT NOT NULL,
 	Title NVARCHAR(255) NOT NULL,
@@ -24,10 +24,10 @@ CREATE TABLE roadkill_pages
 	PRIMARY KEY (Id)
 );
 
-CREATE TABLE roadkill_pagecontent
+CREATE TABLE explik_pagecontent
 (
 	Id NVARCHAR(36) NOT NULL,
-	EditedBy NVARCHAR(255) NOT NULL,
+	ControlledBy NVARCHAR(255) NOT NULL,
 	EditedOn DATETIME NOT NULL,
 	VersionNumber INT NOT NULL,
 	Text MEDIUMTEXT NULL,
@@ -35,9 +35,9 @@ CREATE TABLE roadkill_pagecontent
 	PRIMARY KEY (Id)
 );
 
-/*ALTER TABLE roadkill_pagecontent ADD CONSTRAINT FK_roadkill_pageid FOREIGN KEY(pageid) REFERENCES roadkill_pages (id);*/
+/*ALTER TABLE explik_pagecontent ADD CONSTRAINT FK_explik_pageid FOREIGN KEY(pageid) REFERENCES explik_pages (id);*/
 
-CREATE TABLE roadkill_users
+CREATE TABLE explik_users
 (
 	Id VARCHAR(36) NOT NULL,
 	ActivationKey NVARCHAR(255) NULL,
@@ -58,7 +58,7 @@ CREATE TABLE roadkill_users
 	PRIMARY KEY (Id)
 );
 
-CREATE TABLE roadkill_siteconfiguration
+CREATE TABLE explik_siteconfiguration
 (
 	Id VARCHAR(36) NOT NULL,
 	Version NVARCHAR(255) NOT NULL,
@@ -66,17 +66,19 @@ CREATE TABLE roadkill_siteconfiguration
 	PRIMARY KEY (Id)
 );
 
-CREATE TABLE roadkill_comments
+CREATE TABLE explik_comments
 (
   Id VARCHAR(36) NOT NULL,
   PageId INT, 
   CreatedBy NVARCHAR(255) NOT NULL, 
   CreatedOn DATETIME  NOT NULL, 
   Rating INT, 
+  ControlledBy NVARCHAR(255) NOT NULL, 
+  IsControlled BOOLEAN NOT NULL,
   Text MEDIUMTEXT NULL
 );
 
-CREATE TABLE roadkill_alerts
+CREATE TABLE explik_alerts
 (
   Id VARCHAR(36) NOT NULL,
   PageId INT, 

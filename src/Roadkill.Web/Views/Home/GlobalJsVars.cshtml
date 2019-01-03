@@ -2,55 +2,55 @@
 @using Roadkill.Core.Configuration;
 @{Layout=null;}
 // Generated at: @DateTime.UtcNow.ToString()
-var ROADKILL_CORESCRIPTPATH = "@Url.Content("~/Assets/Scripts/")";
-var ROADKILL_COREASSETPATH = "@Url.Content("~/Assets/")";
-var ROADKILL_THEMEPATH =  "@Url.Content(SiteSettings.ThemePath)/";
-var ROADKILL_LINK_CONFIRM = "@SiteStrings.Shared_ConfirmLink";
+var EXPLIK_CORESCRIPTPATH = "@Url.Content("~/Assets/Scripts/")";
+var EXPLIK_COREASSETPATH = "@Url.Content("~/Assets/")";
+var EXPLIK_THEMEPATH =  "@Url.Content(SiteSettings.ThemePath)/";
+var EXPLIK_LINK_CONFIRM = "@SiteStrings.Shared_ConfirmLink";
 
 // Edit page constants
-var ROADKILL_TAGAJAXURL = "@Url.Action("AllTagsAsJson", "Pages")/";
-var ROADKILL_PREVIEWURL = "@Url.Action("GetPreview", "Pages")/";
-var ROADKILL_MARKUPTYPE = "@SiteSettings.MarkupType";
-var ROADKILL_WIKIMARKUPHELP = "@Url.Action(SiteSettings.MarkupType + "Reference", "Help")";
+var EXPLIK_TAGAJAXURL = "@Url.Action("AllTagsAsJson", "Pages")/";
+var EXPLIK_PREVIEWURL = "@Url.Action("GetPreview", "Pages")/";
+var EXPLIK_MARKUPTYPE = "@SiteSettings.MarkupType";
+var EXPLIK_WIKIMARKUPHELP = "@Url.Action(SiteSettings.MarkupType + "Reference", "Help")";
 
 @{
 IMarkupParser parser = MarkupConverter.Parser;
 }
 // Tokens for the edit toolbar
-var ROADKILL_EDIT_BOLD_TOKEN        = "@Html.Raw(parser.BoldToken)";
-var ROADKILL_EDIT_ITALIC_TOKEN      = "@Html.Raw(parser.ItalicToken)";
-var ROADKILL_EDIT_UNDERLINE_TOKEN   = "@Html.Raw(parser.UnderlineToken)";
-var ROADKILL_EDIT_LINK_STARTTOKEN   = "@Html.Raw(parser.LinkStartToken)";
-var ROADKILL_EDIT_LINK_ENDTOKEN     = "@Html.Raw(parser.LinkEndToken)";
-var ROADKILL_EDIT_IMAGE_STARTTOKEN  = "@Html.Raw(parser.ImageStartToken)";
-var ROADKILL_EDIT_IMAGE_ENDTOKEN    = "@Html.Raw(parser.ImageEndToken)";
-var ROADKILL_EDIT_NUMBERLIST_TOKEN  = "@Html.Raw(parser.NumberedListToken)";
-var ROADKILL_EDIT_BULLETLIST_TOKEN  = "@Html.Raw(parser.BulletListToken)";
-var ROADKILL_EDIT_HEADING_TOKEN     = "@Html.Raw(parser.HeadingToken)";
-var ROADKILL_EDIT_LINK_URLPLACEHOLDER  = "@Html.Raw(SiteStrings.EditPage_LinkUrl_PlaceHolder)";
-var ROADKILL_EDIT_LINK_TEXTPLACEHOLDER  = "@Html.Raw(SiteStrings.EditPage_LinkText_PlaceHolder)";
-var ROADKILL_EDIT_IMAGE_TITLE       = "@Html.Raw(SiteStrings.EditPage_Image_Title)";
+var EXPLIK_EDIT_BOLD_TOKEN        = "@Html.Raw(parser.BoldToken)";
+var EXPLIK_EDIT_ITALIC_TOKEN      = "@Html.Raw(parser.ItalicToken)";
+var EXPLIK_EDIT_UNDERLINE_TOKEN   = "@Html.Raw(parser.UnderlineToken)";
+var EXPLIK_EDIT_LINK_STARTTOKEN   = "@Html.Raw(parser.LinkStartToken)";
+var EXPLIK_EDIT_LINK_ENDTOKEN     = "@Html.Raw(parser.LinkEndToken)";
+var EXPLIK_EDIT_IMAGE_STARTTOKEN  = "@Html.Raw(parser.ImageStartToken)";
+var EXPLIK_EDIT_IMAGE_ENDTOKEN    = "@Html.Raw(parser.ImageEndToken)";
+var EXPLIK_EDIT_NUMBERLIST_TOKEN  = "@Html.Raw(parser.NumberedListToken)";
+var EXPLIK_EDIT_BULLETLIST_TOKEN  = "@Html.Raw(parser.BulletListToken)";
+var EXPLIK_EDIT_HEADING_TOKEN     = "@Html.Raw(parser.HeadingToken)";
+var EXPLIK_EDIT_LINK_URLPLACEHOLDER  = "@Html.Raw(SiteStrings.EditPage_LinkUrl_PlaceHolder)";
+var EXPLIK_EDIT_LINK_TEXTPLACEHOLDER  = "@Html.Raw(SiteStrings.EditPage_LinkText_PlaceHolder)";
+var EXPLIK_EDIT_IMAGE_TITLE       = "@Html.Raw(SiteStrings.EditPage_Image_Title)";
 
 // File manager settings/locale strings
-var ROADKILL_FILEMANAGERURL = "@Url.Action("Index", "FileManager")";
-var ROADKILL_FILESELECTURL = "@Url.Action("Select", "FileManager")";
-var ROADKILL_ATTACHMENTSPATH = "@Html.Raw(ApplicationSettings.AttachmentsUrlPath)";
-var ROADKILL_FILEMANAGER_ADDFOLDER = "@SiteStrings.FileManager_AddFolder";
-var ROADKILL_FILEMANAGER_ADDFOLDER_CANCEL = "@SiteStrings.FileManager_AddFolder_Cancel";
-var ROADKILL_FILEMANAGER_ERROR_DIRECTORYLISTING = "@SiteStrings.FileManager_Error_DirectoryListing";
-var ROADKILL_FILEMANAGER_ERROR_DELETEFOLDER = "@SiteStrings.FileManager_Error_DeleteFolder";
-var ROADKILL_FILEMANAGER_ERROR_DELETEFILE = "@SiteStrings.FileManager_Error_DeleteFile";
-var ROADKILL_FILEMANAGER_ERROR_CREATEFOLDER = "@SiteStrings.FileManager_Error_CreateFolder";
-var ROADKILL_FILEMANAGER_DELETE_CONFIRM = "@SiteStrings.FileManager_Delete_Confirm";
-var ROADKILL_FILEMANAGER_DELETE_SUCCESS = "@SiteStrings.FileManager_Delete_Success";
-var ROADKILL_FILEMANAGER_DELETE_ERROR = "@SiteStrings.FileManager_Delete_Error";
+var EXPLIK_FILEMANAGERURL = "@Url.Action("Index", "FileManager")";
+var EXPLIK_FILESELECTURL = "@Url.Action("Select", "FileManager")";
+var EXPLIK_ATTACHMENTSPATH = "@Html.Raw(ApplicationSettings.AttachmentsUrlPath)";
+var EXPLIK_FILEMANAGER_ADDFOLDER = "@SiteStrings.FileManager_AddFolder";
+var EXPLIK_FILEMANAGER_ADDFOLDER_CANCEL = "@SiteStrings.FileManager_AddFolder_Cancel";
+var EXPLIK_FILEMANAGER_ERROR_DIRECTORYLISTING = "@SiteStrings.FileManager_Error_DirectoryListing";
+var EXPLIK_FILEMANAGER_ERROR_DELETEFOLDER = "@SiteStrings.FileManager_Error_DeleteFolder";
+var EXPLIK_FILEMANAGER_ERROR_DELETEFILE = "@SiteStrings.FileManager_Error_DeleteFile";
+var EXPLIK_FILEMANAGER_ERROR_CREATEFOLDER = "@SiteStrings.FileManager_Error_CreateFolder";
+var EXPLIK_FILEMANAGER_DELETE_CONFIRM = "@SiteStrings.FileManager_Delete_Confirm";
+var EXPLIK_FILEMANAGER_DELETE_SUCCESS = "@SiteStrings.FileManager_Delete_Success";
+var EXPLIK_FILEMANAGER_DELETE_ERROR = "@SiteStrings.FileManager_Delete_Error";
 
 // Settings
-var ROADKILL_TESTATTACHMENTS_URL = "@(Url.Action("TestAttachments", "ConfigurationTester"))";
-var ROADKILL_TESTDB_URL = "@(Url.Action("TestDatabaseConnection", "ConfigurationTester"))";
+var EXPLIK_TESTATTACHMENTS_URL = "@(Url.Action("TestAttachments", "ConfigurationTester"))";
+var EXPLIK_TESTDB_URL = "@(Url.Action("TestDatabaseConnection", "ConfigurationTester"))";
 
 // Localization for validation
-var ROADKILL_REQUIRED_FIELD = "@SiteStrings.SiteSettings_Configuration_Required_Field";
+var EXPLIK_REQUIRED_FIELD = "@SiteStrings.SiteSettings_Configuration_Required_Field";
 
 // Plugins
-var ROADKILL_PLUGINSETTINGS_URL = "@Url.Action("Plugin", "PluginSettings")";
+var EXPLIK_PLUGINSETTINGS_URL = "@Url.Action("Plugin", "PluginSettings")";

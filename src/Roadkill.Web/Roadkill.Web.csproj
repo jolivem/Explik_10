@@ -638,7 +638,6 @@
     <Content Include="Views\Pages\AllNewPages.cshtml" />
     <Content Include="Views\Pages\MyPages.cshtml" />
     <Content Include="Views\Pages\Alerts.cshtml" />
-    <Content Include="Rate.cshtml" />
     <Content Include="Views\PageRating.cshtml" />
     <Content Include="Views\Shared\Dialogs\PageAddComment.cshtml" />
     <Content Include="Views\Shared\Dialogs\PageAlert.cshtml" />
