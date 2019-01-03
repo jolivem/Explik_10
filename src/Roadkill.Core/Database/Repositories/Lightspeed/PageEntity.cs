@@ -19,7 +19,7 @@ namespace Roadkill.Core.Database.LightSpeed
 		private DateTime _createdOnColumn;
 
 		[Column("controlledby")]
-		private string _controlleddBy;
+		private string _controlledBy;
 
 		[Column("publishedon")]
 		private DateTime _publishedOn;
@@ -126,11 +126,11 @@ namespace Roadkill.Core.Database.LightSpeed
 		{
 			get
 			{
-				return _controlleddBy;
+				return _controlledBy;
 			}
 			set
 			{
-				Set<string>(ref _controlleddBy, value);
+				Set<string>(ref _controlledBy, value);
 			}
 		}
 

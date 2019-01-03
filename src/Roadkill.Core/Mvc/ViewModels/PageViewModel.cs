@@ -337,7 +337,7 @@ namespace Roadkill.Core.Mvc.ViewModels
             if (AllComments != null && AllComments.Count != 0)
             {
                 //builder.AppendLine("<p>&nbsp;</p>");
-
+                builder.AppendLine("<hr size=2 align=left width='100 %'/>");
                 builder.AppendLine("<div class='row col-sm-8'>");
 
                 //builder.AppendLine("<div id='container-comments' class='container'>");
@@ -353,7 +353,7 @@ namespace Roadkill.Core.Mvc.ViewModels
                         {
 
                             // first the user on the left
-                            builder.AppendLine("<td style='padding:2px; width:80px; border-bottom-width:1px; border-bottom-style:solid; color:#888888;' align='center' valign='top'>");
+                            builder.AppendLine("<td style='padding:2px; width:80px; border-bottom-width:1px; border-bottom-style:solid; border-color:#dddddd; padding-top:10px' align='center' valign='top'>");
                             {
                                 string src = "/Assets/Images/letters/letter-" + CreatedBy.First().ToString().ToUpper() + ".jpg";
 
@@ -364,7 +364,7 @@ namespace Roadkill.Core.Mvc.ViewModels
                             }
 
                             // then the comment text
-                            builder.AppendLine("<td style='padding:2px; border-bottom-width:1px; border-bottom-style:solid; color:#888888;'>");
+                            builder.AppendLine("<td width='100%' style='padding:2px; border-bottom-width:1px; border-bottom-style:solid; border-color:#dddddd; padding-top:10px'>");
                             {
                                 if (comment.Rating > 0)
                                 {

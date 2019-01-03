@@ -118,92 +118,89 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Navigation_Login" xml:space="preserve">
-    <value>Login</value>
+    <value>Connexion</value>
   </data>
   <data name="Navigation_Logout" xml:space="preserve">
-    <value>Logout</value>
+    <value>Déconnexion</value>
   </data>
   <data name="Navigation_Register" xml:space="preserve">
-    <value>Register</value>
+    <value>Inscription</value>
   </data>
   <data name="Navigation_MainPage" xml:space="preserve">
-    <value>Home</value>
+    <value>Accueil</value>
   </data>
   <data name="Navigation_Categories" xml:space="preserve">
-    <value>Categories</value>
+    <value>Catégories</value>
   </data>
   <data name="Navigation_AllPages" xml:space="preserve">
-    <value>All pages</value>
+    <value>Toutes les clés</value>
   </data>
   <data name="Navigation_NewPage" xml:space="preserve">
-    <value>New page</value>
+    <value>Créer une clé</value>
   </data>
   <data name="Navigation_SiteSettings" xml:space="preserve">
-    <value>Site settings</value>
+    <value>Configuration</value>
   </data>
   <data name="Navigation_Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>Editer</value>
   </data>
   <data name="Navigation_Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Supprimer</value>
   </data>
   <data name="Navigation_History" xml:space="preserve">
-    <value>History</value>
+    <value>Historique</value>
   </data>
   <data name="Navigation_ViewHistory" xml:space="preserve">
-    <value>View History</value>
+    <value>Voir l'historique</value>
   </data>
   <data name="Button_Login" xml:space="preserve">
-    <value>Login</value>
+    <value>Connexion</value>
   </data>
   <data name="Button_Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Annuler</value>
   </data>
   <data name="Button_Save" xml:space="preserve">
-    <value>Save</value>
+    <value>Enregistrer</value>
   </data>
   <data name="Button_Preview" xml:space="preserve">
-    <value>Preview</value>
+    <value>Aperçu</value>
   </data>
   <data name="Button_Import" xml:space="preserve">
-    <value>Import</value>
+    <value>Importer</value>
   </data>
   <data name="Button_Rename" xml:space="preserve">
-    <value>Rename</value>
+    <value>Renommer</value>
   </data>
   <data name="Button_Upload" xml:space="preserve">
-    <value>Upload</value>
+    <value>Envoyer</value>
   </data>
   <data name="Button_Search" xml:space="preserve">
-    <value>Search</value>
+    <value>Chercher</value>
   </data>
   <data name="Shared_EditLink" xml:space="preserve">
-    <value>Edit</value>
+    <value>Editer</value>
   </data>
   <data name="Shared_DeleteLink" xml:space="preserve">
-    <value>Delete</value>
+    <value>Supprimer</value>
   </data>
   <data name="Shared_ConfirmLink" xml:space="preserve">
-    <value>Confirm</value>
+    <value>Confirmer</value>
   </data>
   <data name="Shared_NotLoggedIn" xml:space="preserve">
-    <value>Not logged in</value>
+    <value>Non connecté</value>
   </data>
   <data name="Shared_LoggedInAs" xml:space="preserve">
-    <value>Logged in as</value>
+    <value />
   </data>
   <data name="Shared_LastModified" xml:space="preserve">
-    <value>This page was last modified</value>
-  </data>
-  <data name="Shared_PoweredBy" xml:space="preserve">
-    <value>Powered by Roadkill Wiki</value>
+    <value>Dernière modification</value>
   </data>
   <data name="Shared_Firstname_Label" xml:space="preserve">
-    <value>First name:</value>
+    <value>Prénom :</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="Shared_Lastname_Label" xml:space="preserve">
-    <value>Last name:</value>
+    <value>Nom :</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="Shared_Username_Label" xml:space="preserve">
@@ -211,16 +208,16 @@
     <comment>Fuzzy</comment>
   </data>
   <data name="Shared_Email_Label" xml:space="preserve">
-    <value>Email:</value>
+    <value>Email :</value>
   </data>
   <data name="Shared_Password_Label" xml:space="preserve">
-    <value>Password:</value>
+    <value>Mot de passe:</value>
   </data>
   <data name="Shared_PasswordConfirm_Label" xml:space="preserve">
-    <value>Password confirm:</value>
+    <value>Confirmez le mot de passe :</value>
   </data>
   <data name="Shared_Error" xml:space="preserve">
-    <value>An error occurred:</value>
+    <value>Une erreur est survenue :</value>
   </data>
   <data name="User_Validation_Username" xml:space="preserve">
     <value>The username field is required.</value>
@@ -247,256 +244,250 @@
     <value>The password is less than {0} characters</value>
   </data>
   <data name="Login_Title" xml:space="preserve">
-    <value>Login</value>
+    <value>Connexion</value>
   </data>
   <data name="Login_ForgottenPassword" xml:space="preserve">
-    <value>Forgotten your password?</value>
+    <value>Mot de passe oublié ?</value>
   </data>
   <data name="Login_Unsuccessful_Title" xml:space="preserve">
-    <value>Login was unsuccessful</value>
+    <value>Echec de la connexion</value>
   </data>
   <data name="Login_Error" xml:space="preserve">
-    <value>The username/password is incorrect</value>
+    <value>Le nom ou le mot de passe est incorrect</value>
   </data>
   <data name="Signup_Title" xml:space="preserve">
-    <value>Register / Signup</value>
+    <value>Inscription</value>
   </data>
   <data name="Signup_Label" xml:space="preserve">
-    <value>Please enter you details below.</value>
+    <value>Veuillez saisir les informations ci-dessous.</value>
   </data>
   <data name="Button_Signup" xml:space="preserve">
-    <value>Register new user</value>
+    <value>Inscription</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="Signup_Complete_Title" xml:space="preserve">
-    <value>Signup complete.</value>
+    <value>Inscrption terminée.</value>
   </data>
   <data name="Signup_Complete_Label" xml:space="preserve">
-    <value>Thank you, an email has been sent to {0} with details on how to complete the signup.</value>
+    <value>Merci, unn mail a été envoyé à {0} pour terminer l'inscription.</value>
   </data>
   <data name="Signup_Complete_NoEmail" xml:space="preserve">
-    <value>Not received your email?</value>
+    <value>Mail non reçu ?</value>
   </data>
   <data name="Signup_Complete_EmailResent" xml:space="preserve">
-    <value>The confirmation email was resent.</value>
+    <value>Le mail de confirmation a été renvoyé.</value>
   </data>
   <data name="Button_Signup_Complete_EmailResend" xml:space="preserve">
-    <value>Resend email confirmation</value>
+    <value>Ré-envoyer le ail de confirmation</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="Signup_Error_General" xml:space="preserve">
-    <value>An error occurred with the signup.</value>
+    <value>Une erreur est survenue lors de l'inscription.</value>
   </data>
   <data name="Signup_Error_Recaptcha" xml:space="preserve">
-    <value>The two words for the anti-spam box were incorrect</value>
+    <value>Les deux mots de contrôle anti-spam sont erronés</value>
   </data>
   <data name="Activate_Title" xml:space="preserve">
-    <value>Account Activation</value>
+    <value>Activation du compte</value>
   </data>
   <data name="Activate_Success_Title" xml:space="preserve">
-    <value>Activation successful</value>
+    <value>Activation effectuée</value>
   </data>
   <data name="Activate_Error_Title" xml:space="preserve">
-    <value>Activation was unsuccessful</value>
+    <value>Echec de l'activation</value>
   </data>
   <data name="Activate_Label" xml:space="preserve">
-    <value>Your account has been sucessfully activated.</value>
+    <value>Votre compte a été créé.</value>
   </data>
   <data name="Activate_Link" xml:space="preserve">
-    <value>Click here to login</value>
+    <value>Cliquez ici pour vous connecter</value>
   </data>
   <data name="Activate_Error" xml:space="preserve">
-    <value>There was a problem activating your account. It may have already been activated.</value>
+    <value>Un problème est survenu lors de l'activation de votre compte. Depuis, il a peut-être été activé.</value>
   </data>
   <data name="ResetPassword_Title" xml:space="preserve">
-    <value>Reset your password.</value>
+    <value>Ré-initialsez votre mot de passe.</value>
   </data>
   <data name="ResetPassword_Label" xml:space="preserve">
-    <value>Enter your email below to reset your password. You will then receive an email with a link to reset your password.</value>
+    <value>Veuillez saisir votre adresse mail pour ré-initialiser le mot de passe. Ainsi vous recevrez un mail avec un lien de ré-initialisation.</value>
   </data>
   <data name="ResetPassword_Complete_Label" xml:space="preserve">
-    <value>Please enter your new password.</value>
+    <value>Veuillez saisir votre nouveau mot de passe.</value>
   </data>
   <data name="Button_ResetPassword" xml:space="preserve">
-    <value>Reset password</value>
+    <value>Renouveler le mot de passe</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="ResetPassword_Successful_Title" xml:space="preserve">
-    <value>Reset password successful.</value>
+    <value>Ré-initialisation du mot de passe effectuée.</value>
   </data>
   <data name="ResetPassword_Successful_Label" xml:space="preserve">
-    <value>Your password was sucessfully reset.</value>
+    <value>Votre mot de passe a été ré-initialisé.</value>
   </data>
   <data name="ResetPassword_Invalid_Title" xml:space="preserve">
-    <value>Reset password invalid.</value>
+    <value>Le mot de passe est invalide.</value>
   </data>
   <data name="ResetPassword_Invalid_Label" xml:space="preserve">
-    <value>The password reset key is no longer valid.</value>
+    <value>Le mot de passe temporaire n'est plus valide.</value>
   </data>
   <data name="ResetPassword_EmailSent_Title" xml:space="preserve">
-    <value>Your password reset request was sent.</value>
+    <value>Votre demande de ré-initialisation de mot de passe a été envoyée.</value>
   </data>
   <data name="ResetPassword_EmailSent_Label" xml:space="preserve">
-    <value>Thank you, an email has been sent to {0} with details on how to reset your password.</value>
+    <value>Merci, un email a été envoyé à {0} avec la méthode pour ré-initiliser le mot de passe.</value>
   </data>
   <data name="ResetPassword_Error" xml:space="preserve">
-    <value>The passwords do not match, or are too short</value>
+    <value>Les mots de passe ne correspondent pas ou sont trop court</value>
   </data>
   <data name="ResetPassword_Error_ServerError" xml:space="preserve">
-    <value>The password reset failed from a server error.</value>
+    <value>Erreur lors de la ré-initialisation du mot de passer.</value>
   </data>
   <data name="ResetPassword_Error_EmailNotFound" xml:space="preserve">
-    <value>The email address could not be found</value>
+    <value>L'adresse email n'a pas été trouvée</value>
   </data>
   <data name="ResetPassword_Error_MissingEmail" xml:space="preserve">
-    <value>Please enter an email address</value>
+    <value>Veuillez entrer une adresse mail </value>
   </data>
   <data name="Profile_Title" xml:space="preserve">
     <value>Profile</value>
   </data>
   <data name="Profile_Error" xml:space="preserve">
-    <value>An error occurred updating your profile</value>
-  </data>
-  <data name="NoMainPage_Title" xml:space="preserve">
-    <value>You have no mainpage set</value>
-  </data>
-  <data name="NoMainPage_Label" xml:space="preserve">
-    <value>To set a main page, create a page and assign the tag 'homepage' to it.</value>
+    <value>Erreur lors de l'enregistrement des modifications</value>
   </data>
   <data name="Search_PlaceHolder" xml:space="preserve">
-    <value>Enter text to search</value>
+    <value>Recherche</value>
   </data>
   <data name="Search_Results" xml:space="preserve">
-    <value>Search results for '{0}'</value>
+    <value>Résultat de recherche pour '{0}'</value>
   </data>
   <data name="Search_NoResults" xml:space="preserve">
-    <value>Your search '{0}' did not match any pages</value>
+    <value>Aucune clé trouvée pour '{0}'</value>
   </data>
   <data name="AllPages_Title" xml:space="preserve">
-    <value>All Pages</value>
+    <value>Toutes les clés</value>
   </data>
   <data name="AllPages_NoPages" xml:space="preserve">
-    <value>No pages found.</value>
+    <value>Aucune clé trouvée</value>
   </data>
   <data name="AllTags_Title" xml:space="preserve">
-    <value>All Tags</value>
+    <value>Toutes les catégories</value>
   </data>
   <data name="AllTags_NoResults" xml:space="preserve">
-    <value>No tags found.</value>
+    <value>Aucunne catégorie trouvée</value>
   </data>
   <data name="AllPages_TitleColumnHeading" xml:space="preserve">
-    <value>Title</value>
+    <value>Titre</value>
   </data>
   <data name="Pages_ForUser" xml:space="preserve">
-    <value>All pages created by {0}</value>
+    <value>Toutes les pages de {0}</value>
   </data>
   <data name="Pages_ForUser_NoPages" xml:space="preserve">
-    <value>{0} hasn't created any pages yet.</value>
+    <value>{0} n'a pas encore créé de pages.</value>
   </data>
   <data name="Pages_ForTag" xml:space="preserve">
-    <value>All pages for tag {0}</value>
+    <value>Toutes les clés de la catégorie {0}</value>
   </data>
   <data name="Pages_ForTag_NoPages" xml:space="preserve">
-    <value>No pages for {0}</value>
+    <value>Aucune clé trouvé pour {0}</value>
   </data>
   <data name="History_Title" xml:space="preserve">
-    <value>Page history</value>
+    <value>Historique de la clé</value>
   </data>
   <data name="History_Version" xml:space="preserve">
     <value>Version</value>
   </data>
   <data name="History_EditedOn" xml:space="preserve">
-    <value>Edited on</value>
+    <value>Le </value>
   </data>
   <data name="History_EditedBy" xml:space="preserve">
-    <value>Edited by</value>
+    <value>Par </value>
   </data>
   <data name="History_RevertLink" xml:space="preserve">
-    <value>Revert</value>
+    <value>Revenir</value>
   </data>
   <data name="Version_Title" xml:space="preserve">
     <value>Version {0}</value>
   </data>
   <data name="Version_BackLink" xml:space="preserve">
-    <value>back</value>
+    <value>retour</value>
   </data>
   <data name="Page_Info_CreatedOn" xml:space="preserve">
-    <value>Created on:</value>
+    <value>Créé le :</value>
   </data>
   <data name="Page_Info_CreatedBy" xml:space="preserve">
-    <value>Created by:</value>
+    <value>Créé par :</value>
   </data>
   <data name="Page_Info_PublishedOn" xml:space="preserve">
-    <value>On </value>
+    <value>Le</value>
   </data>
   <data name="Page_Info_ControlledBy" xml:space="preserve">
     <value>Last modified by:</value>
   </data>
   <data name="Page_Validation_Title" xml:space="preserve">
-    <value>The title field is required.</value>
+    <value>Le titre est obligatoire.</value>
   </data>
   <data name="EditPage_Title" xml:space="preserve">
-    <value>Add/edit page</value>
+    <value>Ajouter / éditer une clé</value>
   </data>
   <data name="EditPage_Title_Label" xml:space="preserve">
-    <value>Title</value>
+    <value>Titre</value>
   </data>
   <data name="EditPage_Tags_Label" xml:space="preserve">
-    <value>Tags</value>
+    <value>Catégorie</value>
   </data>
   <data name="EditPage_AdminOnly" xml:space="preserve">
-    <value>This page can only be edited by administrators.</value>
+    <value>Clé réservé aaux administrateurs.</value>
   </data>
   <data name="EditPage_Preview" xml:space="preserve">
-    <value>Preview</value>
+    <value>Pré-visualisation</value>
   </data>
   <data name="EditPage_LinkUrl_PlaceHolder" xml:space="preserve">
-    <value>enter url or page name</value>
+    <value>saisir le lien ou le nom de la clé</value>
   </data>
   <data name="EditPage_LinkText_PlaceHolder" xml:space="preserve">
-    <value>Link text</value>
+    <value>saisir le lien</value>
   </data>
   <data name="EditPage_Image_Title" xml:space="preserve">
-    <value>Image title</value>
+    <value>Titre de l'image</value>
   </data>
   <data name="EditPage_Error" xml:space="preserve">
-    <value>Unable to save the page:</value>
+    <value>Impossible d'enregistrer la clé :</value>
   </data>
   <data name="EditPage_Toolbar_Bold" xml:space="preserve">
-    <value>Bold</value>
+    <value>Gras</value>
   </data>
   <data name="EditPage_Toolbar_BulletList" xml:space="preserve">
-    <value>Bullet list</value>
+    <value>Liste avec puces</value>
   </data>
   <data name="EditPage_Toolbar_Heading2" xml:space="preserve">
-    <value>Heading 2</value>
+    <value>Titre 2</value>
   </data>
   <data name="EditPage_Toolbar_Heading3" xml:space="preserve">
-    <value>Heading 3</value>
+    <value>Titre 3</value>
   </data>
   <data name="EditPage_Toolbar_Heading4" xml:space="preserve">
-    <value>Heading 4</value>
+    <value>Titre 4</value>
   </data>
   <data name="EditPage_Toolbar_Heading5" xml:space="preserve">
-    <value>Heading 5</value>
+    <value>Titre 5</value>
   </data>
   <data name="EditPage_Toolbar_Help" xml:space="preserve">
-    <value>View Help reference.</value>
+    <value>Afficher la référence.</value>
   </data>
   <data name="EditPage_Toolbar_Image" xml:space="preserve">
     <value>Image</value>
   </data>
   <data name="EditPage_Toolbar_Italic" xml:space="preserve">
-    <value>Italic</value>
+    <value>Italique</value>
   </data>
   <data name="EditPage_Toolbar_Link" xml:space="preserve">
-    <value>Link</value>
+    <value>Lien</value>
   </data>
   <data name="EditPage_Toolbar_NumberList" xml:space="preserve">
-    <value>Numbered list</value>
+    <value>Liste numérotée</value>
   </data>
   <data name="EditPage_Toolbar_Underline" xml:space="preserve">
-    <value>Underline</value>
+    <value>Souligné</value>
   </data>
   <data name="SiteSettings_Configuration" xml:space="preserve">
     <value>Configuration</value>
@@ -822,60 +813,60 @@
     <value>The site url is empty.</value>
   </data>
   <data name="FileManager_Title" xml:space="preserve">
-    <value>Manage files</value>
+    <value>Gestion des fichiers</value>
   </data>
   <data name="FileManager_Upload" xml:space="preserve">
-    <value>Upload files</value>
+    <value>Envoyer les fichiers</value>
   </data>
   <data name="FileManager_AddFolder" xml:space="preserve">
-    <value>New folder</value>
+    <value>Ajouter un dossier</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="FileManager_AddFolder_Cancel" xml:space="preserve">
-    <value>Cancel new folder</value>
+    <value>Supprimer le dossier</value>
   </data>
   <data name="FileManager_Delete_File" xml:space="preserve">
-    <value>Delete File</value>
+    <value>Supprimer le fichier</value>
   </data>
   <data name="FileManager_Select" xml:space="preserve">
-    <value>Select</value>
+    <value>Sélectionner</value>
   </data>
   <data name="FileManager_Delete_Folder" xml:space="preserve">
-    <value>Delete Folder</value>
+    <value>Supprimer le dossier</value>
   </data>
   <data name="FileManager_Delete_Confirm" xml:space="preserve">
-    <value>Are you sure you want to delete {0}?</value>
+    <value>Etes vous sûr de vouloir supprimer {0}?</value>
   </data>
   <data name="FileManager_Delete_Success" xml:space="preserve">
-    <value>{0} was sucessfully deleted.</value>
+    <value>{0} a été supprimé.</value>
   </data>
   <data name="FileManager_Delete_Error" xml:space="preserve">
-    <value>An error occurred deleting {0}</value>
+    <value>Erreur lors de la suppression de {0}</value>
   </data>
   <data name="FileManager_Error_DirectoryListing" xml:space="preserve">
-    <value>An error occurred getting the directory listing: </value>
+    <value>Erreur lors de la lecture du contenu du dossier : </value>
   </data>
   <data name="FileManager_Error_DeleteFolder" xml:space="preserve">
-    <value>An error occurred deleting the folder: </value>
+    <value>Erreur lors de la suppression du dossier :</value>
   </data>
   <data name="FileManager_Error_DeleteFile" xml:space="preserve">
-    <value>An error occurred deleting the file: </value>
+    <value>Erreur lors de la suppression du fichier : </value>
   </data>
   <data name="FileManager_Error_CreateFolder" xml:space="preserve">
-    <value>An error occurred creating the folder: </value>
+    <value>Erreur lors de la créarion du dossier : </value>
   </data>
   <data name="FileManager_UploadingProgress" xml:space="preserve">
-    <value>Uploading...</value>
+    <value>Chargement...</value>
   </data>
   <data name="FileManager_Help" xml:space="preserve">
-    <value>Drag files onto the box below to upload. Double click to navigate folders.</value>
+    <value>Déplacer les fichier ici pour les charger. Double-cliquer pour ouvrir un dossier.</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="FileManager_Extension_Not_Supported" xml:space="preserve">
-    <value>Only files with the extension {0} can be uploaded.</value>
+    <value>Seuls les fichiers de type peuvent être charger.</value>
   </data>
   <data name="Homepage_Tagname" xml:space="preserve">
-    <value>homepage</value>
+    <value>Accueil</value>
   </data>
   <data name="SiteSettings_Configuration_HeadContent" xml:space="preserve">
     <value>Additional head tag content</value>
@@ -920,10 +911,10 @@
     <value>When checked, an error is displayed when a page fails to be indexed by the Lucene search engine (when creating or updating a page), instead of being ignored.</value>
   </data>
   <data name="FileManager_Upload_FileAlreadyExists" xml:space="preserve">
-    <value>The file '{0}' already exists.</value>
+    <value>Le fichier '{0}' existe déjà.</value>
   </data>
   <data name="History_Help_Label" xml:space="preserve">
-    <value>Click on a version number to compare the changes with version before it.</value>
+    <value>Cliquer sur une version pour comparer avec la précédente.</value>
   </data>
   <data name="SiteSettings_Configuration_Required_Field" xml:space="preserve">
     <value>This field is required.</value>
@@ -932,40 +923,40 @@
     <value>Test</value>
   </data>
   <data name="Shared_Success" xml:space="preserve">
-    <value>Success!</value>
+    <value>Succès !</value>
   </data>
   <data name="Shared_Failure" xml:space="preserve">
-    <value>Failure!</value>
+    <value>Erreur !</value>
   </data>
   <data name="DatabaseConnection_Success" xml:space="preserve">
-    <value>The database connection was successful.</value>
+    <value>Succès de connexion à la BDD.</value>
   </data>
   <data name="DatabaseConnection_Failure" xml:space="preserve">
-    <value>Database connection failed:</value>
+    <value>Echec de connexion à la BDD :</value>
   </data>
   <data name="Button_Add" xml:space="preserve">
-    <value>Add</value>
+    <value>Ajouter</value>
   </data>
   <data name="Attachments_Folder_Success" xml:space="preserve">
     <value>Success! The directory exists and can be written to.</value>
   </data>
   <data name="Attachments_Folder_Failure" xml:space="preserve">
-    <value>Unable to write to the attachments directory: </value>
+    <value>Unable to write to the attachments directory : </value>
   </data>
   <data name="Shared_Unexpected_Error" xml:space="preserve">
-    <value>Something went wrong</value>
+    <value>Un probléme est survenu</value>
   </data>
   <data name="Profile_Not_Available" xml:space="preserve">
     <value>Windows authentication is enabled, so the user profile is not available.</value>
   </data>
   <data name="Profile_Password_Change_Successful" xml:space="preserve">
-    <value>The password was successfully changed</value>
+    <value>Le mot de passe a été modifié</value>
   </data>
   <data name="Profile_Details_Updated_Successfully" xml:space="preserve">
-    <value>The profile details were successfully updated.</value>
+    <value>Les modifications ont été enregistrées.</value>
   </data>
   <data name="Profile_Leave_Password_Blank" xml:space="preserve">
-    <value>Leave the password fields blank if you do not want to change your password.</value>
+    <value>Laisser le champ mot de passe vide si vous ne souhaitez pas le modifier.</value>
   </data>
   <data name="SiteSettings_Cache_Clear_Successful" xml:space="preserve">
     <value>All caches were successfully cleared.</value>
@@ -997,7 +988,7 @@
     <value>As an anti-spam measure, please enter the two words below</value>
   </data>
   <data name="Button_Close" xml:space="preserve">
-    <value>Close</value>
+    <value>Fermer</value>
   </data>
   <data name="SiteSettings_Cache_Site_Cache" xml:space="preserve">
     <value>Site cache</value>
@@ -1006,232 +997,214 @@
     <value>The object cache is not currently enabled.</value>
   </data>
   <data name="Button_Confirm" xml:space="preserve">
-    <value>Confirm</value>
+    <value>Confirmer</value>
   </data>
   <data name="Page_Info_NbRating" xml:space="preserve">
-    <value>Average ratings:</value>
+    <value>Moyenne des notes :</value>
   </data>
   <data name="Page_Info_NbView" xml:space="preserve">
-    <value>views</value>
+    <value>vues</value>
   </data>
   <data name="Page_Info_TotalRating" xml:space="preserve">
-    <value>Number of ratings:</value>
+    <value>Nombre de notes :</value>
   </data>
   <data name="Navigation_AllNewPages" xml:space="preserve">
-    <value>New pages</value>
+    <value>Nouvelles clés</value>
     <comment>for pages to be controlled</comment>
   </data>
   <data name="Shared_RejectLink" xml:space="preserve">
-    <value>Reject</value>
+    <value>Décliner</value>
   </data>
   <data name="Shared_ValidateLink" xml:space="preserve">
-    <value>Validate</value>
+    <value>Valider</value>
   </data>
   <data name="AllMyPages_Title" xml:space="preserve">
-    <value>My Pages</value>
+    <value>Mes clés</value>
   </data>
   <data name="Alerts_Title" xml:space="preserve">
-    <value>View Alerts</value>
+    <value>Alertes de clés</value>
   </data>
   <data name="AllNewPages_Title" xml:space="preserve">
-    <value>New Pages</value>
+    <value>Nouvelles clés</value>
   </data>
   <data name="Navigation_MyPages" xml:space="preserve">
-    <value>My pages</value>
+    <value>Mes clés</value>
   </data>
   <data name="Navigation_Alerts" xml:space="preserve">
-    <value>Alerts</value>
+    <value>Alertes</value>
   </data>
   <data name="Shared_RemoveAlertsLink" xml:space="preserve">
-    <value>Remove alerts</value>
+    <value>Supprimer les alertes</value>
   </data>
   <data name="Page_Add_Your_Comment" xml:space="preserve">
-    <value>Add a comment</value>
+    <value>Ajouter un commentaire</value>
   </data>
   <data name="Page_Info_Draft" xml:space="preserve">
-    <value>Draft</value>
+    <value>Ebauche</value>
   </data>
   <data name="Page_Info_Published" xml:space="preserve">
-    <value>Published</value>
+    <value>Publiée</value>
   </data>
   <data name="Page_Info_Submitted" xml:space="preserve">
-    <value>Submitted</value>
+    <value>Soumis</value>
   </data>
   <data name="Shared_SubmitLink" xml:space="preserve">
-    <value>Submit</value>
+    <value>Soumettre</value>
   </data>
   <data name="Page_Info_CreatedBy2" xml:space="preserve">
-    <value>By</value>
+    <value>Par</value>
   </data>
   <data name="Page_Info_On" xml:space="preserve">
-    <value>, on:</value>
+    <value>, le </value>
   </data>
   <data name="Button_Validate" xml:space="preserve">
-    <value>Validate</value>
+    <value>Valider</value>
   </data>
   <data name="ControlPage_Title" xml:space="preserve">
-    <value>Control page</value>
-  </data>
-  <data name="Shared_ControlLink" xml:space="preserve">
-    <value>Control</value>
+    <value>Contrôler la clé</value>
   </data>
   <data name="Button_Reject" xml:space="preserve">
-    <value>Reject</value>
+    <value>Rejeter</value>
   </data>
   <data name="EditPage_IsVideo_Label" xml:space="preserve">
-    <value>This page is for a video ?</value>
-  </data>
-  <data name="EditPage_Summary_Label" xml:space="preserve">
-    <value>Summary</value>
+    <value>Cette clé est une vidéo</value>
   </data>
   <data name="EditPage_VideoUrl_Label" xml:space="preserve">
-    <value>Address of the video</value>
+    <value>Lien vers la vidéo</value>
   </data>
   <data name="Comment_Title" xml:space="preserve">
-    <value>Comment</value>
+    <value>Commentaire</value>
   </data>
   <data name="Button_Submit" xml:space="preserve">
-    <value>Submit</value>
-  </data>
-  <data name="CommentPage_Title" xml:space="preserve">
-    <value>Rate and Comment</value>
+    <value>Soumettre</value>
   </data>
   <data name="Rate_Title" xml:space="preserve">
-    <value>Rate</value>
+    <value>Noter</value>
   </data>
   <data name="Rating_level1" xml:space="preserve">
-    <value>Unclear</value>
+    <value>Pas clair</value>
   </data>
   <data name="Rating_level2" xml:space="preserve">
-    <value>Simple</value>
+    <value>Bof</value>
   </data>
   <data name="Rating_level3" xml:space="preserve">
-    <value>Interesting</value>
+    <value>Intéressant</value>
   </data>
   <data name="Rating_level4" xml:space="preserve">
-    <value>Great, very useful</value>
+    <value>Super, très utile</value>
   </data>
   <data name="Rating_level5" xml:space="preserve">
-    <value>Excellent, unforgetable</value>
+    <value>Excellent, inoubliable</value>
   </data>
   <data name="Shared_DraftLink" xml:space="preserve">
-    <value>Draft</value>
+    <value>Ebauche</value>
   </data>
   <data name="EditPage_CopiedFromOtherSite" xml:space="preserve">
-    <value>This page is copied from another web site.</value>
+    <value>Clé copié d'un autre site</value>
   </data>
   <data name="EditPage_Pseudonym" xml:space="preserve">
-    <value>Pseudonym</value>
+    <value>Pseudonyme</value>
   </data>
   <data name="Shared_PublishLink" xml:space="preserve">
-    <value>Publish</value>
+    <value>Publier</value>
   </data>
   <data name="MyPages_Status_Title" xml:space="preserve">
-    <value>Status</value>
+    <value>Etat</value>
   </data>
   <data name="Page_Info_NbViews" xml:space="preserve">
-    <value>views=</value>
+    <value>vues=</value>
   </data>
   <data name="Page_Info_Rejected" xml:space="preserve">
-    <value>Rejected</value>
+    <value>Décliné</value>
   </data>
   <data name="Page_Link_Rate" xml:space="preserve">
-    <value>Rate</value>
+    <value>Noter</value>
   </data>
   <data name="Page_Link_Unrate" xml:space="preserve">
-    <value>Cancel rating</value>
+    <value>Supprimer ma notation</value>
   </data>
   <data name="Button_Remove" xml:space="preserve">
-    <value>Remove</value>
+    <value>Supprimer</value>
   </data>
   <data name="Comment_Be_The_First" xml:space="preserve">
-    <value>Be the first to comment</value>
+    <value>Soyez le premier à commenter</value>
   </data>
   <data name="Comment_Info_PublishedOn" xml:space="preserve">
-    <value>Added on </value>
+    <value>Ajouté le </value>
   </data>
   <data name="Comment_Link" xml:space="preserve">
-    <value>Comment</value>
+    <value>Commentaire</value>
   </data>
   <data name="Comment_Remove_Link" xml:space="preserve">
-    <value>Remove my comment</value>
+    <value>Supprimer mon commentaire</value>
   </data>
   <data name="Page_Comments_Title" xml:space="preserve">
-    <value>Comments</value>
+    <value>Commentaires</value>
   </data>
   <data name="Page_Info_My_Rating" xml:space="preserve">
-    <value>My rating:</value>
+    <value>Ma note :</value>
   </data>
   <data name="Page_Remove_Comment" xml:space="preserve">
-    <value>Remove my comment</value>
+    <value>Supprimer monn commentaire</value>
   </data>
   <data name="MyPages_Action_Title" xml:space="preserve">
     <value>Action</value>
   </data>
   <data name="Comment_Enter_Comment" xml:space="preserve">
-    <value>Enter you comment</value>
-  </data>
-  <data name="Page_Info_My_Comment" xml:space="preserve">
-    <value>My comment</value>
+    <value>Saisissez votre commentaire</value>
   </data>
   <data name="Page_Info_My_Comment_2" xml:space="preserve">
-    <value>My comment:</value>
+    <value>Mon commentaire :</value>
   </data>
   <data name="Rating_added" xml:space="preserve">
-    <value>Rating added</value>
+    <value>Note ajoutée</value>
   </data>
   <data name="Rating_removed" xml:space="preserve">
-    <value>Rating removed</value>
+    <value>Votre note a été supprimée</value>
   </data>
   <data name="Shared_Back_Link" xml:space="preserve">
-    <value>Back</value>
+    <value>Retour</value>
   </data>
   <data name="Shared_Control_Link" xml:space="preserve">
-    <value>Control</value>
+    <value>Contrôler</value>
   </data>
   <data name="Shared_ViewLink" xml:space="preserve">
-    <value>View</value>
+    <value>Vue</value>
   </data>
   <data name="EditPage_Video_description" xml:space="preserve">
-    <value>Description of the video</value>
-  </data>
-  <data name="Page_Add_Comment_Login_Confirm" xml:space="preserve">
-    <value>Adding comments needs login. Do you want to login ?</value>
-  </data>
-  <data name="Page_Add_Rating_Login_Confirm" xml:space="preserve">
-    <value>Rating needs login. Do you want to login ?</value>
+    <value>Description de la vidéo</value>
   </data>
   <data name="Shared_Yes_Link" xml:space="preserve">
-    <value>Yes</value>
+    <value>Oui</value>
   </data>
   <data name="Navigation_About_Explik" xml:space="preserve">
-    <value>About Explik</value>
+    <value>A propos d'Explik</value>
   </data>
   <data name="Navigation_Contact" xml:space="preserve">
     <value>Contact</value>
   </data>
   <data name="Navigation_Disclaimers" xml:space="preserve">
-    <value>Disclaimers</value>
+    <value>Avertissements</value>
   </data>
   <data name="Navigation_Privacy_Policy" xml:space="preserve">
-    <value>Privacy policy</value>
+    <value>Politique de confidentialité</value>
   </data>
   <data name="Navigation_Top" xml:space="preserve">
-    <value>Top</value>
+    <value>Haut</value>
   </data>
   <data name="Gallery_Best_Rated" xml:space="preserve">
-    <value>Best rated</value>
+    <value>Meilleures notes</value>
   </data>
   <data name="Gallery_Last_Publications" xml:space="preserve">
-    <value>Last publications</value>
+    <value>Dernières publications</value>
   </data>
   <data name="Comment_Login_Before" xml:space="preserve">
-    <value>Please, log in before adding a comment</value>
+    <value>Veuillez vous connecter pour ajouter un commentaire</value>
   </data>
   <data name="Rating_Login_Before" xml:space="preserve">
-    <value>Please, log in before rating</value>
+    <value>Veuillez vous connecter pour noter</value>
   </data>
   <data name="MyPage_Status" xml:space="preserve">
-    <value>State :</value>
+    <value>Etat :</value>
   </data>
 </root>

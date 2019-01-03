@@ -141,8 +141,11 @@ $(document).ready(function () {
                     var span = $("#ratings");
                     $("#current-rating").val(newRating);
                     $(".rating.stars").css("background-image", 'url("/Assets/CSS/images/grey-yellow-24.png")');
-                    $("#submit-rating").css("display", "inline");
-                    document.getElementById("submit-rating").text = $("#text-unrate").attr("value");
+                    $("#submit-rating").css("display", "none"); //prevents multiple clicks
+                    setTimeout(function () {
+                        $("#submit-rating").css("display", "inline");
+                        document.getElementById("submit-rating").text = $("#text-unrate").attr("value");
+                    }, 5000);
                 }
                 else {
                     toastr.success($("#rating-removed").attr("value"));

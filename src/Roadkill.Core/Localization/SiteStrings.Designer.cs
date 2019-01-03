@@ -997,6 +997,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à State :.
+        /// </summary>
+        public static string MyPage_Status {
+            get {
+                return ResourceManager.GetString("MyPage_Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Action.
         /// </summary>
         public static string MyPages_Action_Title {

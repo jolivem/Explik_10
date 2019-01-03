@@ -402,6 +402,11 @@
     <Compile Include="Cache\SiteCache.cs" />
     <Compile Include="Export\WikiExporter.cs" />
     <Compile Include="Extensions\UrlHelperExtensions.cs" />
+    <Compile Include="Localization\SiteStrings.fr.Designer.cs">
+      <DependentUpon>SiteStrings.fr.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Mvc\Attributes\ControllerRequiredAttribute.cs" />
     <Compile Include="Mvc\Attributes\IAuthorizationAttribute.cs" />
     <Compile Include="Mvc\Controllers\ConfigurationTesterController.cs" />
@@ -644,6 +649,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Localization\InstallStrings.ru.resx" />
     <EmbeddedResource Include="Localization\InstallStrings.sv.resx" />
+    <EmbeddedResource Include="Localization\SiteStrings.fr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SiteStrings.fr.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Localization\SiteStrings.cs.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -183,11 +183,19 @@ namespace Roadkill.Core.Mvc.Controllers
         }
 
         [EditorRequired]
-        public ActionResult Draft(int id)
+        public ActionResult Draft(int id, string view)
         {
             _repository.SetDraft(id);
 
-            return RedirectToAction("MyPages");
+            if (view.ToLower() == "mypages")
+            {
+                return RedirectToAction("MyPages");
+            }
+            //if (view == "MyPage")
+            //{
+                return RedirectToAction("Index", "Wiki", new { id });
+            //}
+
         }
 
         /// <summary>
@@ -197,7 +205,7 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <returns>Redirects to AllPages action.</returns>
         /// <remarks>This action requires admin rights.</remarks>
         [EditorRequired]
-        public ActionResult Submit(int id)
+        public ActionResult Submit(int id, string view)
         {
             if (Context.IsAdmin)
             {
@@ -209,7 +217,13 @@ namespace Roadkill.Core.Mvc.Controllers
                 _repository.SubmitPage(id);
             }
 
-            return RedirectToAction("MyPages");
+            if (view.ToLower() == "mypages")
+            {
+                return RedirectToAction("MyPages");
+            }
+            
+            //if (view == "MyPage")
+            return RedirectToAction("Index", "Wiki", new { id });
         }
 
         /// <summary>

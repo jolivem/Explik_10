@@ -35,9 +35,9 @@
             @if (RoadkillContext.IsLoggedIn)
             {
                 <!-- <td class="view" style="padding:4px;">@Html.ActionLink(SiteStrings.Shared_ViewLink, "Index", "Wiki", new { id = pageModel.Id }, new { @class = "btn btn-xs btn-primary right"})</td> -->
-                <td class="edit" style="padding:4px;">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", new { id = pageModel.Id }, new { @class = "btn btn-xs btn-primary " + @pageModel.EditBtnDisable + " right"})</td>
-                <td class="submit" style="padding:4px;">@Html.ActionLink(SiteStrings.Shared_SubmitLink, "Submit", new { id = pageModel.Id }, new { @class = "btn btn-xs btn-primary " + @pageModel.SubmitBtnDisable + " right" })</td>
-                <td class="draft" style="padding:4px;">@Html.ActionLink(SiteStrings.Shared_DraftLink, "Draft", new { id = pageModel.Id }, new { @class = "btn btn-xs btn-primary " + @pageModel.DraftBtnDisable + " right" })</td>
+                <td class="edit" style="padding:4px;">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", new { id = pageModel.Id}, new { @class = "btn btn-xs btn-primary " + @pageModel.EditBtnDisable + " right"})</td>
+                <td class="submit" style="padding:4px;">@Html.ActionLink(SiteStrings.Shared_SubmitLink, "Submit", new { id = pageModel.Id, view = "MyPages" }, new { @class = "btn btn-xs btn-primary " + @pageModel.SubmitBtnDisable + " right" })</td>
+                <td class="draft" style="padding:4px;">@Html.ActionLink(SiteStrings.Shared_DraftLink, "Draft", new { id = pageModel.Id, view = "MyPages" }, new { @class = "btn btn-xs btn-primary " + @pageModel.DraftBtnDisable + " right" })</td>
             }
         </tr>
         }
