@@ -11,6 +11,8 @@ namespace Roadkill.Core.Database
         void DeletPageAlerts(int pageId);
         void DeletCommentAlerts(Guid commentId);
         IEnumerable<Alert> FindAlertsByPage(int pageId);
+        Alert FindAlertByPageAndUser(int pageId, string usernamme);
+        void DeletPageAlertsByUser(int pageId, string username);
         IEnumerable<Alert> FindAlertsByComment(Guid commentGuid);
         void AddAlert(Alert alert);
     }

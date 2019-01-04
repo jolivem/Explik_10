@@ -1045,7 +1045,7 @@
   <data name="Shared_RemoveAlertsLink" xml:space="preserve">
     <value>Remove alerts</value>
   </data>
-  <data name="Page_Add_Your_Comment" xml:space="preserve">
+  <data name="Page_Add_Comment" xml:space="preserve">
     <value>Add a comment</value>
   </data>
   <data name="Page_Info_Draft" xml:space="preserve">
@@ -1254,5 +1254,50 @@
   </data>
   <data name="String1" xml:space="preserve">
     <value />
+  </data>
+  <data name="Alert_Controversial" xml:space="preserve">
+    <value>Controversial</value>
+  </data>
+  <data name="Alert_Disrespectful" xml:space="preserve">
+    <value>Disrespectful</value>
+  </data>
+  <data name="Alert_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Alert_Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Alert_Publicity" xml:space="preserve">
+    <value>Publicity</value>
+  </data>
+  <data name="Alert_Reason_Controversial" xml:space="preserve">
+    <value>Content is controversial</value>
+  </data>
+  <data name="Alert_Reason_Disrespectful" xml:space="preserve">
+    <value>Disrespectful</value>
+  </data>
+  <data name="Alert_Reason_Language" xml:space="preserve">
+    <value>Bad language usage</value>
+  </data>
+  <data name="Alert_Reason_Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Alert_Reason_Publicity" xml:space="preserve">
+    <value>Contains publicity</value>
+  </data>
+  <data name="Comment_Alert_link" xml:space="preserve">
+    <value>Alerter</value>
+  </data>
+  <data name="Page_Alert_Link" xml:space="preserve">
+    <value>Alerter</value>
+  </data>
+  <data name="Page_Alert_Removed" xml:space="preserve">
+    <value>Alert removed</value>
+  </data>
+  <data name="Page_Remove_Alert" xml:space="preserve">
+    <value>Remove my alert </value>
+  </data>
+  <data name="Page_Select_Alert" xml:space="preserve">
+    <value>Select the reason of the alert</value>
   </data>
 </root>

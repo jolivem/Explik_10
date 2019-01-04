@@ -115,6 +115,96 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Controversial.
+        /// </summary>
+        public static string Alert_Controversial {
+            get {
+                return ResourceManager.GetString("Alert_Controversial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Disrespectful.
+        /// </summary>
+        public static string Alert_Disrespectful {
+            get {
+                return ResourceManager.GetString("Alert_Disrespectful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Language.
+        /// </summary>
+        public static string Alert_Language {
+            get {
+                return ResourceManager.GetString("Alert_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Other.
+        /// </summary>
+        public static string Alert_Other {
+            get {
+                return ResourceManager.GetString("Alert_Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Publicity.
+        /// </summary>
+        public static string Alert_Publicity {
+            get {
+                return ResourceManager.GetString("Alert_Publicity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Content is controversial.
+        /// </summary>
+        public static string Alert_Reason_Controversial {
+            get {
+                return ResourceManager.GetString("Alert_Reason_Controversial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Disrespectful.
+        /// </summary>
+        public static string Alert_Reason_Disrespectful {
+            get {
+                return ResourceManager.GetString("Alert_Reason_Disrespectful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Bad language usage.
+        /// </summary>
+        public static string Alert_Reason_Language {
+            get {
+                return ResourceManager.GetString("Alert_Reason_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Other.
+        /// </summary>
+        public static string Alert_Reason_Other {
+            get {
+                return ResourceManager.GetString("Alert_Reason_Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Contains publicity.
+        /// </summary>
+        public static string Alert_Reason_Publicity {
+            get {
+                return ResourceManager.GetString("Alert_Reason_Publicity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à View Alerts.
         /// </summary>
         public static string Alerts_Title {
@@ -417,6 +507,15 @@ namespace Roadkill.Core.Localization {
         public static string ChooseImage_Title {
             get {
                 return ResourceManager.GetString("ChooseImage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Alerter.
+        /// </summary>
+        public static string Comment_Alert_link {
+            get {
+                return ResourceManager.GetString("Comment_Alert_link", resourceCulture);
             }
         }
         
@@ -1276,6 +1375,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Add a comment.
+        /// </summary>
+        public static string Page_Add_Comment {
+            get {
+                return ResourceManager.GetString("Page_Add_Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Adding comments needs login. Do you want to login ?.
         /// </summary>
         public static string Page_Add_Comment_Login_Confirm {
@@ -1294,11 +1402,20 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Add a comment.
+        ///   Recherche une chaîne localisée semblable à Alerter.
         /// </summary>
-        public static string Page_Add_Your_Comment {
+        public static string Page_Alert_Link {
             get {
-                return ResourceManager.GetString("Page_Add_Your_Comment", resourceCulture);
+                return ResourceManager.GetString("Page_Alert_Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Alert removed.
+        /// </summary>
+        public static string Page_Alert_Removed {
+            get {
+                return ResourceManager.GetString("Page_Alert_Removed", resourceCulture);
             }
         }
         
@@ -1483,11 +1600,29 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Remove my alert .
+        /// </summary>
+        public static string Page_Remove_Alert {
+            get {
+                return ResourceManager.GetString("Page_Remove_Alert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Remove my comment.
         /// </summary>
         public static string Page_Remove_Comment {
             get {
                 return ResourceManager.GetString("Page_Remove_Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Select the reason of the alert.
+        /// </summary>
+        public static string Page_Select_Alert {
+            get {
+                return ResourceManager.GetString("Page_Select_Alert", resourceCulture);
             }
         }
         

@@ -228,4 +228,63 @@ $(document).ready(function () {
 
             });
     });
+
+    $("#alert1").click(function () {
+        setAlertValue();
+    });
+
+    $("#alert2").click(function () {
+        setAlertValue();
+    });
+
+    $("#alert3").click(function () {
+        setAlertValue();
+    });
+
+    $("#alert4").click(function () {
+        setAlertValue();
+    });
+
+    $("#alert5").click(function () {
+        setAlertValue();
+    });
+
+    function setAlertValue() {
+        var radios = document.getElementsByName('optalert');
+
+        for (var i = 0, length = radios.length; i < length; i++) {
+            if (radios[i].checked) {
+                $("#alerttype").val(radios[i].value);
+                break;
+            }
+        }
+    }
+    $("#remove-alert").click(function () {
+
+        var pID = $("#page-view").attr("pageid");
+
+        $.ajax({
+            type: "POST",
+            url: "/Pages/PageRemoveAlert",
+            data: { id: pID},
+            success: function (response) {
+                toastr.success($("#alert-removed").attr("value"));
+                $("#remove-alert").hide();
+                setTimeout(function () {
+                    var elmt = $("#pagealert-link");
+                    elmt.toggle();
+                    elmt.css("visibility", "visible")
+                }, 3000);
+            },
+            failure: function (response) {
+                alert("failure");
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+
+        });
+    });
+
+
 });

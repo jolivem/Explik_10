@@ -762,6 +762,11 @@ namespace Roadkill.Core.Database.LightSpeed
             entity.IsRejected = false;
             UnitOfWork.SaveChanges();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="commentId"></param>
         public void ValidateComment(Guid commentId)
         {
             CommentEntity entity = Comment.Where(x => x.Id == commentId).Single();
@@ -770,6 +775,10 @@ namespace Roadkill.Core.Database.LightSpeed
             UnitOfWork.SaveChanges();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="commentId"></param>
         public void RejectComment(Guid commentId)
         {
             CommentEntity entity = Comment.Where(x => x.Id == commentId).Single();
@@ -882,6 +891,16 @@ namespace Roadkill.Core.Database.LightSpeed
             return FromEntity.ToAlertList(entities);
         }
 
+        public Alert FindAlertByPageAndUser(int pageId, string username)
+        {
+            AlertEntity entitie = Alerts.Where(x => x.PageId == pageId && x.CreatedBy == username).FirstOrDefault();
+            if (entitie != null)
+            {
+                return FromEntity.ToAlert(entitie);
+            }
+            return null;
+        }
+
         public IEnumerable<Alert> FindAlertsByComment(Guid commentGuid)
         {
             List<AlertEntity> entities = Alerts.Where(x => x.CommentId == commentGuid).ToList();
@@ -903,6 +922,16 @@ namespace Roadkill.Core.Database.LightSpeed
 	        {
                 UnitOfWork.Remove(entity);
 	        }
+            UnitOfWork.SaveChanges();
+        }
+
+        public void DeletPageAlertsByUser(int pageId, string username)
+        {
+            List<AlertEntity> entities = Alerts.Where(x => x.PageId == pageId && x.CreatedBy == username).ToList();
+            foreach (var entity in entities)
+            {
+                UnitOfWork.Remove(entity);
+            }
             UnitOfWork.SaveChanges();
         }
 

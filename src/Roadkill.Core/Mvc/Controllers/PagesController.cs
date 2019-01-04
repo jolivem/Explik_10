@@ -501,32 +501,7 @@ namespace Roadkill.Core.Mvc.Controllers
 			return View(model);
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id">The ID of the page to edit.</param>
-        /// <returns>An filled <see cref="PageViewModel"/> as the model. If the page id cannot be found, the action
-        /// redirects to the New page.</returns>
-        /// <remarks>This action requires editor rights.</remarks>
-        //[EditorRequired] //TODO controller required
-        //public ActionResult Valid(int id)
-        //{
-        //    PageViewModel model = _pageService.GetById(id, true);
 
-        //    if (model != null)
-        //    {
-        //        if (model.IsLocked && !Context.IsAdmin)
-        //            return new HttpStatusCodeResult(403, string.Format("The page '{0}' can only be edited by administrators.", model.Title));
-
-        //        model.AllTags = _pageService.AllTags().ToList();
-
-        //        return View("Edit", model);
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("New");
-        //    }
-        //}
         /// <summary>
         /// Displays the edit View for the page provided in the id.
         /// </summary>
@@ -587,11 +562,21 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <returns>An filled <see cref="PageViewModel"/> as the model. If the page id cannot be found, the action
         /// redirects to the New page.</returns>
         /// <remarks>This action requires editor rights.</remarks>
-        public ActionResult PageAlert(int id)
+        [HttpPost]
+        public ActionResult PageAlert(int id, string alerttype)
         {
-            Alert alert = new Alert(id, Context.CurrentUsername);
+            string ip = _pageService.GetUserIp();
+            Alert alert = new Alert(id, ip, alerttype);
             _pageService.AddAlert(alert);
-            return Content("Alert taken into account", MediaTypeNames.Text.Plain);
+            return RedirectToAction("Index", "Wiki", new { id });
+        }
+
+        [HttpPost]
+        public ActionResult PageRemoveAlert(int id)
+        {
+            string ip = _pageService.GetUserIp();
+            _repository.DeletPageAlertsByUser(id, ip);
+            return RedirectToAction("Index", "Wiki", new { id });
         }
 
         /// <summary>
@@ -599,9 +584,10 @@ namespace Roadkill.Core.Mvc.Controllers
         /// </summary>
         /// <param name="commenGuid"></param>
         /// <returns></returns>
+        [HttpPost]
         public ActionResult CommentAlert(Guid commenGuid)
         {
-            Alert alert = new Alert(commenGuid, Context.CurrentUsername);
+            Alert alert = new Alert(commenGuid, Context.CurrentUsername, "");
             _pageService.AddAlert(alert);
             return Content("Alert taken into account", MediaTypeNames.Text.Plain);
         }
@@ -662,24 +648,6 @@ namespace Roadkill.Core.Mvc.Controllers
             // TODO redirect strange because it is an ajax post
             return RedirectToAction("Index", "Wiki");
         }
-
-        //[HttpPost]
-        //[ValidateInput(false)]
-        //public ActionResult Validate(int id)
-        //{
-        //    //if (!ModelState.IsValid)
-        //    //    return View("Rate", model); //TODO check if hack the address !!!!
-
-        //    // update controller
-        //    // update date
-        //    string sRating = Request.Form["rating"];
-        //    int iRating = Int32.Parse(sRating);
-        //    _pageService.ValidatePage(id, Context.CurrentUsername, iRating); //TODO check now or UTCNow
-        //    //_pageService.UpdatePage(id); // update tags TODO
-        //    //TODO send a mail
-
-        //    return RedirectToAction("AllNewPages", "Pages");
-        //}
     }
 }
 

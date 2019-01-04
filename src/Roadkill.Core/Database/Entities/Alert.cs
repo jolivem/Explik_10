@@ -25,6 +25,7 @@ namespace Roadkill.Core.Database
         public string CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public Guid CommentId { get; set; }
+        public string Ilk { get; set; }
 
         /// <summary>
         /// The unique id for this object, this is the same as the <see cref="Id"/> property.
@@ -42,6 +43,7 @@ namespace Roadkill.Core.Database
             CreatedBy = "";
             CreatedOn = DateTime.Now;
             CommentId = Guid.Empty;
+            Ilk = "";
         }
 
         /// <summary>
@@ -49,26 +51,28 @@ namespace Roadkill.Core.Database
         /// </summary>
         /// <param name="pageId"></param>
         /// <param name="createdBy"></param>
-        public Alert(int pageId, string createdBy)
+        public Alert(int pageId, string createdBy, string type)
         {
             Id = new Guid();
             PageId = pageId;
             CommentId = Guid.Empty;
             CreatedBy = createdBy;
             CreatedOn = DateTime.Now;
+            Ilk = type;
         }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="commentId"></param>
         /// <param name="createdBy"></param>
-        public Alert(Guid commentId, string createdBy)
+        public Alert(Guid commentId, string createdBy, string type)
         {
             Id = new Guid();
             PageId = 0;
             CommentId = commentId;
             CreatedBy = createdBy;
             CreatedOn = DateTime.Now;
+            Ilk = type;
         }
     }
 }

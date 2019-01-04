@@ -238,5 +238,13 @@ namespace Roadkill.Core.Services
         /// <param name="currentUsername"></param>
         /// <returns></returns>
         int GetPageRatingFromUser(int id, string username);
-	}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        string GetUserIp();
+
+
+    }
 }

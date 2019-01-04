@@ -83,5 +83,6 @@ CREATE TABLE explik_alerts
   "pageid" INTEGER, 
   "commentid" UUID,
   "createdby" TEXT NOT NULL, 
-  "createdon" TIMESTAMP(20) WITHOUT TIME ZONE
+  "createdon" TIMESTAMP(20) WITHOUT TIME ZONE,
+  "ilk" TEXT NOT NULL
 );

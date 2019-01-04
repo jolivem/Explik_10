@@ -8,15 +8,32 @@
                 <h4 class="default-header">@Model.Title</h4>
             </div>
 
-            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+
+            @Html.Hidden("id", Model.Id)
+
+            @using (Html.BeginForm("PageAlert", "Pages", FormMethod.Post))
             {
                 <div class="modal-body">
-                    <label for="HeadContent">@SiteStrings.Page_Add_Your_Comment</label>
-                    <textarea id="commentarea" name="commentarea" tabindex="0" class="form-control" rows="6" cols="20" rel="popover" data-content="Any additional HTML or scripts you enter here will be added to the &amp;lt;head&amp;gt; tag of the page." placeholder="Enter a comment - optional"></textarea> <!--localization-->
+                    <label for="HeadContent">@SiteStrings.Page_Select_Alert</label>
+                    <input id="alerttype" type="hidden" name="alerttype" value="@SiteStrings.Alert_Language">
+                    <div class="radio">
+                        <label><input type="radio" id="alert1" name="optalert" value="@SiteStrings.Alert_Language" checked>@SiteStrings.Alert_Reason_Language</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" id="alert2" name="optalert" value="@SiteStrings.Alert_Publicity">@SiteStrings.Alert_Reason_Publicity</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" id="alert3" name="optalert" value="@SiteStrings.Alert_Disrespectful">@SiteStrings.Alert_Reason_Disrespectful</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" id="alert4" name="optalert" value="@SiteStrings.Alert_Controversial">@SiteStrings.Alert_Reason_Controversial</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" id="alert5" name="optalert" value="@SiteStrings.Alert_Other">@SiteStrings.Alert_Reason_Other</label>
+                    </div>
                 </div>
-
                 <div class="modal-footer">
-                    <button id="buttonrating" type="button" data-dismiss="modal" class="btn btn-primary">@SiteStrings.Button_Confirm</button>
+                    <input type="submit" id="btnSubmit" class="btn btn-primary right" value="@SiteStrings.Button_Submit" />
                 </div>
             }
         </div>

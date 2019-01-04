@@ -19,6 +19,9 @@ namespace Roadkill.Core.Database.LightSpeed
         [Column("createdon")]
         private DateTime _createdon;
 
+        [Column("ilk")]
+        private string _ilk;
+
         public int PageId
         {
             get
@@ -40,6 +43,18 @@ namespace Roadkill.Core.Database.LightSpeed
             set
             {
                 Set<string>(ref _createdby, value);
+            }
+        }
+
+        public string Ilk
+        {
+            get
+            {
+                return _ilk;
+            }
+            set
+            {
+                Set<string>(ref _ilk, value);
             }
         }
 

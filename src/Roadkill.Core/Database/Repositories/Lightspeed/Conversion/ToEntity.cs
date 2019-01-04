@@ -52,6 +52,7 @@ namespace Roadkill.Core.Database.LightSpeed
             entity.CommentId = alert.CommentId;
             entity.CreatedBy = alert.CreatedBy;
             entity.CreatedOn = alert.CreatedOn;
+            entity.Ilk = alert.Ilk;
         }
 
         public static void FromPage(Page page, PageEntity entity)

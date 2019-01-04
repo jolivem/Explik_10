@@ -17,7 +17,7 @@ namespace Roadkill.Core.Mvc.Controllers
     /// </summary>
     [HandleError]
     [OptionalAuthorization]
-    public class CommentsController : ControllerBase
+    public class AlertsController : ControllerBase
     {
         private SettingsService _settingsService;
         private AttachmentPathUtil _attachmentPathUtil;
@@ -25,8 +25,8 @@ namespace Roadkill.Core.Mvc.Controllers
         private IRepository _repository;
 
 
-        public CommentsController(ApplicationSettings settings, UserServiceBase userManager,
-            SettingsService settingsService,  
+        public AlertsController(ApplicationSettings settings, UserServiceBase userManager,
+            SettingsService settingsService,
              IUserContext context, IRepository repository)
             : base(settings, userManager, context, settingsService)
         {
@@ -46,7 +46,7 @@ namespace Roadkill.Core.Mvc.Controllers
         {
             List<CommentViewModel> commentsModel = new List<CommentViewModel>();
             var comments = _repository.FindCommentsToControl();
-            foreach( Comment comment in comments)
+            foreach (Comment comment in comments)
             {
                 commentsModel.Add(new CommentViewModel(comment));
             }
@@ -76,4 +76,3 @@ namespace Roadkill.Core.Mvc.Controllers
         }
     }
 }
-

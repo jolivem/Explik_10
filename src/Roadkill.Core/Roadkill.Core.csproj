@@ -409,6 +409,7 @@
     </Compile>
     <Compile Include="Mvc\Attributes\ControllerRequiredAttribute.cs" />
     <Compile Include="Mvc\Attributes\IAuthorizationAttribute.cs" />
+    <Compile Include="Mvc\Controllers\AlertsController.cs" />
     <Compile Include="Mvc\Controllers\CommentsController.cs" />
     <Compile Include="Mvc\Controllers\ConfigurationTesterController.cs" />
     <Compile Include="Mvc\UserActivity.cs" />

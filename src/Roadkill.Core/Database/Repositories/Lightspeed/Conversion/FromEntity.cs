@@ -124,6 +124,7 @@ namespace Roadkill.Core.Database.LightSpeed
             alert.CommentId = entity.CommentId;
             alert.CreatedBy = entity.CreatedBy;
             alert.CreatedOn = entity.CreatedOn;
+            alert.Ilk = entity.Ilk;
 
             return alert;
         }

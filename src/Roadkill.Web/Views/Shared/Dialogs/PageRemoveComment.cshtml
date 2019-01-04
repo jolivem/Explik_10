@@ -13,7 +13,7 @@
                 @Html.Hidden("id", Model.Id)
             <div class="modal-body">
                 <label for="HeadContent">@SiteStrings.Page_Remove_Comment</label>
-                <textarea readonly id="commenttext" name="commenttext" tabindex="0" class="form-control" rows="6" cols="20">@Model.CurrentUserComment</textarea> <!--localization-->
+                <textarea readonly id="commenttext" name="commenttext" tabindex="0" class="form-control" rows="6" cols="20">@ViewBag.usercomment</textarea> <!--localization-->
             </div>
 
                 <div class="modal-footer">

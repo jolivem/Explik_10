@@ -49,7 +49,9 @@ namespace Roadkill.Core.Mvc.Controllers
             ViewBag.userrating = PageService.GetPageRatingFromUser(model.Id, Context.CurrentUsername);
             ViewBag.usercomment = PageService.GetPageCommentFromUser(model.Id, Context.CurrentUsername);
             ViewBag.currentuser = Context.CurrentUsername;
-            model.CurrentUserComment = PageService.GetPageCommentFromUser(model.Id,  Context.CurrentUsername); // TODO remove
+            string ip = PageService.GetUserIp();
+            ViewBag.useralert = PageService.GetPageAlertFromUser(model.Id, ip);
+            //model.CurrentUserComment = PageService.GetPageCommentFromUser(model.Id,  Context.CurrentUsername); // TODO remove
 
             PageService.IncrementNbView(model.Id);
 

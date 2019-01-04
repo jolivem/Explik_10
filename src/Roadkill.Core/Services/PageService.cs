@@ -940,6 +940,19 @@ namespace Roadkill.Core.Services
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public string GetUserIp()
+        {
+            string ip = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            if (string.IsNullOrEmpty(ip))
+                ip = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+
+            return ip;
+        }
+
+        /// <summary>
         /// Updates all links in pages to another page, when that page's title is changed.
         /// </summary>
         /// <param name="oldTitle">The previous page title.</param>
@@ -1337,5 +1350,14 @@ namespace Roadkill.Core.Services
             return "";
         }
 
+        public string GetPageAlertFromUser(int id, string username)
+        {
+            Alert alert = Repository.FindAlertByPageAndUser(id, username);
+            if (alert != null)
+            {
+                return alert.Ilk;
+            }
+            return "";
+        }
     }
 }

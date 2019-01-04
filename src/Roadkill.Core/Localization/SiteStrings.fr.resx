@@ -436,7 +436,7 @@
     <value>Catégorie</value>
   </data>
   <data name="EditPage_AdminOnly" xml:space="preserve">
-    <value>Clé réservé aaux administrateurs.</value>
+    <value>Clé réservée aux administrateurs.</value>
   </data>
   <data name="EditPage_Preview" xml:space="preserve">
     <value>Pré-visualisation</value>
@@ -1036,7 +1036,7 @@
   <data name="Shared_RemoveAlertsLink" xml:space="preserve">
     <value>Supprimer les alertes</value>
   </data>
-  <data name="Page_Add_Your_Comment" xml:space="preserve">
+  <data name="Page_Add_Comment" xml:space="preserve">
     <value>Ajouter un commentaire</value>
   </data>
   <data name="Page_Info_Draft" xml:space="preserve">
@@ -1100,7 +1100,7 @@
     <value>Ebauche</value>
   </data>
   <data name="EditPage_CopiedFromOtherSite" xml:space="preserve">
-    <value>Clé copié d'un autre site</value>
+    <value>Clé copiée d'un autre site</value>
   </data>
   <data name="EditPage_Pseudonym" xml:space="preserve">
     <value>Pseudonyme</value>
@@ -1145,7 +1145,7 @@
     <value>Ma note :</value>
   </data>
   <data name="Page_Remove_Comment" xml:space="preserve">
-    <value>Supprimer monn commentaire</value>
+    <value>Supprimer mon commentaire</value>
   </data>
   <data name="MyPages_Action_Title" xml:space="preserve">
     <value>Action</value>
@@ -1224,5 +1224,50 @@
   </data>
   <data name="AllNewComments_Reject_Button" xml:space="preserve">
     <value>Rejeter</value>
+  </data>
+  <data name="Comment_Alert_link" xml:space="preserve">
+    <value>Alerter</value>
+  </data>
+  <data name="Page_Alert_Link" xml:space="preserve">
+    <value>Alerter</value>
+  </data>
+  <data name="Page_Select_Alert" xml:space="preserve">
+    <value>Selectionner le type d'alerte</value>
+  </data>
+  <data name="Alert_Controversial" xml:space="preserve">
+    <value>Polémique</value>
+  </data>
+  <data name="Alert_Disrespectful" xml:space="preserve">
+    <value>Irrespectueux</value>
+  </data>
+  <data name="Alert_Language" xml:space="preserve">
+    <value>Français</value>
+  </data>
+  <data name="Alert_Other" xml:space="preserve">
+    <value>Autre</value>
+  </data>
+  <data name="Alert_Publicity" xml:space="preserve">
+    <value>Publicité</value>
+  </data>
+  <data name="Alert_Reason_Controversial" xml:space="preserve">
+    <value>Contenu polémique</value>
+  </data>
+  <data name="Alert_Reason_Disrespectful" xml:space="preserve">
+    <value>Contenu indélicat</value>
+  </data>
+  <data name="Alert_Reason_Language" xml:space="preserve">
+    <value>Ne respect pas les règles du Français</value>
+  </data>
+  <data name="Alert_Reason_Other" xml:space="preserve">
+    <value>Autre</value>
+  </data>
+  <data name="Alert_Reason_Publicity" xml:space="preserve">
+    <value>Contenu publicitaire</value>
+  </data>
+  <data name="Page_Alert_Removed" xml:space="preserve">
+    <value>Alerte supprimée</value>
+  </data>
+  <data name="Page_Remove_Alert" xml:space="preserve">
+    <value>Supprimer mon alerte</value>
   </data>
 </root>

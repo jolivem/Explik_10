@@ -15,26 +15,14 @@
 	    function ToggleIsVideo(){
 	        
 	        if ($('#IsVideo').is(':checked')) {
-	            //$('#content-page').hide();
-	            //$('#previewpanel-container').hide();
-                //$('#wysiwyg-toolbar').hide();
                 $('#video-url').show();
                 $('#video-url').removeClass("hidden");
-                //$('#summary').show();
-                //$('#summary').removeClass("hidden");
                 $('#video-description').show();
                 $('#video-description').removeClass("hidden");
                 
 	        }
 	        else {
-	            //$('#content-page').show();
-	            //$('#content-page').removeClass("hidden");
-                //$('#previewpanel-container').show();
-                //$('#previewpanel-container').removeClass("hidden");
-                //$('#wysiwyg-toolbar').show();
-                //$('#wysiwyg-toolbar').removeClass("hidden");
 	            $('#video-url').hide();
-	            //$('#summary').hide();
                 $('#video-description').hide();
             }
 	    }
@@ -75,7 +63,6 @@
             @(Html.HiddenFor<PageViewModel, string>(p => p.PreviousTitle))
             @(Html.HiddenFor<PageViewModel, string>(p => p.RawTags))
 
-            @*<div class="form-group col-sm-12">*@
             @if (RoadkillContext.IsAdmin)
             {
                 <label for="IsLocked" class="checkbox">

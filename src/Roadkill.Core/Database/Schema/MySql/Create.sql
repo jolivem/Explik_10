@@ -85,5 +85,6 @@ CREATE TABLE explik_alerts
   PageId INT, 
   CommentId VARCHAR(36) NOT NULL,
   CreatedBy NVARCHAR(255) NOT NULL, 
-  CreatedOn DATETIME  NOT NULL
+  CreatedOn DATETIME  NOT NULL,
+  Ilk NVARCHAR(255) NOT NULL
 );
