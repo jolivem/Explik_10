@@ -1,5 +1,7 @@
 ﻿@model PageViewModel
 @{
+    /**/
+
     ViewBag.Title = Model.Title;
 }
 
@@ -40,6 +42,8 @@
 @Html.Hidden("text-login-rating", @SiteStrings.Rating_Login_Before)
 <div id="page-view" pageid="@Model.Id" style="visibility:hidden;"></div>
 <div id="current-user" name="@ViewBag.currentuser" style="visibility:hidden;"></div>
+
+<!-- Title and page info -->
 <div class="row">
     <div class="col-sm-8">
         <h2 class="pagetitle">@Model.Title</h2>
@@ -61,6 +65,8 @@
         </p>
     </div>
 </div>
+
+<!-- Alert link -->
 <div class="row">
     <div id="pageinfo" class="col-sm-8" pageid="@Model.Id">
         @if (@ViewBag.useralert == "")
@@ -74,6 +80,8 @@
         }
     </div>
 </div>
+
+<!-- Rating and Comment actions -->
 <div class="row col-sm-8">
     @Html.Hidden("text-unrate", @SiteStrings.Page_Link_Unrate)
     @Html.Hidden("text-rate", @SiteStrings.Page_Link_Rate)
@@ -154,8 +162,8 @@
     </div>
 </div>
 
+<!-- list of comments -->
 @MvcHtmlString.Create(@Model.EncodeCommentsHtml())
-
 @section PageComments
 {
     <!-- all about comments -->

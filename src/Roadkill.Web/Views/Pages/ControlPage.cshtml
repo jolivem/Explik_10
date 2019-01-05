@@ -10,12 +10,6 @@
         $("#reject-page").hide();
         $("#valid-page").show();
     });
-    //$('#radio-validate').on("click", function () {
-    //    $("#btnSubmit").text("Validate");
-    //});
-    //$('#radio-reject').on("click", function () {
-    //    $("#btnSubmit").text("Reject");
-    //});
     $(document).on('change', 'input:radio[id^="q_op_"]', function (event) {
         if ($("input[name='op']:checked").val() == 'validate') {
             $("#valid-page").show();
@@ -40,6 +34,7 @@
 
 <div class="container">
 
+    <!-- Title and user info -->
     <div class="row">
         <div class="col-sm-8">
             <div id="controlpage" pageid="@Model.Id">
@@ -61,17 +56,19 @@
         </div>
     </div>
 
+    <!-- History link -->
     <div id="viewhistory">@Html.ActionLink(SiteStrings.Navigation_ViewHistory, "History", "Pages", new { id = Model.Id }, null)</div>
     <hr />
 
+    <!-- Controlling features -->
     <div id="editpage" class="row">
         <div class="col-sm-7">
             <div id="q_opt" class="btn-group" data-toggle="buttons">
                 <label class="btn btn-default active" id="radio-validate">
-                    <input id="q_op_0" name="op" type="radio" value="validate">Validate
+                    <input id="q_op_0" name="op" type="radio" value="validate">@SiteStrings.ControlPage_Validate_Radio_Button
                 </label>
                 <label class="btn btn-default" id="radio-reject">
-                    <input id="q_op_1" name="op" type="radio" value="reject">Reject
+                    <input id="q_op_1" name="op" type="radio" value="reject">@SiteStrings.ControlPage_Reject_Radio_Button
                 </label>
             </div>
             <hr />
@@ -87,7 +84,7 @@
                     <div class="row">
                         <div class="form-group">
                             <div class="col-sm-5">
-                                <label for="tags" class="control-label">Add tags TODO</label>
+                                <label for="tags" class="control-label">@SiteStrings.ControlPage_Handle_Tags</label>
                             </div>
                             <div class="col-sm-7">
                                 @(Html.TextBox("TagsEntry", null, new { @class = "form-control tm-input", autocomplete = "off", tabindex = 2, placeholder = SiteStrings.EditPage_Tags_Label }))
@@ -96,24 +93,11 @@
                         </div>
                     </div>
 
-                    @*<div class="row">
-                            <div class="form-group">
-                                <div class="col-sm-5">
-                                    <label for="rating" class="control-label">@SiteStrings.Rate_Title</label>
-                                </div>
-                                <div class="col-sm-7">
-                                    <div id="newrating" value="@Model.Rating">
-                                        <span class="postRating" style="display:inline-flex;">
-                                            @MvcHtmlString.Create(@Model.EncodeControlRating())<div id="rate-info"> </div>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>*@
-
                     <div class="row">
                         <div class="col-sm-5">
-                            <button id="buttoncanvas" type="button" class="btn btn-info control-label">Canvas preview</button>
+                            <button id="buttoncanvas" type="button" class="btn btn-info control-label">
+                                @SiteStrings.ControlPage_Canvas_Preview_Button
+                            </button>
                         </div>
                         <div class="col-sm-7">
                             <img id="canvas-preview" src="" height="120" />

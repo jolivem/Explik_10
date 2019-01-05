@@ -62,6 +62,8 @@ namespace Roadkill.Core.Database
         void IncrementNbView(int pageId);
         void SetNbView(int pageId, int nbView);
         void SetRating(int pageId, int nbRating, int totalRating);
+        void AddPageRating(int pageId, int rating);
+        void RemovePageRating(int pageId, int rating);
 
-	}
+    }
 }

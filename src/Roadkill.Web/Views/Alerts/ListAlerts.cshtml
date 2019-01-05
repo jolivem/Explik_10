@@ -1,0 +1,31 @@
+﻿@model AlertsViewModel
+@{
+    ViewBag.Title = SiteStrings.ListAlerts_Title;
+}
+
+<h1>@SiteStrings.ListAlerts_Title</h1>
+
+@if (Model.pageList.Count() > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@SiteStrings.ListAlerts_PageNo</th>
+                <th>@SiteStrings.ListAlerts_AlertTypes</th>
+                <th></th>
+            </tr>
+        </thead>
+        @foreach (var info in Model.pageList)
+        {
+        <tr>
+            <td >@Html.ActionLink(info.Value.PageTitle, "RecontrolPage", "Pages", new { id = info.Key }, null)</td>
+            <td><small>@info.Value.Ilks</small></td>
+            <td class="edit">@Html.ActionLink(@SiteStrings.ListAlerts_Remove_Alerts_Button, "DeleteForPage", new { id = @info.Value.PageId }, new { @class = "btn btn-xs btn-primary confirm" })</td>
+        </tr>
+        }
+    </table>
+}
+else
+{
+    <p>@SiteStrings.ListAlerts_No_Alert</p>
+}

@@ -97,6 +97,13 @@ namespace Roadkill.Core.Mvc
 
             // Don't lowercase pages that use Base64
             routes.MapRoute(
+                "ReControlPage",
+                "pages/ReControlPage/{id}",
+                new { controller = "Pages", action = "ReControlPage", id = UrlParameter.Optional }
+            );
+
+            // Don't lowercase pages that use Base64
+            routes.MapRoute(
                 "MyPages",
                 "pages/mypages/{id}/{encoded}",
                 new { controller = "Pages", action = "MyPages", title = UrlParameter.Optional }
@@ -133,6 +140,18 @@ namespace Roadkill.Core.Mvc
                 "CommentValidate",
                 "Comments/Validate/{id}",
                 new { controller = "Comments", action = "Validate", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                "AlertsList",
+                "Alerts/ListAlerts",
+                new { controller = "Alerts", action = "ListAlerts" }
+            );
+
+            routes.MapRoute(
+                "DeletePageAlerts",
+                "Alerts/DeleteForPage",
+                new { controller = "Alerts", action = "DeleteForPage", id = UrlParameter.Optional }
             );
 
             // Default

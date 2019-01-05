@@ -79,13 +79,13 @@ namespace Roadkill.Core.Mvc.Controllers
 	    /// Displays a list of all alerted page titles and ids in Roadkill.
 	    /// </summary>
 	    /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
-	    [BrowserCache]
-	    [ControllerRequired]
-	    public ActionResult AllPagesWithAlerts()
-	    {
-	        var all = _pageService.AllPagesWithAlerts();
-	        return View(all);
-	    }
+	    //[BrowserCache]
+	    //[ControllerRequired]
+	    //public ActionResult AllPagesWithAlerts()
+	    //{
+	    //    var all = _pageService.AllPagesWithAlerts();
+	    //    return View(all);
+	    //}
 
 	    /// <summary>
         /// Displays a list of current user page titles and ids in Roadkill.
@@ -258,6 +258,7 @@ namespace Roadkill.Core.Mvc.Controllers
             return RedirectToAction("ControlPage");
         }
 
+
         /// <summary>
         /// 
         /// </summary>
@@ -280,12 +281,56 @@ namespace Roadkill.Core.Mvc.Controllers
 
             if (svalidated == "false")
             {
+                //TODO send an email
                 _repository.RejectPage(id);
-                
             }
 
             return RedirectToAction("AllNewPages");
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [ControllerRequired]
+        public ActionResult ReControlPage(int id)
+        {
+            PageViewModel model = _pageService.GetById(id, true);
+
+            if (model != null)
+            {
+                if (model.IsLocked && !Context.IsAdmin)
+                    return new HttpStatusCodeResult(403, string.Format("The page '{0}' can only be edited by administrators.", model.Title));
+
+                model.AllTags = _pageService.AllTags().ToList();
+
+                return View("ReControlPage", model);
+            }
+            else
+            {
+                //MJO TODO return RedirectToAction("New");
+            }
+
+            return RedirectToAction("ReControlPage"); // TODO !!??
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="rejecttype"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ControllerRequired]
+        public ActionResult ReControlPage(int id, string rejecttype)
+        {
+            // POST here means that the page as been rejected
+            //TODO send an email
+            _repository.RejectPage(id);
+            return RedirectToAction("ListAlerts", "Alerts");
+        }
+
 
         /// <summary>
         /// Deletes a wiki page.

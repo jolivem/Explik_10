@@ -294,22 +294,22 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
         /// <exception cref="DatabaseException">An databaseerror occurred while retrieving the list.</exception>
-        public IEnumerable<PageViewModel> AllPagesWithAlerts(bool loadPageContent = false)
-        {
-            try
-            {
-                IEnumerable<PageViewModel> pageModels;
+        //public IEnumerable<PageViewModel> AllPagesWithAlerts(bool loadPageContent = false)
+        //{
+        //    try
+        //    {
+        //        IEnumerable<PageViewModel> pageModels;
 
-                IEnumerable<Page> pages = Repository.FindPagesWithAlerts();
-                pageModels = from page in pages select new PageViewModel(page);
+        //        IEnumerable<Page> pages = Repository.FindPagesWithAlerts();
+        //        pageModels = from page in pages select new PageViewModel(page);
 
-                return pageModels;
-            }
-            catch (DatabaseException ex)
-            {
-                throw new DatabaseException(ex, "An error occurred while retrieving all new pages from the database");
-            }
-        }
+        //        return pageModels;
+        //    }
+        //    catch (DatabaseException ex)
+        //    {
+        //        throw new DatabaseException(ex, "An error occurred while retrieving all new pages from the database");
+        //    }
+        //}
 
         /// <summary>
         /// Retrieves a list of all pages in the system.

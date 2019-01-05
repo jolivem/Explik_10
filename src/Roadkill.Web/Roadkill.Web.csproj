@@ -645,9 +645,10 @@
     <Content Include="Views\Pages\ControlPage.cshtml" />
     <Content Include="Views\Shared\Dialogs\RejectPage.cshtml" />
     <Content Include="Views\Wiki\MyPage.cshtml" />
-    <Content Include="Views\Pages\AllPagesWithAlerts.cshtml" />
     <Content Include="Views\Shared\Dialogs\PageRemoveComment.cshtml" />
     <Content Include="Views\Comments\AllNewComments.cshtml" />
+    <Content Include="Views\Alerts\ListAlerts.cshtml" />
+    <Content Include="Views\Pages\ReControlPage.cshtml" />
     <None Include="Web.Mono.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

@@ -223,6 +223,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Comment.
+        /// </summary>
+        public static string AllNewComments_Comment {
+            get {
+                return ResourceManager.GetString("AllNewComments_Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à No comments found.
         /// </summary>
         public static string AllNewComments_No_Comment {
@@ -592,11 +601,47 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Canvas preview.
+        /// </summary>
+        public static string ControlPage_Canvas_Preview_Button {
+            get {
+                return ResourceManager.GetString("ControlPage_Canvas_Preview_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Handle tags.
+        /// </summary>
+        public static string ControlPage_Handle_Tags {
+            get {
+                return ResourceManager.GetString("ControlPage_Handle_Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Reject.
+        /// </summary>
+        public static string ControlPage_Reject_Radio_Button {
+            get {
+                return ResourceManager.GetString("ControlPage_Reject_Radio_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Control page.
         /// </summary>
         public static string ControlPage_Title {
             get {
                 return ResourceManager.GetString("ControlPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Validate.
+        /// </summary>
+        public static string ControlPage_Validate_Radio_Button {
+            get {
+                return ResourceManager.GetString("ControlPage_Validate_Radio_Button", resourceCulture);
             }
         }
         
@@ -1101,6 +1146,51 @@ namespace Roadkill.Core.Localization {
         public static string Homepage_Tagname {
             get {
                 return ResourceManager.GetString("Homepage_Tagname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Types.
+        /// </summary>
+        public static string ListAlerts_AlertTypes {
+            get {
+                return ResourceManager.GetString("ListAlerts_AlertTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à No alert.
+        /// </summary>
+        public static string ListAlerts_No_Alert {
+            get {
+                return ResourceManager.GetString("ListAlerts_No_Alert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Page .
+        /// </summary>
+        public static string ListAlerts_PageNo {
+            get {
+                return ResourceManager.GetString("ListAlerts_PageNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Remove alert(s).
+        /// </summary>
+        public static string ListAlerts_Remove_Alerts_Button {
+            get {
+                return ResourceManager.GetString("ListAlerts_Remove_Alerts_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à List of alerts.
+        /// </summary>
+        public static string ListAlerts_Title {
+            get {
+                return ResourceManager.GetString("ListAlerts_Title", resourceCulture);
             }
         }
         
@@ -1627,6 +1717,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Select the reason.
+        /// </summary>
+        public static string Page_Select_Reject {
+            get {
+                return ResourceManager.GetString("Page_Select_Reject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à The title field is required..
         /// </summary>
         public static string Page_Validation_Title {
@@ -1812,6 +1911,51 @@ namespace Roadkill.Core.Localization {
         public static string Recaptcha_Prompt {
             get {
                 return ResourceManager.GetString("Recaptcha_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Content is controversial.
+        /// </summary>
+        public static string Reject_Reason_Controversial {
+            get {
+                return ResourceManager.GetString("Reject_Reason_Controversial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Disrespectful.
+        /// </summary>
+        public static string Reject_Reason_Disrespectful {
+            get {
+                return ResourceManager.GetString("Reject_Reason_Disrespectful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Bad language usage.
+        /// </summary>
+        public static string Reject_Reason_Language {
+            get {
+                return ResourceManager.GetString("Reject_Reason_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Other.
+        /// </summary>
+        public static string Reject_Reason_Other {
+            get {
+                return ResourceManager.GetString("Reject_Reason_Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Contains publicity.
+        /// </summary>
+        public static string Reject_Reason_Publicity {
+            get {
+                return ResourceManager.GetString("Reject_Reason_Publicity", resourceCulture);
             }
         }
         

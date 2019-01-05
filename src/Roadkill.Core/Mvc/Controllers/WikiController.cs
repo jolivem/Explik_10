@@ -58,7 +58,9 @@ namespace Roadkill.Core.Mvc.Controllers
 			if (model == null)
 				throw new HttpException(404, string.Format("The page with id '{0}' could not be found", id));
 
-			return View(model);
+            // when a user alerts, it i taken into account by Pages/PageAlert
+
+            return View(model);
 		}
 
 		public ActionResult PageToolbar(int? id) //MJO is it used ?

@@ -1270,4 +1270,49 @@
   <data name="Page_Remove_Alert" xml:space="preserve">
     <value>Supprimer mon alerte</value>
   </data>
+  <data name="AllNewComments_Comment" xml:space="preserve">
+    <value>Commentaire</value>
+  </data>
+  <data name="ListAlerts_AlertTypes" xml:space="preserve">
+    <value>Types</value>
+  </data>
+  <data name="ListAlerts_No_Alert" xml:space="preserve">
+    <value>Aucune alerte</value>
+  </data>
+  <data name="ListAlerts_PageNo" xml:space="preserve">
+    <value>Clé</value>
+  </data>
+  <data name="ListAlerts_Remove_Alerts_Button" xml:space="preserve">
+    <value>Supprimer les alertes</value>
+  </data>
+  <data name="ListAlerts_Title" xml:space="preserve">
+    <value>Liste des alertes</value>
+  </data>
+  <data name="ControlPage_Handle_Tags" xml:space="preserve">
+    <value>Handle tags</value>
+  </data>
+  <data name="ControlPage_Reject_Radio_Button" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="ControlPage_Validate_Radio_Button" xml:space="preserve">
+    <value>Validate</value>
+  </data>
+  <data name="Page_Select_Reject" xml:space="preserve">
+    <value>Sélectionner la raison du rejet</value>
+  </data>
+  <data name="Reject_Reason_Controversial" xml:space="preserve">
+    <value>Contenu polémique</value>
+  </data>
+  <data name="Reject_Reason_Disrespectful" xml:space="preserve">
+    <value>Contenu irrespectueux</value>
+  </data>
+  <data name="Reject_Reason_Language" xml:space="preserve">
+    <value>Français incorrect</value>
+  </data>
+  <data name="Reject_Reason_Other" xml:space="preserve">
+    <value>Autres</value>
+  </data>
+  <data name="Reject_Reason_Publicity" xml:space="preserve">
+    <value>Contenu publicitaire</value>
+  </data>
 </root>

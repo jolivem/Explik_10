@@ -8,8 +8,6 @@ using Roadkill.Core.Mvc.Attributes;
 using Roadkill.Core.Mvc.ViewModels;
 using Roadkill.Core.Database;
 
-using Roadkill.Core.Attachments;
-
 namespace Roadkill.Core.Mvc.Controllers
 {
     /// <summary>
@@ -19,22 +17,15 @@ namespace Roadkill.Core.Mvc.Controllers
     [OptionalAuthorization]
     public class AlertsController : ControllerBase
     {
-        private SettingsService _settingsService;
-        private AttachmentPathUtil _attachmentPathUtil;
-        private UserServiceBase _userServiceBase;
         private IRepository _repository;
-
+        private IPageService _pageService;
 
         public AlertsController(ApplicationSettings settings, UserServiceBase userManager,
-            SettingsService settingsService,
-             IUserContext context, IRepository repository)
+            SettingsService settingsService, IUserContext context, IRepository repository, IPageService pageService)
             : base(settings, userManager, context, settingsService)
         {
-            _settingsService = settingsService;
-            _attachmentPathUtil = new AttachmentPathUtil(settings);
-            _userServiceBase = userManager;
             _repository = repository;
-
+            _pageService = pageService;
         }
 
         /// <summary>
@@ -42,37 +33,36 @@ namespace Roadkill.Core.Mvc.Controllers
         /// </summary>
         /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
         [ControllerRequired]
-        public ActionResult AllNewComments()
+        public ActionResult ListAlerts()
         {
-            List<CommentViewModel> commentsModel = new List<CommentViewModel>();
-            var comments = _repository.FindCommentsToControl();
-            foreach (Comment comment in comments)
+            AlertsViewModel model = new AlertsViewModel();
+            var alerts = _repository.GetAlerts();
+            if (alerts != null)
             {
-                commentsModel.Add(new CommentViewModel(comment));
+                foreach (Alert alert in alerts)
+                {
+                    if (alert.CommentId == Guid.Empty)
+                    {
+                        Page page = _repository.GetPageById(alert.PageId);
+                        if (page != null)
+                        {
+                            PageAlertsInfo info = new PageAlertsInfo(alert.PageId, alert.Ilk, page.Title);
+                            model.Add(info);
+                        }
+                    }
+                    else
+                    {
+                    }
+                }
             }
-
-            return View(commentsModel);
+            return View(model);
         }
 
-        public ActionResult Validate(string id)
+        public ActionResult DeleteForPage(int id)
         {
-            Guid guid;
-            if (Guid.TryParse(id, out guid))
-            {
-                _repository.ValidateComment(guid);
-            }
-            return RedirectToAction("AllNewComments", "Comments");
-        }
+            _repository.DeletPageAlerts(id);
 
-        public ActionResult Reject(string id)
-        {
-            Guid guid;
-            if (Guid.TryParse(id, out guid))
-            {
-                _repository.RejectComment(guid);
-            }
-
-            return RedirectToAction("AllNewComments", "Comments");
+            return RedirectToAction("ListAlerts", "Alerts");
         }
     }
 }

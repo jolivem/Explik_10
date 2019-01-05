@@ -19,22 +19,14 @@ namespace Roadkill.Core.Mvc.Controllers
     [OptionalAuthorization]
     public class CommentsController : ControllerBase
     {
-        private SettingsService _settingsService;
-        private AttachmentPathUtil _attachmentPathUtil;
-        private UserServiceBase _userServiceBase;
+
         private IRepository _repository;
 
-
         public CommentsController(ApplicationSettings settings, UserServiceBase userManager,
-            SettingsService settingsService,  
-             IUserContext context, IRepository repository)
+            SettingsService settingsService, IUserContext context, IRepository repository)
             : base(settings, userManager, context, settingsService)
         {
-            _settingsService = settingsService;
-            _attachmentPathUtil = new AttachmentPathUtil(settings);
-            _userServiceBase = userManager;
             _repository = repository;
-
         }
 
         /// <summary>

@@ -1300,4 +1300,52 @@
   <data name="Page_Select_Alert" xml:space="preserve">
     <value>Select the reason of the alert</value>
   </data>
+  <data name="AllNewComments_Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="ListAlerts_AlertTypes" xml:space="preserve">
+    <value>Types</value>
+  </data>
+  <data name="ListAlerts_No_Alert" xml:space="preserve">
+    <value>No alert</value>
+  </data>
+  <data name="ListAlerts_PageNo" xml:space="preserve">
+    <value>Page </value>
+  </data>
+  <data name="ListAlerts_Remove_Alerts_Button" xml:space="preserve">
+    <value>Remove alert(s)</value>
+  </data>
+  <data name="ListAlerts_Title" xml:space="preserve">
+    <value>List of alerts</value>
+  </data>
+  <data name="ControlPage_Canvas_Preview_Button" xml:space="preserve">
+    <value>Canvas preview</value>
+  </data>
+  <data name="ControlPage_Handle_Tags" xml:space="preserve">
+    <value>Handle tags</value>
+  </data>
+  <data name="ControlPage_Reject_Radio_Button" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="ControlPage_Validate_Radio_Button" xml:space="preserve">
+    <value>Validate</value>
+  </data>
+  <data name="Page_Select_Reject" xml:space="preserve">
+    <value>Select the reason</value>
+  </data>
+  <data name="Reject_Reason_Controversial" xml:space="preserve">
+    <value>Content is controversial</value>
+  </data>
+  <data name="Reject_Reason_Disrespectful" xml:space="preserve">
+    <value>Disrespectful</value>
+  </data>
+  <data name="Reject_Reason_Language" xml:space="preserve">
+    <value>Bad language usage</value>
+  </data>
+  <data name="Reject_Reason_Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Reject_Reason_Publicity" xml:space="preserve">
+    <value>Contains publicity</value>
+  </data>
 </root>

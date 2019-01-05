@@ -44,7 +44,7 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
         /// <exception cref="DatabaseException">An database error occurred while retrieving the list.</exception>
-        IEnumerable<PageViewModel> AllPagesWithAlerts(bool loadPageContent = false);
+        //IEnumerable<PageViewModel> AllPagesWithAlerts(bool loadPageContent = false);
 
         /// <summary>
         /// Gets alls the pages created by a user.

@@ -45,7 +45,7 @@ namespace Roadkill.Core.Database.LightSpeed
             }
         }
 
-        internal IQueryable<CommentEntity> Comment
+        internal IQueryable<CommentEntity> Comments
         {
             get
             {
@@ -732,7 +732,7 @@ namespace Roadkill.Core.Database.LightSpeed
         #region ICommentRepository
         public void DeleteComment(Guid commentId)
         {
-            CommentEntity entity = Comment.Where(x => x.Id == commentId).Single();
+            CommentEntity entity = Comments.Where(x => x.Id == commentId).Single();
             UnitOfWork.Remove(entity);
             UnitOfWork.SaveChanges();
         }
@@ -744,7 +744,7 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <param name="rating"></param>
         public void UpdateRating(Guid commentId, int rating)
         {
-            CommentEntity entity = Comment.Where(x => x.Id == commentId).Single();
+            CommentEntity entity = Comments.Where(x => x.Id == commentId).Single();
             entity.Rating = rating;
             UnitOfWork.SaveChanges();
         }
@@ -756,7 +756,7 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <param name="text"></param>
         public void UpdateComment(Guid commentId, string text)
         {
-            CommentEntity entity = Comment.Where(x => x.Id == commentId).Single();
+            CommentEntity entity = Comments.Where(x => x.Id == commentId).Single();
             entity.Text = text;
             entity.IsControlled = false;
             entity.IsRejected = false;
@@ -769,7 +769,7 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <param name="commentId"></param>
         public void ValidateComment(Guid commentId)
         {
-            CommentEntity entity = Comment.Where(x => x.Id == commentId).Single();
+            CommentEntity entity = Comments.Where(x => x.Id == commentId).Single();
             entity.IsControlled = true;
             entity.IsRejected = false;
             UnitOfWork.SaveChanges();
@@ -781,7 +781,7 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <param name="commentId"></param>
         public void RejectComment(Guid commentId)
         {
-            CommentEntity entity = Comment.Where(x => x.Id == commentId).Single();
+            CommentEntity entity = Comments.Where(x => x.Id == commentId).Single();
             entity.IsControlled = true;
             entity.IsRejected = true;
             UnitOfWork.SaveChanges();
@@ -794,7 +794,7 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <returns></returns>
         public IEnumerable<Comment> FindCommentsByPage(int pageId)
         {
-            List<CommentEntity> entities = Comment.Where(x => x.PageId == pageId &&
+            List<CommentEntity> entities = Comments.Where(x => x.PageId == pageId &&
                 x.Text != "" &&
                 x.IsControlled == true &&
                 x.IsRejected == false).ToList();
@@ -808,7 +808,7 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <returns></returns>
         public IEnumerable<Comment> FindCommentsToControl()
         {
-            List<CommentEntity> entities = Comment.Where(x => x.IsControlled == false && x.IsRejected == false).ToList();
+            List<CommentEntity> entities = Comments.Where(x => x.IsControlled == false && x.IsRejected == false).ToList();
             return FromEntity.ToCommentList(entities);
         }
 
@@ -832,7 +832,7 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <returns></returns>
         public Comment FindCommentByPageAndUser(int pageId, string username)
 	    {
-            List<CommentEntity> entities = Comment.Where(x => x.PageId == pageId && x.CreatedBy == username).ToList();
+            List<CommentEntity> entities = Comments.Where(x => x.PageId == pageId && x.CreatedBy == username).ToList();
 	        if (entities.Count > 0)
 	        {
 	            return FromEntity.ToComment( entities[0]);
@@ -844,29 +844,9 @@ namespace Roadkill.Core.Database.LightSpeed
         /// 
         /// </summary>
         /// <param name="pageId"></param>
-        /// <returns></returns>
-        //public List<Comment> FindCommentByPage(int pageId)
-        //{
-        //    List<CommentEntity> entities = Comment.Where(x => x.PageId == pageId).ToList();
-        //    if (entities.Count > 0)
-        //    {
-        //        List<Comment> comments = new List<Comment>();
-        //        foreach (Entity entity in entities)
-        //        {
-        //            comments.Add(FromEntity.ToComment(entities[0]));
-        //        }
-        //        return comments;
-        //    }
-        //    return null;
-        //}
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pageId"></param>
         public void DeleteComments(int pageId)
         {
-            var entities = Comment.Where(x => x.PageId == pageId).ToList();
+            var entities = Comments.Where(x => x.PageId == pageId).ToList();
             foreach (Entity entity in entities)
             {
                 UnitOfWork.Remove(entity);
@@ -897,6 +877,16 @@ namespace Roadkill.Core.Database.LightSpeed
             if (entitie != null)
             {
                 return FromEntity.ToAlert(entitie);
+            }
+            return null;
+        }
+
+        public IEnumerable<Alert> GetAlerts()
+        {
+            List<AlertEntity> entities = Alerts.ToList();
+            if (entities != null)
+            {
+                return FromEntity.ToAlertList(entities);
             }
             return null;
         }
