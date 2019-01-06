@@ -77,7 +77,7 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <param name="pageId">The id of the page to remove.</param>
         /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
-        //void SetDraft(int pageId);
+        void SetDraft(int pageId);
 
         /// <summary>
         /// 
@@ -107,7 +107,7 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <param name="pageId">The id of the page to reject.</param>
         /// <exception cref="DatabaseException">An database error occurred while deleting the page.</exception>
-        //void RejectPage(int pageId);
+        void RejectPage(int pageId);
 
         /// <summary>
         /// 

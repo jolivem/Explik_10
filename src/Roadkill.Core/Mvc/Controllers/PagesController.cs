@@ -185,7 +185,7 @@ namespace Roadkill.Core.Mvc.Controllers
         [EditorRequired]
         public ActionResult Draft(int id, string view)
         {
-            _repository.SetDraft(id);
+            _pageService.SetDraft(id);
 
             if (view.ToLower() == "mypages")
             {
@@ -244,7 +244,6 @@ namespace Roadkill.Core.Mvc.Controllers
 
                 model.AllTags = _pageService.AllTags().ToList();
 
-
                 UserActivity userActivity = _pageService.GetUserActivity(model.CreatedBy);
                 model.SetUserActivity(userActivity);
 
@@ -275,14 +274,15 @@ namespace Roadkill.Core.Mvc.Controllers
             if (svalidated == "true")
             {
                 _pageService.ValidatePage(id, Context.CurrentUsername, Int32.Parse(srating), RawTags);
-
                 SaveCanvas(id, scanvas);
             }
 
             if (svalidated == "false")
             {
                 //TODO send an email
-                _repository.RejectPage(id);
+
+                // updating index is useless
+                _pageService.RejectPage(id);
             }
 
             return RedirectToAction("AllNewPages");
@@ -327,23 +327,13 @@ namespace Roadkill.Core.Mvc.Controllers
         {
             // POST here means that the page as been rejected
             //TODO send an email
-            _repository.RejectPage(id);
+
+            // delete alerts of the page
+            _repository.DeletPageAlerts(id);
+
+            _pageService.RejectPage(id);
             return RedirectToAction("ListAlerts", "Alerts");
         }
-
-
-        /// <summary>
-        /// Deletes a wiki page.
-        /// </summary>
-        /// <param name="id">The id of the page to reject.</param>
-        /// <returns>Redirects to AllPages action.</returns>
-        /// <remarks>This action requires admin rights.</remarks>
-        //[ControllerRequired]
-        //public ActionResult Reject(int id)
-        //{
-        //    _repository.RejectPage(id);
-        //    return RedirectToAction("AllNewPages");
-        //}
 
         /// <summary>
         /// Deletes a wiki page.

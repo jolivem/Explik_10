@@ -93,7 +93,7 @@ a.external-link	{ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA
 /* History table */
 #historytable .version	{ width:10%; }
 #historytable .editedon	{ width:20%; }
-#historytable .editedby	{ width:60%; }
+#historytable .controlledby	{ width:60%; }
 #historytable .revert	{ text-align:right; }
 
 /* All tags(categories) page */

@@ -124,24 +124,28 @@ namespace Roadkill.Core.Services
 		{
 			try
 			{
-				EnsureDirectoryExists();
+                // never index admin pages
+                if (!model.IsLocked)
+                {
+                    EnsureDirectoryExists();
 
-				StandardAnalyzer analyzer = new StandardAnalyzer(LUCENEVERSION);
-				using (IndexWriter writer = new IndexWriter(FSDirectory.Open(new DirectoryInfo(IndexPath)), analyzer, false, IndexWriter.MaxFieldLength.UNLIMITED))
-				{
-					Document document = new Document();
-					document.Add(new Field("id", model.Id.ToString(), Field.Store.YES, Field.Index.ANALYZED));
-					document.Add(new Field("content", model.Content, Field.Store.YES, Field.Index.ANALYZED));
-					document.Add(new Field("contentsummary", GetContentSummary(model), Field.Store.YES, Field.Index.NO));
-					document.Add(new Field("title", model.Title, Field.Store.YES, Field.Index.ANALYZED));
-					document.Add(new Field("tags", model.SpaceDelimitedTags(), Field.Store.YES, Field.Index.ANALYZED));
-					document.Add(new Field("createdby", model.CreatedBy, Field.Store.YES, Field.Index.NOT_ANALYZED));
-					document.Add(new Field("createdon", model.CreatedOn.ToShortDateString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-					document.Add(new Field("contentlength", model.Content.Length.ToString(), Field.Store.YES, Field.Index.NO));
+                    StandardAnalyzer analyzer = new StandardAnalyzer(LUCENEVERSION);
+                    using (IndexWriter writer = new IndexWriter(FSDirectory.Open(new DirectoryInfo(IndexPath)), analyzer, false, IndexWriter.MaxFieldLength.UNLIMITED))
+                    {
+                        Document document = new Document();
+                        document.Add(new Field("id", model.Id.ToString(), Field.Store.YES, Field.Index.ANALYZED));
+                        document.Add(new Field("content", model.Content, Field.Store.YES, Field.Index.ANALYZED));
+                        document.Add(new Field("contentsummary", GetContentSummary(model), Field.Store.YES, Field.Index.NO));
+                        document.Add(new Field("title", model.Title, Field.Store.YES, Field.Index.ANALYZED));
+                        document.Add(new Field("tags", model.SpaceDelimitedTags(), Field.Store.YES, Field.Index.ANALYZED));
+                        document.Add(new Field("createdby", model.CreatedBy, Field.Store.YES, Field.Index.NOT_ANALYZED));
+                        document.Add(new Field("createdon", model.CreatedOn.ToShortDateString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+                        document.Add(new Field("contentlength", model.Content.Length.ToString(), Field.Store.YES, Field.Index.NO));
 
-					writer.AddDocument(document);
-					writer.Optimize();
-				}
+                        writer.AddDocument(document);
+                        writer.Optimize();
+                    }
+                }
 			}
 			catch (Exception ex)
 			{

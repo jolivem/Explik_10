@@ -1087,15 +1087,6 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Edited by.
-        /// </summary>
-        public static string History_EditedBy {
-            get {
-                return ResourceManager.GetString("History_EditedBy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à Edited on.
         /// </summary>
         public static string History_EditedOn {
@@ -1110,6 +1101,15 @@ namespace Roadkill.Core.Localization {
         public static string History_Help_Label {
             get {
                 return ResourceManager.GetString("History_Help_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Published by.
+        /// </summary>
+        public static string History_PublishedBy {
+            get {
+                return ResourceManager.GetString("History_PublishedBy", resourceCulture);
             }
         }
         
@@ -1519,7 +1519,7 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Last modified by:.
+        ///   Recherche une chaîne localisée semblable à Controlled by:.
         /// </summary>
         public static string Page_Info_ControlledBy {
             get {

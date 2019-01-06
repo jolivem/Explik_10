@@ -388,19 +388,16 @@ namespace Roadkill.Core.Database.LightSpeed
             UnitOfWork.SaveChanges();
         }
 
-        //public void ValidatePage(Page page)
-        //{
-        //    PageEntity entity = UnitOfWork.FindById<PageEntity>(page.Id);
-        //    entity.IsControlled = true;
-        //    entity.IsRejected = false;
-        //    entity.IsSubmitted = true;
-        //    UnitOfWork.SaveChanges();
-        //}
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageId"></param>
         public void RejectPage(int pageId)
         {
             PageEntity entity = UnitOfWork.FindById<PageEntity>(pageId);
-            entity.IsControlled = true;
+            entity.IsControlled = false;
             entity.IsRejected = true;
+            entity.IsSubmitted = false;
             UnitOfWork.SaveChanges();
         }
 

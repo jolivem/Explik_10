@@ -46,18 +46,33 @@ namespace Roadkill.Core.Mvc.Controllers
                         Page page = _repository.GetPageById(alert.PageId);
                         if (page != null)
                         {
-                            PageAlertsInfo info = new PageAlertsInfo(alert.PageId, alert.Ilk, page.Title);
-                            model.Add(info);
+                            // check that page is still in publish state
+                            if (!page.IsControlled || page.IsRejected)
+                            {
+                                // remove alerts of this page
+                                _repository.DeletPageAlerts(page.Id);
+                            }
+                            else
+                            {
+                                PageAlertsInfo info = new PageAlertsInfo(alert.PageId, alert.Ilk, page.Title);
+                                model.Add(info);
+                            }
                         }
                     }
                     else
                     {
+                        //TODO alerts for comments
                     }
                 }
             }
             return View(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult DeleteForPage(int id)
         {
             _repository.DeletPageAlerts(id);

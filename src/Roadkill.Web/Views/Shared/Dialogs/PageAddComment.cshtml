@@ -1,5 +1,20 @@
 ﻿@model PageViewModel
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#commenttext').on('input selectionchange propertychange', function() {
+            if ($.trim($('#commenttext').val()).length < 1) {
+
+                $("#confirm-btn").attr('disabled', 'disabled');
+
+            } else {
+                $("#confirm-btn").removeAttr('disabled');
+
+            }
+        });
+    });
+
+</script>
 <div class="modal" id="page-add-comment" role="dialog" aria-describedby="Contains meta information about the current page">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -18,7 +33,7 @@
 
                 <div class="modal-footer">
                     <a href="#" data-dismiss="modal" class="btn pull-left">< @SiteStrings.Shared_Back_Link</a>
-                    <input type="submit" class="btn btn-primary pull-right" value="@SiteStrings.Button_Confirm" />
+                    <input id="confirm-btn" type="submit" class="btn btn-primary pull-right" disabled value="@SiteStrings.Button_Confirm" />
                 </div>
             }
         </div>

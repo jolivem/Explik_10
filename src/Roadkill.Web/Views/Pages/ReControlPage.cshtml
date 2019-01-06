@@ -52,39 +52,46 @@
     <hr />
 
     <!-- Controlling features -->
-    <div id="editpage" class="row">
-        <div class="col-sm-8">
-            @Html.BootstrapValidationSummary(SiteStrings.EditPage_Error)
-            @Html.Hidden("svalidated", "true")
-            @Html.Hidden("srating", Model.Rating)
-            @Html.Hidden("RawTags", Model.RawTags)
+    <form role="form" method="post">
+        <div id="editpage" class="row">
+            <div class="col-sm-8">
+                @Html.BootstrapValidationSummary(SiteStrings.EditPage_Error)
+                @Html.Hidden("svalidated", "true")
+                @Html.Hidden("srating", Model.Rating)
+                @Html.Hidden("RawTags", Model.RawTags)
 
-            @Html.Hidden("id", Model.Id)
+                @Html.Hidden("id", Model.Id)
 
-            <form role="form" method="post">
-                <div class="modal-body">
-                    <label for="HeadContent">@SiteStrings.Page_Select_Reject</label>
-                    <input id="rejecttype" type="hidden" name="rejecttype" value="language">
-                    <div class="radio">
-                        <label><input type="radio" id="reject1" name="optreject" value="language" checked>@SiteStrings.Reject_Reason_Language</label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" id="reject2" name="optreject" value="publicity">@SiteStrings.Reject_Reason_Publicity</label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" id="reject3" name="optreject" value="respect">@SiteStrings.Reject_Reason_Disrespectful</label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" id="reject4" name="optreject" value="controversial">@SiteStrings.Reject_Reason_Controversial</label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" id="reject5" name="optreject" value="other">@SiteStrings.Reject_Reason_Other</label>
-                    </div>
+                <label for="HeadContent">@SiteStrings.Page_Select_Reject</label>
+                <input id="rejecttype" type="hidden" name="rejecttype" value="language">
+                <div class="radio">
+                    <label><input type="radio" id="reject1" name="optreject" value="language" checked>@SiteStrings.Reject_Reason_Language</label>
                 </div>
-                <div class="modal-footer">
-                    <input type="submit" id="btnreject" class="btn btn-primary right" value="@SiteStrings.Button_Reject" />
+                <div class="radio">
+                    <label><input type="radio" id="reject2" name="optreject" value="publicity">@SiteStrings.Reject_Reason_Publicity</label>
                 </div>
-            </form>
+                <div class="radio">
+                    <label><input type="radio" id="reject3" name="optreject" value="respect">@SiteStrings.Reject_Reason_Disrespectful</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" id="reject4" name="optreject" value="controversial">@SiteStrings.Reject_Reason_Controversial</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" id="reject5" name="optreject" value="other">@SiteStrings.Reject_Reason_Other</label>
+                </div>
+            </div>
         </div>
-    </div>
+        <hr />
+        <div id="editpage" class="row">
+            <div class="col-sm-8">
+
+                <a href="javascript:history.back()">&lt; @SiteStrings.Shared_Back_Link</a>
+                <input type="submit" id="btnreject" class="btn btn-primary right" value="@SiteStrings.Button_Reject" />
+                <div id="editpage" class="row">
+                    <div class="col-sm-8">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>

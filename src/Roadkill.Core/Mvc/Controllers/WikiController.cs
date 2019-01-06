@@ -63,7 +63,12 @@ namespace Roadkill.Core.Mvc.Controllers
             return View(model);
 		}
 
-		public ActionResult PageToolbar(int? id) //MJO is it used ?
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult PageToolbar(int? id) //MJO is it used ?
 		{
 			if (id == null || id < 1)
 				return Content("");

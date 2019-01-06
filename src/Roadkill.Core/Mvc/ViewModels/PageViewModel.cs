@@ -259,6 +259,17 @@ namespace Roadkill.Core.Mvc.ViewModels
         public string Pseudonym { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool IsPublished
+        {
+            get
+            {
+                return IsControlled && !IsRejected;
+            }
+        }
+        
+        /// <summary>
         /// Retrieves all tags for all pages in the system. This is empty unless filled by the controller.
         /// </summary>
         [XmlIgnore]
@@ -843,15 +854,15 @@ namespace Roadkill.Core.Mvc.ViewModels
         {
             get
             {
-                if(IsControlled)
+                if(IsPublished)
                 {
                     return @SiteStrings.Page_Info_Published; 
                 }
-                else if (IsSubmitted)
+                if (IsSubmitted)
                 {
                     return @SiteStrings.Page_Info_Submitted;
                 }
-                else if (IsRejected)
+                if (IsRejected)
                 {
                     return @SiteStrings.Page_Info_Rejected;
                 }

@@ -421,7 +421,7 @@
     <value>Le</value>
   </data>
   <data name="Page_Info_ControlledBy" xml:space="preserve">
-    <value>Last modified by:</value>
+    <value>Controlled by:</value>
   </data>
   <data name="Page_Validation_Title" xml:space="preserve">
     <value>Le titre est obligatoire.</value>
@@ -430,7 +430,7 @@
     <value>Ajouter / éditer une clé</value>
   </data>
   <data name="EditPage_Title_Label" xml:space="preserve">
-    <value>Titre</value>
+    <value>Objectif de la clé</value>
   </data>
   <data name="EditPage_Tags_Label" xml:space="preserve">
     <value>Catégorie</value>
@@ -816,7 +816,7 @@
     <value>Gestion des fichiers</value>
   </data>
   <data name="FileManager_Upload" xml:space="preserve">
-    <value>Envoyer les fichiers</value>
+    <value>Ajouter</value>
   </data>
   <data name="FileManager_AddFolder" xml:space="preserve">
     <value>Ajouter un dossier</value>
@@ -1253,10 +1253,10 @@
     <value>Contenu polémique</value>
   </data>
   <data name="Alert_Reason_Disrespectful" xml:space="preserve">
-    <value>Contenu indélicat</value>
+    <value>Contenu irrespectueux</value>
   </data>
   <data name="Alert_Reason_Language" xml:space="preserve">
-    <value>Ne respect pas les règles du Français</value>
+    <value>Ne respecte pas les règles du Français</value>
   </data>
   <data name="Alert_Reason_Other" xml:space="preserve">
     <value>Autre</value>

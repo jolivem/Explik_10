@@ -101,14 +101,16 @@ namespace Roadkill.Core.Services
 
                 // Update the lucene index
                 PageViewModel savedModel = new PageViewModel(pageContent, _markupConverter);
-                try
-                {
-                    _searchService.Add(savedModel);
-                }
-                catch (SearchException)
-                {
-                    // TODO: log
-                }
+
+                //Update Lucene only when controlled
+                //try
+                //{
+                //    _searchService.Add(savedModel);
+                //}
+                //catch (SearchException)
+                //{
+                //    // TODO: log
+                //}
 
                 return savedModel;
             }
@@ -488,6 +490,29 @@ namespace Roadkill.Core.Services
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageId"></param>
+        public void SetDraft(int pageId)
+        {
+            PageViewModel model = GetById(pageId, true);
+            if (model.IsPublished)
+            {
+                // update index
+                try
+                {
+                    _searchService.Delete(model);
+                }
+                catch (SearchException ex)
+                {
+                    Log.Error(ex, "Unable to delete page with id {0} from the lucene index", pageId);
+                }
+            }
+            Repository.SetDraft(pageId);
+        }
+
+
+        /// <summary>
         /// Deletes a page from the database.
         /// </summary>
         /// <param name="pageId">The id of the page to remove.</param>
@@ -560,15 +585,59 @@ namespace Roadkill.Core.Services
             {
                 Page page = Repository.GetPageById(pageId);
                 page.IsControlled = true;
+                page.IsRejected = false;
+                page.IsSubmitted = false;
                 page.ControlledBy = controllerName;
                 page.PublishedOn = DateTime.UtcNow;
                 page.ControllerRating = rating;
-                page.IsRejected = false;
                 if (tags != null)
                 {
                     page.Tags = tags; //TODO add controller tags to user tags, dont ecrase
                 }
                 Repository.SaveOrUpdatePage(page);
+
+                //Update Lucene only when controlled
+                PageViewModel model = GetById(pageId, true);
+                try
+                {
+                    _searchService.Add(model);
+                }
+                catch (SearchException)
+                {
+                    // TODO: log
+                }
+            }
+            catch (DatabaseException ex)
+            {
+                throw new DatabaseException(ex, "An error occurred while validating the page id {0} from the database", pageId);
+            }
+        }
+
+        /// <summary>
+        /// Validates a page from the database.
+        /// </summary>
+        /// <param name="pageId">The id of the page to validate.</param>
+        /// <exception cref="DatabaseException">An databaseerror occurred while deleting the page.</exception>
+        public void RejectPage(int pageId)
+        {
+            try
+            {
+                // update Lucene index
+                PageViewModel model = GetById(pageId, true);
+                if (model.IsPublished)
+                {
+                    try
+                    {
+                        _searchService.Delete(model);
+                    }
+                    catch (SearchException)
+                    {
+                        // TODO: log
+                    }
+                }
+
+                Repository.RejectPage(pageId);
+
             }
             catch (DatabaseException ex)
             {
@@ -812,9 +881,9 @@ namespace Roadkill.Core.Services
                 page.PublishedOn = DateTime.UtcNow;
                 page.ControlledBy = "";//AppendIpForDemoSite(currentUser);
 
-                page.IsControlled = false;
-                page.IsRejected = false;
-                page.IsSubmitted = false;
+                page.IsControlled = model.IsControlled;
+                page.IsRejected = model.IsRejected;
+                page.IsSubmitted = model.IsSubmitted;
 
                 //page.Summary = model.Summary;
                 page.IsVideo = model.IsVideo;
@@ -850,8 +919,9 @@ namespace Roadkill.Core.Services
                 }
 
                 // Update the lucene index
-                PageViewModel updatedModel = new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
-                _searchService.Update(updatedModel);
+                // DO NOT UPDATE, the lucene index is handled by published or not published states
+                //PageViewModel updatedModel = new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+                //_searchService.Update(updatedModel);
             }
             catch (DatabaseException ex)
             {
