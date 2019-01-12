@@ -11,14 +11,24 @@ namespace Roadkill.Core.Email
 	{
 		private SmtpClient _smtpClient;
 		public string PickupDirectoryLocation { get; set; }
+        
+        // see https://app.mailjet.com/transactional for keys
+        private const string APIKey = "047a7b83a83d86371c92a3553dc2d782";
+        private const string SecretKey = "2d7faf66db712ba24d75dbc34fcb6a7e";
 
-		public EmailClient()
+        private const string From = "contact@explik.net";
+        //private const string To = "recipient@example.com";
+        public EmailClient()
 		{
-			_smtpClient = new SmtpClient();
 
-			// Default it to the SmtpClient's settings, which are read from a .config
-			PickupDirectoryLocation = _smtpClient.PickupDirectoryLocation;
-		}
+            _smtpClient = new SmtpClient("in.mailjet.com", 587);
+            _smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            _smtpClient.EnableSsl = true;
+            _smtpClient.UseDefaultCredentials = false;
+            _smtpClient.Credentials = new System.Net.NetworkCredential(APIKey, SecretKey);
+            // Default it to the SmtpClient's settings, which are read from a .config
+            //PickupDirectoryLocation = _smtpClient.PickupDirectoryLocation;
+        }
 
 		public void Send(MailMessage message)
 		{

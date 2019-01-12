@@ -266,10 +266,10 @@
     <comment>Fuzzy</comment>
   </data>
   <data name="Signup_Complete_Title" xml:space="preserve">
-    <value>Inscrption terminée.</value>
+    <value>Inscription terminée.</value>
   </data>
   <data name="Signup_Complete_Label" xml:space="preserve">
-    <value>Merci, unn mail a été envoyé à {0} pour terminer l'inscription.</value>
+    <value>Merci, un mail a été envoyé à {0} pour terminer l'inscription.</value>
   </data>
   <data name="Signup_Complete_NoEmail" xml:space="preserve">
     <value>Mail non reçu ?</value>

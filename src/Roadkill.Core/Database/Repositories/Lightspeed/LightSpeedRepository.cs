@@ -412,7 +412,7 @@ namespace Roadkill.Core.Database.LightSpeed
 	    public IEnumerable<Page> FindMostRecentPages(int number)
 	    {
             List<PageEntity> entities = Pages
-                .Where(p => p.IsControlled)
+                .Where(p => p.IsControlled && !p.IsLocked)
                 .OrderByDescending( p => p.PublishedOn)
                 .Take(number)
                 .ToList();
@@ -422,7 +422,7 @@ namespace Roadkill.Core.Database.LightSpeed
         public IEnumerable<Page> FindPagesBestRated(int number)
         {
             List<PageEntity> entities = Pages
-                .Where(p => p.IsControlled)
+                .Where(p => p.IsControlled && !p.IsLocked)
                 .OrderByDescending(p => p.NbRating == 0 ? 0 : (float)(p.TotalRating/p.NbRating)) //TODO : use also explikRating
                 .Take(number)
                 .ToList();
@@ -432,7 +432,7 @@ namespace Roadkill.Core.Database.LightSpeed
         public IEnumerable<Page> FindPagesMostViewed(int number)
         {
             List<PageEntity> entities = Pages
-                .Where(p => p.IsControlled)
+                .Where(p => p.IsControlled && !p.IsLocked)
                 .OrderByDescending(p => p.NbView)
                 .Take(number)
                 .ToList();

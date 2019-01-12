@@ -56,16 +56,16 @@ else
 					<!-- Email -->
 					<div class="form-group">
 						<label for="NewEmail" class="col-sm-3 control-label">@SiteStrings.Shared_Email_Label</label>
-						<div class="col-sm-9">
-							@(Html.TextBoxFor<UserViewModel, string>(t => t.NewEmail, new { @class = "form-control" }))
-						</div>
+                        <div class="col-sm-9">
+                            <input readonly name="NewEmail" class="form-control" id="NewEmail" type="text" value="@Model.NewEmail">
+                        </div>
 					</div>
 
 					<!-- New username -->
 					<div class="form-group">
 						<label for="NewUsername" class="col-sm-3 control-label">@SiteStrings.Shared_Username_Label</label>
 						<div class="col-sm-9">
-							@(Html.TextBoxFor<UserViewModel, string>(t => t.NewUsername, new { @class = "form-control" }))
+                            <input readonly name="NewUsername" class="form-control" id="NewUsername" type="text" value="@Model.NewUsername">
 						</div>
 					</div>
 

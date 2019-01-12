@@ -402,6 +402,7 @@
     <Content Include="Assets\opensearch.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Assets\Scripts\shared\html2canvas.min.js" />
     <Content Include="Assets\Scripts\shared\rating.js" />
     <Content Include="Assets\Scripts\shared\bootbox.js" />
     <Content Include="Assets\Scripts\readme.txt" />
@@ -409,7 +410,6 @@
     <Content Include="Assets\Scripts\jquery\jquery-1.9.1.js" />
     <Content Include="Assets\Scripts\jquery\jquery-ui-1.10.3.custom.js" />
     <Content Include="Assets\Scripts\jquery\jquery.validate.js" />
-    <Content Include="Assets\Scripts\shared\html2canvas.js" />
     <Content Include="Assets\Scripts\shared\tagmanager.js" />
     <TypeScriptCompile Include="Assets\Scripts\roadkill\controlpage\controlpage.ts" />
     <TypeScriptCompile Include="Assets\Scripts\roadkill\dialogs.ts" />
@@ -568,6 +568,7 @@
     <Content Include="Plugins\Web.config" />
     <Content Include="Plugins\_ViewStart.cshtml" />
     <None Include="Properties\PublishProfiles\discountasp.pubxml" />
+    <None Include="Properties\PublishProfiles\Explik - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Mono.pubxml" />
     <Content Include="Assets\Scripts\shared\toastr.js" />
     <Content Include="Themes\Responsive\Theme.css" />
