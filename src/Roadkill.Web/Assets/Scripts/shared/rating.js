@@ -155,7 +155,7 @@ $(document).ready(function () {
                     $("#current-rating").val(0);
                     $("#srating").val(0);
                     $("#rate-info").html("&nbsp;");
-                    $(".rating.stars").css("background-image", 'url("/Assets/CSS/images/grey-bibi-24.png")');
+                    $(".rating.stars").css("background-image", 'url("/Assets/CSS/images/grey-green-24.png")');
                     $("#submit-rating").css("display", "none");
                     document.getElementById("submit-rating").text = $("#text-rate").attr("value");
                 }

@@ -139,10 +139,10 @@ namespace Roadkill.Core.Text
                 // remove some menus
                 categories = "";
                 allPages = "";
-                myPages = "";
+                //myPages = "";
                 mainPage = "";
-                newpage = "";
-                manageFiles = "";
+                //newpage = "";
+                //manageFiles = "";
                 siteSettings = "";
             }
             else if (_userContext.IsAdmin)

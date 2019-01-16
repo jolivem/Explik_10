@@ -324,6 +324,7 @@
     <Content Include="Assets\CSS\images\animated-overlay.gif" />
     <Content Include="Assets\CSS\images\blank.gif" />
     <Content Include="Assets\CSS\images\grey-bibi-24.png" />
+    <Content Include="Assets\CSS\images\grey-green-24.png" />
     <Content Include="Assets\CSS\images\grey-yellow-16.png" />
     <Content Include="Assets\CSS\images\grey-yellow-24.png" />
     <Content Include="Assets\CSS\images\grey-yellow-32.png" />
@@ -331,6 +332,7 @@
     <Content Include="Assets\CSS\images\plugin-disabled.png" />
     <Content Include="Assets\CSS\images\plugin-enabled.png" />
     <Content Include="Assets\CSS\images\star_rating.png" />
+    <Content Include="Assets\Images\Explik-48.png" />
     <Content Include="Assets\Images\filemanager\cancel.png" />
     <Content Include="Assets\Images\filemanager\directory.png" />
     <Content Include="Assets\Images\filemanager\file.png" />
@@ -558,9 +560,6 @@
     <Content Include="Assets\CSS\toastr.css" />
     <Content Include="Plugins\Toc\toc.js" />
     <Content Include="Plugins\Toc\toc.css" />
-    <Content Include="Roadkill.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Assets\web.config" />
     <Content Include="connectionStrings.config" />
     <Content Include="NLog.config" />

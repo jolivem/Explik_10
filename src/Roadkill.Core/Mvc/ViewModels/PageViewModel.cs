@@ -364,7 +364,7 @@ namespace Roadkill.Core.Mvc.ViewModels
                         {
 
                             // first the user on the left
-                            builder.AppendLine("<td style='padding:2px; width:80px; border-bottom-width:1px; border-bottom-style:solid; border-color:#dddddd; padding-top:10px' align='center' valign='top'>");
+                            builder.AppendLine("<td style='padding:2px; width:80px; border-top-width:1px; border-top-style:solid; border-color:#dddddd; padding-top:10px' align='center' valign='top'>");
                             {
                                 string src = "/Assets/Images/letters/letter-" + CreatedBy.First().ToString().ToUpper() + ".jpg";
 
@@ -375,7 +375,7 @@ namespace Roadkill.Core.Mvc.ViewModels
                             }
 
                             // then the comment text
-                            builder.AppendLine("<td width='100%' style='padding:2px; border-bottom-width:1px; border-bottom-style:solid; border-color:#dddddd; padding-top:10px; padding-left:10px;'>");
+                            builder.AppendLine("<td width='100%' style='padding:2px; border-top-width:1px; border-top-style:solid; border-color:#dddddd; padding-top:10px; padding-left:10px;'>");
                             {
                                 if (comment.Rating > 0)
                                 {
@@ -739,7 +739,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// <summary>
         /// 
         /// </summary>
-        private bool IsDraft
+        public bool IsDraft
         {
             get
             {

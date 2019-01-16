@@ -47,6 +47,8 @@
 .star32-right_off { background-position: -16px -0px; }
 .star32-right_on { background-position: -48px -0px; }
 
+.foot-link {margin-right:1em; line-height:2em; padding-top:0.5em; padding-bottom:0.5em; font-size:0.9em; display:inline-block;}
+
 .container {
   background-color: #fbfafa;
 }
@@ -65,7 +67,7 @@
                 </div>
                 <table>
                     <tr>
-                        <td style="padding-left:10px;">
+                        <td style="padding-left:10px; vertical-align:text-top;">
                             <a href="@Url.Action("Index", "Home")">
                                 <img src="@Url.Content("/Assets/Images/Explik-48.png")" alt="logo" style="width:80px;" />
                             </a>
@@ -77,7 +79,7 @@
                         </td>
                         <td>
                             <div id="search" class="searchbar navbar-right hidden-xs hidden-sm">
-                                <input type="text" name="q" placeholder="@SiteStrings.Search_PlaceHolder" class="form-control" style="min-width:220px;"/>
+                                <input type="text" name="q" placeholder="@SiteStrings.Search_PlaceHolder" class="form-control" style="min-width:220px;" />
                             </div>
                         </td>
                     </tr>
@@ -115,31 +117,22 @@
     <!-- Footer -->
     <div id="footer-wrapper">
         <div id="footer-inner">
-            <div class="container" style="border-top-color:#EEEEEE;border-top-style:solid">
-                <div class="row">
-                    <div class="col-xs-1">
-                    </div>
-                    <div class="col-xs-2">
-                        <h6><a href="#">@SiteStrings.Navigation_About_Explik</a></h6>
-                    </div>
-                    <div class="col-xs-2">
-                        <h6><a href="#">@SiteStrings.Navigation_Contact</a></h6>
-                    </div>
-                    <div class="col-xs-2">
-                        <h6><a href="#">@SiteStrings.Navigation_Privacy_Policy</a></h6>
-                    </div>
-                    <div class="col-xs-2">
-                        <h6><a href="#">@SiteStrings.Navigation_Disclaimers</a></h6>
-                    </div>
-                    <div class="col-xs-2">
-                    </div>
-                    <div id="top-link" class="col-xs-1">
-                        <h6><a href="#">@SiteStrings.Navigation_Top</a></h6>
-                    </div>
-                </div>
+            <ul>
+                <li class="foot-link">
+                    <a href="#">@SiteStrings.Navigation_About_Explik</a>
+                </li>
+                <li class="foot-link">
+                    <a href="#">@SiteStrings.Navigation_Contact</a>
+                </li>
+                <li class="foot-link">
+                    <a href="#">@SiteStrings.Navigation_Privacy_Policy</a>
+                </li>
+                <li class="foot-link">
+                    <a href="#">@SiteStrings.Navigation_Disclaimers</a>
+                </li>
+            </ul>
+            @RenderSection("PluginFooter", false)
 
-                @RenderSection("PluginFooter", false)
-            </div>
         </div>
     </div>
 </body>

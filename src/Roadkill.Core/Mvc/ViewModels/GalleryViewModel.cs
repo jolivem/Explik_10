@@ -6,6 +6,7 @@ using Roadkill.Core.Database;
 using System.Web.Mvc;
 using System.Text.RegularExpressions;
 using Roadkill.Core.Converters;
+using Roadkill.Core.Localization;
 
 namespace Roadkill.Core.Mvc.ViewModels
 {
@@ -172,7 +173,7 @@ namespace Roadkill.Core.Mvc.ViewModels
                 {
                     builder.AppendLine("<tr>");
                     {
-                        builder.AppendLine("<td class='searchresult-td'>");
+                        builder.AppendLine("<td class='searchresult-td' valign='top'>");
                         {
                             builder.AppendLine("<div class='canvas-td'>");
                             builder.AppendLine("<img src='" + GetCanvas(model) + "'>");
@@ -185,7 +186,7 @@ namespace Roadkill.Core.Mvc.ViewModels
                             builder.AppendLine("<span class='searchresult-summary'>"+ GetContentSummary( model) + "...</span><br/>");
                             builder.AppendLine("<span>");
                             {
-                                builder.AppendLine("<span class='searchresult-date'>" + model.CreatedBy + " - " + model.PublishedOn.ToString("dd MMM yyyy") + " - " + model.NbView + " views</span>");
+                                builder.AppendLine("<span class='searchresult-date'>" + model.CreatedBy + " - " + model.PublishedOn.ToString("dd MMM yyyy") + " - " + model.NbView + " "+ @SiteStrings.Page_Info_NbView + "</span>");
                                 builder.AppendLine("<span style='display: inline-block;margin-bottom:-2px;'>" + EncodePageRating(model) + "</span>");
                                 builder.AppendLine("</span>");
                             }

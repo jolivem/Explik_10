@@ -1091,10 +1091,10 @@
     <value>Intéressant</value>
   </data>
   <data name="Rating_level4" xml:space="preserve">
-    <value>Super, très utile</value>
+    <value>Très utile</value>
   </data>
   <data name="Rating_level5" xml:space="preserve">
-    <value>Excellent, inoubliable</value>
+    <value>Inoubliable</value>
   </data>
   <data name="Shared_DraftLink" xml:space="preserve">
     <value>Ebauche</value>
@@ -1121,7 +1121,7 @@
     <value>Noter</value>
   </data>
   <data name="Page_Link_Unrate" xml:space="preserve">
-    <value>Supprimer ma notation</value>
+    <value>Supprimer</value>
   </data>
   <data name="Button_Remove" xml:space="preserve">
     <value>Supprimer</value>
@@ -1136,10 +1136,10 @@
     <value>Commentaire</value>
   </data>
   <data name="Comment_Remove_Link" xml:space="preserve">
-    <value>Supprimer mon commentaire</value>
+    <value>Supprimer</value>
   </data>
   <data name="Page_Comments_Title" xml:space="preserve">
-    <value>Commentaires</value>
+    <value>Tous les commentaires :</value>
   </data>
   <data name="Page_Info_My_Rating" xml:space="preserve">
     <value>Ma note :</value>

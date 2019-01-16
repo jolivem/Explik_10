@@ -88,7 +88,7 @@ a.external-link	{ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA
 .searchresult-tags span a	{ color:#4e6fa3 !important;text-decoration:none; }
 .searchresult-tags span a:hover	{ color:#000 !important;text-decoration:underline; }
 .searchbox				{ width:20em; margin-right:10px; }
-.searchresult-td        { padding-top: 10px; border-color: rgb(220,220,220); border-bottom-width: 1px; border-bottom-style: solid; }
+.searchresult-td        { padding-top: 10px; border-color: rgb(220,220,220); border-top-width: 1px; border-top-style: solid; }
 
 /* History table */
 #historytable .version	{ width:10%; }
