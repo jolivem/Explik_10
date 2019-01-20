@@ -249,11 +249,11 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// </summary>
         public List<Comment> AllComments { get; set; }
 
-        public bool IsVideo { get; set; }
+        //public bool IsVideo { get; set; }
         public bool IsSubmitted { get; set; }
         public bool IsControlled { get; set; }
         public bool IsRejected { get; set; }
-        public bool IsCopied { get; set; }
+        //public bool IsCopied { get; set; }
 
         public string VideoUrl { get; set; }
         public string Pseudonym { get; set; }
@@ -300,11 +300,11 @@ namespace Roadkill.Core.Mvc.ViewModels
             CreatedBy = page.CreatedBy;
             CreatedOn = page.CreatedOn;
             IsLocked = page.IsLocked;
-            IsVideo = page.IsVideo;
+            //IsVideo = page.IsVideo;
             IsSubmitted = page.IsSubmitted;
             IsControlled = page.IsControlled;
             IsRejected = page.IsRejected;
-            IsCopied = page.IsCopied;
+            //IsCopied = page.IsCopied;
             ControlledBy = page.ControlledBy;
             PublishedOn = page.PublishedOn;
             RawTags = page.Tags;
@@ -495,9 +495,9 @@ namespace Roadkill.Core.Mvc.ViewModels
             CreatedBy = pageContent.Page.CreatedBy;
             CreatedOn = pageContent.Page.CreatedOn;
             IsLocked = pageContent.Page.IsLocked;
-            IsVideo = pageContent.Page.IsVideo;
+            //IsVideo = pageContent.Page.IsVideo;
             IsRejected = pageContent.Page.IsRejected;
-            IsCopied = pageContent.Page.IsCopied;
+            //IsCopied = pageContent.Page.IsCopied;
             IsSubmitted = pageContent.Page.IsSubmitted;
             IsControlled = pageContent.Page.IsControlled;
             ControlledBy = pageContent.Page.ControlledBy;

@@ -12,42 +12,42 @@
 		ToggleIsVideo();
 		ToggleIsCopied();
 
-	    function ToggleIsVideo(){
+	    //function ToggleIsVideo(){
 	        
-	        if ($('#IsVideo').is(':checked')) {
-                $('#video-url').show();
-                $('#video-url').removeClass("hidden");
-                $('#video-description').show();
-                $('#video-description').removeClass("hidden");
+	    //    if ($('#IsVideo').is(':checked')) {
+     //           $('#video-url').show();
+     //           $('#video-url').removeClass("hidden");
+     //           $('#video-description').show();
+     //           $('#video-description').removeClass("hidden");
                 
-	        }
-	        else {
-	            $('#video-url').hide();
-                $('#video-description').hide();
-            }
-	    }
+	    //    }
+	    //    else {
+	    //        $('#video-url').hide();
+     //           $('#video-description').hide();
+     //       }
+	    //}
 
-	    $('#IsVideo').click(function () {
-	        ToggleIsVideo();
-	    });
+	    //$('#IsVideo').click(function () {
+	    //    ToggleIsVideo();
+	    //});
 
-	    $('#IsCopied').click(function () {
-	        ToggleIsCopied();
-	    });
+	    //$('#IsCopied').click(function () {
+	    //    ToggleIsCopied();
+	    //});
 
-	    function ToggleIsCopied() {
+	    //function ToggleIsCopied() {
 
-	        if ($('#IsCopied').is(':checked')) {
-	            $('#pseudonym').show();
-	            $('#pseudonym').removeClass("hidden");
-	            $('#pseudonym-title').show();
-	            $('#pseudonym-title').removeClass("hidden");
-            }
-	        else {
-	            $('#pseudonym').hide();
-	            $('#pseudonym-title').hide();
-            }
-	    }
+	    //    if ($('#IsCopied').is(':checked')) {
+	    //        $('#pseudonym').show();
+	    //        $('#pseudonym').removeClass("hidden");
+	    //        $('#pseudonym-title').show();
+	    //        $('#pseudonym-title').removeClass("hidden");
+     //       }
+	    //    else {
+	    //        $('#pseudonym').hide();
+	    //        $('#pseudonym-title').hide();
+     //       }
+	    //}
 	});
 </script>
 <style>
@@ -63,7 +63,7 @@
             @(Html.HiddenFor<PageViewModel, string>(p => p.PreviousTitle))
             @(Html.HiddenFor<PageViewModel, string>(p => p.RawTags))
 
-            @if (RoadkillContext.IsAdmin)
+            @*@if (RoadkillContext.IsAdmin)
             {
                 <label for="IsLocked" class="checkbox">
                     @(Html.BootstrapCheckBoxFor<PageViewModel>(p => p.IsLocked, SiteStrings.EditPage_AdminOnly, 3))
@@ -83,7 +83,7 @@
                         @(Html.BootstrapTextBoxFor<PageViewModel, string>(p => p.Pseudonym, SiteStrings.EditPage_Pseudonym, false, 5))
                     </div>
                 </div>
-            }
+            }*@
             <div class="form-group">
                 <div class="col-sm-12">
                     <label for="Title">@SiteStrings.EditPage_Title_Label</label>
@@ -95,26 +95,25 @@
                 @(Html.TextBox("TagsEntry", null, new { @class = "form-control tm-input", autocomplete = "off", tabindex = 2, placeholder = SiteStrings.EditPage_Tags_Label }))
             </div>
 
-            <div class="form-inline">
+            @*<div class="form-inline">
                 <label for="IsVideo" class="checkbox">
                     @(Html.BootstrapCheckBoxFor<PageViewModel>(p => p.IsVideo, SiteStrings.EditPage_IsVideo_Label))
                     @SiteStrings.EditPage_IsVideo_Label
                 </label>
             </div>
 
-            @*<div id="summary" class="hidden form-inline">
+            <div id="summary" class="hidden form-inline">
             <label for="Summary">Summary___</label>
             @(Html.BootstrapTextAreaFor(p => p.Summary, SiteStrings.EditPage_Summary_Label))
-        </div>*@
-
+            </div>
             <div id="video-url" class="hidden form-inline">
                 <label for="VideoUrl">@SiteStrings.EditPage_VideoUrl_Label</label>
                 @(Html.BootstrapTextBoxFor<PageViewModel, string>(p => p.VideoUrl, SiteStrings.EditPage_Title_Label, false, 1))
             </div>
-
             <div id="video-description" style="margin-top:17px">
                 @SiteStrings.EditPage_Video_description
-            </div>
+            </div>*@
+
             <div id="content-page">
                 @Html.Partial("WysiwgToolbar")
                 @(Html.TextAreaFor<PageViewModel, string>(p => p.Content, new { @class = "form-control", tabindex = 5 }))

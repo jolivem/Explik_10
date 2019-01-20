@@ -81,10 +81,10 @@ namespace Roadkill.Core.Services
                 page.PublishedOn = DateTime.UtcNow;
                 page.ControlledBy = AppendIpForDemoSite(currentUser);
                 //page.Summary = model.Summary;
-                page.IsVideo = model.IsVideo;
+                //page.IsVideo = model.IsVideo;
                 page.IsControlled = false;
                 page.IsRejected = false;
-                page.IsCopied = false;
+                //page.IsCopied = false;
                 page.IsSubmitted = false;
                 page.VideoUrl = model.VideoUrl;
                 page.Pseudonym = model.Pseudonym;
@@ -886,7 +886,7 @@ namespace Roadkill.Core.Services
                 page.IsSubmitted = model.IsSubmitted;
 
                 //page.Summary = model.Summary;
-                page.IsVideo = model.IsVideo;
+                //page.IsVideo = model.IsVideo;
                 page.VideoUrl = model.VideoUrl;
 
                 page.Pseudonym = model.Pseudonym;
@@ -1241,20 +1241,15 @@ namespace Roadkill.Core.Services
                 page.CreatedOn = DateTime.UtcNow;
                 page.PublishedOn = DateTime.UtcNow;
                 page.ControlledBy = user;
-                page.IsVideo = isVideo;
+                //page.IsVideo = isVideo;
                 string content = "";
-                if (isVideo)
-                {
-                    page.VideoUrl = "url of the video";
-                }
-                else
-                {
+
                     content =
                         "Mésange est un nom vernaculaire ambigu en français. Les mésanges sont pour la plupart des passereaux de la famille des Paridés. Ce sont de petits oiseaux actifs, au bec court, de forme assez trapue. Elles sont arboricoles, insectivores et granivores. Le mâle et la femelle sont semblables ; les jeunes ressemblent aux adultes. " +
                         "Elles nichent dans des trous d'arbres, mais utilisent souvent les nichoirs dans les jardins. Elles sont très sociables et fréquentent volontiers les mangeoires en hiver. " +
                         "Anciennement, la majorité des espèces appartenait au genre Parus. Elles figurent actuellement au sein de ce genre et de quatre autres : Cyanistes, Lophophanes, Periparus et Poecile. La mésange à longue queue fait, quant à elle, partie de la famille des Aegithalidae. ";
 
-                }
+              
                 page.Pseudonym = null;
                 page.IsControlled = false;
                 page.IsRejected = false;

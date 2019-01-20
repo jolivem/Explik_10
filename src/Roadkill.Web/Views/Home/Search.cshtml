@@ -59,7 +59,7 @@ else
                                 <span class="searchresult-summary">@MvcHtmlString.Create(result.ContentSummary)...</span><br />
                                 <span>
                                     <span class="searchresult-date">@result.CreatedBy - @result.CreatedOn.ToString("dd MMM yyyy")</span>
-                                    <span class="searchresult-tags">@Html.Partial("TagBlocks", result.TagsAsList())</span>
+                                    
                                     <span class="searchresult-date">
                                         <span style="display: inline-block;margin-bottom:-2px;">@MvcHtmlString.Create(@result.EncodePageRating(result.Rating))</span>
                                     </span>
