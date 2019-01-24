@@ -84,14 +84,17 @@ a.external-link	{ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA
 .searchresult-summary	{ font-size:95%; }
 .searchresult-date		{ color:green;font-size:80%; }
 .searchresult-info		{ color:green;font-size:80%; }
-.searchresult-tags span	{ margin-left:5px; }
+/*.searchresult-tags span	{ margin-left:5px; }
 .searchresult-tags span a	{ color:#4e6fa3 !important;text-decoration:none; }
-.searchresult-tags span a:hover	{ color:#000 !important;text-decoration:underline; }
+.searchresult-tags span a:hover	{ color:#000 !important;text-decoration:underline; }*/
 .searchbox				{ width:20em; margin-right:10px; }
-.searchresult-td        { padding-top: 10px; border-color: rgb(220,220,220); border-top-width: 1px; border-top-style: solid; }
+.searchresult-td        { padding-top: 12px; padding-right:12px; border-color: rgb(220,220,220); border-top-width: 1px; border-top-style: solid; min-width:100px; vertical-align:top;}
+.searchresult-tags      { margin:2px; text-align:center; padding:3px 5px;font-size:12px; font-weight:bold;line-height:1;color:#fff; background-color:lightskyblue; border-radius:8px;}
 
 /* History table */
-#historytable .version	{ width:10%; }
+#historytable .version {
+    width: 10%;
+}
 #historytable .editedon	{ width:20%; }
 #historytable .controlledby	{ width:60%; }
 #historytable .revert	{ text-align:right; }
@@ -100,8 +103,8 @@ a.external-link	{ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA
 #tagcloud		{ margin:0px;padding:2px;line-height:3em;border:1px solid #e3e2e2;padding:10px; }
 #tagcloud li	{ display:inline; }
 #tagcloud a		{ padding:0px;padding:10px; }
-.tagblock a		{ text-decoration:none;color:#FFFFFF; }
-.tagblock a:hover { text-decoration:none;color:#AAA; }
+/*.tagblock a		{ text-decoration:none;color:#FFFFFF; }
+.tagblock a:hover { text-decoration:none;color:#AAA; }*/
 .tagcloud1		{ font-size:1em; }
 .tagcloud2		{ font-size:1.2em; }
 .tagcloud3		{ font-size:1.3em; }

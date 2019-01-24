@@ -269,12 +269,11 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <returns></returns>
         [ControllerRequired]
         [HttpPost]
-        public ActionResult ControlPage(int id, string svalidated, string srating, string RawTags, string scanvas)
+        public ActionResult ControlPage(int id, string svalidated, string srating, string RawTags, string rejecttype)
         {
             if (svalidated == "true")
             {
                 _pageService.ValidatePage(id, Context.CurrentUsername, Int32.Parse(srating), RawTags);
-                SaveCanvas(id, scanvas);
             }
 
             if (svalidated == "false")

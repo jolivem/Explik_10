@@ -175,10 +175,10 @@ namespace Roadkill.Core.Mvc.ViewModels
                     {
                         builder.AppendLine("<td class='searchresult-td' valign='top'>");
                         {
-                            builder.AppendLine("<div class='canvas-td'>");
-                            builder.AppendLine("<img src='" + GetCanvas(model) + "'>");
-                            builder.AppendLine("</div>");
-                            builder.AppendLine("</td>");
+                            //builder.AppendLine("<div class='canvas-td'>");
+                            ////builder.AppendLine("<img src='" + GetCanvas(model) + "'>");
+                            //builder.AppendLine("</div>");
+                            //builder.AppendLine("</td>");
                         }
                         builder.AppendLine("<td class='searchresult-td'>");
                         {
@@ -206,7 +206,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        private string GetContentSummary(PageViewModel model)
+        public string GetContentSummary(PageViewModel model)
         {
             // Turn the contents into HTML, then strip the tags for the mini summary. This needs some works
             string modelHtml = model.Content;

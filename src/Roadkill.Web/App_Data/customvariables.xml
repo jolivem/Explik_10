@@ -4,8 +4,8 @@
 		<Name>Warningbox</Name>
 		<Description>
 			<![CDATA[
-		Surrounds the content in a light yellow, bordered warning box. Example:<br/>
-		(warningbox:ENTER YOUR CONTENT HERE)
+		Insère un texte d'avertissement dans un encadré jaune claire. Exemple :<br/>
+		(warningbox:SAISIR LE TEXTE ICI)
 		]]>
 		</Description>
 		<SearchRegex>\(warningbox:(?'warningbox'.*?)\)</SearchRegex>
@@ -15,8 +15,8 @@
 		<Name>Alertbox</Name>
 		<Description>
 			<![CDATA[
-		Surrounds the content in a red, bordered alert box. Example:<br/>
-		(alertbox:ENTER YOUR CONTENT HERE)
+		Insère un texte d'alerte dans un encadré rouge. Exemple :<br/>
+		(alertbox:SAISIR LE TEXTE ICI)
 		]]>
 		</Description>
 		<SearchRegex>\(alertbox:(?'alertbox'.*?)\)</SearchRegex>
@@ -28,8 +28,8 @@
 		<Name>Infobox</Name>
 		<Description>
 			<![CDATA[
-		Surrounds the content in a blue, bordered information box. Example:<br/>
-		(infobox:ENTER YOUR CONTENT HERE)
+		Insère une information dans un encadré bleu. Exemple :<br/>
+		(infobox:SAISIR LE TEXTE ICI)
 		]]>
 		</Description>
 		<SearchRegex>\(infobox:(?'infobox'.*?)\)</SearchRegex>
@@ -41,8 +41,8 @@
 		<Name>Successbox</Name>
 		<Description>
 			<![CDATA[
-		Surrounds the content in a green, bordered success box. Example:<br/>
-		(successbox:ENTER YOUR CONTENT HERE)
+		Insère un texte de succès dans un encadré vert. Exemple :<br/>
+		(successbox:SAISIR LE TEXTE ICI)
 		]]>
 		</Description>
 		<SearchRegex>\(successbox:(?'successbox'.*?)\)</SearchRegex>
@@ -54,8 +54,8 @@
 		<Name>Youtube</Name>
 		<Description>
 			<![CDATA[
-		Adds a youtube video:<br/>
-		(Youtube:Enter the youtube id here)
+		Insère une vidéo Youtube:<br/>
+		(Youtube:SAISIR L'IDENTIFIANT YOUTUBE ICI)
 		]]>
 		</Description>
 		<SearchRegex>\(youtube:(?'youtube'.*?)\)</SearchRegex>
@@ -68,7 +68,7 @@
 		<Description>
 			<![CDATA[
 		Surrounds the content in a light yellow, bordered warning box. Example:<br/>
-		@@warningbox:ENTER YOUR CONTENT HERE@@
+		@@warningbox:ENTER YOUR CONTENT HESAISIR LE CONTENU ICI@@
 		]]>
 		</Description>
 		<SearchRegex>@@warningbox:(?'warningbox'.*?)@@</SearchRegex>
@@ -92,7 +92,7 @@
 		<Description>
 			<![CDATA[
 		Surrounds the content in a blue, bordered information box. Example:<br/>
-		@@infobox:ENTER YOUR CONTENT HERE@@
+		@@infobox:SAISIR LE CONTENU ICI@@
 		]]>
 		</Description>
 		<SearchRegex>@@infobox:(?'infobox'.*?)@@</SearchRegex>
@@ -105,7 +105,7 @@
 		<Description>
 			<![CDATA[
 		Surrounds the content in a green, bordered success box. Example:<br/>
-		@@successbox:ENTER YOUR CONTENT HERE@@
+		@@successbox:SAISIR LE CONTENU ICI@@
 		]]>
 		</Description>
 		<SearchRegex>@@successbox:(?'successbox'.*?)@@</SearchRegex>

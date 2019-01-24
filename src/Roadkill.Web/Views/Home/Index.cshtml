@@ -52,9 +52,32 @@
     <div class=" row">
         <div class="col-md-10">
             <h4>@SiteStrings.Gallery_Last_Publications</h4>
-            @MvcHtmlString.Create(@Model.EncodeListPages( @Model.listMostRecent))
-            @*<h4>@SiteStrings.Gallery_Best_Rated</h4>
-            @MvcHtmlString.Create(@Model.EncodeListPages(@Model.listBestRated))*@
+            <table>
+                @foreach (PageViewModel page in Model.listMostRecent)
+                {
+                <tr>
+                    <td class='searchresult-td'>
+                        @foreach (string tag in page.Tags)
+                        {
+                            if (!string.IsNullOrWhiteSpace(tag))
+                            {
+                                <div class="searchresult-tags">@tag</div>
+                            }
+                        }
+                    </td>
+                    <td class='searchresult-td'>
+                        <span class="searchresult-title">
+                            <a href="@Url.Action("Index", "Wiki", new { id = page.Id })">@page.Title</a>
+                        </span><br />
+                        <span class="searchresult-summary">@MvcHtmlString.Create(Model.GetContentSummary(page)) ...</span><br />
+                        <span>
+                            <span class="searchresult-date">@page.CreatedBy - @page.PublishedOn.Date.ToString("dd MMM yyyy") - @page.NbView @SiteStrings.Page_Info_NbView</span>
+                            <span style="display: inline-block;margin-bottom:-2px;">@MvcHtmlString.Create(@Model.EncodePageRating(@page))</span>
+                        </span>
+                    </td>
+                </tr>
+                }
+            </table>
         </div>
     </div>
 </div>

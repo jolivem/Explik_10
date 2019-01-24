@@ -457,7 +457,7 @@
     <value>Gras</value>
   </data>
   <data name="EditPage_Toolbar_BulletList" xml:space="preserve">
-    <value>Liste avec puces</value>
+    <value>Liste à puces</value>
   </data>
   <data name="EditPage_Toolbar_Heading2" xml:space="preserve">
     <value>Titre 2</value>
@@ -1097,7 +1097,7 @@
     <value>Inoubliable</value>
   </data>
   <data name="Shared_DraftLink" xml:space="preserve">
-    <value>Ebauche</value>
+    <value>Modifier</value>
   </data>
   <data name="EditPage_CopiedFromOtherSite" xml:space="preserve">
     <value>Clé copiée d'un autre site</value>

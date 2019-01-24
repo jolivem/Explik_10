@@ -93,24 +93,40 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-sm-5">
-                            <button id="buttoncanvas" type="button" class="btn btn-info control-label">
-                                @SiteStrings.ControlPage_Canvas_Preview_Button
-                            </button>
-                        </div>
-                        <div class="col-sm-7">
-                            <img id="canvas-preview" src="" height="120" />
-                        </div>
-                    </div>
+  
+                    @*@<div class="row">
+                            <div class="col-sm-5">
+                                <button id="buttoncanvas" type="button" class="btn btn-info control-label">
+                                    @SiteStrings.ControlPage_Canvas_Preview_Button
+                                </button>
+                            </div>
+                            <div class="col-sm-7">
+                                <img id="canvas-preview" src="" height="120" />
+                            </div>
+                        </div>*@
                 </div>
 
                 <div id="reject-page">
-                    <label for="RejectReason">Email message</label>
-                    @Html.BootstrapDropDownListFor(s => s.RejectReason, new SelectList(Model.RejectReasonAvailable, Model.RejectReason), "TODO I don't know what")
+                    <label for="RejectReason">@SiteStrings.Page_Select_Reject</label>
+
+                    <input id="rejecttype" type="hidden" name="rejecttype" value="language">
+                    <div class="radio">
+                        <label><input type="radio" id="reject1" name="optreject" value="language" checked>@SiteStrings.Reject_Reason_Language</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" id="reject2" name="optreject" value="publicity">@SiteStrings.Reject_Reason_Publicity</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" id="reject3" name="optreject" value="respect">@SiteStrings.Reject_Reason_Disrespectful</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" id="reject4" name="optreject" value="controversial">@SiteStrings.Reject_Reason_Controversial</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" id="reject5" name="optreject" value="other">@SiteStrings.Reject_Reason_Other</label>
+                    </div>
                 </div>
                 <hr />
-
 
                 <div class="form-group">
                     <input type="submit" id="btnSubmit" class="btn btn-primary right" value="@SiteStrings.Button_Validate" />
@@ -121,7 +137,7 @@
 </div>
 
 @*@section ViewHistoryLink
-{
-    TODO for controls
-}*@
+    {
+        TODO for controls
+    }*@
 

@@ -49,13 +49,18 @@ else
                     @foreach (SearchResultViewModel result in Model)
                     {
                         <tr class="searchresult">
-                            <td class="searchresult-td">
-                                <div class="canvas-td">
-                                    <img src="@result.Canvas">
-                                </div>
+                            <td class='searchresult-td'>
+                                @foreach (string tag in result.TagsAsList())
+                                {
+                                    if (!string.IsNullOrWhiteSpace(tag))
+                                    {
+                                        <div class="searchresult-tags">@tag</div>
+                                    }
+                                }
+                                @*<div class="searchresult-tags">@Html.Partial("TagBlocks", result.TagsAsList())</div>*@
                             </td>
                             <td class="searchresult-td">
-                                <span class=" searchresult-title">@Html.ActionLink(result.Title, "Index", "Wiki", new { id = result.Id, title = result.EncodedTitle }, null)</span><br />
+                                <span class="searchresult-title">@Html.ActionLink(result.Title, "Index", "Wiki", new { id = result.Id, title = result.EncodedTitle }, null)</span><br />
                                 <span class="searchresult-summary">@MvcHtmlString.Create(result.ContentSummary)...</span><br />
                                 <span>
                                     <span class="searchresult-date">@result.CreatedBy - @result.CreatedOn.ToString("dd MMM yyyy")</span>
