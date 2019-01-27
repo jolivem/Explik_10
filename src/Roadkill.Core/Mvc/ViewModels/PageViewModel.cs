@@ -11,6 +11,7 @@ using System.Xml.Serialization;
 using System.Text.RegularExpressions;
 
 using Roadkill.Core.Services;
+using System.Web.Mvc;
 
 namespace Roadkill.Core.Mvc.ViewModels
 {
@@ -854,7 +855,7 @@ namespace Roadkill.Core.Mvc.ViewModels
             {
                 if(IsPublished)
                 {
-                    return @SiteStrings.Page_Info_Published; 
+                    return "<span style='color:green;'>" + @SiteStrings.Page_Info_Published + "</span>";
                 }
                 if (IsSubmitted)
                 {
@@ -862,7 +863,7 @@ namespace Roadkill.Core.Mvc.ViewModels
                 }
                 if (IsRejected)
                 {
-                    return @SiteStrings.Page_Info_Rejected;
+                    return "<span style='color:red;'>" + @SiteStrings.Page_Info_Rejected + "</span>";
                 }
                 return @SiteStrings.Page_Info_Draft;
             }

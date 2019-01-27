@@ -430,7 +430,7 @@
     <value>Ajouter / éditer une clé</value>
   </data>
   <data name="EditPage_Title_Label" xml:space="preserve">
-    <value>Objectif de la clé</value>
+    <value>Titre / Objectif de la clé</value>
   </data>
   <data name="EditPage_Tags_Label" xml:space="preserve">
     <value>Catégorie</value>
@@ -677,7 +677,7 @@
     <comment>Fuzzy</comment>
   </data>
   <data name="SiteSettings_UserManagement_NewEditor" xml:space="preserve">
-    <value>New users for tests</value>
+    <value>New user</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="SiteSettings_UserManagement_AddAdmin_Title" xml:space="preserve">

@@ -31,7 +31,7 @@
     {
         <tr>
             <td class="pagename stretch">@Html.ActionLink(pageModel.Title, "Index", "Wiki", new { id = pageModel.Id, title = pageModel.EncodedTitle }, null)</td>
-            <td class="pagename stretch">@pageModel.Status</td>
+            <td class="pagename stretch">@MvcHtmlString.Create(pageModel.Status)</td>
             @if (RoadkillContext.IsLoggedIn)
             {
                 <!-- <td class="view" style="padding:4px;">@Html.ActionLink(SiteStrings.Shared_ViewLink, "Index", "Wiki", new { id = pageModel.Id }, new { @class = "btn btn-xs btn-primary right" })</td> -->

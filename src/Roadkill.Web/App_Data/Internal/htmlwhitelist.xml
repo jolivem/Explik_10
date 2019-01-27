@@ -77,8 +77,9 @@
 		</HtmlElement>
 		<HtmlElement Name="img">
 			<AllowedAttributes>
-				<HtmlAttribute Name="src" />
-			</AllowedAttributes>
+        <HtmlAttribute Name="src" />
+        <HtmlAttribute Name="style" />
+      </AllowedAttributes>
 		</HtmlElement>
 		<HtmlElement Name="div">
 			<AllowedAttributes>

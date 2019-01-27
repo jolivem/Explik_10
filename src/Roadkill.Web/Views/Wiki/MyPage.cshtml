@@ -25,13 +25,10 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-7">
     </div>
-    <div class="col-sm-3" style="padding-top:20px;color:green; float:right;">
-        
-    </div>
-    <div class="col-sm-3" style="padding-top:20px;">
-        <p>@SiteStrings.MyPage_Status&nbsp;@Model.Status</p>
+    <div class="col-sm-5" style="padding-top:20px;display:inline-flex;">
+        <p>@SiteStrings.MyPage_Status&nbsp;@MvcHtmlString.Create(Model.Status)</p>
         <span style="float:right; margin-left:10px; @Model.SubmitBtnHidden">@Html.ActionLink(SiteStrings.Shared_SubmitLink, "Submit", "Pages", new { id = Model.Id, view = "MyPage" }, new { @class = "btn btn-mini btn-primary" })</span>
         <span style="float:right; margin-left:10px; @Model.EditBtnHidden">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", "Pages", new { id = Model.Id }, new { @class = "btn btn-mini btn-primary" })</span>
         <span style="float:right; margin-left:10px; @Model.DraftBtnHidden">@Html.ActionLink(SiteStrings.Shared_DraftLink, "Draft", "Pages", new { id = Model.Id, view = "MyPage" }, new { @class = "btn btn-mini btn-primary" })</span>

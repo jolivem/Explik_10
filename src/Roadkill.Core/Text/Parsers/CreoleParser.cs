@@ -1046,7 +1046,7 @@ namespace Roadkill.Core.Converters
 					ImageEventArgs args = new ImageEventArgs(href, href, text, text, align);
 					OnImageParsed(args);
 
-					string imageHtml = String.Format("<img src=\"{0}\" alt=\"{1}\" title=\"{2}\" border=\"0\" />", args.Src, args.Alt, args.Title);
+					string imageHtml = String.Format("<img src=\"{0}\" alt=\"{1}\" title=\"{2}\" border=\"0\"/>", args.Src, args.Alt, args.Title);
 					string divHtml = "<div class=\"{0}\">{1}</div>";
 					string imageFrameContent = imageHtml;
 

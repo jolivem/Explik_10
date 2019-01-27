@@ -191,44 +191,6 @@ $(document).ready(function () {
         });
     });
 
-    $("#buttoncanvas").click(function () {
-        html2canvas($('#pagecontent__')[0], { scale: 1 }).
-            then(function(canvas) {
-                //canvas.style.height = "120";
-                //canvas.style.Width = "100";
-                //canvas.Height = "100px";
-                //$("#imgcanvas").replaceWith(canvas);
-                //canvas.id = "imgcanvas";
-
-                //var pID = $("#pagecontent__").attr("pageid");
-                var datadisplay = canvas.toDataURL("image/png");
-                $("#canvas-preview").attr("src", datadisplay);
-                //var dataURL = canvas.toDataURL("image/png");
-                var dataURL = datadisplay.replace('data:image/png;base64,', '');
-                $("#scanvas").val(dataURL);
-
-                // sent via HTTP POST
-                //$.ajax({
-                //    type : "POST",
-                //    url : "/Pages/UploadCanvas",
-                //    data : '{ "id" : "' + pID + '", "image" : "' + dataURL + '" }',
-                //    contentType : 'application/json; charset=utf-8',
-                //    dataType : 'json',
-                //    success : function (response){
-                //        toastr.success("Canvas taken into account");
-                //    },
-                //    failure : function (response){
-                //        alert("failure");
-                //    },
-                //    error : function (response){
-                //        alert(response.responseText);
-                //    }
-
-                //});
-
-            });
-    });
-
     $("#alert1").click(function () {
         setAlertValue();
     });

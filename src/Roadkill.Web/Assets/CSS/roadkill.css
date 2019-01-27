@@ -195,6 +195,3 @@ table#files tr.listrow	{ cursor:pointer; }
 #pluginsettings-save { margin-top:20px; }
 .canvas-td { width: 80px;height:70px;overflow:hidden; }
 .canvas-td img { width:60px; }
-
-/* Creole tuning */
-.image_frame { max-width:100%;}

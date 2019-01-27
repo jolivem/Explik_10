@@ -597,36 +597,6 @@ namespace Roadkill.Core.Mvc.Controllers
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="image"></param>
-        /// <returns></returns>
-        //public void SaveCanvas(int id, string image)
-        //{
-        //    string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath(_pageService.GetCurrentContent((int)id).Page.FilePath);
-
-        //    if (physicalPath != null)
-        //    {
-        //        if (!Directory.Exists(physicalPath))
-        //        {
-        //            Directory.CreateDirectory(physicalPath);
-        //        }
-
-        //        string physicalFilePath = Path.Combine(physicalPath, "page_" + id + ".png");
-        //        using (FileStream fs = new FileStream(physicalFilePath, FileMode.Create))
-        //        {
-        //            using (BinaryWriter bw = new BinaryWriter(fs))
-        //            {
-        //                byte[] data = Convert.FromBase64String(image); //convert from base64
-        //                bw.Write(data);
-        //                bw.Close();
-        //            }
-        //        }
-        //    }
-        //}
-
-        /// <summary>
         /// Save an alert for the page
         /// </summary>
         /// <param name="id">The ID of the page to edit.</param>
