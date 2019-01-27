@@ -278,7 +278,7 @@
     <value>Le mail de confirmation a été renvoyé.</value>
   </data>
   <data name="Button_Signup_Complete_EmailResend" xml:space="preserve">
-    <value>Ré-envoyer le ail de confirmation</value>
+    <value>Ré-envoyer le mail de confirmation</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="Signup_Error_General" xml:space="preserve">
@@ -917,7 +917,7 @@
     <value>Cliquer sur une version pour comparer avec la précédente.</value>
   </data>
   <data name="SiteSettings_Configuration_Required_Field" xml:space="preserve">
-    <value>This field is required.</value>
+    <value>Veuillez saisir cette valeur</value>
   </data>
   <data name="Button_Test" xml:space="preserve">
     <value>Test</value>

@@ -93,17 +93,17 @@
                         </div>
                     </div>
 
-  
+
                     @*@<div class="row">
-                            <div class="col-sm-5">
-                                <button id="buttoncanvas" type="button" class="btn btn-info control-label">
-                                    @SiteStrings.ControlPage_Canvas_Preview_Button
-                                </button>
-                            </div>
-                            <div class="col-sm-7">
-                                <img id="canvas-preview" src="" height="120" />
-                            </div>
-                        </div>*@
+                <div class="col-sm-5">
+                    <button id="buttoncanvas" type="button" class="btn btn-info control-label">
+                        @SiteStrings.ControlPage_Canvas_Preview_Button
+                    </button>
+                </div>
+                <div class="col-sm-7">
+                    <img id="canvas-preview" src="" height="120" />
+                </div>
+            </div>*@
                 </div>
 
                 <div id="reject-page">
@@ -111,19 +111,19 @@
 
                     <input id="rejecttype" type="hidden" name="rejecttype" value="language">
                     <div class="radio">
-                        <label><input type="radio" id="reject1" name="optreject" value="language" checked>@SiteStrings.Reject_Reason_Language</label>
+                        <label><input type="radio" id="reject1" name="optreject" value="@ViewBag.AlertLanguage" checked>@SiteStrings.Reject_Reason_Language</label>
                     </div>
                     <div class="radio">
-                        <label><input type="radio" id="reject2" name="optreject" value="publicity">@SiteStrings.Reject_Reason_Publicity</label>
+                        <label><input type="radio" id="reject2" name="optreject" value="@ViewBag.AlertPublicity">@SiteStrings.Reject_Reason_Publicity</label>
                     </div>
                     <div class="radio">
-                        <label><input type="radio" id="reject3" name="optreject" value="respect">@SiteStrings.Reject_Reason_Disrespectful</label>
+                        <label><input type="radio" id="reject3" name="optreject" value="@ViewBag.AlertRespect">@SiteStrings.Reject_Reason_Disrespectful</label>
                     </div>
                     <div class="radio">
-                        <label><input type="radio" id="reject4" name="optreject" value="controversial">@SiteStrings.Reject_Reason_Controversial</label>
+                        <label><input type="radio" id="reject4" name="optreject" value="@ViewBag.AlertControversial">@SiteStrings.Reject_Reason_Controversial</label>
                     </div>
                     <div class="radio">
-                        <label><input type="radio" id="reject5" name="optreject" value="other">@SiteStrings.Reject_Reason_Other</label>
+                        <label><input type="radio" id="reject5" name="optreject" value="@ViewBag.AlertOther">@SiteStrings.Reject_Reason_Other</label>
                     </div>
                 </div>
                 <hr />

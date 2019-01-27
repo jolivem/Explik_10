@@ -23,13 +23,14 @@
             @(Html.HiddenFor<PageViewModel, string>(p => p.PreviousTitle))
             @(Html.HiddenFor<PageViewModel, string>(p => p.RawTags))
 
-            @*@if (RoadkillContext.IsAdmin)
+            @if (RoadkillContext.IsAdmin)
             {
                 <label for="IsLocked" class="checkbox">
                     @(Html.BootstrapCheckBoxFor<PageViewModel>(p => p.IsLocked, SiteStrings.EditPage_AdminOnly, 3))
                     @SiteStrings.EditPage_AdminOnly
                 </label>
-                <div class="row">
+            }
+            @*<div class="row">
                     <div class="col-sm-6">
                         <label for="IsCopied" class="checkbox">
                             @(Html.BootstrapCheckBoxFor<PageViewModel>(p => p.IsCopied, SiteStrings.EditPage_CopiedFromOtherSite, 4))

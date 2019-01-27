@@ -193,7 +193,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// <summary>
         /// 
         /// </summary>
-        public string RejectReason { get; set; }
+        //public string RejectReason { get; set; }
 
         public IEnumerable<string> RejectReasonAvailable
         {
@@ -461,18 +461,16 @@ namespace Roadkill.Core.Mvc.ViewModels
             builder.Append("</span>");
             if (NbRating > 0)
             {
-                builder.Append("<span style='padding-left:10px;color:green;'>"+ rating.ToString("0.0") + "/5</span>");
+                builder.Append("<span style='padding-left:10px;color:green;'> ("+ NbRating + ")</span>");
             }
             return builder.ToString();
         }
-
-        
-        public string GetRatingValue(double rating)
-        {
-            return String.Format("{0:0.#}", rating);
-        }
-
-
+                
+        //public string GetRatingValue(double rating)
+        //{
+        //    return String.Format("{0:0.#}", rating);
+        //}
+   
         /// <summary>
         /// PageViewModel
         /// </summary>

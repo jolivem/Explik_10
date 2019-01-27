@@ -300,6 +300,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Attachments\emptyfile.txt" />
+    <Content Include="App_Data\EmailTemplates\PublishPage.html" />
+    <Content Include="App_Data\EmailTemplates\PublishPage.txt" />
+    <Content Include="App_Data\EmailTemplates\RejectPage.html" />
+    <Content Include="App_Data\EmailTemplates\RejectPage.txt" />
     <Content Include="App_Data\EmailTemplates\ResetPassword.txt" />
     <Content Include="App_Data\EmailTemplates\ResetPassword.html" />
     <Content Include="App_Data\EmailTemplates\Signup.html" />
@@ -649,6 +653,7 @@
     <Content Include="Views\Comments\AllNewComments.cshtml" />
     <Content Include="Views\Alerts\ListAlerts.cshtml" />
     <Content Include="Views\Pages\ReControlPage.cshtml" />
+    <Content Include="Roadkill.config" />
     <None Include="Web.Mono.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

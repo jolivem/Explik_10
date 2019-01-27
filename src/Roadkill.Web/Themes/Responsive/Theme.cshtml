@@ -61,17 +61,17 @@
     @using (Html.BeginForm("Search", "Home", FormMethod.Get))
     {
         <div id="header-wrapper">
-            <div class="container">
-                <div id="login-status">
+            <div class="container" style="padding-right:0px;">
+                <div id="login-status" style="padding-left:15px;">
                     @Html.Action("LoggedInAs", "User")
                 </div>
                 <table>
                     <tr>
-                        <td style="padding-left:10px; vertical-align:text-top;">
+                        @*<td style="padding-left:10px; vertical-align:text-top;">
                             <a href="@Url.Action("Index", "Home")">
                                 <img src="@Url.Content("/Assets/Images/Explik-48.png")" alt="logo" style="width:80px;" />
                             </a>
-                        </td>
+                        </td>*@
                         <td style="width:100%;">
                             <div id="bootstrap-nav-menu">
                                 @Html.Action("BootstrapNavMenu", "Home")
@@ -92,11 +92,9 @@
     {
         <!-- Search bar for tablets and below -->
         <div class="container hidden-lg hidden-md">
-            <div class="row">
                 <div id="search-mobile" class="searchbar" style="padding-left:15px;">
                     <input type="text" name="q" placeholder="@SiteStrings.Search_PlaceHolder" class="form-control" />
                 </div>
-            </div>
         </div>
     }
 
@@ -116,24 +114,25 @@
 
     <!-- Footer -->
     <div id="footer-wrapper">
-        <div id="footer-inner">
-            <ul>
-                <li class="foot-link">
-                    <a href="#">@SiteStrings.Navigation_About_Explik</a>
-                </li>
-                <li class="foot-link">
-                    <a href="#">@SiteStrings.Navigation_Contact</a>
-                </li>
-                <li class="foot-link">
-                    <a href="#">@SiteStrings.Navigation_Privacy_Policy</a>
-                </li>
-                <li class="foot-link">
-                    <a href="#">@SiteStrings.Navigation_Disclaimers</a>
-                </li>
-            </ul>
-            @RenderSection("PluginFooter", false)
+        <div class="container" style="padding-right:0px;">
+            <div id="footer-inner">
+                <ul>
+                    <li class="foot-link">
+                        <a href="#">@SiteStrings.Navigation_About_Explik</a>
+                    </li>
+                    <li class="foot-link">
+                        <a href="#">@SiteStrings.Navigation_Contact</a>
+                    </li>
+                    <li class="foot-link">
+                        <a href="#">@SiteStrings.Navigation_Privacy_Policy</a>
+                    </li>
+                    <li class="foot-link">
+                        <a href="#">@SiteStrings.Navigation_Disclaimers</a>
+                    </li>
+                </ul>
+                @RenderSection("PluginFooter", false)
 
+            </div>
         </div>
-    </div>
 </body>
 </html>

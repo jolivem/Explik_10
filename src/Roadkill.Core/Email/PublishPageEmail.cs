@@ -11,31 +11,31 @@ using Roadkill.Core.Mvc.ViewModels;
 namespace Roadkill.Core.Email
 {
 	/// <summary>
-	/// The template for signup emails.
+	/// The template for password reset emails.
 	/// </summary>
-	public class SignupEmail :   UserEmailTemplate
+	public class PublishPageEmail : PageEmailTemplate
 	{
 		private static string _htmlContent;
 		private static string _plainTextContent;
 
-		public SignupEmail(ApplicationSettings applicationSettings, SiteSettings siteSettings, IEmailClient emailClient)
+		public PublishPageEmail(ApplicationSettings applicationSettings, SiteSettings siteSettings, IEmailClient emailClient)
 			: base(applicationSettings, siteSettings, emailClient)
 		{
 		}
 
-		public void Send(UserViewModel model)
+		public void Send(PageEmailInfo info)
 		{
 			// Thread safety should not be an issue here
 			if (string.IsNullOrEmpty(_plainTextContent))
-				_plainTextContent = ReadTemplateFile("Signup.txt");
+				_plainTextContent = ReadTemplateFile("PublishPage.txt");
 
 			if (string.IsNullOrEmpty(_htmlContent))
-				_htmlContent = ReadTemplateFile("Signup.html");
+				_htmlContent = ReadTemplateFile("PublishPage.html");
 
 			PlainTextView = _plainTextContent;
 			HtmlView = _htmlContent;
-
-			base.Send(model, "Confirmez votre adresse e-mail");
+            string subject = string.Format("Votre page \"" + info.Page.Title + "\"");
+            base.Send(info, subject);
 		}
 	}
 }

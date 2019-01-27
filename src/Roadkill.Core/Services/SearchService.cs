@@ -17,7 +17,7 @@ using Roadkill.Core.Configuration;
 using Roadkill.Core.Database;
 using Roadkill.Core.Mvc.ViewModels;
 using Roadkill.Core.Plugins;
-using Lucene.Net.Analysis.Fr;
+using Roadkill.Core.MyLucene;
 
 namespace Roadkill.Core.Services
 {
@@ -65,7 +65,7 @@ namespace Roadkill.Core.Services
 			if (string.IsNullOrWhiteSpace(searchText))
 				return list;
 
-            FrenchAnalyzer analyzer = new FrenchAnalyzer(LUCENEVERSION);
+            MyFrenchAnalyzer analyzer = new MyFrenchAnalyzer(LUCENEVERSION);
 			MultiFieldQueryParser parser = new MultiFieldQueryParser(LuceneVersion.LUCENE_29, new string[] { "content", "title" }, analyzer);
             parser.DefaultOperator = QueryParser.Operator.AND;
 
@@ -133,7 +133,7 @@ namespace Roadkill.Core.Services
                 {
                     EnsureDirectoryExists();
 
-                    FrenchAnalyzer analyzer = new FrenchAnalyzer(LUCENEVERSION);
+                    MyFrenchAnalyzer analyzer = new MyFrenchAnalyzer(LUCENEVERSION);
                     using (IndexWriter writer = new IndexWriter(FSDirectory.Open(new DirectoryInfo(IndexPath)), analyzer, false, IndexWriter.MaxFieldLength.UNLIMITED))
                     {
                         Document document = new Document();
@@ -167,7 +167,7 @@ namespace Roadkill.Core.Services
 		{
 			try
 			{
-				FrenchAnalyzer analyzer = new FrenchAnalyzer(LUCENEVERSION);
+				MyFrenchAnalyzer analyzer = new MyFrenchAnalyzer(LUCENEVERSION);
 				int count = 0;
 				using (IndexReader reader = IndexReader.Open(FSDirectory.Open(new DirectoryInfo(IndexPath)), false))
 				{
@@ -207,7 +207,7 @@ namespace Roadkill.Core.Services
 
 			try
 			{
-				FrenchAnalyzer analyzer = new FrenchAnalyzer(LUCENEVERSION);
+				MyFrenchAnalyzer analyzer = new MyFrenchAnalyzer(LUCENEVERSION);
 				using (IndexWriter writer = new IndexWriter(FSDirectory.Open(new DirectoryInfo(IndexPath)), analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED))
 				{
 					foreach (Page page in Repository.AllPages().ToList())

@@ -418,7 +418,12 @@
     <Compile Include="Database\Repositories\LightSpeed\AlertEntity.cs" />
     <Compile Include="Database\Repositories\LightSpeed\CommentEntity.cs" />
     <Compile Include="Email\EmailClient.cs" />
+    <Compile Include="Email\EmailTemplate.cs" />
     <Compile Include="Email\IEmailClient.cs" />
+    <Compile Include="Email\PageEmailInfo.cs" />
+    <Compile Include="Email\PublishPageEmail.cs" />
+    <Compile Include="Email\RejectPageEmail.cs" />
+    <Compile Include="Email\PageEmailTemplate.cs" />
     <Compile Include="Extensions\BootstrapHtmlExtensions.cs" />
     <Compile Include="Configuration\UpgradeChecker.cs" />
     <Compile Include="Configuration\ConfigReaderWriter.cs" />
@@ -437,6 +442,10 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="MyLucene\ElisionFilter.cs" />
+    <Compile Include="MyLucene\FrenchAnalyzer.cs" />
+    <Compile Include="MyLucene\FrenchStemFilter.cs" />
+    <Compile Include="MyLucene\FrenchStemmer.cs" />
     <Compile Include="Mvc\PageAlertsInfo.cs" />
     <Compile Include="Mvc\Attributes\ControllerRequiredAttribute.cs" />
     <Compile Include="Mvc\Attributes\IAuthorizationAttribute.cs" />
@@ -552,7 +561,7 @@
     <Compile Include="Mvc\Controllers\UserController.cs" />
     <Compile Include="Email\ResetPasswordEmail.cs" />
     <Compile Include="Email\SignupEmail.cs" />
-    <Compile Include="Email\EmailTemplate.cs" />
+    <Compile Include="Email\UserEmailTemplate.cs" />
     <Compile Include="Exceptions\EmailException.cs" />
     <Compile Include="Exceptions\SearchException.cs" />
     <Compile Include="Exceptions\DatabaseException.cs" />

@@ -13,7 +13,7 @@ namespace Roadkill.Core.Email
 	/// <summary>
 	/// The template for password reset emails.
 	/// </summary>
-	public class ResetPasswordEmail : EmailTemplate
+	public class ResetPasswordEmail : UserEmailTemplate
 	{
 		private static string _htmlContent;
 		private static string _plainTextContent;
@@ -23,7 +23,7 @@ namespace Roadkill.Core.Email
 		{
 		}
 
-		public override void Send(UserViewModel model)
+		public void Send(UserViewModel model)
 		{
 			// Thread safety should not be an issue here
 			if (string.IsNullOrEmpty(_plainTextContent))
@@ -35,7 +35,7 @@ namespace Roadkill.Core.Email
 			PlainTextView = _plainTextContent;
 			HtmlView = _htmlContent;
 
-			base.Send(model);
+			base.Send(model, "Réinitialisation du mot de passe");
 		}
 	}
 }

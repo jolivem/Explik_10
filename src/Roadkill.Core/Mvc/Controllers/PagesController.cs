@@ -18,6 +18,8 @@ using Roadkill.Core.Database;
 using System.IO;
 
 using Roadkill.Core.Attachments;
+using Roadkill.Core.Email;
+using Roadkill.Core.Localization;
 
 namespace Roadkill.Core.Mvc.Controllers
 {
@@ -33,13 +35,21 @@ namespace Roadkill.Core.Mvc.Controllers
 		private SearchService _searchService;
 		private PageHistoryService _historyService;
         private AttachmentPathUtil _attachmentPathUtil;
-        private UserServiceBase _userServiceBase;
+        //private UserServiceBase _userServiceBase;
         private IRepository _repository;
+        private PublishPageEmail _publishPageEmail;
+        private RejectPageEmail _rejectPageEmail;
 
+        public const string AlertLanguage = "language";
+        public const string AlertPublicity = "publicity";
+        public const string AlertRespect="respect";
+        public const string AlertControversial="controversial";
+        public const string AlertOther = "other";
 
-		public PagesController(ApplicationSettings settings, UserServiceBase userManager,
+        public PagesController(ApplicationSettings settings, UserServiceBase userManager,
 			SettingsService settingsService, IPageService pageService, SearchService searchService,
-            PageHistoryService historyService, IUserContext context, IRepository repository)
+            PageHistoryService historyService, UserService context, IRepository repository,
+            PublishPageEmail publishPageEmail, RejectPageEmail rejectPageEmail)
 			: base(settings, userManager, context, settingsService)
 		{
 			_settingsService = settingsService;
@@ -47,10 +57,12 @@ namespace Roadkill.Core.Mvc.Controllers
 			_searchService = searchService;
 			_historyService = historyService;
             _attachmentPathUtil = new AttachmentPathUtil(settings);
-		    _userServiceBase = userManager;
+		    //_userServiceBase = userManager;
 		    _repository = repository;
+            _publishPageEmail = publishPageEmail;
+            _rejectPageEmail = rejectPageEmail;
 
-		}
+        }
 
 		/// <summary>
 		/// Displays a list of all page titles and ids in Roadkill.
@@ -116,7 +128,7 @@ namespace Roadkill.Core.Mvc.Controllers
             else
             {
                 return View(_pageService.MyPages(currentUser));
-                return View(); // TODO check what is the result --> exception
+                //return View(); // TODO check what is the result --> exception
             }
         }
 
@@ -247,6 +259,12 @@ namespace Roadkill.Core.Mvc.Controllers
                 UserActivity userActivity = _pageService.GetUserActivity(model.CreatedBy);
                 model.SetUserActivity(userActivity);
 
+                ViewBag.AlertLanguage = AlertLanguage;
+                ViewBag.AlertPublicity = AlertPublicity;
+                ViewBag.AlertRespect = AlertRespect;
+                ViewBag.AlertControversial = AlertControversial;
+                ViewBag.AlertOther = AlertOther;
+
                 return View("ControlPage", model);
             }
             else
@@ -265,23 +283,31 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <param name="svalidated"></param>
         /// <param name="srating"></param>
         /// <param name="RawTags"></param>
-        /// <param name="scanvas"></param>
+        /// <param name="rejecttype">"language", "publicity", "respect", "controversial" or "other"</param>
         /// <returns></returns>
         [ControllerRequired]
         [HttpPost]
         public ActionResult ControlPage(int id, string svalidated, string srating, string RawTags, string rejecttype)
         {
+            PageViewModel model = _pageService.GetById(id);
+            User user = _repository.GetUserByUsername(model.CreatedBy);
+
             if (svalidated == "true")
             {
                 _pageService.ValidatePage(id, Context.CurrentUsername, Int32.Parse(srating), RawTags);
+
+                PageEmailInfo info = new PageEmailInfo(user, model, null);
+                _publishPageEmail.Send(info);
             }
 
             if (svalidated == "false")
             {
-                //TODO send an email
-
                 // updating index is useless
                 _pageService.RejectPage(id);
+
+                // send an email
+                PageEmailInfo info = new PageEmailInfo(user, model, rejecttype);
+                _rejectPageEmail.Send(info);
             }
 
             return RedirectToAction("AllNewPages");
@@ -304,6 +330,12 @@ namespace Roadkill.Core.Mvc.Controllers
 
                 model.AllTags = _pageService.AllTags().ToList();
 
+                ViewBag.AlertLanguage = AlertLanguage;
+                ViewBag.AlertPublicity = AlertPublicity;
+                ViewBag.AlertRespect = AlertRespect;
+                ViewBag.AlertControversial = AlertControversial;
+                ViewBag.AlertOther = AlertOther;
+
                 return View("ReControlPage", model);
             }
             else
@@ -325,7 +357,12 @@ namespace Roadkill.Core.Mvc.Controllers
         public ActionResult ReControlPage(int id, string rejecttype)
         {
             // POST here means that the page as been rejected
-            //TODO send an email
+
+            // Send an email
+            PageViewModel model = _pageService.GetById(id);
+            User user = _repository.GetUserByUsername(model.CreatedBy);
+            PageEmailInfo info = new PageEmailInfo(user, model, rejecttype);
+            _rejectPageEmail.Send(info);
 
             // delete alerts of the page
             _repository.DeletPageAlerts(id);
@@ -565,29 +602,29 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <param name="id"></param>
         /// <param name="image"></param>
         /// <returns></returns>
-        public void SaveCanvas(int id, string image)
-        {
-            string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath(_pageService.GetCurrentContent((int)id).Page.FilePath);
+        //public void SaveCanvas(int id, string image)
+        //{
+        //    string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath(_pageService.GetCurrentContent((int)id).Page.FilePath);
 
-            if (physicalPath != null)
-            {
-                if (!Directory.Exists(physicalPath))
-                {
-                    Directory.CreateDirectory(physicalPath);
-                }
+        //    if (physicalPath != null)
+        //    {
+        //        if (!Directory.Exists(physicalPath))
+        //        {
+        //            Directory.CreateDirectory(physicalPath);
+        //        }
 
-                string physicalFilePath = Path.Combine(physicalPath, "page_" + id + ".png");
-                using (FileStream fs = new FileStream(physicalFilePath, FileMode.Create))
-                {
-                    using (BinaryWriter bw = new BinaryWriter(fs))
-                    {
-                        byte[] data = Convert.FromBase64String(image); //convert from base64
-                        bw.Write(data);
-                        bw.Close();
-                    }
-                }
-            }
-        }
+        //        string physicalFilePath = Path.Combine(physicalPath, "page_" + id + ".png");
+        //        using (FileStream fs = new FileStream(physicalFilePath, FileMode.Create))
+        //        {
+        //            using (BinaryWriter bw = new BinaryWriter(fs))
+        //            {
+        //                byte[] data = Convert.FromBase64String(image); //convert from base64
+        //                bw.Write(data);
+        //                bw.Close();
+        //            }
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// Save an alert for the page

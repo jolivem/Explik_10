@@ -16,7 +16,7 @@ namespace Roadkill.Core.Email
         private const string APIKey = "047a7b83a83d86371c92a3553dc2d782";
         private const string SecretKey = "2d7faf66db712ba24d75dbc34fcb6a7e";
 
-        private const string From = "contact@explik.net";
+        private const string From = "contact@explik.fr";
         //private const string To = "recipient@example.com";
         public EmailClient()
 		{
