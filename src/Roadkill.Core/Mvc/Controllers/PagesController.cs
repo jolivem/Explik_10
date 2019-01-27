@@ -48,7 +48,7 @@ namespace Roadkill.Core.Mvc.Controllers
 
         public PagesController(ApplicationSettings settings, UserServiceBase userManager,
 			SettingsService settingsService, IPageService pageService, SearchService searchService,
-            PageHistoryService historyService, UserService context, IRepository repository,
+            PageHistoryService historyService, IUserContext context, IRepository repository,
             PublishPageEmail publishPageEmail, RejectPageEmail rejectPageEmail)
 			: base(settings, userManager, context, settingsService)
 		{
