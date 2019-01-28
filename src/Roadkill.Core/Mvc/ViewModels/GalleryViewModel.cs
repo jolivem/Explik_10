@@ -149,7 +149,33 @@ namespace Roadkill.Core.Mvc.ViewModels
             if (modelHtml.Length > 150)
                 modelHtml = modelHtml.Substring(0, 149);
 
+            if (model.Content.Contains("youtube") && modelHtml.Length <= 2) // 2 is for "\n"
+            {
+                modelHtml = "Vidéo"; //TODO english traduction
+            }
             return modelHtml;
+        }
+
+        public string EncodeTags(PageViewModel page)
+        {
+            StringBuilder builder = new StringBuilder();
+            string formatStr = "<span class='searchresult-tags'>{0}&nbsp;</span>";
+            bool atLeastOne = false;
+            foreach (string tag in page.Tags)
+            {
+                if (!string.IsNullOrWhiteSpace(tag))
+                {
+                    builder.AppendFormat(formatStr, tag);
+                }
+                atLeastOne = true;
+            }
+
+            // add carriage return if necessary
+            if (atLeastOne)
+            {
+                builder.Append("<br />");
+            }
+            return builder.ToString();
         }
     }
 }

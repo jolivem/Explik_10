@@ -156,6 +156,39 @@ namespace Roadkill.Core.Mvc.ViewModels
             this.document = document;
             this.scoreDoc = scoreDoc;
         }
+        /*                                 @foreach (string tag in result.TagsAsList())
+                                {
+                                    if (!string.IsNullOrWhiteSpace(tag))
+                                    {
+                                        <span class="searchresult-tags">@tag &nbsp;</span>
+                                    }
+                                }
+                                @if (result.Tags != null)
+                                {
+                                    <br/>
+                                }
+                                */
+        public string EncodeTags()
+        {
+            StringBuilder builder = new StringBuilder();
+            string formatStr = "<span class='searchresult-tags'>{0}&nbsp;</span>";
+            bool atLeastOne = false;
+            foreach (string tag in TagsAsList())
+            {
+                if (!string.IsNullOrWhiteSpace(tag))
+                {
+                    builder.AppendFormat(formatStr, tag);
+                }
+                atLeastOne = true;
+            }
+
+            // add carriage return if necessary
+            if (atLeastOne)
+            {
+                builder.Append("<br />");
+            }
+             return builder.ToString();
+        }
 
         public string EncodePageRating(double rating)
         {
