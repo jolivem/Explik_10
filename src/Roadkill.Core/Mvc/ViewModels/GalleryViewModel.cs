@@ -17,7 +17,7 @@ namespace Roadkill.Core.Mvc.ViewModels
     {
         public List<PageViewModel> listMostRecent;
         //List<Thumbnail> listRecommended;
-        public List<PageViewModel> listBestRated;
+        //public List<PageViewModel> listBestRated;
         //public List<PageViewModel> listMostViewed;
         MarkupConverter markupConverter;
 
@@ -25,7 +25,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         {
             listMostRecent = new List<PageViewModel>();
             //listRecommended = new List<Thumbnail>();
-            listBestRated = new List<PageViewModel>();
+            //listBestRated = new List<PageViewModel>();
             //listMostViewed = new List<PageViewModel>();
             markupConverter = converter;
         }
@@ -35,10 +35,10 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
-        public string GetCanvas(PageViewModel model)
-        {
-            return model.FilePath + "page_" + model.Id + ".png";
-        }
+        //public string GetCanvas(PageViewModel model)
+        //{
+        //    return model.FilePath + "page_" + model.Id + ".png";
+        //}
 
         /// <summary>
         /// 

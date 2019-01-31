@@ -55,7 +55,7 @@
 		<Description>
 			<![CDATA[
 		Insère une vidéo Youtube:<br/>
-		(Youtube:SAISIR L'IDENTIFIANT YOUTUBE ICI)
+		(youtube:SAISIR L'IDENTIFIANT YOUTUBE ICI)
 		]]>
 		</Description>
 		<SearchRegex>\(youtube:(?'youtube'.*?)\)</SearchRegex>

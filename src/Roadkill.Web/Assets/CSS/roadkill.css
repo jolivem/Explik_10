@@ -89,7 +89,7 @@ a.external-link	{ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA
 .searchresult-tags span a:hover	{ color:#000 !important;text-decoration:underline; }*/
 .searchbox				{ width:20em; margin-right:10px; }
 .searchresult-td        { padding-top: 12px; padding-right:12px; border-color: rgb(220,220,220); border-top-width: 1px; border-top-style: solid; min-width:120px; vertical-align:top;}
-.searchresult-tags      { margin-right:4px; font-size:95%;color:green;}
+.searchresult-tags      { margin-right:4px; font-size:95%;color:brown;}
 
 /* History table */
 #historytable .version {

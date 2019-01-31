@@ -55,10 +55,7 @@ else
                                 @MvcHtmlString.Create(result.EncodeTags())
                                 <span>
                                     <span class="searchresult-date">@result.CreatedBy - @result.CreatedOn.ToString("dd MMM yyyy") - @result.NbView @SiteStrings.Page_Info_NbView</span>
-
-                                    <span class="searchresult-date">
-                                        <span style="display: inline-block;margin-bottom:-2px;">@MvcHtmlString.Create(@result.EncodePageRating(result.Rating))</span>
-                                    </span>
+                                    <span style="display: inline-block;margin-bottom:-2px;">@MvcHtmlString.Create(@result.EncodePageRating(result.Rating))</span>
                                 </span>
                             </td>
                         </tr>

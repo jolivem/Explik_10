@@ -102,7 +102,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// <summary>
         /// 
         /// </summary>
-        public string Canvas { get; internal set; }
+        //public string Canvas { get; internal set; }
 
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 		    {
 		        Rating = 0.0;
 		    }
-		    Canvas = page.FilePath + "page_" + page.Id + ".png";
+		    //Canvas = page.FilePath + "page_" + page.Id + ".png";
 
 		}
 
@@ -192,11 +192,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 
         public string EncodePageRating(double rating)
         {
-            if (rating == 0)
-            {
-                return "";
-            }
-
+ 
             StringBuilder builder = new StringBuilder();
             string formatStr = "<span class='rating16 stars16 passive star16-{0}' value='{1}'></span>";
 

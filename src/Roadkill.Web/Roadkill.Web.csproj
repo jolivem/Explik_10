@@ -359,7 +359,6 @@
     <Content Include="Assets\CSS\roadkill.installer.css" />
     <Content Include="Assets\Images\button-loading.gif" />
     <Content Include="Assets\Images\favicon.png" />
-    <Content Include="Assets\Images\installer-ex-chicken.png" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
@@ -404,7 +403,6 @@
     <Content Include="Assets\Images\letters\letter-X.jpg" />
     <Content Include="Assets\Images\letters\letter-Y.jpg" />
     <Content Include="Assets\Images\letters\letter-Z.jpg" />
-    <Content Include="Assets\Images\roadkill.png" />
     <Content Include="Assets\opensearch.xml">
       <SubType>Designer</SubType>
     </Content>
