@@ -151,7 +151,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 
             if (model.Content.Contains("youtube") && modelHtml.Length <= 2) // 2 is for "\n"
             {
-                modelHtml = "Vidéo"; //TODO english traduction
+                modelHtml = "Vidéo. " + modelHtml; //TODO english traduction
             }
             return modelHtml;
         }

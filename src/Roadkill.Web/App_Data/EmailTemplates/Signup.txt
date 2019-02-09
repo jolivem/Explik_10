@@ -1,7 +1,7 @@
 ﻿Bonjour {FIRSTNAME} {LASTNAME},
 
 Merci pour votre inscription sur {SITENAME}. 
-Votre login est {USERNAME}. 
+Votre login est {EMAIL}. 
 Pour finaliser l'inscription, veuillez saisir le lien ci-dessous dans un navigateur afin d'activer votre compte.
 
 {SITEURL}/user/activate/{ACTIVATIONKEY}

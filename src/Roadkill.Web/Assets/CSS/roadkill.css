@@ -80,7 +80,7 @@ a.external-link	{ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA
 
 /* Search result page */
 .searchresult			{ padding-bottom: 20px; }
-.searchresult-title		{ color:Black; }
+.searchresult-title		{ color:Black; font-size:1.1em}
 .searchresult-summary	{ font-size:95%; }
 .searchresult-date		{ color:green;font-size:80%; }
 .searchresult-info		{ color:green;font-size:80%; }

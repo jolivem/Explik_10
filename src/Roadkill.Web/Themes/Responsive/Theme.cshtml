@@ -68,10 +68,10 @@
                 <table>
                     <tr>
                         @*<td style="padding-left:10px; vertical-align:text-top;">
-                            <a href="@Url.Action("Index", "Home")">
-                                <img src="@Url.Content("/Assets/Images/Explik-48.png")" alt="logo" style="width:80px;" />
-                            </a>
-                        </td>*@
+                                <a href="@Url.Action("Index", "Home")">
+                                    <img src="@Url.Content("/Assets/Images/Explik-48.png")" alt="logo" style="width:80px;" />
+                                </a>
+                            </td>*@
                         <td style="width:100%;">
                             <div id="bootstrap-nav-menu">
                                 @Html.Action("BootstrapNavMenu", "Home")
@@ -92,9 +92,9 @@
     {
         <!-- Search bar for tablets and below -->
         <div class="container hidden-lg hidden-md">
-                <div id="search-mobile" class="searchbar" style="padding-left:15px;">
-                    <input type="text" name="q" placeholder="@SiteStrings.Search_PlaceHolder" class="form-control" />
-                </div>
+            <div id="search-mobile" class="searchbar" style="padding-left:15px;">
+                <input type="text" name="q" placeholder="@SiteStrings.Search_PlaceHolder" class="form-control" />
+            </div>
         </div>
     }
 
@@ -111,23 +111,23 @@
         @RenderSection("PluginPostContainer", false)
 
     </div>
-
+    
     <!-- Footer -->
     <div id="footer-wrapper">
         <div class="container" style="padding-right:0px;">
             <div id="footer-inner">
                 <ul>
                     <li class="foot-link">
-                        <a href="#">@SiteStrings.Navigation_About_Explik</a>
+                        <a href="href=@Url.Action("About", "Home", new { id=2})">@SiteStrings.Navigation_About_Explik</a>
                     </li>
                     <li class="foot-link">
-                        <a href="#">@SiteStrings.Navigation_Contact</a>
+                        <a href="@Url.Action("About", "Home", new { id=1})">@SiteStrings.Navigation_Contact</a>
                     </li>
                     <li class="foot-link">
-                        <a href="#">@SiteStrings.Navigation_Privacy_Policy</a>
+                        <a href="@Url.Action("About", "Home", new { id=3})">@SiteStrings.Navigation_Privacy_Policy</a>
                     </li>
                     <li class="foot-link">
-                        <a href="#">@SiteStrings.Navigation_Disclaimers</a>
+                        <a href="@Url.Action("About", "Home", new { id=4})">@SiteStrings.Navigation_Disclaimers</a>
                     </li>
                 </ul>
                 @RenderSection("PluginFooter", false)

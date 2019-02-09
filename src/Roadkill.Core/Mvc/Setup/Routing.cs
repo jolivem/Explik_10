@@ -149,15 +149,22 @@ namespace Roadkill.Core.Mvc
                 new { controller = "Alerts", action = "DeleteForPage", id = UrlParameter.Optional }
             );
 
+            // About various info
+            routes.MapLowercaseRoute(
+                "AboutInfo", // Route name
+                "{controller}/{action}/{id}", // URL with parameters
+                new { controller = "Home", action = "About", id = UrlParameter.Optional } // Parameter defaults
+            );
+
             // Default
             routes.MapLowercaseRoute(
-				"Default", // Route name
-				"{controller}/{action}/{id}", // URL with parameters
-				new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
-			);
-		}
+                "Default", // Route name
+                "{controller}/{action}/{id}", // URL with parameters
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+            );
+        }
 
-		private static void RegisterSpecialRoutes(RouteCollection routes)
+        private static void RegisterSpecialRoutes(RouteCollection routes)
 		{
 			// /Wiki/Special:{id} urls
 			routes.MapRoute(

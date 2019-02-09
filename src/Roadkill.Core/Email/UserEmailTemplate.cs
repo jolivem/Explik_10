@@ -87,7 +87,8 @@ namespace Roadkill.Core.Email
             result = result.Replace("{LASTNAME}", model.Lastname);
             result = result.Replace("{EMAIL}", model.NewEmail);
             result = result.Replace("{USERNAME}", model.NewUsername);
-            result = result.Replace("{SITEURL}", SiteSettings.SiteUrl);
+            //result = result.Replace("{SITEURL}", SiteSettings.SiteUrl);
+            result = result.Replace("{SITEURL}", "http://www.explik.fr");
             result = result.Replace("{ACTIVATIONKEY}", model.ActivationKey);
             result = result.Replace("{RESETKEY}", model.PasswordResetKey);
             result = result.Replace("{USERID}", model.Id.ToString());

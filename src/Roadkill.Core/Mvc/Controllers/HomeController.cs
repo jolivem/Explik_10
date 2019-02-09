@@ -43,23 +43,6 @@ namespace Roadkill.Core.Mvc.Controllers
 		    _applicationSettings = settings;
 		}
 
-		/// <summary>
-		/// Display the homepage/mainpage. If no page has been tagged with the 'homepage' tag,
-		/// then a dummy PageViewModel is put in its place.
-		/// </summary>
-		//[BrowserCache]
-		//public ActionResult Index()
-		//{
-		//    if (Context.IsController)
-		//    {
-  //              return RedirectToAction("AllNewPages", "Pages");
-		//    }
-  //          return RedirectToAction("Index");
-
-		//	//return View(model);
-		//    //return null;
-  //      }
-
 
         [BrowserCache]
         public ActionResult Index()
@@ -142,5 +125,45 @@ namespace Roadkill.Core.Mvc.Controllers
 		{
 			return Content(_pageService.GetMenu(Context));
 		}
-	}
+
+        /// <summary>
+        /// Displays the wiki page using the provided id, without title and with a "return" link
+        /// </summary>
+        /// <param name="id">The page id</param>
+        /// <param name="title">This parameter is passed in, but never used in queries.</param>
+        [BrowserCache]
+        public ActionResult About(int? id, string title)
+        {
+            if (id == null || id < 1)
+                return RedirectToAction("Index", "Home");
+
+            PageViewModel model = null;
+
+            // id should be a kind of enum
+            switch (id)
+            {
+                case 1: // Contact
+                    model = _pageService.GetById(1, true);
+                    break;
+                case 2: // About
+                    model = _pageService.GetById(2, true);
+                    break;
+                case 3: // Privacy
+                    model = _pageService.GetById(3, true);
+                    break;
+                case 4: // Avertissements
+                    model = _pageService.GetById(4, true);
+                    break;
+                case 5: // First key
+                    model = _pageService.GetById(5, true);
+                    break;
+            }
+
+            if (model != null)
+            {
+                return View("About", model);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+    }
 }

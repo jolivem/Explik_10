@@ -568,8 +568,10 @@
     <None Include="packages.config" />
     <Content Include="Plugins\Web.config" />
     <Content Include="Plugins\_ViewStart.cshtml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\discountasp.pubxml" />
     <None Include="Properties\PublishProfiles\Explik - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\Mono.pubxml" />
     <Content Include="Assets\Scripts\shared\toastr.js" />
     <Content Include="Themes\Responsive\Theme.css" />
@@ -652,6 +654,7 @@
     <Content Include="Views\Alerts\ListAlerts.cshtml" />
     <Content Include="Views\Pages\ReControlPage.cshtml" />
     <Content Include="Roadkill.config" />
+    <Content Include="Views\Home\About.cshtml" />
     <None Include="Web.Mono.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

@@ -1,0 +1,48 @@
+﻿@model PageViewModel
+@{
+    /**/
+
+    ViewBag.Title = Model.Title;
+}
+
+
+<!-- Title and page info -->
+<div class="row">
+    <div class="col-sm-8">
+        <div id="pagecontent" style="text-align: justify;text-justify: inter-word">
+            @MvcHtmlString.Create(Model.ContentAsHtml)
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-1">
+        <h6>
+            <a href="javascript:history.back()">&lt; @SiteStrings.Shared_Back_Link</a>
+        </h6>
+    </div>
+</div>
+@section PageComments
+{
+    <!-- all about comments -->
+}
+
+@section PluginHead
+{
+    <!-- Plugins -->
+    @Html.Raw(Model.PluginHeadHtml)<!-- End plugins head -->
+}
+
+@section PluginPreContainer
+{
+    @MvcHtmlString.Create(Model.PluginPreContainer)
+}
+
+@section PluginPostContainer
+{
+    @MvcHtmlString.Create(Model.PluginPostContainer)
+}
+
+@section PluginFooter
+{
+    @MvcHtmlString.Create(Model.PluginFooterHtml)
+}
