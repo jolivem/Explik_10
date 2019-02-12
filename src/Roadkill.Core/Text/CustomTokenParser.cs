@@ -71,7 +71,7 @@ namespace Roadkill.Core
 				// Catch bad regexes
 				try
 				{
-					Regex regex = new Regex(token.SearchRegex,RegexOptions.Compiled | RegexOptions.Singleline);
+					Regex regex = new Regex(token.SearchRegex,RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnoreCase);
 					token.CachedRegex = regex;
 				}
 				catch (ArgumentException e)

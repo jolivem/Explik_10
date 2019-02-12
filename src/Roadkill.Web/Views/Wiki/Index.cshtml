@@ -70,7 +70,10 @@
         <hr size=2 align=left width="90%" />
         <p>
             <img src="@(Url.Content(@Model.GetPortraitImage()))" border="0" alt="loading" style="float:left;width:40px;height:40px;" />
-            <span style="color:green;padding-left:15px;">@SiteStrings.Page_Info_CreatedBy2 @Model.CreatedBy</span><br />
+            @if (Model.CreatedBy.ToLower() != "explik")
+            {
+                <span style="color:green;padding-left:15px;">@SiteStrings.Page_Info_CreatedBy2 @Model.CreatedBy</span><br />
+            }
             <span style="color:green;padding-left:15px;">@SiteStrings.Page_Info_PublishedOn @Model.PublishedOn.Date.ToString("dd/MM/yyyy")</span>
         </p>
     </div>
