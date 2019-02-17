@@ -2,58 +2,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>@ViewBag.Title</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	@Html.Partial("HeadContent")
-	@RenderSection("PluginHead", false)
+    <title>@ViewBag.Title</title>
+    <meta name="description" content=" Aide scolaire en ligne du primaire au lycée, dans toutes les matières." />
+    <meta name="author" content="Explik" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="aide scolaire en ligne, expliquations, révision, astuce mnémotechnique, mémorisation, pédagogue, devoir, aide, domicile, contrôle, examen, bac, brevet" />
+    <link rel="canonical" href="http://www.explik.fr/" />
+    <meta property="og:site_name" content="Explik">
+    <meta property="og:title" content="Explik.fr : aide scolaire en ligne ">
+    <meta property="og:description" content=" Aide scolaire en ligne du primaire au lycée, dans toutes les matières. Explik aide votre enfant à comprendre.">
+    <meta property="og:type" content="website">
+    @*<meta property="og:image" content="https://www.lesbonsprofs.com/bundles/bomain/images/common/fb-default.png">*@
+    @Html.Partial("HeadContent")
+    @RenderSection("PluginHead", false)
 
-    <script type="text/javascript">
-
-</script>
-
-    <style type="text/css">
-        div#map_canvas {
-            height: 500px;
-            width: 800px;
-            position: absolute !important;
-            left: 500px;
-            top: 0;
-        }
-
-.rating16 { text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; display: inline-block; width: 8px; height: 16px; margin-bottom: -3px;}
-.rating16.stars16 { background-image: url('/Assets/CSS/images/grey-yellow-16.png');}
-.rating16.stars16.active {  cursor:pointer;}
-.star16-left_off { background-position: -0px -0px; }
-.star16-left_on { background-position: -16px -0px; }
-.star16-right_off { background-position: -8px -0px; }
-.star16-right_on { background-position: -24px -0px; }
-
-.rating { text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; display: inline-block; width: 12px; height: 24px; }
-.rating.stars { background-image: url('/Assets/CSS/images/grey-yellow-24.png');}
-.rating.stars.active {  cursor:pointer;}
-.star-left_off { background-position: -0px -0px; }
-.star-left_on { background-position: -24px -0px; }
-.star-right_off { background-position: -12px -0px; }
-.star-right_on { background-position: -36px -0px; }
-
-.rating-average { text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; display: inline-block; width: 12px; height: 24px; }
-.rating-average.stars { background-image: url('/Assets/CSS/images/grey-yellow-24.png');}
-
-.rating32 { text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; display: inline-block; width: 16px; height: 32px; }
-.rating32.stars32 { background-image: url('/Assets/CSS/images/grey-yellow-32-3.png');}
-.rating32.stars32.active {  cursor:pointer;}
-.star32-left_off { background-position: -0px -0px; }
-.star32-left_on { background-position: -32px -0px; }
-.star32-right_off { background-position: -16px -0px; }
-.star32-right_on { background-position: -48px -0px; }
-
-.foot-link {margin-right:1em; line-height:2em; padding-top:0.5em; padding-bottom:0.5em; font-size:0.9em; display:inline-block;}
-
-.container {
-  background-color: #fbfafa;
-}
-/*.meta-title{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:100%;font-size:.9375rem;font-weight:700;margin-bottom:.3125rem}*/
-    </style>
 
 </head>
 <body>
@@ -118,16 +80,16 @@
             <div id="footer-inner">
                 <ul>
                     <li class="foot-link">
-                        <a href="@Url.Action("About", "Home", new { id=2})">@SiteStrings.Navigation_About_Explik</a>
+                        <a style="color:#ffffe0;" href="@Url.Action("About", "Home", new { id=2})">@SiteStrings.Navigation_About_Explik</a>
                     </li>
                     <li class="foot-link">
-                        <a href="@Url.Action("About", "Home", new { id=1})">@SiteStrings.Navigation_Contact</a>
+                        <a style="color:#ffffe0;" href="@Url.Action("About", "Home", new { id=1})">@SiteStrings.Navigation_Contact</a>
                     </li>
                     <li class="foot-link">
-                        <a href="@Url.Action("About", "Home", new { id=3})">@SiteStrings.Navigation_Privacy_Policy</a>
+                        <a style="color:#ffffe0;" href="@Url.Action("About", "Home", new { id=3})">@SiteStrings.Navigation_Privacy_Policy</a>
                     </li>
                     <li class="foot-link">
-                        <a href="@Url.Action("About", "Home", new { id=4})">@SiteStrings.Navigation_Disclaimers</a>
+                        <a style="color:#ffffe0;" href="@Url.Action("About", "Home", new { id=4})">@SiteStrings.Navigation_Disclaimers</a>
                     </li>
                 </ul>
                 @RenderSection("PluginFooter", false)

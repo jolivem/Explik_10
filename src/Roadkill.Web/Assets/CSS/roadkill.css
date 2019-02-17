@@ -44,14 +44,6 @@ The formatting style of this CSS file is:
 /* Glyph for external links */
 a.external-link	{ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAVklEQVR4Xn3PgQkAMQhDUXfqTu7kTtkpd5RA8AInfArtQ2iRXFWT2QedAfttj2FsPIOE1eCOlEuoWWjgzYaB/IkeGOrxXhqB+uA9Bfcm0lAZuh+YIeAD+cAqSz4kCMUAAAAASUVORK5CYII=) center right no-repeat;padding-right:13px; }
 
-/* Page information dialog 
-#pageinformation { padding-top: 10%; }
-#pageinformation .tags		{  }
-#pageinformation .tagblock	{ border:1px solid #c2c2c2;background-color:#dcdcdc;margin-right:3px;padding:5px;border-radius: 4px; }
-#pageinformation .tags a	{ color:#000 !important; }
-#pageinformation .tags a:hover	{ color:#7c7c7c !important; }
-    */
-
 /* Page comment dialog */
 #page-add-comment { padding-top: 10%; }
 #page-add-comment .tags		{  }
@@ -82,8 +74,8 @@ a.external-link	{ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA
 .searchresult			{ padding-bottom: 20px; }
 .searchresult-title		{ color:Black; font-size:1.1em}
 .searchresult-summary	{ font-size:95%; }
-.searchresult-date		{ color:green;font-size:80%; }
-.searchresult-info		{ color:green;font-size:80%; }
+.searchresult-date		{ color:green;font-size:90%; }
+.searchresult-info		{ color:green;font-size:90%; }
 /*.searchresult-tags span	{ margin-left:5px; }
 .searchresult-tags span a	{ color:#4e6fa3 !important;text-decoration:none; }
 .searchresult-tags span a:hover	{ color:#000 !important;text-decoration:underline; }*/
@@ -195,3 +187,33 @@ table#files tr.listrow	{ cursor:pointer; }
 #pluginsettings-save { margin-top:20px; }
 .canvas-td { width: 80px;height:70px;overflow:hidden; }
 .canvas-td img { width:60px; }
+
+.rating16 {text-indent: -99999px;overflow: hidden;background-repeat: no-repeat;display: inline-block;width: 8px;height: 16px;margin-bottom: -3px;}
+.rating16.stars16 {background-image: url('/Assets/CSS/images/grey-yellow-16.png');}
+.rating16.stars16.active {cursor: pointer;}
+.star16-left_off {background-position: -0px -0px;}
+.star16-left_on {background-position: -16px -0px;}
+.star16-right_off {background-position: -8px -0px;}
+.star16-right_on {background-position: -24px -0px;}
+
+.rating {text-indent: -99999px;overflow: hidden;background-repeat: no-repeat;display: inline-block;width: 12px;height: 24px;}
+.rating.stars {background-image: url('/Assets/CSS/images/grey-yellow-24.png');}
+.rating.stars.active {cursor: pointer;}
+.star-left_off {background-position: -0px -0px;}
+.star-left_on {background-position: -24px -0px;}
+.star-right_off {background-position: -12px -0px;}
+.star-right_on {background-position: -36px -0px;}
+.rating-average {text-indent: -99999px;overflow: hidden;background-repeat: no-repeat;display: inline-block;width: 12px;height: 24px;}
+.rating-average.stars {background-image: url('/Assets/CSS/images/grey-yellow-24.png');}
+
+.rating32 {text-indent: -99999px;overflow: hidden;background-repeat: no-repeat;display: inline-block;width: 16px;height: 32px;}
+.rating32.stars32 {background-image: url('/Assets/CSS/images/grey-yellow-32-3.png');}
+.rating32.stars32.active {cursor: pointer;}
+.star32-left_off {background-position: -0px -0px;}
+.star32-left_on {background-position: -32px -0px;}
+.star32-right_off {background-position: -16px -0px;}
+.star32-right_on {background-position: -48px -0px;}
+
+.foot-link {margin-right: 1em;line-height: 2em;padding-top: 0.5em;padding-bottom: 0.5em;font-size: 0.9em;display: inline-block;}
+.a.a-yellow {color: #ffffe0;}
+.container {background-color: #fbfafa;}

@@ -21,20 +21,25 @@
 @using (Html.BeginForm("Upload", "FileManager", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.Hidden("destination_folder", "")
-    <div id="fileupload-buttonbar">
-        <!-- Skin the file chooser ("...") input field to look like a button -->
-        <span class="fileinput-button btn btn-primary">
-            <i class="glyphicon glyphicon-plus"></i>
-            <input id="fileupload" type="file" name="files[]" data-url="FileManager/Upload" multiple />
-            <span>@SiteStrings.FileManager_Upload</span>
-        </span>
-
+<div id="fileupload-buttonbar">
+    <!-- Skin the file chooser ("...") input field to look like a button -->
+    <span class="fileinput-button btn btn-primary">
+        <i class="glyphicon glyphicon-plus"></i>
+        <input id="fileupload" type="file" name="files[]" data-url="FileManager/Upload" multiple />
+        <span>@SiteStrings.FileManager_Upload</span>
+    </span>
+    @if (@ViewBag.IsAdmin)
+    {
         <button id="deletefilebtn" type="button" class="btn btn-primary">@SiteStrings.FileManager_Delete_File</button>
-        <button id="addfolderbtn" type="button" class="btn btn-primary">@SiteStrings.FileManager_AddFolder</button>
+    }
+    <button id="addfolderbtn" type="button" class="btn btn-primary">@SiteStrings.FileManager_AddFolder</button>
+    @if (@ViewBag.IsAdmin)
+    {
         <button id="deletefolderbtn" type="button" class="btn btn-danger">
             <i class="glyphicon glyphicon-trash"></i>
             @SiteStrings.FileManager_Delete_Folder
         </button>
+    }
     </div>
     <div id="user-path" title="@ViewBag.userpath"></div>
 }

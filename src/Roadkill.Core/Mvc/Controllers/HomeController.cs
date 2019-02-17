@@ -47,32 +47,13 @@ namespace Roadkill.Core.Mvc.Controllers
         [BrowserCache]
         public ActionResult Index()
         {
-            PageViewModel pmodel = _pageService.FindHomePage();
-            var zaza = pmodel;
-
             GalleryViewModel galleryModel = new GalleryViewModel(_markupConverter);
 
-            galleryModel.listMostRecent = (List<PageViewModel>)_pageService.PagesMostRecent(10);
-            foreach (PageViewModel model in galleryModel.listMostRecent)
-            {
-                model.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + model.FilePath + "/";
-            }
+            galleryModel.listPages = (List<PageViewModel>)_pageService.PagesMostRecent(30);
 
-            //galleryModel.listMostViewed = (List<PageViewModel>)_pageService.PagesMostViewed(10);
-            //foreach (PageViewModel model in galleryModel.listMostViewed)
-            //{
-            //    model.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + model.FilePath + "/";
-            //}
-
-            //galleryModel.listBestRated = (List<PageViewModel>)_pageService.PagesBestRated(10);
-            //foreach (PageViewModel model in galleryModel.listBestRated)
-            //{
-            //    model.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + model.FilePath + "/";
-            //}
+            galleryModel.Title = SiteStrings.Gallery_Last_Publications;
 
             return View("Index", galleryModel);
-            // display a galery of pages
-
 		}
 
 		/// <summary>

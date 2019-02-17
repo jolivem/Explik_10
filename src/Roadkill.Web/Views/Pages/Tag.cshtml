@@ -3,7 +3,7 @@
 	string title = string.Format(SiteStrings.Pages_ForTag, ViewData["Tagname"]);
 	ViewBag.Title = title;
 }
-<h1>@title</h1>
+<h3>@title</h3>
 
 @if (Model.Count() > 0)
 {

@@ -238,7 +238,7 @@
     <value>The email {0} already exists.</value>
   </data>
   <data name="User_Validation_PasswordsDontMatch" xml:space="preserve">
-    <value>The passwords don't match.</value>
+    <value>les mots de passe sont différents.</value>
   </data>
   <data name="User_Validation_PasswordTooShort" xml:space="preserve">
     <value>The password is less than {0} characters</value>
@@ -816,7 +816,7 @@
     <value>Gestion des fichiers</value>
   </data>
   <data name="FileManager_Upload" xml:space="preserve">
-    <value>Ajouter</value>
+    <value>Ajouter un fichier</value>
   </data>
   <data name="FileManager_AddFolder" xml:space="preserve">
     <value>Ajouter un dossier</value>
@@ -863,7 +863,7 @@
     <comment>Fuzzy</comment>
   </data>
   <data name="FileManager_Extension_Not_Supported" xml:space="preserve">
-    <value>Seuls les fichiers de type peuvent être charger.</value>
+    <value>Seuls les fichiers de type {0} peuvent être chargés.</value>
   </data>
   <data name="Homepage_Tagname" xml:space="preserve">
     <value>Accueil</value>
@@ -1289,7 +1289,7 @@
     <value>Liste des alertes</value>
   </data>
   <data name="ControlPage_Handle_Tags" xml:space="preserve">
-    <value>Handle tags</value>
+    <value>Modifier les catégories</value>
   </data>
   <data name="ControlPage_Reject_Radio_Button" xml:space="preserve">
     <value>Reject</value>

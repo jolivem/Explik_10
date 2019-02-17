@@ -27,7 +27,7 @@ h1, h2, h3, h4, h5, h6 { font-family: "Verdana", sans-serif;padding: 5px 0px 5px
 	#header-wrapper .navbar { border: 0px; margin-bottom: 0px !important; min-height: 100%; }
 
 /* Login bar*/
-#login-status	{ text-align:right;padding:2px; height:53px; background-image:linear-gradient(to right, #f8f08c, #fafaac);}
+#login-status	{ text-align:right;padding:2px; height:53px; background-image:linear-gradient(to right, #4f8bdf, #5f9be5);}
 #loggedinas	{ display:block; margin-right:15px;margin-top:5px;}
 
 /* The main page container*/
@@ -37,10 +37,11 @@ h1, h2, h3, h4, h5, h6 { font-family: "Verdana", sans-serif;padding: 5px 0px 5px
 #container-comments { padding: 20px !important; font-size: 1em; }
 
 /* Change the default footer */
-#footer-inner { padding: 0px 20px; border-top: 1px solid #F8F8F8; min-height: 100%;  background-image:linear-gradient(to right, #f8f08c, #fafaac);}
+#footer-inner { color:#ffffe0; border-top: 1px solid #F8F8F8; min-height: 100%;  background-image:linear-gradient(to right, #4f8bdf, #5f9be5);}
 #viewhistory { display: inline; }
 
 /* Settings page */
 #configuration-container legend { font-size:1.2em !important; }
 #configuration-container select { font-size:0.9em !important;font-weight:normal;}
 #configuration-container input { font-size:0.9em !important;font-weight:normal;}
+.a.a-yellow {color:#ffffe0; }

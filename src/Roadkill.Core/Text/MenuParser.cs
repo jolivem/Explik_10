@@ -137,7 +137,7 @@ namespace Roadkill.Core.Text
             if (_userContext.IsController)
             {
                 // remove some menus
-                categories = "";
+                //categories = "";
                 allPages = "";
                 //myPages = "";
                 mainPage = "";
@@ -155,7 +155,7 @@ namespace Roadkill.Core.Text
             }
             else if (_userContext.IsLoggedIn) // logged but no specific right
             {
-                categories = "";
+                //categories = "";
                 allPages = "";
                 allNewPages = "";
                 allNewComments = "";
@@ -165,7 +165,7 @@ namespace Roadkill.Core.Text
 
             else // simple visitor
             {
-                categories = ""; 
+                //categories = ""; 
                 allPages = "";
                 allNewPages = "";
                 allNewComments = "";

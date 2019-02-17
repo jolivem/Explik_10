@@ -432,10 +432,12 @@ namespace Roadkill.Core.Security
 				user.SetPassword(model.Password);
 				user.IsEditor = true;
 				user.IsAdmin = false;
+                user.IsController = false;
 				user.IsActivated = false;
-				Repository.SaveOrUpdateUser(user);
-
-				if (completed != null)
+                user.AttachmentsPath = DateTime.UtcNow.ToString("yyyy-MM") + "/" + user.Username;
+                user.IsBlackListed = false;
+                Repository.SaveOrUpdateUser(user);
+                if (completed != null)
 					completed();
 
 				return user.ActivationKey;

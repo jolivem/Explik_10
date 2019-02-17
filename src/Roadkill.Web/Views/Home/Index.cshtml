@@ -1,64 +1,19 @@
 ﻿@model GalleryViewModel
 @{
-    //ViewBag.Title = Model.Title;
+    ViewBag.Title = Model.Title;
 }
-<style type="text/css">
-
-    .textwidget {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-    /* mixin for multiline */
-    .block-with-text {
-        overflow: hidden;
-        position: relative;
-        line-height: 1.2em;
-        max-height: 5.0em;
-        text-align: justify;
-        margin-right: -1em;
-        padding-right: 1em;
-    }
-
-        .block-with-text:before {
-            content: "...";
-            position: absolute;
-            right: 0;
-            bottom: 0;
-        }
-
-        .block-with-text:after {
-            content: "";
-            position: absolute;
-            right: 0;
-            width: 1em;
-            height: 1em;
-            margin-top: 0.2em;
-            background: white;
-        }
-
-    .thumb-crop {
-        display: inline-block;
-        height: 100px;
-        overflow: hidden;
-    }
-
-        .thumb-crop img {
-            width: 120px;
-        }
-</style>
 
 <div class="container">
     <div class=" row">
         <div class="col-md-10">
-            <h4>@SiteStrings.Gallery_Last_Publications</h4>
+            <h4>@Model.Title</h4>
             <table>
-                @foreach (PageViewModel page in Model.listMostRecent)
+                @foreach (PageViewModel page in Model.listPages)
                 {
                     <tr>
                         <td class='searchresult-td'>
                             <span class="searchresult-title">
-                                <a href="@Url.Action("Index", "Wiki", new { id = page.Id })">@page.Title</a>
+                                <a href="@Url.Action("Index", "Wiki", new { id = page.Id , title = page.EncodedTitle })">@page.Title</a>
                             </span><br />
                             <span class="searchresult-summary">@MvcHtmlString.Create(Model.GetContentSummary(page)) ...</span><br />
                             @MvcHtmlString.Create(@Model.EncodeTags(page))

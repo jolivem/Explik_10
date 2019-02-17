@@ -44,6 +44,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		public ActionResult Index()
 		{
             ViewBag.userpath = Context.AttachmentsPath;
+            ViewBag.IsAdmin = Context.IsAdmin;
 			return View();
 		}
 

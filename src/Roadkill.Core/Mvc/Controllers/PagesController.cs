@@ -537,10 +537,19 @@ namespace Roadkill.Core.Mvc.Controllers
 		/// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
 		public ActionResult Tag(string id)
 		{
-			id = HttpUtility.UrlDecode(id);
-			ViewData["Tagname"] = id;
+            MarkupConverter converter = _pageService.GetMarkupConverter();
+            GalleryViewModel galleryModel = new GalleryViewModel(converter);
+            galleryModel.listPages = _pageService.FindByTag(id).ToList();
 
-			return View(_pageService.FindByTag(id));
+            galleryModel.Title = string.Format(SiteStrings.Pages_ForTag, HttpUtility.UrlDecode(id));
+            //SiteStrings.Gallery_Last_Publications;
+
+            return View("../Home/Index", galleryModel);
+
+   //         id = HttpUtility.UrlDecode(id);
+			//ViewData["Tagname"] = id;
+
+			//return View(_pageService.FindByTag(id));
 		}
 
 		/// <summary>

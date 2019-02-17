@@ -15,30 +15,15 @@ namespace Roadkill.Core.Mvc.ViewModels
     /// </summary>
     public class GalleryViewModel
     {
-        public List<PageViewModel> listMostRecent;
-        //List<Thumbnail> listRecommended;
-        //public List<PageViewModel> listBestRated;
-        //public List<PageViewModel> listMostViewed;
+        public List<PageViewModel> listPages;
         MarkupConverter markupConverter;
+        public string Title;
 
         public GalleryViewModel(MarkupConverter converter)
         {
-            listMostRecent = new List<PageViewModel>();
-            //listRecommended = new List<Thumbnail>();
-            //listBestRated = new List<PageViewModel>();
-            //listMostViewed = new List<PageViewModel>();
+            listPages = new List<PageViewModel>();
             markupConverter = converter;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="page"></param>
-        /// <returns></returns>
-        //public string GetCanvas(PageViewModel model)
-        //{
-        //    return model.FilePath + "page_" + model.Id + ".png";
-        //}
 
         /// <summary>
         /// 
@@ -107,10 +92,6 @@ namespace Roadkill.Core.Mvc.ViewModels
                     {
                         builder.AppendLine("<td class='searchresult-td' valign='top'>");
                         {
-                            //builder.AppendLine("<div class='canvas-td'>");
-                            ////builder.AppendLine("<img src='" + GetCanvas(model) + "'>");
-                            //builder.AppendLine("</div>");
-                            //builder.AppendLine("</td>");
                         }
                         builder.AppendLine("<td class='searchresult-td'>");
                         {
@@ -149,7 +130,7 @@ namespace Roadkill.Core.Mvc.ViewModels
             if (modelHtml.Length > 150)
                 modelHtml = modelHtml.Substring(0, 149);
 
-            if (model.Content.Contains("youtube") && modelHtml.Length <= 2) // 2 is for "\n"
+            if (model.Content.Contains("youtube") && modelHtml.Length <= 3) // 2 is for "\n"
             {
                 modelHtml = "Vidéo. " + modelHtml; //TODO english traduction
             }
