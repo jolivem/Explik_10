@@ -59,8 +59,8 @@
 		]]>
 		</Description>
 		<SearchRegex>\(youtube:(?'youtube'.*?)\)</SearchRegex>
-		<HtmlReplacement>
-			<![CDATA[<iframe width="315" height="236" src="//www.youtube.com/embed/${youtube}" frameborder="0" allowfullscreen></iframe>]]>
+    <HtmlReplacement>
+			<![CDATA[<div class="embedresize"><div><iframe allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/${youtube}" width="560"></iframe></div></div>]]>
 		</HtmlReplacement>
 	</TextToken>
 	<TextToken>

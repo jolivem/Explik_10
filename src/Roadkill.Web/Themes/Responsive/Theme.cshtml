@@ -24,16 +24,11 @@
     {
         <div id="header-wrapper">
             <div class="container" style="padding-right:0px;">
-                <div id="login-status" style="padding-left:15px;">
+                <div id="login-status" style="padding-left:8px;">
                     @Html.Action("LoggedInAs", "User")
                 </div>
                 <table>
                     <tr>
-                        @*<td style="padding-left:10px; vertical-align:text-top;">
-                                <a href="@Url.Action("Index", "Home")">
-                                    <img src="@Url.Content("/Assets/Images/Explik-48.png")" alt="logo" style="width:80px;" />
-                                </a>
-                            </td>*@
                         <td style="width:100%;">
                             <div id="bootstrap-nav-menu">
                                 @Html.Action("BootstrapNavMenu", "Home")

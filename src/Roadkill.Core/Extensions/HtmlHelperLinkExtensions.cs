@@ -104,10 +104,10 @@ namespace Roadkill.Core.Extensions
 			else
 			{
 				string redirectPath = helper.ViewContext.HttpContext.Request.Path;
-				link = helper.ActionLink(SiteStrings.Navigation_Login, "Login", "User", new { ReturnUrl = redirectPath }, new { @style="color:#ffffe0;" }).ToString();
+				link = helper.ActionLink(SiteStrings.Navigation_Login, "Login", "User", new { ReturnUrl = redirectPath }).ToString();
 
 				if (controller.SettingsService.GetSiteSettings().AllowUserSignup)
-					link += "&nbsp;/&nbsp;" + helper.ActionLink(SiteStrings.Navigation_Register, "Signup", "User", null, new { @style = "color:#ffffe0;" }).ToString();
+					link += "&nbsp;/&nbsp;" + helper.ActionLink(SiteStrings.Navigation_Register, "Signup", "User").ToString();
 			}
 
 			return MvcHtmlString.Create(prefix + link + suffix);

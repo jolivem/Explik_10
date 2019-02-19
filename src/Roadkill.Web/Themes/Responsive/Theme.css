@@ -28,7 +28,8 @@ h1, h2, h3, h4, h5, h6 { font-family: "Verdana", sans-serif;padding: 5px 0px 5px
 
 /* Login bar*/
 #login-status	{ text-align:right;padding:2px; height:53px; background-image:linear-gradient(to right, #4f8bdf, #5f9be5);}
-#loggedinas	{ display:block; margin-right:15px;margin-top:5px;}
+#loggedinas	{ display:block; margin-right:15px;margin-top:5px;color:#ffffe0}
+#loggedinas	a {color:#ffffe0;}
 
 /* The main page container*/
 #container { padding: 20px !important; font-size: 1em; }
