@@ -87,22 +87,23 @@ namespace Roadkill.Core.Mvc.Controllers
             return View(all);
         }
 
-	    /// <summary>
-	    /// Displays a list of all alerted page titles and ids in Roadkill.
-	    /// </summary>
-	    /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
-	    //[BrowserCache]
-	    //[ControllerRequired]
-	    //public ActionResult AllPagesWithAlerts()
-	    //{
-	    //    var all = _pageService.AllPagesWithAlerts();
-	    //    return View(all);
-	    //}
+        /// <summary>
+        /// Displays a list of all alerted page titles and ids in Roadkill.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
+        //[BrowserCache]
+        //[ControllerRequired]
+        //public ActionResult AllPagesWithAlerts()
+        //{
+        //    var all = _pageService.AllPagesWithAlerts();
+        //    return View(all);
+        //}
 
-	    /// <summary>
+        /// <summary>
         /// Displays a list of current user page titles and ids in Roadkill.
         /// </summary>
         /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
+        [EditorRequired]
         [BrowserCache]
         public ActionResult MyPages(string id, bool? encoded)
         {
@@ -185,7 +186,7 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <param name="id">The id of the page to delete.</param>
         /// <returns>Redirects to AllPages action.</returns>
         /// <remarks>This action requires admin rights.</remarks>
-        //[AdminRequired]
+        [AdminRequired]
         [ControllerRequired]
         public ActionResult Delete(int id)
         {
@@ -194,20 +195,33 @@ namespace Roadkill.Core.Mvc.Controllers
             return RedirectToAction("MyPages");
         }
 
+
+        /// <summary>
+        /// Draft is an Ajax request
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [EditorRequired]
-        public ActionResult Draft(int id, string view)
+        public ActionResult SetDraftAndEdit(int id)
+        {
+            _pageService.SetDraft(id);
+            //PageViewModel model = _pageService.GetById(id);
+            return RedirectToAction("Edit", new { id });
+        }
+
+        /// <summary>
+        /// Draft is an Ajax request
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [EditorRequired]
+        public ActionResult SetDraft(int id)
         {
             _pageService.SetDraft(id);
 
-            if (view.ToLower() == "mypages")
-            {
-                return RedirectToAction("MyPages");
-            }
-            //if (view == "MyPage")
-            //{
-                return RedirectToAction("Index", "Wiki", new { id });
-            //}
-
+            // return sucess to ajax request
+            return Json("success", JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -233,7 +247,7 @@ namespace Roadkill.Core.Mvc.Controllers
             {
                 return RedirectToAction("MyPages");
             }
-            
+
             //if (view == "MyPage")
             return RedirectToAction("Index", "Wiki", new { id });
         }
@@ -428,9 +442,6 @@ namespace Roadkill.Core.Mvc.Controllers
 			if (!ModelState.IsValid)
 				return View("Edit", model);
 
-            // use viewBag because it is not a page data but a user data
-            //ViewBag.userrating = _pageService.GetPageRatingFromUser(model.Id, Context.CurrentUsername);
-            
             _pageService.UpdatePage(model);
 
 			return RedirectToAction("Index", "Wiki", new { id = model.Id });

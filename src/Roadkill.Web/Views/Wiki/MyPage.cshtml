@@ -4,15 +4,11 @@
     ViewBag.Title = Model.Title;
 }
 
+@Html.Hidden("confirm-unpublish-text", @SiteStrings.MyPages_Confirm_Unpublish)
+
 <div class="row">
     <div class="col-sm-8">
-        <h1 class="pagetitle">
-            <table style="width:100%">
-                <tr>
-                    <td>@Model.Title</td>
-                </tr>
-            </table>
-        </h1>
+        <h1 class="pagetitle">@Model.Title</h1>
     </div>
 </div>
 
@@ -29,9 +25,20 @@
     </div>
     <div class="col-sm-5" style="padding-top:20px;display:inline-flex;">
         <span style="margin-top:10px;">@SiteStrings.MyPage_Status&nbsp;@MvcHtmlString.Create(Model.Status)</span>
-        <span style="float:right; margin-left:10px; @Model.SubmitBtnHidden">@Html.ActionLink(SiteStrings.Shared_SubmitLink, "Submit", "Pages", new { id = Model.Id, view = "MyPage" }, new { @class = "btn btn-mini btn-primary" })</span>
-        <span style="float:right; margin-left:10px; @Model.EditBtnHidden">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", "Pages", new { id = Model.Id }, new { @class = "btn btn-mini btn-primary" })</span>
-        <span style="float:right; margin-left:10px; @Model.DraftBtnHidden">@Html.ActionLink(SiteStrings.Shared_DraftLink, "Draft", "Pages", new { id = Model.Id, view = "MyPage" }, new { @class = "btn btn-mini btn-primary" })</span>
+        @if (@Model.IsDraft)
+        {
+            <span style="float:right; margin-left:10px;">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", "Pages", new { id = Model.Id }, new { @class = "btn btn-mini btn-primary" })</span>
+            <span style="float:right; margin-left:10px;">@Html.ActionLink(SiteStrings.Shared_SubmitLink, "Submit", "Pages", new { id = Model.Id, view = "MyPage" }, new { @class = "btn btn-mini btn-primary" })</span>
+            @*<button style="float:right; margin-left:10px;" class="btn btn-primary btn-mini" onclick="SubmitPage('@Model.Id')">@SiteStrings.Shared_SubmitLink</button>*@
+        }
+        @if (@Model.IsPublished)
+        {
+            <button style="float:right; margin-left:10px;" class="btn btn-warning btn-mini" onclick="ConfirmGetbackPage('@Model.Id', 'mypage')">@SiteStrings.Shared_UnpublishLink</button>
+        }
+        @if (@Model.IsSubmitted)
+        {
+            <span style="float:right; margin-left:10px;">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", "Pages", new { id = Model.Id }, new { @class = "btn btn-mini btn-primary" })</span>
+        }
     </div>
 </div>
 

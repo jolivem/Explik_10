@@ -407,7 +407,6 @@
     <Content Include="Assets\opensearch.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Assets\Scripts\shared\html2canvas.min.js" />
     <Content Include="Assets\Scripts\shared\rating.js" />
     <Content Include="Assets\Scripts\shared\bootbox.js" />
     <Content Include="Assets\Scripts\readme.txt" />

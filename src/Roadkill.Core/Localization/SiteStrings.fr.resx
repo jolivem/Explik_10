@@ -178,7 +178,7 @@
     <value>Chercher</value>
   </data>
   <data name="Shared_EditLink" xml:space="preserve">
-    <value>Editer</value>
+    <value>Modifier</value>
   </data>
   <data name="Shared_DeleteLink" xml:space="preserve">
     <value>Supprimer</value>
@@ -1314,5 +1314,17 @@
   </data>
   <data name="Reject_Reason_Publicity" xml:space="preserve">
     <value>Contenu publicitaire</value>
+  </data>
+  <data name="MyPages_Confirm_Unpublish" xml:space="preserve">
+    <value>La modification aura pour effet de sortir la clé des publications. Il faudra à nouveau la soumettre. Voulez-vous modifier la clé ?</value>
+  </data>
+  <data name="Shared_UnpublishLink" xml:space="preserve">
+    <value>Reprendre</value>
+  </data>
+  <data name="EditPage_Help_First_Page" xml:space="preserve">
+    <value>Première clé ?</value>
+  </data>
+  <data name="Shared_ClickHere" xml:space="preserve">
+    <value>Cliquez ici.</value>
   </data>
 </root>

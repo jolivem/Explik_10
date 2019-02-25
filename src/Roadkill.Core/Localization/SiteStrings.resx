@@ -1348,4 +1348,16 @@
   <data name="Reject_Reason_Publicity" xml:space="preserve">
     <value>Contains publicity</value>
   </data>
+  <data name="MyPages_Confirm_Unpublish" xml:space="preserve">
+    <value>The page is going to be unpublished. Do you confirm ?</value>
+  </data>
+  <data name="Shared_UnpublishLink" xml:space="preserve">
+    <value>Un-publish</value>
+  </data>
+  <data name="EditPage_Help_First_Page" xml:space="preserve">
+    <value>First page ?</value>
+  </data>
+  <data name="Shared_ClickHere" xml:space="preserve">
+    <value>Click here.</value>
+  </data>
 </root>

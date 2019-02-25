@@ -31,7 +31,7 @@ module Roadkill.Web
             this.bindAddCommentLink();
             this.bindRemoveCommentLink();
             this.bindAlertLink();
-			this.bindTimeAgo();
+            this.bindTimeAgo();
 		}
 
 		public static hideTemporaryAlerts()
@@ -124,6 +124,6 @@ module Roadkill.Web
 					return false;
 				}
 			});
-		}
-	}
+        }
+    }
 }

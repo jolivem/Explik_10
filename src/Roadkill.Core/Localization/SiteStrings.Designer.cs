@@ -691,6 +691,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à First page ?.
+        /// </summary>
+        public static string EditPage_Help_First_Page {
+            get {
+                return ResourceManager.GetString("EditPage_Help_First_Page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Image title.
         /// </summary>
         public static string EditPage_Image_Title {
@@ -1245,6 +1254,15 @@ namespace Roadkill.Core.Localization {
         public static string MyPages_Action_Title {
             get {
                 return ResourceManager.GetString("MyPages_Action_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à The page is going to be unpublished. Do you confirm ?.
+        /// </summary>
+        public static string MyPages_Confirm_Unpublish {
+            get {
+                return ResourceManager.GetString("MyPages_Confirm_Unpublish", resourceCulture);
             }
         }
         
@@ -2113,6 +2131,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Click here..
+        /// </summary>
+        public static string Shared_ClickHere {
+            get {
+                return ResourceManager.GetString("Shared_ClickHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Confirm.
         /// </summary>
         public static string Shared_ConfirmLink {
@@ -2316,6 +2343,15 @@ namespace Roadkill.Core.Localization {
         public static string Shared_Unexpected_Error {
             get {
                 return ResourceManager.GetString("Shared_Unexpected_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Un-publish.
+        /// </summary>
+        public static string Shared_UnpublishLink {
+            get {
+                return ResourceManager.GetString("Shared_UnpublishLink", resourceCulture);
             }
         }
         

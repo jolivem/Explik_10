@@ -4,7 +4,7 @@
 		<Name>Warningbox</Name>
 		<Description>
 			<![CDATA[
-		Insère un texte d'avertissement dans un encadré jaune claire. Exemple :<br/>
+		Insère un texte d'avertissement dans un encadré jaune. Exemple :<br/>
 		(warningbox:SAISIR LE TEXTE ICI)
 		]]>
 		</Description>
@@ -67,8 +67,8 @@
 		<Name>Warningbox</Name>
 		<Description>
 			<![CDATA[
-		Surrounds the content in a light yellow, bordered warning box. Example:<br/>
-		@@warningbox:ENTER YOUR CONTENT HESAISIR LE CONTENU ICI@@
+		Alternative pour insérer un texte de succès dans un encadré jaune. Exemple :<br/>
+		@@warningbox:SAISIR LE TEXTE ICI@@
 		]]>
 		</Description>
 		<SearchRegex>@@warningbox:(?'warningbox'.*?)@@</SearchRegex>
@@ -78,8 +78,8 @@
 		<Name>Alertbox</Name>
 		<Description>
 			<![CDATA[
-		Surrounds the content in a red, bordered alert box. Example:<br/>
-		@@alertbox:ENTER YOUR CONTENT HERE@@
+		Alternative pour insérer un texte de succès dans un encadré rouge. Exemple :<br/>
+		@@alertbox:SAISIR LE TEXTE ICI@@
 		]]>
 		</Description>
 		<SearchRegex>@@alertbox:(?'alertbox'.*?)@@</SearchRegex>
@@ -91,8 +91,8 @@
 		<Name>Infobox alternative</Name>
 		<Description>
 			<![CDATA[
-		Surrounds the content in a blue, bordered information box. Example:<br/>
-		@@infobox:SAISIR LE CONTENU ICI@@
+		Alternative pour insérer un texte de succès dans un encadré bleu. Exemple :<br/>
+		@@infobox:SAISIR LE TEXTE ICI@@
 		]]>
 		</Description>
 		<SearchRegex>@@infobox:(?'infobox'.*?)@@</SearchRegex>
@@ -104,8 +104,8 @@
 		<Name>Successbox alternative.</Name>
 		<Description>
 			<![CDATA[
-		Surrounds the content in a green, bordered success box. Example:<br/>
-		@@successbox:SAISIR LE CONTENU ICI@@
+		Alternative pour insérer un texte de succès dans un encadré vert. Exemple :<br/>
+		@@successbox:SAISIR LE TEXTE ICI@@
 		]]>
 		</Description>
 		<SearchRegex>@@successbox:(?'successbox'.*?)@@</SearchRegex>

@@ -3,57 +3,65 @@
     ViewBag.Title = SiteStrings.AllMyPages_Title;
 }
 
-    <script type="text/javascript">
-		$(function () {
-			Roadkill.Web.Setup.bindConfirmDelete();
-		});
-    </script>
-
+<script type="text/javascript">
+    $(function () {
+        Roadkill.Web.Setup.bindConfirmDelete();
+    });
+</script>
 
 <h1>@SiteStrings.AllMyPages_Title</h1>
 
+@Html.Hidden("confirm-unpublish-text", @SiteStrings.MyPages_Confirm_Unpublish)
+
 @if (Model.Count() > 0)
 {
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>@SiteStrings.AllPages_TitleColumnHeading</th>
-            <th>@SiteStrings.MyPages_Status_Title</th>
-            <th>@SiteStrings.MyPages_Action_Title</th>
-            @if (RoadkillContext.IsLoggedIn)
-            {
-                <th></th>
-                <th></th>
-            }
-        </tr>
-    </thead>
-    @foreach (PageViewModel pageModel in Model)
-    {
-        <tr>
-            <td class="pagename stretch">@Html.ActionLink(pageModel.Title, "Index", "Wiki", new { id = pageModel.Id, title = pageModel.EncodedTitle }, null)</td>
-            <td class="pagename stretch">@MvcHtmlString.Create(pageModel.Status)</td>
-            @if (RoadkillContext.IsLoggedIn)
-            {
-                <!-- <td class="view" style="padding:4px;">@Html.ActionLink(SiteStrings.Shared_ViewLink, "Index", "Wiki", new { id = pageModel.Id }, new { @class = "btn btn-xs btn-primary right" })</td> -->
-                if (@pageModel.IsDraft)
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@SiteStrings.AllPages_TitleColumnHeading</th>
+                <th>@SiteStrings.MyPages_Status_Title</th>
+                <th>@SiteStrings.MyPages_Action_Title</th>
+                @if (RoadkillContext.IsLoggedIn)
                 {
-                    <td class="edit" style="padding:4px;">
-                        @Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", new { id = pageModel.Id }, new { @class = "btn btn-xs btn-primary " + @pageModel.EditBtnDisable + " style='width:100%;'" })
-                    </td>
-                    <td class="submit" style="padding:4px;">
-                        @Html.ActionLink(SiteStrings.Shared_SubmitLink, "Submit", new { id = pageModel.Id, view = "MyPages" }, new { @class = "btn btn-xs btn-primary " + @pageModel.SubmitBtnDisable + " style='width:100%;'" })
-                    </td>
+                    <th></th>
+                    <th></th>
                 }
-                else
+            </tr>
+        </thead>
+        @foreach (PageViewModel pageModel in Model)
+        {
+            <tr>
+                <td class="pagename stretch">@Html.ActionLink(pageModel.Title, "Index", "Wiki", new { id = pageModel.Id, title = pageModel.EncodedTitle }, null)</td>
+                <td class="pagename stretch">@MvcHtmlString.Create(pageModel.Status)</td>
+                @if (RoadkillContext.IsLoggedIn)
                 {
-                    <td class="draft" style="padding:4px;">
-                        @Html.ActionLink(SiteStrings.Shared_DraftLink, "Draft", new { id = pageModel.Id, view = "MyPages" }, new { @class = "btn btn-xs btn-primary " + @pageModel.DraftBtnDisable + " style='width:100%;'" })
-                    </td>
+                    @*<td class="view" style="padding:4px;">@Html.ActionLink(SiteStrings.Shared_ViewLink, "Index", "Wiki", new { id = pageModel.Id }, new { @class = "btn btn-primary right" })</td>*@
+                    if (@pageModel.IsDraft)
+                    {
+                        <td style="padding:4px;">
+                            @Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", new { id = pageModel.Id }, new { @class = "btn btn-primary btn-sm", @style = "width:100%;" })
+                        </td>
+                        <td style="padding:4px;">
+                            @*<button style="width:100%;" class="btn btn-primary btn-sm" onclick="SubmitPage('@pageModel.Id')">@SiteStrings.Shared_SubmitLink</button>*@
+                            @Html.ActionLink(SiteStrings.Shared_SubmitLink, "Submit", new { id = pageModel.Id, view = "MyPages" }, new { @class = "btn btn-primary btn-sm", @style = "width:100%;" })
+                        </td>
+                    }
+                    if (@pageModel.IsRejected || @pageModel.IsSubmitted)
+                    {
+                        <td style="padding:4px;">
+                            @Html.ActionLink(SiteStrings.Shared_EditLink, "SetDraftAndEdit", "Pages", new { id = pageModel.Id }, new { @class = "btn btn-primary btn-sm", @style = "width:100%;" })
+                        </td>
+                    }
+                    if (@pageModel.IsPublished)
+                    {
+                        <td style="padding:4px;">
+                            <button class="btn btn-warning btn-sm" style="width:100%;" onclick="ConfirmGetbackPage('@pageModel.Id')">@SiteStrings.Shared_UnpublishLink</button>
+                        </td>
+                    }
                 }
-            }
-        </tr>
-    }
-</table>
+            </tr>
+        }
+    </table>
 }
 else
 {

@@ -6,7 +6,7 @@ $(document).ready(function () {
     // changing rating is not actually working
 
     //************** begin star 32 rating system *****************
-    function setRating32(span, rating){ // change star display
+    function setRating32(span, rating) { // change star display
         span.find('.rating32.stars32').each(function () {
             var value = parseFloat($(this).attr("value"));
             var imgSrc = $(this).attr("class");
@@ -38,7 +38,7 @@ $(document).ready(function () {
         var newRating = $(this).attr("value");
         $("#newrating").attr("value", newRating);
         var title = $(this).attr("title");
-        $("#rate-info").html(title); 
+        $("#rate-info").html(title);
         $("#srating").val(newRating);
         setRating32(span, newRating);
 
@@ -53,7 +53,7 @@ $(document).ready(function () {
                 rating: newRating
             },
             success: function (response) {
-                toastr.success("Taken into account");
+                toastr.success("Rating taken into account");
             },
             failure: function (response) {
                 alert("failure");
@@ -135,7 +135,7 @@ $(document).ready(function () {
                 rating: newRating
             },
             success: function (response) {
-                
+
                 if (previousRating == 0) {
                     toastr.success($("#rating-added").attr("value"));
                     var span = $("#ratings");
@@ -175,16 +175,16 @@ $(document).ready(function () {
         var pID = $("#commentalert").attr("commentid");
 
         $.ajax({
-            type : "POST",
-            url : "/Pages/CommentAlert",
-            data : { id : pID },
-            success : function (response){
+            type: "POST",
+            url: "/Pages/CommentAlert",
+            data: { id: pID },
+            success: function (response) {
                 toastr.success("Alert taken into account");
             },
-            failure : function (response){
+            failure: function (response) {
                 alert("failure");
             },
-            error : function (response){
+            error: function (response) {
                 alert(response.responseText);
             }
 
@@ -228,7 +228,7 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "/Pages/PageRemoveAlert",
-            data: { id: pID},
+            data: { id: pID },
             success: function (response) {
                 toastr.success($("#alert-removed").attr("value"));
                 $("#remove-alert").hide();
@@ -279,3 +279,28 @@ $(document).ready(function () {
         }
     }
 });
+
+function ConfirmGetbackPage(pId) {
+    var confirmMessage = $("#confirm-unpublish-text").attr("value");
+    Roadkill.Web.Dialogs.confirm(confirmMessage, function (result) {
+
+        if (!result)
+            return;
+        // Ajax request
+        $.ajax({
+            type: "POST",
+            url: "/Pages/SetDraft",
+            data: { id: pId },
+            success: function (response) {
+                location.reload(); // refresh page
+                //toastr.success('blup');
+            },
+            failure: function (response) {
+                alert("failure");
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    });
+}
