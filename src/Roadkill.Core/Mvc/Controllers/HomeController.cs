@@ -53,6 +53,14 @@ namespace Roadkill.Core.Mvc.Controllers
 
             galleryModel.Title = SiteStrings.Gallery_Last_Publications;
 
+            // find Explik introduction
+            ViewBag.ExplikIntroduction = "";
+            PageViewModel page = _pageService.FindPageWithTag("___intro");
+            if (page != null)
+            {
+                ViewBag.ExplikIntroduction = page.ContentAsHtml;
+            }
+
             return View("Index", galleryModel);
 		}
 
@@ -110,36 +118,18 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <summary>
         /// Displays the wiki page using the provided id, without title and with a "return" link
         /// </summary>
-        /// <param name="id">The page id</param>
-        /// <param name="title">This parameter is passed in, but never used in queries.</param>
+        /// <param name="tag">The page id</param>
         [BrowserCache]
-        public ActionResult About(int? id, string title)
+        public ActionResult About(string tag)
         {
-            if (id == null || id < 1)
+            if (tag == null)
                 return RedirectToAction("Index", "Home");
 
             PageViewModel model = null;
 
             // id should be a kind of enum
-            switch (id)
-            {
-                case 1: // Contact
-                    model = _pageService.GetById(1, true);
-                    break;
-                case 2: // About
-                    model = _pageService.GetById(2, true);
-                    break;
-                case 3: // Privacy
-                    model = _pageService.GetById(3, true);
-                    break;
-                case 4: // Avertissements
-                    model = _pageService.GetById(4, true);
-                    break;
-                case 5: // First key
-                    model = _pageService.GetById(5, true);
-                    break;
-            }
-
+            model = _pageService.FindPageWithTag(tag);
+ 
             if (model != null)
             {
                 return View("About", model);

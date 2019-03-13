@@ -46,6 +46,7 @@ namespace Roadkill.Core.Mvc.Controllers
                 return View("MyPage", model);
 		    }
 
+            // TODO one request for optimization
             ViewBag.userrating = PageService.GetPageRatingFromUser(model.Id, Context.CurrentUsername);
             ViewBag.usercomment = PageService.GetPageCommentFromUser(model.Id, Context.CurrentUsername);
             ViewBag.currentuser = Context.CurrentUsername;

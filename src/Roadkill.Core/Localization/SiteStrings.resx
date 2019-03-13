@@ -1360,4 +1360,7 @@
   <data name="Shared_ClickHere" xml:space="preserve">
     <value>Click here.</value>
   </data>
+  <data name="EditPage_Video_placeholder" xml:space="preserve">
+    <value>If you post a video, add some text with key words so that your page is found by the search engine.</value>
+  </data>
 </root>

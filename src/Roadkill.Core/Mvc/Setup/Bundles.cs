@@ -87,7 +87,7 @@ namespace Roadkill.Core.Mvc
 			jsBundle.Include("~/Assets/Scripts/shared/tagmanager.js");
             jsBundle.Include("~/Assets/Scripts/shared/toastr.js");
             jsBundle.Include("~/Assets/Scripts/shared/es6-promise.auto.min.js");
-            jsBundle.Include("~/Assets/Scripts/shared/html2canvas.min.js"); //TODO, big file
+            jsBundle.Include("~/Assets/Scripts/shared/html2canvas.min.js"); //TODO, big file remove
             jsBundle.Include("~/Assets/Scripts/shared/rating.js");
         }
     }

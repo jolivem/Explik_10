@@ -61,10 +61,10 @@ namespace Roadkill.Core.Mvc.Attributes
 					page = PageService.GetById(id, true);
 				}
 			}
-			else
-			{
-				page = PageService.FindHomePage();
-			}
+			//else
+			//{
+			//	page = PageService.FindHomePage();
+			//}
 
 			if (page != null && page.IsCacheable)
 			{

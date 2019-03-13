@@ -74,16 +74,16 @@
             <div id="footer-inner">
                 <ul>
                     <li class="foot-link">
-                        <a style="color:#ffffe0;" href="@Url.Action("About", "Home", new { id=2})">@SiteStrings.Navigation_About_Explik</a>
+                        <a style="color:#ffffe0;" href="@Url.Action("About", "Home", new { tag="___about"})">@SiteStrings.Navigation_About_Explik</a>
                     </li>
                     <li class="foot-link">
-                        <a style="color:#ffffe0;" href="@Url.Action("About", "Home", new { id=1})">@SiteStrings.Navigation_Contact</a>
+                        <a style="color:#ffffe0;" href="@Url.Action("About", "Home", new { tag="___contact"})">@SiteStrings.Navigation_Contact</a>
                     </li>
                     <li class="foot-link">
-                        <a style="color:#ffffe0;" href="@Url.Action("About", "Home", new { id=3})">@SiteStrings.Navigation_Privacy_Policy</a>
+                        <a style="color:#ffffe0;" href="@Url.Action("About", "Home", new { tag="___privacy"})">@SiteStrings.Navigation_Privacy_Policy</a>
                     </li>
                     <li class="foot-link">
-                        <a style="color:#ffffe0;" href="@Url.Action("About", "Home", new { id=4})">@SiteStrings.Navigation_Disclaimers</a>
+                        <a style="color:#ffffe0;" href="@Url.Action("About", "Home", new { tag="___warnings"})">@SiteStrings.Navigation_Disclaimers</a>
                     </li>
                 </ul>
                 @RenderSection("PluginFooter", false)

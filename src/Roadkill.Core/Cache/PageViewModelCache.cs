@@ -68,35 +68,58 @@ namespace Roadkill.Core.Cache
 		/// Updates the home page item in the cache.
 		/// </summary>
 		/// <param name="item">The updated homepage item.</param>
-		public void UpdateHomePage(PageViewModel item)
-		{
-			if (!_applicationSettings.UseObjectCache)
-				return;
+		//public void UpdateHomePage(PageViewModel item)
+		//{
+		//	if (!_applicationSettings.UseObjectCache)
+		//		return;
 
-			_cache.Remove(CacheKeys.HomepageKey());
-			_cache.Add(CacheKeys.HomepageKey(), item, new CacheItemPolicy());
-		}
+		//	_cache.Remove(CacheKeys.HomepageKey());
+		//	_cache.Add(CacheKeys.HomepageKey(), item, new CacheItemPolicy());
+		//}
 
-		/// <summary>
-		/// Retrieves the home page item from the cache, or null if it doesn't exist.
-		/// </summary>
-		/// <returns>The cached <see cref="PageViewModel"/> for the homepage; or null if it doesn't exist.</returns>
-		public PageViewModel GetHomePage()
-		{
-			if (!_applicationSettings.UseObjectCache)
-				return null;
+        public void UpdatePageWithTag(string tag, PageViewModel item)
+        {
+            if (!_applicationSettings.UseObjectCache)
+                return;
 
-			Log("Get latest homepage");
+            _cache.Remove(CacheKeys.PageWithTagKey(tag));
+            _cache.Add(CacheKeys.PageWithTagKey(tag), item, new CacheItemPolicy());
+        }
 
-			return _cache.Get(CacheKeys.HomepageKey()) as PageViewModel;
-		}
+        /// <summary>
+        /// Retrieves the home page item from the cache, or null if it doesn't exist.
+        /// </summary>
+        /// <returns>The cached <see cref="PageViewModel"/> for the homepage; or null if it doesn't exist.</returns>
+        //public PageViewModel GetHomePage()
+        //{
+        //    if (!_applicationSettings.UseObjectCache)
+        //        return null;
 
-		/// <summary>
-		/// Retrieves the page item from the cache, or null if it doesn't exist.
-		/// </summary>
-		/// <param name="id">The id of the page</param>
-		/// <returns>The cached <see cref="PageViewModel"/>; or null if it doesn't exist.</returns>
-		public PageViewModel Get(int id)
+        //    Log("Get latest homepage");
+
+        //    return _cache.Get(CacheKeys.HomepageKey()) as PageViewModel;
+        //}
+
+        /// <summary>
+        /// Retrieves the home page item from the cache, or null if it doesn't exist.
+        /// </summary>
+        /// <returns>The cached <see cref="PageViewModel"/> for the homepage; or null if it doesn't exist.</returns>
+        public PageViewModel GetPageWithTag(string tag)
+        {
+            if (!_applicationSettings.UseObjectCache)
+                return null;
+
+            //Log("Get latest homepage");
+
+            return _cache.Get(CacheKeys.PageWithTagKey( tag)) as PageViewModel;
+        }
+
+        /// <summary>
+        /// Retrieves the page item from the cache, or null if it doesn't exist.
+        /// </summary>
+        /// <param name="id">The id of the page</param>
+        /// <returns>The cached <see cref="PageViewModel"/>; or null if it doesn't exist.</returns>
+        public PageViewModel Get(int id)
 		{
 			return Get(id, LATEST_VERSION_NUMBER);
 		}
@@ -121,21 +144,29 @@ namespace Roadkill.Core.Cache
 		/// <summary>
 		/// Removes the home page item from the cache if it exists.
 		/// </summary>
-		public void RemoveHomePage()
-		{
-			if (!_applicationSettings.UseObjectCache)
-				return;
+		//public void RemoveHomePage()
+		//{
+		//	if (!_applicationSettings.UseObjectCache)
+		//		return;
 
-			_cache.Remove(CacheKeys.HomepageKey());
+		//	_cache.Remove(CacheKeys.HomepageKey());
 
-			Log("Removed homepage from cache", CacheKeys.HomepageKey());
-		}
+		//	Log("Removed homepage from cache", CacheKeys.HomepageKey());
+		//}
+        public void RemovePageWithTag(string tag)
+        {
+            if (!_applicationSettings.UseObjectCache)
+                return;
 
-		/// <summary>
-		/// Removes the page item from the cache if it exists.
-		/// </summary>
-		/// <param name="id">The id of the page.</param>
-		public void Remove(int id)
+            _cache.Remove(CacheKeys.PageWithTagKey(tag));
+
+            Log("Removed homepage from cache", CacheKeys.PageWithTagKey(tag));
+        }
+        /// <summary>
+        /// Removes the page item from the cache if it exists.
+        /// </summary>
+        /// <param name="id">The id of the page.</param>
+        public void Remove(int id)
 		{
 			Remove(id, LATEST_VERSION_NUMBER);
 		}

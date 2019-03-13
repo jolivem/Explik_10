@@ -146,8 +146,8 @@ namespace Roadkill.Core.Mvc
             // About various info
             routes.MapLowercaseRoute(
                 "AboutInfo", // Route name
-                "Home/About/{id}", // URL with parameters
-                new { controller = "Home", action = "About", id = UrlParameter.Optional } // Parameter defaults
+                "Home/About/{tag}", // URL with parameters
+                new { controller = "Home", action = "About", tag = UrlParameter.Optional } // Parameter defaults
             );
 
             routes.MapRoute(

@@ -107,7 +107,6 @@ namespace Roadkill.Core.Mvc.Controllers
         [BrowserCache]
         public ActionResult MyPages(string id, bool? encoded)
         {
-            //TODO removeid, not needed !!!
             // after submit, id = null --> leads to an exception
             // when changing the user, the id is the older one
             ViewBag.IsUserAdmin = Context.IsAdmin;
@@ -357,7 +356,7 @@ namespace Roadkill.Core.Mvc.Controllers
                 //MJO TODO return RedirectToAction("New");
             }
 
-            return RedirectToAction("ReControlPage"); // TODO !!??
+            return RedirectToAction("ReControlPage"); 
         }
 
         /// <summary>
@@ -407,26 +406,27 @@ namespace Roadkill.Core.Mvc.Controllers
         /// redirects to the New page.</returns>
         /// <remarks>This action requires editor rights.</remarks>
         [EditorRequired]
-		public ActionResult Edit(int id)
-		{
-			PageViewModel model = _pageService.GetById(id, true);
+        public ActionResult Edit(int id)
+        {
+
+            PageViewModel model = _pageService.GetById(id, true);
 
             ViewBag.userpath = Context.AttachmentsPath;
 
             if (model != null)
-			{
-				if (model.IsLocked && !Context.IsAdmin)
-					return new HttpStatusCodeResult(403, string.Format("The page '{0}' can only be edited by administrators.", model.Title));
+            {
+                if (model.IsLocked && !Context.IsAdmin)
+                    return new HttpStatusCodeResult(403, string.Format("The page '{0}' can only be edited by administrators.", model.Title));
 
-				model.AllTags = _pageService.AllTags().ToList();
+                model.AllTags = _pageService.AllTags().ToList();
 
-				return View("Edit", model);
-			}
-			else
-			{
-				return RedirectToAction("New");
-			}
-		}
+                return View("Edit", model);
+            }
+            else
+            {
+                return RedirectToAction("New");
+            }
+        }
 
 		/// <summary>
 		/// Saves all POST'd data for a page edit to the database.
@@ -516,7 +516,6 @@ namespace Roadkill.Core.Mvc.Controllers
                 return View("Edit", model);
 
             model = _pageService.AddPage(model);
-            //TODO validate the page automatically, nonono use validate in a specific window, need possibility to use draft
 
             return RedirectToAction("Index", "Wiki", new { id = model.Id });
         }
@@ -665,11 +664,7 @@ namespace Roadkill.Core.Mvc.Controllers
         [ValidateInput(false)]
         public ActionResult Rate(PageViewModel model)
         {
-            //if (!ModelState.IsValid)
-            //    return View("Rate", model); //TODO
-
             _pageService.UpdatePage(model);
-
             return RedirectToAction("Index", "Wiki", new { id = model.Id });
         }
 
@@ -678,10 +673,6 @@ namespace Roadkill.Core.Mvc.Controllers
         [ValidateInput(false)]
         public ActionResult  PageRating(int id, string rating)
         {
-            //TODO if not editor, redirect to login
-            //if (!ModelState.IsValid)
-            //    return View("Rate", model); //TODO
-
             _pageService.SetPageRatingForUser( id, Context.CurrentUsername, Int32.Parse(rating));
 
             // TODO redirect strange because it is an ajax post

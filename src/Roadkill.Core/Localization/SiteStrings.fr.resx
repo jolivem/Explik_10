@@ -1327,4 +1327,7 @@
   <data name="Shared_ClickHere" xml:space="preserve">
     <value>Cliquez ici.</value>
   </data>
+  <data name="EditPage_Video_placeholder" xml:space="preserve">
+    <value>Si vous postez une vidéo, ajoutez une description avec les principaux mots clés afin qu'elle soit indexée par le moteur de recherche. </value>
+  </data>
 </root>

@@ -11,8 +11,16 @@ namespace Roadkill.Core.Cache
 	/// </summary>
 	public class CacheKeys
 	{
-		/// <summary>'latesthomepage'</summary>
-		private static readonly string HOMEPAGE = "latesthomepage";
+        public static readonly string ABOUTPAGE = "___about";
+        public static readonly string CONTACTPAGE = "___contact";
+        public static readonly string PRIVACYPAGE = "___privacy";
+        public static readonly string WARNINGSPAGE = "___warnings";
+        public static readonly string HOMEPAGE = "___home";
+
+
+
+        /// <summary>'latesthomepage'</summary>
+        //private static readonly string HOMEPAGE = "latesthomepage";
 
 		/// <summary>'{id}.{version}'</summary>
 		private static readonly string PAGEVIEWMODEL_FORMAT = "{id}.{version}";
@@ -118,20 +126,29 @@ namespace Roadkill.Core.Cache
 			return key;
 		}
 
-		/// <summary>
-		/// Gets the cache key for the homepage.
-		/// </summary>
-		/// <returns>The cache key.</returns>
-		public static string HomepageKey()
-		{
-			return PAGEVIEWMODEL_CACHE_PREFIX + HOMEPAGE;
-		}
+        /// <summary>
+        /// Gets the cache key for the homepage.
+        /// </summary>
+        /// <returns>The cache key.</returns>
+        //public static string HomepageKey()
+        //{
+        //    return PAGEVIEWMODEL_CACHE_PREFIX + HOMEPAGE;
+        //}
 
-		/// <summary>
-		/// Gets the cache key for the navigation menu
-		/// </summary>
-		/// <returns>The cache key.</returns>
-		public static string MenuKey()
+        /// <summary>
+        /// Gets the cache key for the homepage.
+        /// </summary>
+        /// <returns>The cache key.</returns>
+        public static string PageWithTagKey(string tag)
+        {
+            return PAGEVIEWMODEL_CACHE_PREFIX + tag;
+        }
+
+        /// <summary>
+        /// Gets the cache key for the navigation menu
+        /// </summary>
+        /// <returns>The cache key.</returns>
+        public static string MenuKey()
 		{
 			return SITE_CACHE_PREFIX + MENU;
 		}

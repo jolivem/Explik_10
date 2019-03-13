@@ -172,10 +172,9 @@ namespace Roadkill.Core.Text
                 myPages = "";
                 alerts = "";
                 //mainPage = "";
-                newpage = "";
+                //newpage = "";
                 manageFiles = "";
                 siteSettings = "";
-                
             }
 
             html = html.Replace(CATEGORIES_TOKEN, categories);

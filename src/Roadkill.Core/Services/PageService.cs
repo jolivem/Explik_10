@@ -463,16 +463,20 @@ namespace Roadkill.Core.Services
                         {
                             if (!string.IsNullOrEmpty(tagName))
                             {
-                                TagViewModel tagModel = new TagViewModel(tagName);
-                                int index = tags.IndexOf(tagModel);
+                                // tags starting with "___" are reserved (___contact, ___about, ___privacy, ...)
+                                if (tagName.Substring(0, 3) != "___")
+                                {
+                                    TagViewModel tagModel = new TagViewModel(tagName);
+                                    int index = tags.IndexOf(tagModel);
 
-                                if (index < 0)
-                                {
-                                    tags.Add(tagModel);
-                                }
-                                else
-                                {
-                                    tags[index].Count++;
+                                    if (index < 0)
+                                    {
+                                        tags.Add(tagModel);
+                                    }
+                                    else
+                                    {
+                                        tags[index].Count++;
+                                    }
                                 }
                             }
                         }
@@ -718,24 +722,57 @@ namespace Roadkill.Core.Services
         /// Finds the first page with the tag 'homepage'. Any pages that are locked by an administrator take precedence.
         /// </summary>
         /// <returns>The homepage.</returns>
-        public PageViewModel FindHomePage()
+        //public PageViewModel FindHomePage()
+        //{
+        //    try
+        //    {
+        //        PageViewModel pageModel = _pageViewModelCache.GetHomePage();
+        //        if (pageModel == null)
+        //        {
+
+        //            Page page = Repository.FindPagesContainingTag("homepage").FirstOrDefault(x => x.IsLocked == true);
+        //            if (page == null)
+        //            {
+        //                page = Repository.FindPagesContainingTag("homepage").FirstOrDefault();
+        //            }
+
+        //            if (page != null)
+        //            {
+        //                pageModel = new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+        //                _pageViewModelCache.UpdateHomePage(pageModel);
+        //            }
+        //        }
+
+        //        return pageModel;
+        //    }
+        //    catch (DatabaseException ex)
+        //    {
+        //        throw new DatabaseException(ex, "An error occurred finding the tag 'homepage' in the database");
+        //    }
+        //}
+
+        /// <summary>
+        /// Finds the first page with the tag 'homepage'. Any pages that are locked by an administrator take precedence.
+        /// </summary>
+        /// <returns>The homepage.</returns>
+        public PageViewModel FindPageWithTag(string tag)
         {
             try
             {
-                PageViewModel pageModel = _pageViewModelCache.GetHomePage();
+                PageViewModel pageModel = _pageViewModelCache.GetPageWithTag(tag);
                 if (pageModel == null)
                 {
 
-                    Page page = Repository.FindPagesContainingTag("homepage").FirstOrDefault(x => x.IsLocked == true);
+                    Page page = Repository.FindPagesContainingTag(tag).FirstOrDefault(x => x.IsLocked == true);
                     if (page == null)
                     {
-                        page = Repository.FindPagesContainingTag("homepage").FirstOrDefault();
+                        page = Repository.FindPagesContainingTag(tag).FirstOrDefault();
                     }
 
                     if (page != null)
                     {
                         pageModel = new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
-                        _pageViewModelCache.UpdateHomePage(pageModel);
+                        _pageViewModelCache.UpdatePageWithTag(tag, pageModel);
                     }
                 }
 
@@ -746,7 +783,6 @@ namespace Roadkill.Core.Services
                 throw new DatabaseException(ex, "An error occurred finding the tag 'homepage' in the database");
             }
         }
-
         /// <summary>
         /// Finds all pages with the given tag.
         /// </summary>
@@ -814,6 +850,7 @@ namespace Roadkill.Core.Services
         {
             try
             {
+                //TODO use cache !!!!!
                 //PageViewModel pageModel = _pageViewModelCache.Get(id);
                 //if (pageModel != null)
                 //{
@@ -849,9 +886,8 @@ namespace Roadkill.Core.Services
                             }
                         }
 
-                        _pageViewModelCache.Add(id, pageModel);
-
                         pageModel.AllComments = FindAllCommentByPage(id);
+                        _pageViewModelCache.Add(id, pageModel);
 
                         return pageModel;
                     }
@@ -903,8 +939,16 @@ namespace Roadkill.Core.Services
                 //
                 _pageViewModelCache.Remove(model.Id, 0);
 
-                if (model.Tags.Contains("homepage"))
-                    _pageViewModelCache.RemoveHomePage();
+                if (model.Tags.Contains(CacheKeys.ABOUTPAGE))
+                    _pageViewModelCache.RemovePageWithTag(CacheKeys.ABOUTPAGE);
+                if (model.Tags.Contains(CacheKeys.CONTACTPAGE))
+                    _pageViewModelCache.RemovePageWithTag(CacheKeys.CONTACTPAGE);
+                if (model.Tags.Contains(CacheKeys.PRIVACYPAGE))
+                    _pageViewModelCache.RemovePageWithTag(CacheKeys.PRIVACYPAGE);
+                if (model.Tags.Contains(CacheKeys.WARNINGSPAGE))
+                    _pageViewModelCache.RemovePageWithTag(CacheKeys.WARNINGSPAGE);
+                if (model.Tags.Contains(CacheKeys.HOMEPAGE))
+                    _pageViewModelCache.RemovePageWithTag(CacheKeys.HOMEPAGE);
 
                 _listCache.RemoveAll();
 

@@ -80,39 +80,39 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// <param name="title"></param>
         /// <param name="pages"></param>
         /// <returns></returns>
-        public string EncodeListPages(List<PageViewModel> models)
-        {
-            StringBuilder builder = new StringBuilder();
+        //public string EncodeListPages(List<PageViewModel> models)
+        //{
+        //    StringBuilder builder = new StringBuilder();
 
-            builder.AppendLine("<table>");
-            {
-                foreach (PageViewModel model in models) /* TODO Min or Max */
-                {
-                    builder.AppendLine("<tr>");
-                    {
-                        builder.AppendLine("<td class='searchresult-td' valign='top'>");
-                        {
-                        }
-                        builder.AppendLine("<td class='searchresult-td'>");
-                        {
-                            builder.AppendLine("<span class='searchresult-title'><a href='/Wiki/" + model.Id + "/"+ model.Title + "'>"+model.Title+"</a></span><br />");
-                            builder.AppendLine("<span class='searchresult-summary'>"+ GetContentSummary( model) + "...</span><br/>");
-                            builder.AppendLine("<span>");
-                            {
-                                builder.AppendLine("<span class='searchresult-date'>" + model.CreatedBy + " - " + model.PublishedOn.ToString("dd MMM yyyy") + " - " + model.NbView + " "+ @SiteStrings.Page_Info_NbView + "</span>");
-                                builder.AppendLine("<span style='display: inline-block;margin-bottom:-2px;'>" + EncodePageRating(model) + "</span>");
-                                builder.AppendLine("</span>");
-                            }
-                            builder.AppendLine("</td>");
-                        }
-                        builder.AppendLine("</tr>");
-                    }
-                }
-                builder.AppendLine("</table>");
-            }
+        //    builder.AppendLine("<table>");
+        //    {
+        //        foreach (PageViewModel model in models) /* TODO Min or Max */
+        //        {
+        //            builder.AppendLine("<tr>");
+        //            {
+        //                builder.AppendLine("<td class='searchresult-td' valign='top'>");
+        //                {
+        //                }
+        //                builder.AppendLine("<td class='searchresult-td'>");
+        //                {
+        //                    builder.AppendLine("<span class='searchresult-title'><a href='/Wiki/" + model.Id + "/"+ model.Title + "'>"+model.Title+"</a></span><br />");
+        //                    builder.AppendLine("<span class='searchresult-summary'>"+ GetContentSummary( model) + "...</span><br/>");
+        //                    builder.AppendLine("<span>");
+        //                    {
+        //                        builder.AppendLine("<span class='searchresult-date'>" + model.CreatedBy + " - " + model.PublishedOn.ToString("dd MMM yyyy") + " - " + model.NbView + " "+ @SiteStrings.Page_Info_NbView + "</span>");
+        //                        builder.AppendLine("<span style='display: inline-block;margin-bottom:-2px;'>" + EncodePageRating(model) + "</span>");
+        //                        builder.AppendLine("</span>");
+        //                    }
+        //                    builder.AppendLine("</td>");
+        //                }
+        //                builder.AppendLine("</tr>");
+        //            }
+        //        }
+        //        builder.AppendLine("</table>");
+        //    }
 
-            return builder.ToString();
-        }
+        //    return builder.ToString();
+        //}
 
         /// <summary>
         /// 

@@ -907,6 +907,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à If you post a video, add some text with key words so that your page is found by the search engine..
+        /// </summary>
+        public static string EditPage_Video_placeholder {
+            get {
+                return ResourceManager.GetString("EditPage_Video_placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Address of the video.
         /// </summary>
         public static string EditPage_VideoUrl_Label {

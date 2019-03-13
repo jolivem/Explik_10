@@ -135,7 +135,6 @@ namespace Roadkill.Core.Import
                                 page.VideoUrl = reader["VideoUrl"].ToString();
                                 page.Pseudonym = reader["Pseudonym"].ToString();
                                 page.ControllerRating = (long)reader["ControllerRating"];
-                                //TODO MJO what's this !!!!
                                 string categories = GetCategories(pageName);
 								if (!string.IsNullOrWhiteSpace(categories))
 									categories += ";";

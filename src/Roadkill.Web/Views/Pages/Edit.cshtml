@@ -18,7 +18,7 @@
     <div id="editpage-form-container" class="col-sm-6">
         @Html.BootstrapValidationSummary(SiteStrings.EditPage_Error)
 
-        <h6>@SiteStrings.EditPage_Help_First_Page<a href="@Url.Action("About", "Home", new { id=5})"> @SiteStrings.Shared_ClickHere</a></h6>
+        <h6>@SiteStrings.EditPage_Help_First_Page<a href="@Url.Action("About", "Home", new { tag="___firstpage"})"> @SiteStrings.Shared_ClickHere</a></h6>
 
         <form class="form-horizontal" role="form" method="post" id="editpage-form">
             @(Html.HiddenFor<PageViewModel, int>(p => p.Id))
@@ -45,7 +45,7 @@
 
             <div id="content-page">
                 @Html.Partial("WysiwgToolbar")
-                @(Html.TextAreaFor<PageViewModel, string>(p => p.Content, new { @class = "form-control", tabindex = 5 }))
+                @(Html.TextAreaFor<PageViewModel, string>(p => p.Content, new { @class = "form-control", @placeholder = @SiteStrings.EditPage_Video_placeholder, tabindex = 5 }))
             </div>
 
             <div id="editpage-button-container" class="row">
