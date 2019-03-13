@@ -1474,6 +1474,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Please connect before creating a page.
+        /// </summary>
+        public static string NewPage_ConnectionRequired {
+            get {
+                return ResourceManager.GetString("NewPage_ConnectionRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à To set a main page, create a page and assign the tag &apos;homepage&apos; to it..
         /// </summary>
         public static string NoMainPage_Label {

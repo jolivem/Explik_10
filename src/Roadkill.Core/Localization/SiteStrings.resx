@@ -1363,4 +1363,7 @@
   <data name="EditPage_Video_placeholder" xml:space="preserve">
     <value>If you post a video, add some text with key words so that your page is found by the search engine.</value>
   </data>
+  <data name="NewPage_ConnectionRequired" xml:space="preserve">
+    <value>Please connect before creating a page</value>
+  </data>
 </root>

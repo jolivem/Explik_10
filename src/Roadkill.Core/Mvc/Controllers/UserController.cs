@@ -120,6 +120,11 @@ namespace Roadkill.Core.Mvc.Controllers
 				{
 					return View("BlankLogin");
 				}
+
+                if (Request.QueryString["ReturnUrl"].ToLower().Contains("/pages/new"))
+                {
+                    ViewBag.Message = SiteStrings.NewPage_ConnectionRequired;
+                }
 			}
 
 			return View();
