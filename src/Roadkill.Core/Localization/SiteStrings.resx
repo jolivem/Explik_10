@@ -1366,4 +1366,7 @@
   <data name="NewPage_ConnectionRequired" xml:space="preserve">
     <value>Please connect before creating a page</value>
   </data>
+  <data name="Navigation_Partners" xml:space="preserve">
+    <value>Partners</value>
+  </data>
 </root>

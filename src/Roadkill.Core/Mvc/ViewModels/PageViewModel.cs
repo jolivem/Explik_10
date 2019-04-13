@@ -167,9 +167,9 @@ namespace Roadkill.Core.Mvc.ViewModels
         }
 
         /// <summary>
-        /// The global rating of the page.
+        /// The controller rating of the page.
         /// </summary>
-        public int Rating { get; set; }
+        public long ControllerRating { get; set; }
 
         /// <summary>
 		/// The current version number for the page.
@@ -309,7 +309,7 @@ namespace Roadkill.Core.Mvc.ViewModels
             ControlledBy = page.ControlledBy;
             PublishedOn = page.PublishedOn;
             RawTags = page.Tags;
-            //Summary = page.Summary;
+            ControllerRating = page.ControllerRating;
             VideoUrl = page.VideoUrl;
             Pseudonym = page.Pseudonym;
             FilePath = page.FilePath;
@@ -510,7 +510,7 @@ namespace Roadkill.Core.Mvc.ViewModels
             NbView = pageContent.Page.NbView;
             NbRating = pageContent.Page.NbRating;
             TotalRating = pageContent.Page.TotalRating;
-            //Summary = pageContent.Page.Summary;
+            ControllerRating = pageContent.Page.ControllerRating;
             VideoUrl = pageContent.Page.VideoUrl;
             Pseudonym = pageContent.Page.Pseudonym;
 
@@ -651,45 +651,6 @@ namespace Roadkill.Core.Mvc.ViewModels
         {
             return _userActivity;
         }
-
-        public string EncodeControlRating()
-        {
-            string active = "active ";
-            StringBuilder builder = new StringBuilder();
-
-            string[] titles = { SiteStrings.Rating_level1, SiteStrings.Rating_level2, SiteStrings.Rating_level3, SiteStrings.Rating_level4, SiteStrings.Rating_level5 };
-
-            for (int i = 1; i <= 5; i++)
-            {
-                string formatStr = "<span class='rating32 stars32 {2}star32-{0}' title='{3}' value='{1}'></span>";
-                if (i <= Rating)
-                {
-                    builder.AppendFormat(formatStr, "left_on", i, active, titles[i - 1]);
-                    builder.AppendFormat(formatStr, "right_on", i, active, titles[i - 1]);
-                }
-                else
-                {
-                    builder.AppendFormat(formatStr, "left_off", i, active, titles[i - 1]);
-                    builder.AppendFormat(formatStr, "right_off", i, active, titles[i - 1]);
-                }
-            }
-
-            //for (double i = .5; i <= 5.0; i = i + .5)
-            //{
-            //    int rounded = (int)i;
-            //    if (i <= rating)
-            //    {
-            //        builder.AppendFormat(formatStr, (i * 2) % 2 == 1 ? "left_on" : "right_on", i, active);
-            //    }
-            //    else
-            //    {
-            //        builder.AppendFormat(formatStr, (i * 2) % 2 == 1 ? "left_off" : "right_off", i, active);
-            //    }
-            //}
-            //builder.AppendFormat("rating={0}", rating);
-            return builder.ToString();
-        }
-
 
         /// <summary>
         /// uses 24 pixels stars

@@ -75,7 +75,6 @@
             <form role="form" method="post">
                 @Html.BootstrapValidationSummary(SiteStrings.EditPage_Error)
                 @Html.Hidden("svalidated", "true")
-                @Html.Hidden("srating", Model.Rating)
                 @Html.Hidden("RawTags", Model.RawTags)
 
                 <div id="valid-page">
@@ -111,6 +110,19 @@
                     </div>
                     <div class="radio">
                         <label><input type="radio" id="reject5" name="optreject" value="@ViewBag.AlertOther">@SiteStrings.Reject_Reason_Other</label>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-5">
+                            <label for="ControllerRating" class="control-label">Controller Rating [0;5]</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input name="ControllerRating" class="form-control" id="ControllerRating" type="text" value="@Model.ControllerRating">
+                            <br>
+                        </div>
                     </div>
                 </div>
                 <hr />

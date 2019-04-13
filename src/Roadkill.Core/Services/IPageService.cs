@@ -100,7 +100,7 @@ namespace Roadkill.Core.Services
         /// <param name="controllername"></param>
         /// <param name="rating"></param>
         /// <param name="tags"></param>
-        void ValidatePage(int pageId, string controllername, int rating, string tags=null);
+        void ValidatePage(int pageId, string controllername, int ControllerRating, string tags=null);
 
         /// <summary>
         /// 

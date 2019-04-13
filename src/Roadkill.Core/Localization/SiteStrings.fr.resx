@@ -1333,4 +1333,7 @@
   <data name="NewPage_ConnectionRequired" xml:space="preserve">
     <value>Veuillez-vous connecter pour créer une clé.</value>
   </data>
+  <data name="Navigation_Partners" xml:space="preserve">
+    <value>Sites partenaires</value>
+  </data>
 </root>

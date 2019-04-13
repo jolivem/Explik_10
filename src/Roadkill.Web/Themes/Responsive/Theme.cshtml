@@ -83,7 +83,10 @@
                         <a style="color:#ffffe0;" href="@Url.Action("About", "Home", new { tag="___privacy"})">@SiteStrings.Navigation_Privacy_Policy</a>
                     </li>
                     <li class="foot-link">
-                        <a style="color:#ffffe0;" href="@Url.Action("About", "Home", new { tag="___warnings"})">@SiteStrings.Navigation_Disclaimers</a>
+                        <a style="color:#ffffe0;" href="@Url.Action(" About", "Home" , new { tag="___warnings" })">@SiteStrings.Navigation_Disclaimers</a>
+                    </li>
+                    <li class="foot-link">
+                        <a style="color:#ffffe0;" href="@Url.Action("About", "Home", new { tag="___partners"})" target="_blank">@SiteStrings.Navigation_Partners</a>
                     </li>
                 </ul>
                 @RenderSection("PluginFooter", false)

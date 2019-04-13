@@ -574,6 +574,7 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\Mono.pubxml" />
     <Content Include="Assets\Scripts\shared\toastr.js" />
+    <Content Include="Run\Schedule.php" />
     <Content Include="Themes\Responsive\Theme.css" />
     <Content Include="Themes\Responsive\Theme.print.css" />
     <Content Include="Views\Help\MediaWikiReference.cshtml" />

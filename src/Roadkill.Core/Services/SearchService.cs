@@ -66,7 +66,7 @@ namespace Roadkill.Core.Services
 				return list;
 
             MyFrenchAnalyzer analyzer = new MyFrenchAnalyzer(LUCENEVERSION);
-			MultiFieldQueryParser parser = new MultiFieldQueryParser(LuceneVersion.LUCENE_29, new string[] { "content", "title" }, analyzer);
+			MultiFieldQueryParser parser = new MultiFieldQueryParser(LuceneVersion.LUCENE_29, new string[] { "content", "title", "tags" }, analyzer);
             parser.DefaultOperator = QueryParser.Operator.AND;
 
 			Query query = null;

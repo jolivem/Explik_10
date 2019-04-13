@@ -80,7 +80,7 @@ namespace Roadkill.Core.Services
                 page.CreatedOn = DateTime.UtcNow;
                 page.PublishedOn = DateTime.UtcNow;
                 page.ControlledBy = AppendIpForDemoSite(currentUser);
-                //page.Summary = model.Summary;
+                page.ControllerRating = model.ControllerRating;
                 //page.IsVideo = model.IsVideo;
                 page.IsControlled = false;
                 page.IsRejected = false;
@@ -583,7 +583,7 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <param name="pageId">The id of the page to validate.</param>
         /// <exception cref="DatabaseException">An databaseerror occurred while deleting the page.</exception>
-        public void ValidatePage(int pageId, string controllerName, int rating, string tags=null)
+        public void ValidatePage(int pageId, string controllerName, int controllerRating, string tags=null)
         {
             try
             {
@@ -593,7 +593,24 @@ namespace Roadkill.Core.Services
                 page.IsSubmitted = false;
                 page.ControlledBy = controllerName;
                 page.PublishedOn = DateTime.UtcNow;
-                page.ControllerRating = rating;
+
+                // Nb view,
+                // after validation, nb view = min 2
+                if (page.NbView < 2)
+                {
+                    page.NbView = 2;
+                }
+
+                // Controller Rating
+                // take ControllerRating into account only if there is no rating yet
+                // i.e. first control
+                if (page.NbRating == 0)
+                {
+                    page.ControllerRating = controllerRating;
+                    page.TotalRating = controllerRating ;
+                    page.NbRating = 1;
+                }
+
                 if (tags != null)
                 {
                     page.Tags = tags; //TODO add controller tags to user tags, dont ecrase
@@ -921,7 +938,7 @@ namespace Roadkill.Core.Services
                 page.IsRejected = model.IsRejected;
                 page.IsSubmitted = model.IsSubmitted;
 
-                //page.Summary = model.Summary;
+                //page.ControllerRating = model.ControllerRating; edit page doesn't change the controller rating
                 //page.IsVideo = model.IsVideo;
                 page.VideoUrl = model.VideoUrl;
 

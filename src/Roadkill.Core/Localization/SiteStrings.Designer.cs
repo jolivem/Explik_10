@@ -1429,6 +1429,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Partners.
+        /// </summary>
+        public static string Navigation_Partners {
+            get {
+                return ResourceManager.GetString("Navigation_Partners", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Privacy policy.
         /// </summary>
         public static string Navigation_Privacy_Policy {

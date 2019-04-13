@@ -297,17 +297,29 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <param name="srating"></param>
         /// <param name="RawTags"></param>
         /// <param name="rejecttype">"language", "publicity", "respect", "controversial" or "other"</param>
+        /// <param name="ControllerRating"></param>
         /// <returns></returns>
         [ControllerRequired]
         [HttpPost]
-        public ActionResult ControlPage(int id, string svalidated, string srating, string RawTags, string rejecttype)
+        public ActionResult ControlPage(int id, string svalidated, string RawTags, string rejecttype, string ControllerRating)
         {
             PageViewModel model = _pageService.GetById(id);
             User user = _repository.GetUserByUsername(model.CreatedBy);
 
             if (svalidated == "true")
             {
-                _pageService.ValidatePage(id, Context.CurrentUsername, Int32.Parse(srating), RawTags);
+                // control should be made by front-end
+                int controlRating = Int32.Parse(ControllerRating);
+                if (controlRating > 5)
+                {
+                    controlRating = 5;
+                }
+                if (controlRating < 0)
+                {
+                    controlRating = 0;
+                }
+
+                _pageService.ValidatePage(id, Context.CurrentUsername, controlRating, RawTags);
 
                 PageEmailInfo info = new PageEmailInfo(user, model, null);
                 _publishPageEmail.Send(info);
