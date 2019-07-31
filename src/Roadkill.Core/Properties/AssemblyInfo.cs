@@ -36,3 +36,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("2.0.275")]
 [assembly: AssemblyInformationalVersion("2.0.275")]// Do not include spaces (as it's used by the Bundles)
 [assembly: InternalsVisibleTo("Roadkill.Tests")]
+[assembly: InternalsVisibleTo("Roadkill.Core.Tests")]
+[assembly: InternalsVisibleTo("Roadkill.Core.Explorables")]
+

@@ -21,5 +21,6 @@ namespace Roadkill.Core.Database
 		User GetUserByUsername(string username);
 		User GetUserByUsernameOrEmail(string username, string email);
 		User SaveOrUpdateUser(User user);
-	}
+
+    }
 }

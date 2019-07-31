@@ -24,8 +24,8 @@ namespace Roadkill.Core.Mvc.Attributes
 		[SetterProperty]
 		public UserServiceBase UserService { get; set; }
 
-		[SetterProperty]
-		public IPageService PageService { get; set; }
+        [SetterProperty]
+        public IPageService PageService { get; set; }
 
 		[SetterProperty]
 		public SettingsService SettingsService { get; set; }

@@ -85,7 +85,8 @@ namespace Roadkill.Core.Email
             }
 
             // Do not send email if application is running in dev environment
-            if (!ApplicationSettings.AttachmentsDirectoryPath.Contains("Explik_10_repo"))
+            if (!ApplicationSettings.AttachmentsDirectoryPath.Contains("Explik_10_repo") &&
+                !ApplicationSettings.AttachmentsDirectoryPath.Contains("TetrapolGtw"))
             {
                 EmailClient.Send(message);
             }

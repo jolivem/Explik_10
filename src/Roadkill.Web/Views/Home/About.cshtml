@@ -5,6 +5,14 @@
     ViewBag.Title = Model.Title;
 }
 
+<script type="text/javascript">
+  // hide back link if new tab or new window
+    $(document).ready(function () {
+        if (history.back.length == 0) {
+            $("#back").hide();
+        }
+    });
+</script>
 
 <!-- Title and page info -->
 <div class="row">
@@ -14,7 +22,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div id="back" class="row">
     <div class="col-sm-8">
         <h6>
             <a href="javascript:history.back()">&lt; @SiteStrings.Shared_Back_Link</a>

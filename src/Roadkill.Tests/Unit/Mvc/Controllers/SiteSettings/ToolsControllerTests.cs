@@ -39,7 +39,7 @@ namespace Roadkill.Tests.Unit
 		private SiteCache _siteCache;
 		private MemoryCache _cache;
 		private WikiExporter _wikiExporter;
-
+        private ICompetitionService _competitionService;
 		private ToolsController _toolsController;
 
 		[SetUp]
@@ -62,15 +62,16 @@ namespace Roadkill.Tests.Unit
 			_wikiImporter = new WikiImporterMock();
 			_pluginFactory = _container.PluginFactory;
 			_searchService = _container.SearchService;
+            _competitionService = _container.CompetitionService;
 
-			// There's no point mocking WikiExporter (and turning it into an interface) as it 
-			// a lot of usefulness of these tests would be lost when creating fake Streams and zip files.
-			_wikiExporter = new WikiExporter(_applicationSettings, _pageService, _repository, _pluginFactory);
+            // There's no point mocking WikiExporter (and turning it into an interface) as it 
+            // a lot of usefulness of these tests would be lost when creating fake Streams and zip files.
+            _wikiExporter = new WikiExporter(_applicationSettings, _pageService, _repository, _pluginFactory);
 			_wikiExporter.ExportFolder = AppDomain.CurrentDomain.BaseDirectory;
 
 			_toolsController = new ToolsController(_applicationSettings, _userService, _settingsService, _pageService,
 													_searchService, _context, _listCache, _pageCache, _wikiImporter, 
-													_repository, _pluginFactory, _wikiExporter);
+													_repository, _pluginFactory, _wikiExporter, _competitionService);
 		}
 
 		[Test]

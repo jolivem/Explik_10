@@ -200,7 +200,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         {
             get
             {
-                return new string[] { "Unpolite", "TBC1", "TBC2" };
+                return new string[] { "Unpolite", "TBC1", "TBC2" }; //TODO
             }
         }
 
@@ -256,11 +256,36 @@ namespace Roadkill.Core.Mvc.ViewModels
         public bool IsRejected { get; set; }
         //public bool IsCopied { get; set; }
 
+        /// <summary>
+        /// true if the page is prticipating to the current competition
+        /// </summary>
+        public bool IsInCompetition { get; set; }
+
+        /// <summary>
+        /// id of the competition if the page is participating or has participated to a competition
+        /// </summary>
+        public int CompetitionId { get; set; }
+
+        /// <summary>
+        /// false if page involved in the current competition and competition on rating or achieved
+        /// </summary>
+        public bool ModificationsEnable { get; set; }
+
+        /// <summary>
+        /// Message to display if the pge is in a competition
+        /// </summary>
+        public string CompetitionInfo { get; set; }
+
+        /// <summary>
+        /// Not used
+        /// </summary>
         public string VideoUrl { get; set; }
+
+        // Not used
         public string Pseudonym { get; set; }
 
         /// <summary>
-        /// 
+        /// true if the page has been controlled
         /// </summary>
         public bool IsPublished
         {
@@ -269,6 +294,17 @@ namespace Roadkill.Core.Mvc.ViewModels
                 return IsControlled && !IsRejected;
             }
         }
+
+        /// <summary>
+        /// Ranking of the page if participated to a competition
+        /// </summary>
+        public int Ranking { get; set; }
+
+        /// <summary>
+        /// Hits of a user, 
+        /// Array of 3 values: number of gold medals, then silver, then bronze
+        /// </summary>
+        public int[] UserHits;
         
         /// <summary>
         /// Retrieves all tags for all pages in the system. This is empty unless filled by the controller.
@@ -288,6 +324,8 @@ namespace Roadkill.Core.Mvc.ViewModels
             PluginPostContainer = "";
             AllTags = new List<TagViewModel>();
             AllComments = new List<Comment>();
+            CompetitionId = -1;
+            IsInCompetition = false;
         }
 
         public PageViewModel(Page page)
@@ -301,11 +339,9 @@ namespace Roadkill.Core.Mvc.ViewModels
             CreatedBy = page.CreatedBy;
             CreatedOn = page.CreatedOn;
             IsLocked = page.IsLocked;
-            //IsVideo = page.IsVideo;
             IsSubmitted = page.IsSubmitted;
             IsControlled = page.IsControlled;
             IsRejected = page.IsRejected;
-            //IsCopied = page.IsCopied;
             ControlledBy = page.ControlledBy;
             PublishedOn = page.PublishedOn;
             RawTags = page.Tags;
@@ -317,12 +353,68 @@ namespace Roadkill.Core.Mvc.ViewModels
             CreatedOn = DateTime.SpecifyKind(CreatedOn, DateTimeKind.Utc);
             PublishedOn = DateTime.SpecifyKind(PublishedOn, DateTimeKind.Utc);
             AllTags = new List<TagViewModel>();
-            //CurrentUserComment = page.model.CurrentUserComment =
-            //AllComments = page.GetAllComments();
 
             NbView = page.NbView;
             NbRating = page.NbRating;
             TotalRating = page.TotalRating;
+            CompetitionId = page.CompetitionId;
+            IsInCompetition = CompetitionId != -1 ? true : false;
+        }
+
+        /// <summary>
+        /// PageViewModel
+        /// </summary>
+        /// <param name="pageContent"></param>
+        /// <param name="converter"></param>
+		public PageViewModel(PageContent pageContent, MarkupConverter converter)
+        {
+            if (pageContent == null)
+                throw new ArgumentNullException("pageContent");
+
+            if (pageContent.Page == null)
+                throw new ArgumentNullException("pageContent.Page");
+
+            if (converter == null)
+                throw new ArgumentNullException("converter");
+
+            Id = pageContent.Page.Id;
+            Title = pageContent.Page.Title;
+            PreviousTitle = pageContent.Page.Title;
+            CreatedBy = pageContent.Page.CreatedBy;
+            CreatedOn = pageContent.Page.CreatedOn;
+            IsLocked = pageContent.Page.IsLocked;
+            IsRejected = pageContent.Page.IsRejected;
+            IsSubmitted = pageContent.Page.IsSubmitted;
+            IsControlled = pageContent.Page.IsControlled;
+            ControlledBy = pageContent.Page.ControlledBy;
+            PublishedOn = pageContent.Page.PublishedOn;
+            RawTags = pageContent.Page.Tags;
+            Content = pageContent.Text;
+            VersionNumber = pageContent.VersionNumber;
+            FilePath = pageContent.Page.FilePath;
+            ControlledBy = pageContent.Page.ControlledBy;
+            NbView = pageContent.Page.NbView;
+            NbRating = pageContent.Page.NbRating;
+            TotalRating = pageContent.Page.TotalRating;
+            ControllerRating = pageContent.Page.ControllerRating;
+            CompetitionId = pageContent.Page.CompetitionId;
+            IsInCompetition = CompetitionId != -1 ? true : false;
+            VideoUrl = pageContent.Page.VideoUrl;
+            Pseudonym = pageContent.Page.Pseudonym;
+
+            ContentSummary = GetContentSummary(converter);
+            PageHtml pageHtml = converter.ToHtml(pageContent.Text);
+            ContentAsHtml = pageHtml.Html;
+            IsCacheable = pageHtml.IsCacheable;
+            PluginHeadHtml = pageHtml.HeadHtml;
+            PluginFooterHtml = pageHtml.FooterHtml;
+            PluginPreContainer = pageHtml.PreContainerHtml;
+            PluginPostContainer = pageHtml.PostContainerHtml;
+
+
+            CreatedOn = DateTime.SpecifyKind(CreatedOn, DateTimeKind.Utc);
+            PublishedOn = DateTime.SpecifyKind(PublishedOn, DateTimeKind.Utc);
+            AllTags = new List<TagViewModel>();
         }
 
         /// <summary>
@@ -431,6 +523,76 @@ namespace Roadkill.Core.Mvc.ViewModels
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ranking"></param>
+        /// <returns></returns>
+        public static string EncodeImageRanking(int ranking)
+        {
+            StringBuilder builder = new StringBuilder();
+            switch (ranking)
+            {
+                case 1:
+                    builder.Append("<img src='/Assets/Images/2_gold.png' style='float:left;width:32px;height:32px;margin-right:10px;'/>");
+                    break;
+                case 2:
+                    builder.Append("<img src='/Assets/Images/2_silver.png' style='float:left;width:32px;height:32px;margin-right:10px;'/>");
+                    break;
+                case 3:
+                    builder.Append("<img src='/Assets/Images/2_bronze.png' style='float:left;width:32px;height:32px;margin-right:10px;'/>");
+                    break;
+                default:
+                    return "";
+            }
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hits"></param>
+        /// <returns></returns>
+        public static string EncodeUserHits(int[] hits)
+        {
+            StringBuilder builder = new StringBuilder();
+            if (hits != null && hits.Length == 3)
+            {
+                // gold
+                builder.Append(BuildHits("2_gold", hits[0]));
+
+                // silver
+                builder.Append(BuildHits("2_silver", hits[1]));
+
+                // bronze
+                builder.Append(BuildHits("2_bronze", hits[2]));
+
+            }
+
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="image"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        private static StringBuilder BuildHits(string image, int number)
+        {
+            StringBuilder result = new StringBuilder();
+            string hitFormat = ("<img src='/Assets/Images/{0}.png' style='width:24px;height:24px;margin-right:4px;'/>");
+            // gold
+            if (number > 0)
+            {
+                for (int i = 0; i < number; i++ )
+                {
+                    result.AppendFormat(hitFormat, image);
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
         /// Global rating for the page. The one at the right of the title
         /// </summary>
         /// <param name="rating"></param>
@@ -467,66 +629,6 @@ namespace Roadkill.Core.Mvc.ViewModels
             return builder.ToString();
         }
                 
-        //public string GetRatingValue(double rating)
-        //{
-        //    return String.Format("{0:0.#}", rating);
-        //}
-   
-        /// <summary>
-        /// PageViewModel
-        /// </summary>
-        /// <param name="pageContent"></param>
-        /// <param name="converter"></param>
-		public PageViewModel(PageContent pageContent, MarkupConverter converter)
-        {
-            if (pageContent == null)
-                throw new ArgumentNullException("pageContent");
-
-            if (pageContent.Page == null)
-                throw new ArgumentNullException("pageContent.Page");
-
-            if (converter == null)
-                throw new ArgumentNullException("converter");
-
-            Id = pageContent.Page.Id;
-            Title = pageContent.Page.Title;
-            PreviousTitle = pageContent.Page.Title;
-            CreatedBy = pageContent.Page.CreatedBy;
-            CreatedOn = pageContent.Page.CreatedOn;
-            IsLocked = pageContent.Page.IsLocked;
-            //IsVideo = pageContent.Page.IsVideo;
-            IsRejected = pageContent.Page.IsRejected;
-            //IsCopied = pageContent.Page.IsCopied;
-            IsSubmitted = pageContent.Page.IsSubmitted;
-            IsControlled = pageContent.Page.IsControlled;
-            ControlledBy = pageContent.Page.ControlledBy;
-            PublishedOn = pageContent.Page.PublishedOn;
-            RawTags = pageContent.Page.Tags;
-            Content = pageContent.Text;
-            VersionNumber = pageContent.VersionNumber;
-            //CurrentUserComment = pageContent.Page.cu;
-            FilePath = pageContent.Page.FilePath;
-            ControlledBy = pageContent.Page.ControlledBy;
-            NbView = pageContent.Page.NbView;
-            NbRating = pageContent.Page.NbRating;
-            TotalRating = pageContent.Page.TotalRating;
-            ControllerRating = pageContent.Page.ControllerRating;
-            VideoUrl = pageContent.Page.VideoUrl;
-            Pseudonym = pageContent.Page.Pseudonym;
-
-            PageHtml pageHtml = converter.ToHtml(pageContent.Text);
-            ContentAsHtml = pageHtml.Html;
-            IsCacheable = pageHtml.IsCacheable;
-            PluginHeadHtml = pageHtml.HeadHtml;
-            PluginFooterHtml = pageHtml.FooterHtml;
-            PluginPreContainer = pageHtml.PreContainerHtml;
-            PluginPostContainer = pageHtml.PostContainerHtml;
-
-            CreatedOn = DateTime.SpecifyKind(CreatedOn, DateTimeKind.Utc);
-            PublishedOn = DateTime.SpecifyKind(PublishedOn, DateTimeKind.Utc);
-            AllTags = new List<TagViewModel>();
-        }
-
         /// <summary>
         /// Joins the parsed tags with a comma.
         /// </summary>
@@ -552,6 +654,9 @@ namespace Roadkill.Core.Mvc.ViewModels
             return string.Join(" ", _tags);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void ParseRawTags()
         {
             _tags = ParseTags(_rawTags).ToList();
@@ -684,6 +789,127 @@ namespace Roadkill.Core.Mvc.ViewModels
             // value for rating 0 is '.' to avoid height change
             string[] titles = { "&nbsp;", SiteStrings.Rating_level1, SiteStrings.Rating_level2, SiteStrings.Rating_level3, SiteStrings.Rating_level4, SiteStrings.Rating_level5 };
             return titles[userRating];
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="markupConverter"></param>
+        /// <returns></returns>
+        //public static string GetContentSummary(PageViewModel model, MarkupConverter markupConverter)
+        //{
+        //    // Turn the contents into HTML, then strip the tags for the mini summary. This needs some works
+        //    string modelHtml = model.Content;
+        //    Regex _removeTagsRegex = new Regex("<(.|\n)*?>");
+        //    modelHtml = markupConverter.ToHtml(modelHtml);
+        //    modelHtml = _removeTagsRegex.Replace(modelHtml, "");
+
+        //    if (modelHtml.Length > 150)
+        //        modelHtml = modelHtml.Substring(0, 149);
+
+        //    if (model.Content.Contains("youtube") && modelHtml.Length <= 3) // 2 is for "\n"
+        //    {
+        //        modelHtml = "Vidéo. " + modelHtml; //TODO english traduction
+        //    }
+        //    return modelHtml;
+        //}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="markupConverter"></param>
+        /// <returns></returns>
+        public string GetContentSummary(MarkupConverter markupConverter)
+        {
+            // Turn the contents into HTML, then strip the tags for the mini summary. This needs some works
+            string modelHtml = Content;
+            Regex _removeTagsRegex = new Regex("<(.|\n)*?>");
+            modelHtml = markupConverter.ToHtml(modelHtml);
+            modelHtml = _removeTagsRegex.Replace(modelHtml, "");
+
+            if (modelHtml.Length > 150)
+                modelHtml = modelHtml.Substring(0, 149);
+
+            if (Content.Contains("youtube") && modelHtml.Length <= 3) // 2 is for "\n"
+            {
+                modelHtml = "Vidéo. " + modelHtml; //TODO english traduction
+            }
+            return modelHtml;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public static string EncodePageRating(PageViewModel model)
+        {
+            double rating;
+            if (model.NbRating == 0)
+            {
+                rating = .0;
+            }
+            else
+            {
+                //long nbController = model.TotalRating / 3;
+                rating = ((double)model.TotalRating / (double)model.NbRating); //TODO take into account Controller rating
+            }
+
+            return EncodePageRating(rating);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rating"></param>
+        /// <returns></returns>
+        public static string EncodePageRating(double rating)
+        {
+            string active = "passive";
+            StringBuilder builder = new StringBuilder();
+            string formatStr = "<span class='rating16 stars16 {2} star16-{0}' value='{1}'></span>";
+
+            for (double i = .5; i <= 5.0; i = i + .5)
+            {
+                if (i <= rating)
+                {
+                    builder.AppendFormat(formatStr, (i * 2) % 2 == 1 ? "left_on" : "right_on", i, active);
+                }
+                else
+                {
+                    builder.AppendFormat(formatStr, (i * 2) % 2 == 1 ? "left_off" : "right_off", i, active);
+                }
+            }
+            //builder.AppendFormat("rating={0}", rating);
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public static string EncodeTags(PageViewModel page)
+        {
+            StringBuilder builder = new StringBuilder();
+            string formatStr = "<span class='searchresult-tags'>{0}&nbsp;</span>";
+            bool atLeastOne = false;
+            foreach (string tag in page.Tags)
+            {
+                if (!string.IsNullOrWhiteSpace(tag))
+                {
+                    builder.AppendFormat(formatStr, tag);
+                }
+                atLeastOne = true;
+            }
+
+            // add carriage return if necessary
+            if (atLeastOne)
+            {
+                builder.Append("<br />");
+            }
+            return builder.ToString();
         }
 
         /// <summary>

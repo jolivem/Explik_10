@@ -103,22 +103,22 @@ namespace Roadkill.Tests.Unit.Cache
 			Assert.That(actualHtml, Is.EqualTo(expectedHtml));
 		}
 
-		[Test]
-		public void GetLoggedInMenu_Should_Return_Correct_Html()
-		{
-			// Arrange
-			string expectedHtml = "some html";
-			CacheMock cache = new CacheMock();
-			ApplicationSettings settings = new ApplicationSettings();
-			SiteCache siteCache = new SiteCache(settings, cache);
-			siteCache.AddLoggedInMenu(expectedHtml);
+		//[Test]
+		//public void GetLoggedInMenu_Should_Return_Correct_Html()
+		//{
+		//	// Arrange
+		//	string expectedHtml = "some html";
+		//	CacheMock cache = new CacheMock();
+		//	ApplicationSettings settings = new ApplicationSettings();
+		//	SiteCache siteCache = new SiteCache(settings, cache);
+		//	siteCache.AddLoggedInMenu(expectedHtml);
 
-			// Act
-			string actualHtml = siteCache.GetLoggedInMenu();
+		//	// Act
+		//	string actualHtml = siteCache.GetLoggedInMenu();
 
-			// Assert
-			Assert.That(actualHtml, Is.EqualTo(expectedHtml));
-		}
+		//	// Assert
+		//	Assert.That(actualHtml, Is.EqualTo(expectedHtml));
+		//}
 
 		[Test]
 		public void RemoveMenuCacheItems_Should_Clear_Cache_Items()

@@ -248,44 +248,44 @@ namespace Roadkill.Tests.Unit.Cache
 			Assert.That(listCache.CacheItems.Count, Is.EqualTo(0));
 		}
 
-		[Test]
-		public void FindHomePage_Should_Load_From_Cache()
-		{
-			// Arrange
-			RepositoryMock repository = new RepositoryMock();
-			CacheMock modelCache = new CacheMock();
+		//[Test]
+		//public void FindHomePage_Should_Load_From_Cache()
+		//{
+		//	// Arrange
+		//	RepositoryMock repository = new RepositoryMock();
+		//	CacheMock modelCache = new CacheMock();
 
-			PageService pageService = CreatePageService(modelCache, null, repository);
-			PageViewModel expectedModel = CreatePageViewModel();
-			expectedModel.RawTags = "homepage";
-			modelCache.Add(CacheKeys.HomepageKey(), expectedModel, new CacheItemPolicy());
+		//	PageService pageService = CreatePageService(modelCache, null, repository);
+		//	PageViewModel expectedModel = CreatePageViewModel();
+		//	expectedModel.RawTags = "homepage";
+		//	modelCache.Add(CacheKeys.HomepageKey(), expectedModel, new CacheItemPolicy());
 
-			// Act
-			PageViewModel actualModel = pageService.FindHomePage();
+		//	// Act
+		//	PageViewModel actualModel = pageService.FindHomePage();
 
-			// Assert
-			Assert.That(actualModel.Id, Is.EqualTo(expectedModel.Id));
-			Assert.That(actualModel.VersionNumber, Is.EqualTo(expectedModel.VersionNumber));
-			Assert.That(actualModel.Title, Is.EqualTo(expectedModel.Title));
-		}
+		//	// Assert
+		//	Assert.That(actualModel.Id, Is.EqualTo(expectedModel.Id));
+		//	Assert.That(actualModel.VersionNumber, Is.EqualTo(expectedModel.VersionNumber));
+		//	Assert.That(actualModel.Title, Is.EqualTo(expectedModel.Title));
+		//}
 
-		[Test]
-		public void FindHomePage_Should_Add_To_Cache_When_Cache_Is_Empty()
-		{
-			// Arrange
-			RepositoryMock repository = new RepositoryMock();
-			repository.AddNewPage(new Page() { Title = "1", Tags= "homepage" }, "text", "admin", DateTime.UtcNow);
+		//[Test]
+		//public void FindHomePage_Should_Add_To_Cache_When_Cache_Is_Empty()
+		//{
+		//	// Arrange
+		//	RepositoryMock repository = new RepositoryMock();
+		//	repository.AddNewPage(new Page() { Title = "1", Tags= "homepage" }, "text", "admin", DateTime.UtcNow);
 
-			CacheMock pageCache = new CacheMock();
-			PageService pageService = CreatePageService(pageCache, null, repository);
+		//	CacheMock pageCache = new CacheMock();
+		//	PageService pageService = CreatePageService(pageCache, null, repository);
 
-			// Act
-			pageService.FindHomePage();
+		//	// Act
+		//	pageService.FindHomePage();
 
-			// Assert
-			Assert.That(pageCache.CacheItems.Count, Is.EqualTo(1));
-			Assert.That(pageCache.CacheItems.FirstOrDefault().Key, Is.EqualTo(CacheKeys.HomepageKey()));
-		}
+		//	// Assert
+		//	Assert.That(pageCache.CacheItems.Count, Is.EqualTo(1));
+		//	Assert.That(pageCache.CacheItems.FirstOrDefault().Key, Is.EqualTo(CacheKeys.HomepageKey()));
+		//}
 
 		[Test]
 		public void FindByTag_Should_Load_From_Cache()
@@ -354,7 +354,7 @@ namespace Roadkill.Tests.Unit.Cache
 			PageViewModel page2Model = CreatePageViewModel();
 			page2Model.Id = 2;
 
-			AddPageCacheItem(pageCache, CacheKeys.HomepageKey(), homepageModel);
+			//AddPageCacheItem(pageCache, CacheKeys.HomepageKey(), homepageModel);
 			pageCache.Add(CacheKeys.PageViewModelKey(2,0), page2Model, new CacheItemPolicy());
 			AddListCacheItem(listCache, CacheKeys.AllTags(), new List<string>() { "tag1", "tag2" });
 
@@ -366,27 +366,6 @@ namespace Roadkill.Tests.Unit.Cache
 			Assert.That(listCache.CacheItems.Count, Is.EqualTo(0));
 		}
 
-		[Test]
-		public void UpdatePage_Should_Remove_Homepage_From_Cache_When_Homepage_Is_Updated()
-		{
-			// Arrange
-			RepositoryMock repository = new RepositoryMock();
-			repository.AddNewPage(new Page() { Tags = "homepage" }, "text", "admin", DateTime.UtcNow);
-
-			CacheMock pageCache = new CacheMock();
-			CacheMock listCache = new CacheMock();
-			PageService pageService = CreatePageService(pageCache, listCache, repository);
-
-			PageViewModel homepageModel = CreatePageViewModel();
-			homepageModel.RawTags = "homepage";
-			pageCache.Add(CacheKeys.HomepageKey(), homepageModel, new CacheItemPolicy());
-
-			// Act
-			pageService.UpdatePage(homepageModel);
-
-			// Assert
-			Assert.That(pageCache.CacheItems.Count, Is.EqualTo(0));
-		}
 
 		[Test]
 		public void RenameTag_Should_Clear_ListCache()

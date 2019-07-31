@@ -241,12 +241,12 @@ namespace Roadkill.Tests
 
         public override bool IsController(string cookieValue)
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         public override string GetAttachmentPath(string email)
         {
-            throw new NotImplementedException();
+            return "mock";
         }
     }
 }

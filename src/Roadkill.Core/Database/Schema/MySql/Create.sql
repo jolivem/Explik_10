@@ -21,6 +21,7 @@ CREATE TABLE explik_pages
     VideoUrl NVARCHAR(255) NULL,
     Pseudonym NVARCHAR(255) NULL,
     ControllerRating INT,
+    CompetitionId INT,
 	PRIMARY KEY (Id)
 );
 
@@ -49,7 +50,7 @@ CREATE TABLE explik_users
     AttachmentsPath NVARCHAR(255), 
 	IsAdmin BOOLEAN NOT NULL,
 	IsActivated BOOLEAN NOT NULL,
-	ContributionLevel INT,
+	Contribution INT,
 	DisplayFlags INT,
 	Password NVARCHAR(255) NOT NULL,
 	PasswordResetKey NVARCHAR(255) NULL,
@@ -87,4 +88,29 @@ CREATE TABLE explik_alerts
   CreatedBy NVARCHAR(255) NOT NULL, 
   CreatedOn DATETIME  NOT NULL,
   Ilk NVARCHAR(255) NOT NULL
+);
+
+CREATE TABLE explik_competition
+(
+  Id INT AUTO_INCREMENT NOT NULL,
+  PublicationStart DATETIME  NOT NULL,
+  PublicationStop DATETIME  NOT NULL,
+  RatingStart DATETIME  NOT NULL,
+  RatingStop DATETIME  NOT NULL,
+  PageTag NVARCHAR(100) NOT NULL, 
+  PageId INT NOT NULL,
+  Status INT NOT NULL,
+  PRIMARY KEY (Id)
+);
+
+CREATE TABLE explik_competitionpage
+(
+  Id INT AUTO_INCREMENT NOT NULL,
+  CompetitionId INT NOT NULL,
+  PageId INT NOT NULL,
+  NbRating INT,
+  TotalRating INT,
+  UserName NVARCHAR(255) NOT NULL, 
+  Ranking INT,
+  PRIMARY KEY (Id)
 );

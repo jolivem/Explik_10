@@ -1,5 +1,5 @@
 ﻿Bonjour {FIRSTNAME} {LASTNAME},
 
-Merci pour la création de la clé "{PAGETITLE}" sur Explik. Elle sera publiée dans les minutes qui viennent.
+Merci pour la création de la page "{PAGETITLE}" sur Explik. Elle sera publiée dans les minutes qui viennent.
 
 L'équipe Explik

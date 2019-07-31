@@ -601,6 +601,195 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Create.
+        /// </summary>
+        public static string Competition_BtnCreate {
+            get {
+                return ResourceManager.GetString("Competition_BtnCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Date.
+        /// </summary>
+        public static string Competition_ListDate {
+            get {
+                return ResourceManager.GetString("Competition_ListDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Status.
+        /// </summary>
+        public static string Competition_ListStatus {
+            get {
+                return ResourceManager.GetString("Competition_ListStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Subject.
+        /// </summary>
+        public static string Competition_ListSubject {
+            get {
+                return ResourceManager.GetString("Competition_ListSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à No result.
+        /// </summary>
+        public static string Competition_NoResult {
+            get {
+                return ResourceManager.GetString("Competition_NoResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Not yet rated!.
+        /// </summary>
+        public static string Competition_PageNotYetRated {
+            get {
+                return ResourceManager.GetString("Competition_PageNotYetRated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Rate.
+        /// </summary>
+        public static string Competition_RateLink {
+            get {
+                return ResourceManager.GetString("Competition_RateLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Rate now.
+        /// </summary>
+        public static string Competition_RateNowLink {
+            get {
+                return ResourceManager.GetString("Competition_RateNowLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Here is the list of the pages in competition, click on the links for evaluations..
+        /// </summary>
+        public static string Competition_RatingIntro {
+            get {
+                return ResourceManager.GetString("Competition_RatingIntro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Rating the competition pages.
+        /// </summary>
+        public static string Competition_RatingTitle {
+            get {
+                return ResourceManager.GetString("Competition_RatingTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Results sorted by rating.
+        /// </summary>
+        public static string Competition_ResultTitle {
+            get {
+                return ResourceManager.GetString("Competition_ResultTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Achieved.
+        /// </summary>
+        public static string Competition_StatusAchieved {
+            get {
+                return ResourceManager.GetString("Competition_StatusAchieved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Initiation.
+        /// </summary>
+        public static string Competition_StatusInit {
+            get {
+                return ResourceManager.GetString("Competition_StatusInit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Suspended before achievement.
+        /// </summary>
+        public static string Competition_StatusPauseBeforeAchieved {
+            get {
+                return ResourceManager.GetString("Competition_StatusPauseBeforeAchieved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Suspendue avant la notation.
+        /// </summary>
+        public static string Competition_StatusPauseBeforeRating {
+            get {
+                return ResourceManager.GetString("Competition_StatusPauseBeforeRating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Publication on going.
+        /// </summary>
+        public static string Competition_StatusPublication {
+            get {
+                return ResourceManager.GetString("Competition_StatusPublication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Rating on going.
+        /// </summary>
+        public static string Competition_StatusRating {
+            get {
+                return ResourceManager.GetString("Competition_StatusRating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Create a competition ?  .
+        /// </summary>
+        public static string Competitions_CreateNew {
+            get {
+                return ResourceManager.GetString("Competitions_CreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Create the associated page ?  .
+        /// </summary>
+        public static string Competitions_CreatePage {
+            get {
+                return ResourceManager.GetString("Competitions_CreatePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à No competitions.
+        /// </summary>
+        public static string Competitions_None {
+            get {
+                return ResourceManager.GetString("Competitions_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Competitions.
+        /// </summary>
+        public static string Competitions_Title {
+            get {
+                return ResourceManager.GetString("Competitions_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Canvas preview.
         /// </summary>
         public static string ControlPage_Canvas_Preview_Button {
@@ -615,6 +804,15 @@ namespace Roadkill.Core.Localization {
         public static string ControlPage_Handle_Tags {
             get {
                 return ResourceManager.GetString("ControlPage_Handle_Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Participate to the competition.
+        /// </summary>
+        public static string ControlPage_ParticipateToCompetition {
+            get {
+                return ResourceManager.GetString("ControlPage_ParticipateToCompetition", resourceCulture);
             }
         }
         
@@ -660,6 +858,96 @@ namespace Roadkill.Core.Localization {
         public static string DatabaseConnection_Success {
             get {
                 return ResourceManager.GetString("DatabaseConnection_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Modify the page.
+        /// </summary>
+        public static string EditCompetition_ModifyPage {
+            get {
+                return ResourceManager.GetString("EditCompetition_ModifyPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Tag of the assoociated page.
+        /// </summary>
+        public static string EditCompetition_PageTagLabel {
+            get {
+                return ResourceManager.GetString("EditCompetition_PageTagLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Publication start date.
+        /// </summary>
+        public static string EditCompetition_PublicationStartLabel {
+            get {
+                return ResourceManager.GetString("EditCompetition_PublicationStartLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Publication stop date.
+        /// </summary>
+        public static string EditCompetition_PublicationStopLabel {
+            get {
+                return ResourceManager.GetString("EditCompetition_PublicationStopLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Rating start date.
+        /// </summary>
+        public static string EditCompetition_RatingStartLabel {
+            get {
+                return ResourceManager.GetString("EditCompetition_RatingStartLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Rating stop date.
+        /// </summary>
+        public static string EditCompetition_RatingStopLabel {
+            get {
+                return ResourceManager.GetString("EditCompetition_RatingStopLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Remember you have to create the page with the tag !.
+        /// </summary>
+        public static string EditCompetition_RemeberCreatePage {
+            get {
+                return ResourceManager.GetString("EditCompetition_RemeberCreatePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Current state.
+        /// </summary>
+        public static string EditCompetition_Status {
+            get {
+                return ResourceManager.GetString("EditCompetition_Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Change competition current state.
+        /// </summary>
+        public static string EditCompetition_StatusHelp {
+            get {
+                return ResourceManager.GetString("EditCompetition_StatusHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Add / edit a competition.
+        /// </summary>
+        public static string EditCompetition_Title {
+            get {
+                return ResourceManager.GetString("EditCompetition_Title", resourceCulture);
             }
         }
         
@@ -732,6 +1020,15 @@ namespace Roadkill.Core.Localization {
         public static string EditPage_LinkUrl_PlaceHolder {
             get {
                 return ResourceManager.GetString("EditPage_LinkUrl_PlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Participate to the competition: .
+        /// </summary>
+        public static string EditPage_ParticipateToCompetition {
+            get {
+                return ResourceManager.GetString("EditPage_ParticipateToCompetition", resourceCulture);
             }
         }
         
@@ -1249,6 +1546,51 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Etes-vous vraiment d&apos;accord pour supprimer cette page ?.
+        /// </summary>
+        public static string MyPage_Confirm_Delete {
+            get {
+                return ResourceManager.GetString("MyPage_Confirm_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à The page is deleted.
+        /// </summary>
+        public static string MyPage_DeleteSuccess {
+            get {
+                return ResourceManager.GetString("MyPage_DeleteSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cette page participe au concours en cours..
+        /// </summary>
+        public static string MyPage_IsInCompetitionPublicationOngoing {
+            get {
+                return ResourceManager.GetString("MyPage_IsInCompetitionPublicationOngoing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cette page est inscrite au concours en phase de notation. Elle ne peut pas être modifiée..
+        /// </summary>
+        public static string MyPage_IsInCompetitionRatingOngoing {
+            get {
+                return ResourceManager.GetString("MyPage_IsInCompetitionRatingOngoing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cette page a participé à un précédent concours. Elle ne peut pas être modifiée..
+        /// </summary>
+        public static string MyPage_IsInPastCompetition {
+            get {
+                return ResourceManager.GetString("MyPage_IsInPastCompetition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à State :.
         /// </summary>
         public static string MyPage_Status {
@@ -1263,6 +1605,42 @@ namespace Roadkill.Core.Localization {
         public static string MyPages_Action_Title {
             get {
                 return ResourceManager.GetString("MyPages_Action_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Competitions.
+        /// </summary>
+        public static string MyPages_Competition_Title {
+            get {
+                return ResourceManager.GetString("MyPages_Competition_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Terminée.
+        /// </summary>
+        public static string MyPages_CompetitionAchieved {
+            get {
+                return ResourceManager.GetString("MyPages_CompetitionAchieved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Phase de publication.
+        /// </summary>
+        public static string MyPages_CompetitionOnPublication {
+            get {
+                return ResourceManager.GetString("MyPages_CompetitionOnPublication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Notation en cours.
+        /// </summary>
+        public static string MyPages_CompetitionOnRating {
+            get {
+                return ResourceManager.GetString("MyPages_CompetitionOnRating", resourceCulture);
             }
         }
         
@@ -1335,6 +1713,15 @@ namespace Roadkill.Core.Localization {
         public static string Navigation_Categories {
             get {
                 return ResourceManager.GetString("Navigation_Categories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Competitions.
+        /// </summary>
+        public static string Navigation_Competitions {
+            get {
+                return ResourceManager.GetString("Navigation_Competitions", resourceCulture);
             }
         }
         
@@ -1816,6 +2203,33 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Not used.
+        /// </summary>
+        public static string ParticipateCompetition_Note1 {
+            get {
+                return ResourceManager.GetString("ParticipateCompetition_Note1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à To take part, create a page and click on the participating tick.
+        /// </summary>
+        public static string ParticipateCompetition_Note2 {
+            get {
+                return ResourceManager.GetString("ParticipateCompetition_Note2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Participate to the competition.
+        /// </summary>
+        public static string ParticipateCompetition_Title {
+            get {
+                return ResourceManager.GetString("ParticipateCompetition_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à The profile details were successfully updated..
         /// </summary>
         public static string Profile_Details_Updated_Successfully {
@@ -2122,6 +2536,33 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Author.
+        /// </summary>
+        public static string ResultCompetition_TitleAuthor {
+            get {
+                return ResourceManager.GetString("ResultCompetition_TitleAuthor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Rating.
+        /// </summary>
+        public static string ResultCompetition_TitleRating {
+            get {
+                return ResourceManager.GetString("ResultCompetition_TitleRating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Title.
+        /// </summary>
+        public static string ResultCompetition_TitleTitle {
+            get {
+                return ResourceManager.GetString("ResultCompetition_TitleTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Your search &apos;{0}&apos; did not match any pages.
         /// </summary>
         public static string Search_NoResults {
@@ -2293,6 +2734,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Participate.
+        /// </summary>
+        public static string Shared_ParticipateLink {
+            get {
+                return ResourceManager.GetString("Shared_ParticipateLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Password:.
         /// </summary>
         public static string Shared_Password_Label {
@@ -2343,6 +2793,15 @@ namespace Roadkill.Core.Localization {
         public static string Shared_RemoveAlertsLink {
             get {
                 return ResourceManager.GetString("Shared_RemoveAlertsLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Result.
+        /// </summary>
+        public static string Shared_ResultLink {
+            get {
+                return ResourceManager.GetString("Shared_ResultLink", resourceCulture);
             }
         }
         

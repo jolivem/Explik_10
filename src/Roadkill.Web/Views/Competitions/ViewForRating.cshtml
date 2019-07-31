@@ -1,0 +1,90 @@
+﻿@model PageViewModel
+@{
+    /**/
+
+    ViewBag.Title = Model.Title;
+}
+
+@Html.DialogPartial("PageAlert", Model)
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var span = $(".postRating");
+        if (@ViewBag.userrating == 0) {
+            $(".rating.stars").css("background-image", 'url("/Assets/CSS/images/grey-green-24.png")');
+            $("#submit-rating").css("display", "none");
+        }
+        else {
+            setRating__(span, @ViewBag.userrating);
+        }
+    });
+
+    function setRating__(span, rating){ // change star display
+        span.find('.rating.stars').each(function () {
+            var value = parseFloat($(this).attr("value"));
+            var imgSrc = $(this).attr("class");
+            if (value <= rating) $(this).attr("class", imgSrc.replace("_off", "_on"));
+            else $(this).attr("class", imgSrc.replace("_on", "_off"));
+        });
+    }
+</script>
+
+
+@Html.Hidden("text-login-comment", @SiteStrings.Comment_Login_Before)
+@Html.Hidden("text-login-rating", @SiteStrings.Rating_Login_Before)
+<div id="page-view" pageid="@Model.Id" style="visibility:hidden;"></div>
+<div id="current-user" name="@ViewBag.currentuser" style="visibility:hidden;"></div>
+
+<!-- Title and page info -->
+<div class="row">
+    <div class="col-sm-8">
+        <h2 class="pagetitle">@Model.Title</h2>
+        <div id="pagecontent" style="text-align: justify;text-justify: inter-word">
+            @MvcHtmlString.Create(Model.ContentAsHtml)
+        </div>
+    </div>
+</div>
+<!-- Rating actions -->
+<div class="row">
+    <div class="col-sm-8">
+        @Html.Hidden("text-unrate", @SiteStrings.Page_Link_Unrate)
+        @Html.Hidden("text-rate", @SiteStrings.Page_Link_Rate)
+        @Html.Hidden("srating", (object)ViewBag.userrating)
+        @Html.Hidden("current-rating", (object)ViewBag.userrating)
+        @Html.Hidden("rating-removed", @SiteStrings.Rating_removed)
+        @Html.Hidden("rating-added", @SiteStrings.Rating_added)
+        @*@Html.Hidden("alert-removed", @SiteStrings.Page_Alert_Removed)
+        @Html.Hidden("alert-request", @SiteStrings.Page_Alert_Link)*@
+        <hr size=2 align=left width="100%" style="border-top:2px solid #eee;" />
+
+        @*<h4>Donner votre avis:TODO</h4>*@
+        <div id="newrating">
+            <h4 style="margin-bottom:0px;">@SiteStrings.Page_Info_My_Rating</h4>
+            <div>
+                <span id="ratings" class="postRating">
+                    @MvcHtmlString.Create(@Model.EncodeUserRating())
+                </span>
+                <span id="rate-info" style="display:inline-block;color:rgb(120,120,120); font-size:80%;">
+                    @MvcHtmlString.Create(@Model.EncodeRateInfo(@ViewBag.userrating))
+                </span>
+            </div>
+            <p>
+                <small>
+                    <a id="submit-rating" href="javascript:;">
+                        @if (@ViewBag.userrating > 0)
+                        {
+                            @SiteStrings.Page_Link_Unrate
+                        }
+                        else
+                        {
+                            @SiteStrings.Page_Link_Rate
+                        }
+                    </a>
+                </small>
+            </p>
+        </div>
+    </div>
+</div>
+<br />
+<a href="@Url.Action("ListPagesForRating", "Competitions", new { id = ViewBag.competitionId})">&lt; @SiteStrings.Shared_Back_Link</a>
+

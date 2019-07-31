@@ -34,8 +34,12 @@ namespace Roadkill.Core.Database
         IEnumerable<Page> FindMostRecentPages(int number);
 
 	    IEnumerable<Page> FindPagesMostViewed(int number);
-	    IEnumerable<Page> FindPagesBestRated(int number);
+        IEnumerable<Page> FindPagesBestRated(int number);
+        IEnumerable<Page> FindPagesByCompetitionId(int competitionId);
+        void DeletCompetitionPages(int competitionId);
+        void DeletCompetitionPage(int pageId);
 
+        void CleanPagesForCompetitionId(int competitionId);
 
         IEnumerable<Page> FindPagesCreatedBy(string username);
         IEnumerable<Page> FindPagesWithAlerts();
@@ -60,6 +64,7 @@ namespace Roadkill.Core.Database
 
         void IncrementNbView(int pageId);
         void SetNbView(int pageId, int nbView);
+        void SetCompetitionId(int pageId, int competitionId);
         void SetRating(int pageId, int nbRating, int totalRating);
         void AddPageRating(int pageId, int rating);
         void RemovePageRating(int pageId, int rating);

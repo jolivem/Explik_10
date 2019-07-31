@@ -198,9 +198,10 @@ namespace Roadkill.Core.DI
 			scanner.AddAllTypesOf<IPageService>();
 			scanner.AddAllTypesOf<IActiveDirectoryProvider>();
 			scanner.AddAllTypesOf<UserServiceBase>();
+            scanner.AddAllTypesOf<ICompetitionService>();
 
-			// Text parsers
-			scanner.AddAllTypesOf<MarkupConverter>();
+            // Text parsers
+            scanner.AddAllTypesOf<MarkupConverter>();
 			scanner.AddAllTypesOf<CustomTokenParser>();
 
 			// MVC Related

@@ -6,6 +6,7 @@ using Mindscape.LightSpeed;
 using Mindscape.LightSpeed.Caching;
 using Mindscape.LightSpeed.Linq;
 using Mindscape.LightSpeed.Logging;
+using Mindscape.LightSpeed.MetaData;
 using Mindscape.LightSpeed.Querying;
 using Roadkill.Core.Configuration;
 using Roadkill.Core.Database.Schema;
@@ -17,323 +18,337 @@ using PluginSettings = Roadkill.Core.Plugins.Settings;
 
 namespace Roadkill.Core.Database.LightSpeed
 {
-	public class LightSpeedRepository : Roadkill.Core.Database.IRepository
-	{
-		private ApplicationSettings _applicationSettings;
+    public class LightSpeedRepository : Roadkill.Core.Database.IRepository
+    {
+        private ApplicationSettings _applicationSettings;
 
-		internal IQueryable<PageEntity> Pages
-		{
-			get
-			{
-				return UnitOfWork.Query<PageEntity>();
-			}
-		}
+        #region IQueryable
 
-		internal IQueryable<PageContentEntity> PageContents
-		{
-			get
-			{
-				return UnitOfWork.Query<PageContentEntity>();
-			}
-		}
+        internal IQueryable<PageEntity> Pages
+        {
+            get { return UnitOfWork.Query<PageEntity>(); }
+        }
+
+        internal IQueryable<PageContentEntity> PageContents
+        {
+            get { return UnitOfWork.Query<PageContentEntity>(); }
+        }
 
         internal IQueryable<UserEntity> Users
         {
-            get
-            {
-                return UnitOfWork.Query<UserEntity>();
-            }
+            get { return UnitOfWork.Query<UserEntity>(); }
         }
 
         internal IQueryable<CommentEntity> Comments
         {
+            get { return UnitOfWork.Query<CommentEntity>(); }
+        }
+
+        internal IQueryable<AlertEntity> Alerts
+        {
+            get { return UnitOfWork.Query<AlertEntity>(); }
+        }
+
+        internal IQueryable<CompetitionEntity> Competitions
+        {
+            get { return UnitOfWork.Query<CompetitionEntity>(); }
+        }
+
+        internal IQueryable<CompetitionPageEntity> CompetitionPages
+        {
+            get { return UnitOfWork.Query<CompetitionPageEntity>(); }
+        }
+
+        #endregion
+
+        public virtual LightSpeedContext Context
+        {
             get
             {
-                return UnitOfWork.Query<CommentEntity>();
+                LightSpeedContext context = ObjectFactory.GetInstance<LightSpeedContext>();
+                if (context == null)
+                    throw new DatabaseException("The context for Lightspeed is null - has Startup() been called?", null);
+
+                return context;
             }
         }
 
-        public virtual LightSpeedContext Context
-		{
-			get
-			{
-				LightSpeedContext context = ObjectFactory.GetInstance<LightSpeedContext>();
-				if (context == null)
-					throw new DatabaseException("The context for Lightspeed is null - has Startup() been called?", null);
+        public virtual IUnitOfWork UnitOfWork
+        {
+            get
+            {
+                EnsureConectionString();
 
-				return context;
-			}
-		}
+                IUnitOfWork unitOfWork = ObjectFactory.GetInstance<IUnitOfWork>();
+                if (unitOfWork == null)
+                    throw new DatabaseException("The IUnitOfWork for Lightspeed is null - has Startup() been called?", null);
 
-		public virtual IUnitOfWork UnitOfWork
-		{
-			get
-			{
-				EnsureConectionString();
+                return unitOfWork;
+            }
+        }
 
-				IUnitOfWork unitOfWork = ObjectFactory.GetInstance<IUnitOfWork>();
-				if (unitOfWork == null)
-					throw new DatabaseException("The IUnitOfWork for Lightspeed is null - has Startup() been called?", null);
+        public LightSpeedRepository(ApplicationSettings settings)
+        {
+            _applicationSettings = settings;
+        }
 
-				return unitOfWork;
-			}
-		}
+        #region IRepository
 
-		public LightSpeedRepository(ApplicationSettings settings)
-		{
-			_applicationSettings = settings;
-		}
+        public void Startup(DataStoreType dataStoreType, string connectionString, bool enableCache)
+        {
+            if (!string.IsNullOrEmpty(connectionString))
+            {
+                LightSpeedContext context = new LightSpeedContext();
+                context.ConnectionString = connectionString;
+                context.DataProvider = dataStoreType.LightSpeedDbType;
+                context.IdentityMethod = IdentityMethod.GuidComb;
+                context.CascadeDeletes = true;
+                context.VerboseLogging = true;
+                context.Logger = new DatabaseLogger();
 
-		#region IRepository
-		public void Startup(DataStoreType dataStoreType, string connectionString, bool enableCache)
-		{
-			if (!string.IsNullOrEmpty(connectionString))
-			{
-				LightSpeedContext context = new LightSpeedContext();
-				context.ConnectionString = connectionString;
-				context.DataProvider = dataStoreType.LightSpeedDbType;
-				context.IdentityMethod = IdentityMethod.GuidComb;
-				context.CascadeDeletes = true;
-				context.VerboseLogging = true;
-				context.Logger = new DatabaseLogger();
+                if (enableCache)
+                    context.Cache = new CacheBroker(new DefaultCache());
 
-				if (enableCache)
-					context.Cache = new CacheBroker(new DefaultCache());
+                ObjectFactory.Configure(x =>
+                {
+                    x.For<LightSpeedContext>().Singleton().Use(context);
+                    x.For<IUnitOfWork>().HybridHttpOrThreadLocalScoped()
+                        .Use(ctx => ctx.GetInstance<LightSpeedContext>().CreateUnitOfWork());
+                });
+            }
+            else
+            {
+                Log.Warn("LightSpeedRepository.Startup skipped as no connection string was provided");
+            }
+        }
 
-				ObjectFactory.Configure(x =>
-				{
-					x.For<LightSpeedContext>().Singleton().Use(context);
-					x.For<IUnitOfWork>().HybridHttpOrThreadLocalScoped().Use(ctx => ctx.GetInstance<LightSpeedContext>().CreateUnitOfWork());
-				});
-			}
-			else
-			{
-				Log.Warn("LightSpeedRepository.Startup skipped as no connection string was provided");
-			}
-		}
+        public void TestConnection(DataStoreType dataStoreType, string connectionString)
+        {
+            LightSpeedContext context = ObjectFactory.GetInstance<LightSpeedContext>();
+            if (context == null)
+                throw new InvalidOperationException("Repository.Test failed - LightSpeedContext was null from the ObjectFactory");
 
-		public void TestConnection(DataStoreType dataStoreType, string connectionString)
-		{
-			LightSpeedContext context = ObjectFactory.GetInstance<LightSpeedContext>();
-			if (context == null)
-				throw new InvalidOperationException("Repository.Test failed - LightSpeedContext was null from the ObjectFactory");
+            using (IDbConnection connection = context.DataProviderObjectFactory.CreateConnection())
+            {
+                connection.ConnectionString = connectionString;
+                connection.Open();
+            }
+        }
 
-			using (IDbConnection connection = context.DataProviderObjectFactory.CreateConnection())
-			{
-				connection.ConnectionString = connectionString;
-				connection.Open();
-			}
-		}
-		#endregion
+        #endregion
 
-		#region ISettingsRepository
-		public void Install(DataStoreType dataStoreType, string connectionString, bool enableCache)
-		{
-			LightSpeedContext context = ObjectFactory.GetInstance<LightSpeedContext>();
-			if (context == null)
-				throw new InvalidOperationException("Repository.Install failed - LightSpeedContext was null from the ObjectFactory");
+        #region ISettingsRepository
 
-			using (IDbConnection connection = context.DataProviderObjectFactory.CreateConnection())
-			{
-				connection.ConnectionString = connectionString;
-				connection.Open();
+        public void Install(DataStoreType dataStoreType, string connectionString, bool enableCache)
+        {
+            LightSpeedContext context = ObjectFactory.GetInstance<LightSpeedContext>();
+            if (context == null)
+                throw new InvalidOperationException(
+                    "Repository.Install failed - LightSpeedContext was null from the ObjectFactory");
 
-				IDbCommand command = context.DataProviderObjectFactory.CreateCommand();
-				command.Connection = connection;
+            using (IDbConnection connection = context.DataProviderObjectFactory.CreateConnection())
+            {
+                connection.ConnectionString = connectionString;
+                connection.Open();
 
-				dataStoreType.Schema.Drop(command);
-				dataStoreType.Schema.Create(command);
-			}
-		}
+                IDbCommand command = context.DataProviderObjectFactory.CreateCommand();
+                command.Connection = connection;
 
-		public void Upgrade(ApplicationSettings settings)
-		{
-			try
-			{
-				using (IDbConnection connection = Context.DataProviderObjectFactory.CreateConnection())
-				{
-					connection.ConnectionString = settings.ConnectionString;
-					connection.Open();
+                dataStoreType.Schema.Drop(command);
+                dataStoreType.Schema.Create(command);
+            }
+        }
 
-					IDbCommand command = Context.DataProviderObjectFactory.CreateCommand();
-					command.Connection = connection;
+        public void Upgrade(ApplicationSettings settings)
+        {
+            try
+            {
+                using (IDbConnection connection = Context.DataProviderObjectFactory.CreateConnection())
+                {
+                    connection.ConnectionString = settings.ConnectionString;
+                    connection.Open();
 
-					settings.DataStoreType.Schema.Upgrade(command);
-				}
-			}
-			catch (Exception ex)
-			{
-				Log.Error("Upgrade failed: {0}", ex);
-				throw new UpgradeException("A problem occurred upgrading the database schema.\n\n", ex);
-			}
+                    IDbCommand command = Context.DataProviderObjectFactory.CreateCommand();
+                    command.Connection = connection;
 
-			try
-			{
-				SaveSiteSettings(new SiteSettings());
-			}
-			catch (Exception ex)
-			{
-				Log.Error("Upgrade failed: {0}", ex);
-				throw new UpgradeException("A problem occurred saving the site preferences.\n\n", ex);
-			}
-		}
+                    settings.DataStoreType.Schema.Upgrade(command);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Upgrade failed: {0}", ex);
+                throw new UpgradeException("A problem occurred upgrading the database schema.\n\n", ex);
+            }
 
-		public SiteSettings GetSiteSettings()
-		{
-			SiteSettings siteSettings = new SiteSettings();
-			SiteConfigurationEntity entity = UnitOfWork.Find<SiteConfigurationEntity>()
-												.FirstOrDefault(x => x.Id == SiteSettings.SiteSettingsId);
+            try
+            {
+                SaveSiteSettings(new SiteSettings());
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Upgrade failed: {0}", ex);
+                throw new UpgradeException("A problem occurred saving the site preferences.\n\n", ex);
+            }
+        }
 
-			if (entity != null)
-			{
-				siteSettings = SiteSettings.LoadFromJson(entity.Content);
-			}
-			else
-			{
-				Log.Warn("No site settings could be found in the database, using a default instance");
-			}
+        public SiteSettings GetSiteSettings()
+        {
+            SiteSettings siteSettings = new SiteSettings();
+            SiteConfigurationEntity entity = UnitOfWork.Find<SiteConfigurationEntity>()
+                .FirstOrDefault(x => x.Id == SiteSettings.SiteSettingsId);
 
-			return siteSettings;
-		}
+            if (entity != null)
+            {
+                siteSettings = SiteSettings.LoadFromJson(entity.Content);
+            }
+            else
+            {
+                Log.Warn("No site settings could be found in the database, using a default instance");
+            }
 
-		public PluginSettings GetTextPluginSettings(Guid databaseId)
-		{
-			PluginSettings pluginSettings = null;
-			SiteConfigurationEntity entity = UnitOfWork.Find<SiteConfigurationEntity>()
-												.FirstOrDefault(x => x.Id == databaseId);
+            return siteSettings;
+        }
 
-			if (entity != null)
-			{
-				pluginSettings = PluginSettings.LoadFromJson(entity.Content);
-			}
+        public PluginSettings GetTextPluginSettings(Guid databaseId)
+        {
+            PluginSettings pluginSettings = null;
+            SiteConfigurationEntity entity = UnitOfWork.Find<SiteConfigurationEntity>()
+                .FirstOrDefault(x => x.Id == databaseId);
 
-			return pluginSettings;
-		}
+            if (entity != null)
+            {
+                pluginSettings = PluginSettings.LoadFromJson(entity.Content);
+            }
 
-		public void SaveSiteSettings(SiteSettings siteSettings)
-		{
-			SiteConfigurationEntity entity = UnitOfWork.Find<SiteConfigurationEntity>()
-												.FirstOrDefault(x => x.Id == SiteSettings.SiteSettingsId);
+            return pluginSettings;
+        }
 
-			if (entity == null || entity.Id == Guid.Empty)
-			{
-				entity = new SiteConfigurationEntity();
-				entity.Id = SiteSettings.SiteSettingsId;
-				entity.Version = ApplicationSettings.ProductVersion.ToString();
-				entity.Content = siteSettings.GetJson();
-				UnitOfWork.Add(entity);
-			}
-			else
-			{
-				entity.Version = ApplicationSettings.ProductVersion.ToString();
-				entity.Content = siteSettings.GetJson();
-			}
+        public void SaveSiteSettings(SiteSettings siteSettings)
+        {
+            SiteConfigurationEntity entity = UnitOfWork.Find<SiteConfigurationEntity>()
+                .FirstOrDefault(x => x.Id == SiteSettings.SiteSettingsId);
 
-			UnitOfWork.SaveChanges();
-		}
+            if (entity == null || entity.Id == Guid.Empty)
+            {
+                entity = new SiteConfigurationEntity();
+                entity.Id = SiteSettings.SiteSettingsId;
+                entity.Version = ApplicationSettings.ProductVersion.ToString();
+                entity.Content = siteSettings.GetJson();
+                UnitOfWork.Add(entity);
+            }
+            else
+            {
+                entity.Version = ApplicationSettings.ProductVersion.ToString();
+                entity.Content = siteSettings.GetJson();
+            }
 
-		public void SaveTextPluginSettings(TextPlugin plugin)
-		{
-			string version = plugin.Version;
-			if (string.IsNullOrEmpty(version))
-				version = "1.0.0";
+            UnitOfWork.SaveChanges();
+        }
 
-			SiteConfigurationEntity entity = UnitOfWork.Find<SiteConfigurationEntity>()
-												.FirstOrDefault(x => x.Id == plugin.DatabaseId);
+        public void SaveTextPluginSettings(TextPlugin plugin)
+        {
+            string version = plugin.Version;
+            if (string.IsNullOrEmpty(version))
+                version = "1.0.0";
 
-			if (entity == null || entity.Id == Guid.Empty)
-			{
-				entity = new SiteConfigurationEntity();
-				entity.Id = plugin.DatabaseId;
-				entity.Version = version;
-				entity.Content = plugin.Settings.GetJson();
-				UnitOfWork.Add(entity);
-			}
-			else
-			{
-				entity.Version = version;
-				entity.Content = plugin.Settings.GetJson();
-			}
+            SiteConfigurationEntity entity = UnitOfWork.Find<SiteConfigurationEntity>()
+                .FirstOrDefault(x => x.Id == plugin.DatabaseId);
 
-			UnitOfWork.SaveChanges();
-		}
+            if (entity == null || entity.Id == Guid.Empty)
+            {
+                entity = new SiteConfigurationEntity();
+                entity.Id = plugin.DatabaseId;
+                entity.Version = version;
+                entity.Content = plugin.Settings.GetJson();
+                UnitOfWork.Add(entity);
+            }
+            else
+            {
+                entity.Version = version;
+                entity.Content = plugin.Settings.GetJson();
+            }
 
-		#endregion
+            UnitOfWork.SaveChanges();
+        }
 
-		#region IPageRepository
-		public PageContent AddNewPage(Page page, string text, string editedBy, DateTime editedOn)
-		{
-			PageEntity pageEntity = new PageEntity();
-			ToEntity.FromPage(page, pageEntity);
-			pageEntity.Id = 0;
-			UnitOfWork.Add(pageEntity);
-			UnitOfWork.SaveChanges();
+        #endregion
 
-			PageContentEntity pageContentEntity = new PageContentEntity()
-			{
-				Id = Guid.NewGuid(),
-				Page = pageEntity,
-				Text = text,
-				ControlledBy = "",
-				EditedOn = editedOn,
-				VersionNumber = 1,
-			};
+        #region IPageRepository
 
-			UnitOfWork.Add(pageContentEntity);
-			UnitOfWork.SaveChanges();
+        public PageContent AddNewPage(Page page, string text, string editedBy, DateTime editedOn)
+        {
+            PageEntity pageEntity = new PageEntity();
+            ToEntity.FromPage(page, pageEntity);
+            pageEntity.Id = 0;
+            UnitOfWork.Add(pageEntity);
+            UnitOfWork.SaveChanges();
 
-			PageContent pageContent = FromEntity.ToPageContent(pageContentEntity);
-			pageContent.Page = FromEntity.ToPage(pageEntity);
-			return pageContent;
-		}
+            PageContentEntity pageContentEntity = new PageContentEntity()
+            {
+                Id = Guid.NewGuid(),
+                Page = pageEntity,
+                Text = text,
+                ControlledBy = "",
+                EditedOn = editedOn,
+                VersionNumber = 1,
+            };
 
-		public PageContent AddNewPageContentVersion(Page page, string text, DateTime editedOn, int version)
-		{
-			if (version < 1)
-				version = 1;
+            UnitOfWork.Add(pageContentEntity);
+            UnitOfWork.SaveChanges();
 
-			PageEntity pageEntity = UnitOfWork.FindById<PageEntity>(page.Id);
-			if (pageEntity != null)
-			{
-				// Update the content
-				PageContentEntity pageContentEntity = new PageContentEntity()
-				{
-					Id = Guid.NewGuid(),
-					Page = pageEntity,
-					Text = text,
-					ControlledBy = "",
-					EditedOn = editedOn,
-					VersionNumber = version,
-				};
+            PageContent pageContent = FromEntity.ToPageContent(pageContentEntity);
+            pageContent.Page = FromEntity.ToPage(pageEntity);
+            return pageContent;
+        }
 
-				UnitOfWork.Add(pageContentEntity);
-				UnitOfWork.SaveChanges();
+        public PageContent AddNewPageContentVersion(Page page, string text, DateTime editedOn, int version)
+        {
+            if (version < 1)
+                version = 1;
 
-				// The page modified fields
-				pageEntity.PublishedOn = editedOn;
-				pageEntity.ControlledBy = "";
-				UnitOfWork.SaveChanges();
+            PageEntity pageEntity = UnitOfWork.FindById<PageEntity>(page.Id);
+            if (pageEntity != null)
+            {
+                // Update the content
+                PageContentEntity pageContentEntity = new PageContentEntity()
+                {
+                    Id = Guid.NewGuid(),
+                    Page = pageEntity,
+                    Text = text,
+                    ControlledBy = "",
+                    EditedOn = editedOn,
+                    VersionNumber = version,
+                };
 
-				// Turn the content database entity back into a domain object
-				PageContent pageContent = FromEntity.ToPageContent(pageContentEntity);
-				pageContent.Page = FromEntity.ToPage(pageEntity);
+                UnitOfWork.Add(pageContentEntity);
+                UnitOfWork.SaveChanges();
 
-				return pageContent;
-			}
+                // The page modified fields
+                pageEntity.PublishedOn = editedOn;
+                pageEntity.ControlledBy = "";
+                UnitOfWork.SaveChanges();
 
-			Log.Error("Unable to update page content for page id {0} (not found)", page.Id);
-			return null;
-		}
+                // Turn the content database entity back into a domain object
+                PageContent pageContent = FromEntity.ToPageContent(pageContentEntity);
+                pageContent.Page = FromEntity.ToPage(pageEntity);
 
-		public IEnumerable<Page> AllPages()
-		{
-			List<PageEntity> entities = Pages.ToList();
-			return FromEntity.ToPageList(entities);
-		}
+                return pageContent;
+            }
+
+            Log.Error("Unable to update page content for page id {0} (not found)", page.Id);
+            return null;
+        }
+
+        public IEnumerable<Page> AllPages()
+        {
+            List<PageEntity> entities = Pages.ToList();
+            return FromEntity.ToPageList(entities);
+        }
 
         public IEnumerable<Page> AllNewPages()
         {
-            List<PageEntity> entities = Pages.Where(p => p.IsRejected == false && p.IsSubmitted == true && p.IsControlled == false && p.IsCopied == false).ToList();
+            List<PageEntity> entities = Pages.Where(p =>
+                p.IsRejected == false && p.IsSubmitted == true && p.IsControlled == false && p.IsCopied == false).ToList();
             return FromEntity.ToPageList(entities);
         }
 
@@ -350,18 +365,18 @@ namespace Roadkill.Core.Database.LightSpeed
         }
 
         public IEnumerable<string> AllTags()
-		{
-			return new List<string>(Pages.Select(p => p.Tags));
-		}
+        {
+            return new List<string>(Pages.Select(p => p.Tags));
+        }
 
-		public void DeleteAllPages()
-		{
-			UnitOfWork.Remove(new Query(typeof(PageEntity)));
-			UnitOfWork.SaveChanges();
+        public void DeleteAllPages()
+        {
+            UnitOfWork.Remove(new Query(typeof(PageEntity)));
+            UnitOfWork.SaveChanges();
 
-			UnitOfWork.Remove(new Query(typeof(PageContentEntity)));
-			UnitOfWork.SaveChanges();
-		}
+            UnitOfWork.Remove(new Query(typeof(PageContentEntity)));
+            UnitOfWork.SaveChanges();
+        }
 
         public void DeletePage(int pageId)
         {
@@ -403,27 +418,27 @@ namespace Roadkill.Core.Database.LightSpeed
 
 
         public void DeletePageContent(PageContent pageContent)
-		{
-			PageContentEntity entity = UnitOfWork.FindById<PageContentEntity>(pageContent.Id);
-			UnitOfWork.Remove(entity);
-			UnitOfWork.SaveChanges();
-		}
+        {
+            PageContentEntity entity = UnitOfWork.FindById<PageContentEntity>(pageContent.Id);
+            UnitOfWork.Remove(entity);
+            UnitOfWork.SaveChanges();
+        }
 
-	    public IEnumerable<Page> FindMostRecentPages(int number)
-	    {
+        public IEnumerable<Page> FindMostRecentPages(int number)
+        {
             List<PageEntity> entities = Pages
                 .Where(p => p.IsControlled && !p.IsLocked)
-                .OrderByDescending( p => p.PublishedOn)
+                .OrderByDescending(p => p.PublishedOn)
                 .Take(number)
                 .ToList();
             return FromEntity.ToPageList(entities);
-	    }
+        }
 
         public IEnumerable<Page> FindPagesBestRated(int number)
         {
             List<PageEntity> entities = Pages
                 .Where(p => p.IsControlled && !p.IsLocked)
-                .OrderByDescending(p => p.NbRating == 0 ? 0 : (float)(p.TotalRating/p.NbRating)) //TODO : use also explikRating
+                .OrderByDescending(p => p.NbRating == 0 ? 0 : (float)p.TotalRating / (float)p.NbRating) //TODO : use also explikRating
                 .Take(number)
                 .ToList();
             return FromEntity.ToPageList(entities);
@@ -439,126 +454,158 @@ namespace Roadkill.Core.Database.LightSpeed
             return FromEntity.ToPageList(entities);
         }
 
-		public IEnumerable<Page> FindPagesCreatedBy(string username)
-		{
-			List<PageEntity> entities = Pages.Where(p => p.CreatedBy == username).ToList();
-			return FromEntity.ToPageList(entities);
-		}
-
-		public IEnumerable<Page> FindPagesControlledBy(string username)
-		{
-			List<PageEntity> entities = Pages.Where(p => p.ControlledBy == username).ToList();
-			return FromEntity.ToPageList(entities);
-		}
-
-		public IEnumerable<Page> FindPagesContainingTag(string tag)
-		{
-			IEnumerable<PageEntity> entities = Pages.Where(p => p.Tags.ToLower().Contains(tag.ToLower())); // Lightspeed doesn't support ToLowerInvariant
-			return FromEntity.ToPageList(entities);
-		}
-
-	    public IEnumerable<Page> FindPagesWithAlerts()
-	    {
-	        List<int> pageIds = Alerts.GroupBy(a => a.PageId).Select(a => a.First()).Select(a=>a.PageId).ToList();
-            IEnumerable<PageEntity> entities = Pages.Where(p => pageIds.Contains(p.Id)); // Lightspeed doesn't support ToLowerInvariant
+        public IEnumerable<Page> FindPagesCreatedBy(string username)
+        {
+            List<PageEntity> entities = Pages.Where(p => p.CreatedBy == username).ToList();
             return FromEntity.ToPageList(entities);
-	        
-	    }
-    
+        }
+
+        public IEnumerable<Page> FindPagesByCompetitionId(int competitionId)
+        {
+            List<PageEntity> entities = Pages.Where(p => p.CompetitionId == competitionId && p.IsControlled == true).ToList();
+            return FromEntity.ToPageList(entities);
+        }
+
+        public void DeletCompetitionPages(int competitionId)
+        {
+            List<CompetitionPageEntity> entities = CompetitionPages.Where(x => x.CompetitionId == competitionId).ToList();
+            foreach (var entity in entities)
+            {
+                UnitOfWork.Remove(entity);
+            }
+
+            UnitOfWork.SaveChanges();
+        }
+
+        public void DeletCompetitionPage(int pageId)
+        {
+            List<CompetitionPageEntity> entities = CompetitionPages.Where(x => x.PageId == pageId).ToList();
+            foreach (var entity in entities)
+            {
+                UnitOfWork.Remove(entity);
+            }
+
+            UnitOfWork.SaveChanges();
+        }
+
+        public IEnumerable<Page> FindPagesControlledBy(string username)
+        {
+            List<PageEntity> entities = Pages.Where(p => p.ControlledBy == username).ToList();
+            return FromEntity.ToPageList(entities);
+        }
+
+        public IEnumerable<Page> FindPagesContainingTag(string tag)
+        {
+            IEnumerable<PageEntity>
+                entities = Pages.Where(p =>
+                    p.Tags.ToLower().Contains(tag.ToLower())); // Lightspeed doesn't support ToLowerInvariant
+            return FromEntity.ToPageList(entities);
+        }
+
+        public IEnumerable<Page> FindPagesWithAlerts()
+        {
+            List<int> pageIds = Alerts.GroupBy(a => a.PageId).Select(a => a.First()).Select(a => a.PageId).ToList();
+            IEnumerable<PageEntity>
+                entities = Pages.Where(p => pageIds.Contains(p.Id)); // Lightspeed doesn't support ToLowerInvariant
+            return FromEntity.ToPageList(entities);
+
+        }
+
         public IEnumerable<PageContent> FindPageContentsByPageId(int pageId)
-		{
-			List<PageContentEntity> entities = PageContents.Where(p => p.Page.Id == pageId).ToList();
-			return FromEntity.ToPageContentList(entities);
-		}
+        {
+            List<PageContentEntity> entities = PageContents.Where(p => p.Page.Id == pageId).ToList();
+            return FromEntity.ToPageContentList(entities);
+        }
 
-		//public IEnumerable<PageContent> FindPageContentsEditedBy(string username)
-		//{
-		//	List<PageContentEntity> entities = PageContents.Where(p => p.ControlledBy == username).ToList();
-		//	return FromEntity.ToPageContentList(entities);
-		//}
+        //public IEnumerable<PageContent> FindPageContentsEditedBy(string username)
+        //{
+        //	List<PageContentEntity> entities = PageContents.Where(p => p.ControlledBy == username).ToList();
+        //	return FromEntity.ToPageContentList(entities);
+        //}
 
-		public Page GetPageById(int id)
-		{
-			PageEntity entity = Pages.FirstOrDefault(p => p.Id == id);
-			return FromEntity.ToPage(entity);
-		}
+        public Page GetPageById(int id)
+        {
+            PageEntity entity = Pages.FirstOrDefault(p => p.Id == id);
+            return FromEntity.ToPage(entity);
+        }
 
-		public Page GetPageByTitle(string title)
-		{
-			PageEntity entity = Pages.FirstOrDefault(p => p.Title.ToLower() == title.ToLower());
-			return FromEntity.ToPage(entity);
-		}
+        public Page GetPageByTitle(string title)
+        {
+            PageEntity entity = Pages.FirstOrDefault(p => p.Title.ToLower() == title.ToLower());
+            return FromEntity.ToPage(entity);
+        }
 
-		public PageContent GetLatestPageContent(int pageId)
-		{
-			PageContentEntity entity = PageContents.Where(x => x.Page.Id == pageId).OrderByDescending(x => x.EditedOn).FirstOrDefault();
-			return FromEntity.ToPageContent(entity);
-		}
+        public PageContent GetLatestPageContent(int pageId)
+        {
+            PageContentEntity entity = PageContents.Where(x => x.Page.Id == pageId).OrderByDescending(x => x.EditedOn)
+                .FirstOrDefault();
+            return FromEntity.ToPageContent(entity);
+        }
 
-		public PageContent GetPageContentById(Guid id)
-		{
-			PageContentEntity entity = PageContents.FirstOrDefault(p => p.Id == id);
-			return FromEntity.ToPageContent(entity);
-		}
+        public PageContent GetPageContentById(Guid id)
+        {
+            PageContentEntity entity = PageContents.FirstOrDefault(p => p.Id == id);
+            return FromEntity.ToPageContent(entity);
+        }
 
-		public PageContent GetPageContentByPageIdAndVersionNumber(int id, int versionNumber)
-		{
-			PageContentEntity entity = PageContents.FirstOrDefault(p => p.Page.Id == id && p.VersionNumber == versionNumber);
-			return FromEntity.ToPageContent(entity);
-		}
+        public PageContent GetPageContentByPageIdAndVersionNumber(int id, int versionNumber)
+        {
+            PageContentEntity entity = PageContents.FirstOrDefault(p => p.Page.Id == id && p.VersionNumber == versionNumber);
+            return FromEntity.ToPageContent(entity);
+        }
 
-		//public IEnumerable<PageContent> GetPageContentByEditedBy(string username)
-		//{
-		//	List<PageContentEntity> entities = PageContents.Where(p => p.EditedBy == username).ToList();
-		//	return FromEntity.ToPageContentList(entities);
-		//}
+        //public IEnumerable<PageContent> GetPageContentByEditedBy(string username)
+        //{
+        //	List<PageContentEntity> entities = PageContents.Where(p => p.EditedBy == username).ToList();
+        //	return FromEntity.ToPageContentList(entities);
+        //}
 
-		public Page SaveOrUpdatePage(Page page)
-		{
-			PageEntity entity = UnitOfWork.FindById<PageEntity>(page.Id);
-			if (entity == null)
-			{
-				entity = new PageEntity();
-				ToEntity.FromPage(page, entity);
-				UnitOfWork.Add(entity);
-				UnitOfWork.SaveChanges();
-				page = FromEntity.ToPage(entity);
-			}
-			else
-			{
-				ToEntity.FromPage(page, entity);
-				UnitOfWork.SaveChanges();
-				page = FromEntity.ToPage(entity);
-			}
+        public Page SaveOrUpdatePage(Page page)
+        {
+            PageEntity entity = UnitOfWork.FindById<PageEntity>(page.Id);
+            if (entity == null)
+            {
+                entity = new PageEntity();
+                ToEntity.FromPage(page, entity);
+                UnitOfWork.Add(entity);
+                UnitOfWork.SaveChanges();
+                page = FromEntity.ToPage(entity);
+            }
+            else
+            {
+                ToEntity.FromPage(page, entity);
+                UnitOfWork.SaveChanges();
+                page = FromEntity.ToPage(entity);
+            }
 
-			return page;
-		}
+            return page;
+        }
 
-		/// <summary>
-		/// This updates an existing set of text and is used for page rename updates.
-		/// To add a new version of a page, use AddNewPageContentVersion
-		/// </summary>
-		/// <param name="content"></param>
-		public void UpdatePageContent(PageContent content)
-		{
-			PageContentEntity entity = UnitOfWork.FindById<PageContentEntity>(content.Id);
-			if (entity != null)
-			{
-				ToEntity.FromPageContent(content, entity);
-				UnitOfWork.SaveChanges();
-				content = FromEntity.ToPageContent(entity);
-			}
-		}
+        /// <summary>
+        /// This updates an existing set of text and is used for page rename updates.
+        /// To add a new version of a page, use AddNewPageContentVersion
+        /// </summary>
+        /// <param name="content"></param>
+        public void UpdatePageContent(PageContent content)
+        {
+            PageContentEntity entity = UnitOfWork.FindById<PageContentEntity>(content.Id);
+            if (entity != null)
+            {
+                ToEntity.FromPageContent(content, entity);
+                UnitOfWork.SaveChanges();
+                content = FromEntity.ToPageContent(entity);
+            }
+        }
 
-	    public void IncrementNbView(int pageId)
-	    {
+        public void IncrementNbView(int pageId)
+        {
             PageEntity entity = UnitOfWork.FindById<PageEntity>(pageId);
-	        if (entity != null)
-	        {
-	            entity.NbView ++;
-	            UnitOfWork.SaveChanges();
-	        }
-	    }
+            if (entity != null)
+            {
+                entity.NbView++;
+                UnitOfWork.SaveChanges();
+            }
+        }
 
         public void SetNbView(int pageId, int nbView)
         {
@@ -570,8 +617,17 @@ namespace Roadkill.Core.Database.LightSpeed
             }
         }
 
-	    public void SetRating(int pageId, int nbRating, int totalRating)
-	    {
+        public void SetCompetitionId(int pageId, int competitionId)
+        {
+            PageEntity entity = UnitOfWork.FindById<PageEntity>(pageId);
+            if (entity != null)
+            {
+                entity.CompetitionId = competitionId;
+                UnitOfWork.SaveChanges();
+            }
+        }
+        public void SetRating(int pageId, int nbRating, int totalRating)
+        {
             PageEntity entity = UnitOfWork.FindById<PageEntity>(pageId);
             if (entity != null)
             {
@@ -579,57 +635,74 @@ namespace Roadkill.Core.Database.LightSpeed
                 entity.NbRating = nbRating;
                 UnitOfWork.SaveChanges();
             }
-	    }
+        }
 
         public void AddPageRating(int pageId, int rating)
-	    {
+        {
             PageEntity entity = UnitOfWork.FindById<PageEntity>(pageId);
             if (entity != null)
             {
                 entity.TotalRating += rating;
-                entity.NbRating ++;
+                entity.NbRating++;
                 UnitOfWork.SaveChanges();
             }
         }
 
-	    public void RemovePageRating(int pageId, int rating)
-	    {
-	        PageEntity entity = UnitOfWork.FindById<PageEntity>(pageId);
-	        if (entity != null)
-	        {
-	            entity.TotalRating -= rating;
-	            entity.NbRating--;
-	            UnitOfWork.SaveChanges();
-	        }
-	    }
+        public void RemovePageRating(int pageId, int rating)
+        {
+            PageEntity entity = UnitOfWork.FindById<PageEntity>(pageId);
+            if (entity != null)
+            {
+                entity.TotalRating -= rating;
+                entity.NbRating--;
+                UnitOfWork.SaveChanges();
+            }
+        }
 
-	    #endregion
+        /// <summary>
+        /// Remove the competitionId if the pages have not been controlled
+        /// </summary>
+        /// <param name="competitionId"></param>
+        public void CleanPagesForCompetitionId(int competitionId)
+        {
+            List<PageEntity> entities = Pages.Where(x => x.CompetitionId == competitionId && !x.IsControlled).ToList();
+            foreach (var entity in entities)
+            {
+                entity.CompetitionId = -1;
+            }
 
-		#region IUserRepository
-		public void DeleteUser(User user)
-		{
-			UserEntity entity = UnitOfWork.FindById<UserEntity>(user.Id);
-			UnitOfWork.Remove(entity);
-			UnitOfWork.SaveChanges();
-		}
+            UnitOfWork.SaveChanges();
+        }
 
-		public void DeleteAllUsers()
-		{
-			UnitOfWork.Remove(new Query(typeof(UserEntity)));
-			UnitOfWork.SaveChanges();
-		}
 
-		public User GetAdminById(Guid id)
-		{
-			UserEntity entity = Users.FirstOrDefault(x => x.Id == id && x.IsAdmin);
-			return FromEntity.ToUser(entity);
-		}
+        #endregion
 
-		public User GetUserByActivationKey(string key)
-		{
-			UserEntity entity = Users.FirstOrDefault(x => x.ActivationKey == key && x.IsActivated == false);
-			return FromEntity.ToUser(entity);
-		}
+        #region IUserRepository
+
+        public void DeleteUser(User user)
+        {
+            UserEntity entity = UnitOfWork.FindById<UserEntity>(user.Id);
+            UnitOfWork.Remove(entity);
+            UnitOfWork.SaveChanges();
+        }
+
+        public void DeleteAllUsers()
+        {
+            UnitOfWork.Remove(new Query(typeof(UserEntity)));
+            UnitOfWork.SaveChanges();
+        }
+
+        public User GetAdminById(Guid id)
+        {
+            UserEntity entity = Users.FirstOrDefault(x => x.Id == id && x.IsAdmin);
+            return FromEntity.ToUser(entity);
+        }
+
+        public User GetUserByActivationKey(string key)
+        {
+            UserEntity entity = Users.FirstOrDefault(x => x.ActivationKey == key && x.IsActivated == false);
+            return FromEntity.ToUser(entity);
+        }
 
         public User GetEditorById(Guid id)
         {
@@ -644,52 +717,52 @@ namespace Roadkill.Core.Database.LightSpeed
         }
 
         public User GetUserByEmail(string email, bool? isActivated = null)
-		{
-			UserEntity entity;
+        {
+            UserEntity entity;
 
-			if (isActivated.HasValue)
-				entity = Users.FirstOrDefault(x => x.Email == email && x.IsActivated == isActivated);
-			else
-				entity = Users.FirstOrDefault(x => x.Email == email);
+            if (isActivated.HasValue)
+                entity = Users.FirstOrDefault(x => x.Email == email && x.IsActivated == isActivated);
+            else
+                entity = Users.FirstOrDefault(x => x.Email == email);
 
-			return FromEntity.ToUser(entity);
-		}
+            return FromEntity.ToUser(entity);
+        }
 
-		public User GetUserById(Guid id, bool? isActivated = null)
-		{
-			UserEntity entity;
+        public User GetUserById(Guid id, bool? isActivated = null)
+        {
+            UserEntity entity;
 
-			if (isActivated.HasValue)
-				entity = Users.FirstOrDefault(x => x.Id == id && x.IsActivated == isActivated);
-			else
-				entity = Users.FirstOrDefault(x => x.Id == id);
+            if (isActivated.HasValue)
+                entity = Users.FirstOrDefault(x => x.Id == id && x.IsActivated == isActivated);
+            else
+                entity = Users.FirstOrDefault(x => x.Id == id);
 
-			return FromEntity.ToUser(entity);
-		}
+            return FromEntity.ToUser(entity);
+        }
 
-		public User GetUserByPasswordResetKey(string key)
-		{
-			UserEntity entity = Users.FirstOrDefault(x => x.PasswordResetKey == key);
-			return FromEntity.ToUser(entity);
-		}
+        public User GetUserByPasswordResetKey(string key)
+        {
+            UserEntity entity = Users.FirstOrDefault(x => x.PasswordResetKey == key);
+            return FromEntity.ToUser(entity);
+        }
 
-		public User GetUserByUsername(string username)
-		{
-			UserEntity entity = Users.FirstOrDefault(x => x.Username == username);
-			return FromEntity.ToUser(entity);
-		}
+        public User GetUserByUsername(string username)
+        {
+            UserEntity entity = Users.FirstOrDefault(x => x.Username == username);
+            return FromEntity.ToUser(entity);
+        }
 
-		public User GetUserByUsernameOrEmail(string username, string email)
-		{
-			UserEntity entity = Users.FirstOrDefault(x => x.Username == username || x.Email == email);
-			return FromEntity.ToUser(entity);
-		}
+        public User GetUserByUsernameOrEmail(string username, string email)
+        {
+            UserEntity entity = Users.FirstOrDefault(x => x.Username == username || x.Email == email);
+            return FromEntity.ToUser(entity);
+        }
 
-		public IEnumerable<User> FindAllEditors()
-		{
-			List<UserEntity> entities = Users.Where(x => x.IsEditor).ToList();
-			return FromEntity.ToUserList(entities);
-		}
+        public IEnumerable<User> FindAllEditors()
+        {
+            List<UserEntity> entities = Users.Where(x => x.IsEditor).ToList();
+            return FromEntity.ToUserList(entities);
+        }
 
         public IEnumerable<User> FindAllControllers()
         {
@@ -698,35 +771,37 @@ namespace Roadkill.Core.Database.LightSpeed
         }
 
         public IEnumerable<User> FindAllAdmins()
-		{
-			List<UserEntity> entities = Users.Where(x => x.IsAdmin).ToList();
-			return FromEntity.ToUserList(entities);
-		}
+        {
+            List<UserEntity> entities = Users.Where(x => x.IsAdmin).ToList();
+            return FromEntity.ToUserList(entities);
+        }
 
-		public User SaveOrUpdateUser(User user)
-		{
-			UserEntity entity = UnitOfWork.FindById<UserEntity>(user.Id);
-			if (entity == null)
-			{
-				// Turn the domain object into a database entity
-				entity = new UserEntity();
-				ToEntity.FromUser(user, entity);
-				UnitOfWork.Add(entity);
-				UnitOfWork.SaveChanges();
+        public User SaveOrUpdateUser(User user)
+        {
+            UserEntity entity = UnitOfWork.FindById<UserEntity>(user.Id);
+            if (entity == null)
+            {
+                // Turn the domain object into a database entity
+                entity = new UserEntity();
+                ToEntity.FromUser(user, entity);
+                UnitOfWork.Add(entity);
+                UnitOfWork.SaveChanges();
 
-				user = FromEntity.ToUser(entity);
-			}
-			else
-			{
-				ToEntity.FromUser(user, entity);
-				UnitOfWork.SaveChanges();
-			}
+                user = FromEntity.ToUser(entity);
+            }
+            else
+            {
+                ToEntity.FromUser(user, entity);
+                UnitOfWork.SaveChanges();
+            }
 
-			return user;
-		}
+            return user;
+        }
+
         #endregion
 
         #region ICommentRepository
+
         public void DeleteComment(Guid commentId)
         {
             CommentEntity entity = Comments.Where(x => x.Id == commentId).Single();
@@ -739,7 +814,7 @@ namespace Roadkill.Core.Database.LightSpeed
         /// </summary>
         /// <param name="commentId"></param>
         /// <param name="rating"></param>
-        public void UpdateRating(Guid commentId, int rating)
+        public void UpdateCommentRating(Guid commentId, int rating)
         {
             CommentEntity entity = Comments.Where(x => x.Id == commentId).Single();
             entity.Rating = rating;
@@ -792,10 +867,26 @@ namespace Roadkill.Core.Database.LightSpeed
         public IEnumerable<Comment> FindCommentsByPage(int pageId)
         {
             List<CommentEntity> entities = Comments.Where(x => x.PageId == pageId &&
-                x.Text != "" &&
-                x.IsControlled == true &&
-                x.IsRejected == false).ToList();
+                                                               x.Text != "" &&
+                                                               x.IsControlled == true &&
+                                                               x.IsRejected == false).ToList();
             return FromEntity.ToCommentList(entities);
+        }
+
+        /// <summary>
+        /// Get the rating of a given page by a given user
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public int GetRatingByPageAndUser(int pageId, string username)
+        {
+            CommentEntity comment = Comments.Where(x => x.CreatedBy == username && x.PageId == pageId).SingleOrDefault();
+            if (comment != null)
+            {
+                return comment.Rating;
+            }
+            return 0; // not rated
         }
 
         /// <summary>
@@ -805,7 +896,7 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <returns></returns>
         public IEnumerable<Comment> FindCommentsToControl()
         {
-            List<CommentEntity> entities = Comments.Where(x => x.IsControlled == false && x.IsRejected == false).ToList();
+            List<CommentEntity> entities = Comments.Where(x => x.IsControlled == false && x.IsRejected == false && x.Text != null && x.Text != "").ToList();
             return FromEntity.ToCommentList(entities);
         }
 
@@ -828,14 +919,15 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <param name="username"></param>
         /// <returns></returns>
         public Comment FindCommentByPageAndUser(int pageId, string username)
-	    {
+        {
             List<CommentEntity> entities = Comments.Where(x => x.PageId == pageId && x.CreatedBy == username).ToList();
-	        if (entities.Count > 0)
-	        {
-	            return FromEntity.ToComment( entities[0]);
-	        }
-	        return null;
-	    }
+            if (entities.Count > 0)
+            {
+                return FromEntity.ToComment(entities[0]);
+            }
+
+            return null;
+        }
 
         /// <summary>
         /// 
@@ -848,6 +940,7 @@ namespace Roadkill.Core.Database.LightSpeed
             {
                 UnitOfWork.Remove(entity);
             }
+
             UnitOfWork.SaveChanges();
         }
 
@@ -875,6 +968,7 @@ namespace Roadkill.Core.Database.LightSpeed
             {
                 return FromEntity.ToAlert(entitie);
             }
+
             return null;
         }
 
@@ -885,6 +979,7 @@ namespace Roadkill.Core.Database.LightSpeed
             {
                 return FromEntity.ToAlertList(entities);
             }
+
             return null;
         }
 
@@ -902,13 +997,14 @@ namespace Roadkill.Core.Database.LightSpeed
             UnitOfWork.SaveChanges();
         }
 
-        public void DeletPageAlerts(int pageId)
-	    {
+        public void DeletePageAlerts(int pageId)
+        {
             List<AlertEntity> entities = Alerts.Where(x => x.PageId == pageId).ToList();
-	        foreach (var entity in entities)
-	        {
+            foreach (var entity in entities)
+            {
                 UnitOfWork.Remove(entity);
-	        }
+            }
+
             UnitOfWork.SaveChanges();
         }
 
@@ -919,25 +1015,165 @@ namespace Roadkill.Core.Database.LightSpeed
             {
                 UnitOfWork.Remove(entity);
             }
+
             UnitOfWork.SaveChanges();
         }
 
-        public void DeletCommentAlerts(Guid commentId)
-	    {
+        public void DeleteCommentAlerts(Guid commentId)
+        {
             List<AlertEntity> entities = Alerts.Where(x => x.CommentId == commentId).ToList();
             foreach (var entity in entities)
             {
                 UnitOfWork.Remove(entity);
             }
+
             UnitOfWork.SaveChanges();
         }
 
-        internal IQueryable<AlertEntity> Alerts
+        #endregion
+
+        #region ICompetitionRepository
+
+        public void DeleteCompetition(int id)
         {
-            get
+            CompetitionEntity entity = Competitions.Where(x => x.Id == id).Single();
+            UnitOfWork.Remove(entity);
+            UnitOfWork.SaveChanges();
+        }
+
+        public IEnumerable<Competition> GetCompetitions(bool forAdmin = false)
+        {
+            List<CompetitionEntity> entities;
+            if (forAdmin)
             {
-                return UnitOfWork.Query<AlertEntity>();
+                // for admin, get all competitions
+                entities = Competitions.ToList();
             }
+            else
+            {
+                // for other users, hide Pause and Init statuses
+                entities = Competitions.Where(c => 
+                c.Status == (int)CompetitionViewModel.Statuses.Achieved ||
+                c.Status == (int)CompetitionViewModel.Statuses.PublicationOngoing ||
+                c.Status == (int)CompetitionViewModel.Statuses.RatingOngoing).ToList();
+            }
+
+            if (entities != null)
+            {
+                return FromEntity.ToCompetitionList(entities);
+            }
+            return null;
+        }
+
+        public Competition GetCompetitionByPageTag(string tag)
+        {
+            CompetitionEntity entity = Competitions.SingleOrDefault(x => x.PageTag == tag);
+            if (entity != null)
+            {
+                return FromEntity.ToCompetition(entity);
+            }
+
+            return null;
+        }
+        public Competition GetCompetitionById(int id)
+        {
+            CompetitionEntity entity = Competitions.SingleOrDefault(x => x.Id == id);
+            if (entity != null)
+            {
+                return FromEntity.ToCompetition(entity);
+            }
+
+            return null;
+        }
+
+        public Competition GetCompetitionByStatus(int status)
+        {
+            CompetitionEntity entity = Competitions.SingleOrDefault(x => x.Status == status);
+            if (entity != null)
+            {
+                return FromEntity.ToCompetition(entity);
+            }
+
+            return null;
+        }
+
+        public void AddCompetition(Competition competition)
+        {
+            CompetitionEntity entity = new CompetitionEntity();
+            ToEntity.FromCompetition(competition, entity);
+            UnitOfWork.Add(entity);
+            UnitOfWork.SaveChanges();
+        }
+
+        public void UpdateCompetition(Competition competition)
+        {
+            CompetitionEntity entity = Competitions.SingleOrDefault(x => x.Id == competition.Id);
+            ToEntity.FromCompetition(competition, entity);
+            UnitOfWork.SaveChanges();
+        }
+
+        public IEnumerable<CompetitionPage> GetCompetitionPages(int competitionId)
+        {
+            List<CompetitionPageEntity> entities = CompetitionPages.Where(x => x.CompetitionId == competitionId).ToList();
+            if (entities != null)
+            {
+                return FromEntity.ToCompetitionPageList(entities);
+            }
+
+            return null;
+        }
+
+        public void UpdateCompetitionPageRanking(int competitionId, int pageId, int ranking)
+        {
+            var entity = CompetitionPages.SingleOrDefault(x => x.CompetitionId == competitionId && x.PageId == pageId);
+            entity.Ranking = ranking;
+            UnitOfWork.SaveChanges();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <returns></returns>
+        public int GetPageRanking(int pageId)
+        {
+            var entity = CompetitionPages.SingleOrDefault(x => x.PageId == pageId);
+            if (entity != null)
+            {
+                return entity.Ranking;
+            }
+
+            return 0; // no participation in a competition
+        }
+
+        public void UpdateCompetitionPageId(int competitionId, int pageId)
+        {
+            CompetitionEntity entity = Competitions.SingleOrDefault(x => x.Id == competitionId);
+            entity.PageId = pageId;
+            UnitOfWork.SaveChanges();
+        }
+
+        public int[] GetUserHits(string username)
+        {
+            int[] hits = new int[] { 0, 0, 0 };
+
+            hits[0] = CompetitionPages.Count(x => x.UserName == username && x.Ranking == 1);
+            hits[1] = CompetitionPages.Count(x => x.UserName == username && x.Ranking == 2);
+            hits[2] = CompetitionPages.Count(x => x.UserName == username && x.Ranking == 3);
+            return hits;
+        }
+
+        public void ArchiveCompetitionPage(int competitionId, Page page)
+        {
+            CompetitionPageEntity entity = new CompetitionPageEntity();
+            //ToEntity.FromCompetitionPage(competition, entity);
+            entity.CompetitionId = competitionId;
+            entity.PageId = page.Id;
+            entity.NbRating = page.NbRating;
+            entity.TotalRating = page.TotalRating;
+            entity.UserName = page.CreatedBy;
+            UnitOfWork.Add(entity);
+            UnitOfWork.SaveChanges();
         }
 
         #endregion

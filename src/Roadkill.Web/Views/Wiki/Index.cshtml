@@ -40,7 +40,11 @@
 <!-- Title and page info -->
 <div class="row">
     <div class="col-sm-8">
-        <h2 class="pagetitle">@Model.Title</h2>
+
+        <h2 class="pagetitle">
+            @MvcHtmlString.Create(PageViewModel.EncodeImageRanking(Model.Ranking))
+            @Model.Title
+        </h2>
         <div id="pagecontent" style="text-align: justify;text-justify: inter-word">
             @MvcHtmlString.Create(Model.ContentAsHtml)
         </div>
@@ -70,6 +74,7 @@
             }
             <span style="color:green;padding-left:15px;">@SiteStrings.Page_Info_PublishedOn @Model.PublishedOn.Date.ToString("dd/MM/yyyy")</span>
         </p>
+        @MvcHtmlString.Create(PageViewModel.EncodeUserHits(Model.UserHits))
     </div>
 </div>
 <!-- Rating actions -->

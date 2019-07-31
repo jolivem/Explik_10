@@ -1,6 +1,6 @@
 ﻿Bonjour {FIRSTNAME} {LASTNAME},
 
-Merci pour la création de la clé "{PAGETITLE}" sur Explik. Nous regrettons de devoir la refuser pour la raison suivante : {REJECTREASON}.
+Merci pour la création de la page "{PAGETITLE}" sur Explik. Nous regrettons de devoir la refuser pour la raison suivante : {REJECTREASON}.
 N'hésitez pas à la revoir et à la soumettre à nouveau.
 
 L'équipe Explik

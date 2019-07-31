@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CompetitionViewModel>
+@{
+    ViewBag.Title = SiteStrings.Competitions_Title;
+}
+
+
+<h1>@SiteStrings.Competitions_Title</h1>
+
+<p>
+    @SiteStrings.Competitions_CreateNew @Html.ActionLink(SiteStrings.Competition_BtnCreate, "Edit", "Competitions", new { @class = "btn btn-primary btn-sm" })
+</p>
+
+@if (Model.Count() > 0)
+{
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@SiteStrings.Competition_ListSubject</th>
+            <th>@SiteStrings.Competition_ListDate</th>
+            <th>@SiteStrings.Competition_ListStatus</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (CompetitionViewModel competitionModel in Model)
+    {
+    <tr>
+        @if (competitionModel.PageId != -1)
+        {
+            <td class="pagename stretch">@Html.ActionLink(competitionModel.PageTitle, "Edit", "Pages", new { id = competitionModel.PageId }, null)</td>
+        }
+        else
+        {
+            <td class="pagename stretch">@Html.ActionLink(@SiteStrings.Competitions_CreatePage, "New", "Pages", new { title = "", tags = competitionModel.PageTag }, null)</td>
+        }
+
+        <td>@MvcHtmlString.Create(competitionModel.DateString)</td>
+        <td>@MvcHtmlString.Create(competitionModel.StatusString)</td>
+
+        <td>
+            @Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", new { id = competitionModel.Id }, new { @class = "btn btn-mini btn-primary" })
+        </td>
+
+        @if (competitionModel.Status == CompetitionViewModel.Statuses.Achieved)
+        {
+            <td>
+                @Html.ActionLink(SiteStrings.Shared_ResultLink, "Result", new { id = competitionModel.Id }, new { @class = "btn btn-mini btn-primary" })
+            </td>
+        }
+    </tr>
+    }
+    </table>
+}

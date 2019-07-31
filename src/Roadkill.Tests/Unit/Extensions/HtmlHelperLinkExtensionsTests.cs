@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Moq;
@@ -41,8 +43,10 @@ namespace Roadkill.Tests.Unit
 		[SetUp]
 		public void Setup()
 		{
-			// WikiController setup (use WikiController as it's the one typically used by views)
-			_container = new MocksAndStubsContainer();
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+
+            // WikiController setup (use WikiController as it's the one typically used by views)
+            _container = new MocksAndStubsContainer();
 
 			_applicationSettings = _container.ApplicationSettings;
 			_context = _container.UserContext;
@@ -144,8 +148,11 @@ namespace Roadkill.Tests.Unit
 		[Test]
 		public void FileManagerLink_Should_Render_Link_Html_When_Logged_In_As_Admin()
 		{
-			// Arrange
-			_userService.AddUser("admin@localhost", "admin", "password", true, true);
+
+            //Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
+            // Arrange
+            _userService.AddUser("admin@localhost", "admin", "password", true, true);
 			Guid userId = _userService.ListAdmins().First().Id.Value;
 			_context.CurrentUser = userId.ToString();
 

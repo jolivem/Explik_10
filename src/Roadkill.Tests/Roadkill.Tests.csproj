@@ -332,40 +332,18 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Acceptance\OtherDatabasesInstallerTests.cs" />
-    <Compile Include="Acceptance\FileManagerTests.cs" />
-    <Compile Include="Acceptance\UpgradeTests.cs" />
-    <Compile Include="Acceptance\WebDriverExtensions.cs" />
-    <Compile Include="Acceptance\InstallerTests.cs" />
-    <Compile Include="Acceptance\SearchTests.cs" />
-    <Compile Include="Acceptance\SettingsTests.cs" />
-    <Compile Include="Acceptance\Setup\AcceptanceTestBase.cs" />
-    <Compile Include="Acceptance\Setup\AcceptanceTestsSetup.cs" />
-    <Compile Include="Acceptance\PageTests.cs" />
-    <Compile Include="Acceptance\UserTests.cs" />
-    <Compile Include="Integration\WebApi\WebApiResponse.cs" />
-    <Compile Include="Integration\WebApi\WebApiClient.cs" />
-    <Compile Include="Integration\WebApi\PageControllerTests.cs" />
-    <Compile Include="Integration\WebApi\SearchControllerTests.cs" />
-    <Compile Include="Integration\WebApi\UserControllerTests.cs" />
-    <Compile Include="Integration\WebApi\WebApiTestBase.cs" />
     <Compile Include="Integration\Configuration\ApplicationSettingsTests.cs" />
     <Compile Include="Integration\Repository\LightSpeed\LightSpeedPageRepositoryTests.cs" />
     <Compile Include="Integration\Repository\LightSpeed\LightSpeedSettingsRepositoryTests.cs" />
     <Compile Include="Setup\ConfigFileManager.cs" />
     <Compile Include="Setup\IISExpress.cs" />
     <Compile Include="Setup\SqlExpressSetup.cs" />
-    <Compile Include="Integration\Repository\MongoDb\MongoDbSettingsRepositoryTests.cs" />
-    <Compile Include="Integration\Repository\MongoDb\MongoDbPageRepositoryTests.cs" />
-    <Compile Include="Integration\Repository\MongoDb\MongoDbUserRepositoryTests.cs" />
     <Compile Include="Integration\Repository\PageRepositoryTests.cs" />
     <Compile Include="Integration\Repository\SettingsRepositoryTests.cs" />
     <Compile Include="Integration\Repository\UserRepositoryTests.cs" />
     <Compile Include="Integration\Repository\RepositoryTests.cs" />
     <Compile Include="Integration\Repository\LightSpeed\LightSpeedUserRepositoryTests.cs" />
     <Compile Include="Integration\Import\ScrewturnImporterTests.cs" />
-    <Compile Include="Smoke\CanaryTests.cs" />
-    <Compile Include="Smoke\DemoSiteTests.cs" />
     <Compile Include="Setup\SqlCeSetup.cs" />
     <Compile Include="Setup\SqliteSetup.cs" />
     <Compile Include="Unit\Attachments\AttachmentPathUtilTests.cs" />
@@ -392,8 +370,6 @@
     <Compile Include="Unit\Mvc\Attributes\AdminRequiredAttributeTests.cs" />
     <Compile Include="Unit\Mvc\Controllers\ConfigurationTesterControllerTests.cs" />
     <Compile Include="Unit\Mvc\ViewModels\TestResultTests.cs" />
-    <Compile Include="Unit\Mvc\WebApi\SearchControllerTests.cs" />
-    <Compile Include="Unit\Mvc\WebApi\PageControllerTests.cs" />
     <Compile Include="Unit\Security\AuthorizationProviderTests.cs" />
     <Compile Include="Unit\Mvc\Attributes\BrowserCacheAttributeTests.cs" />
     <Compile Include="Unit\Mvc\Controllers\SiteSettings\SettingsControllerTests.cs" />
@@ -477,7 +453,6 @@
     <Compile Include="Unit\Mvc\ViewModels\UserViewModelEmailValidationTests.cs" />
     <Compile Include="Unit\Text\MarkupConverterTests.cs" />
     <Compile Include="Unit\Text\CustomTokenParserTests.cs" />
-    <Compile Include="Unit\Mvc\WebApi\UserControllerTests.cs" />
     <Content Include="chromedriver.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -509,10 +484,6 @@
     <Content Include="Integration\Configuration\TestConfigs\test-missing-values.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Integration\Configuration\TestConfigs\test-mongodb.config">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Integration\Configuration\TestConfigs\test-legacy-values.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -532,7 +503,6 @@
       <SubType>Designer</SubType>
     </None>
     <Compile Include="Unit\Text\CreoleParserTests.cs" />
-    <Compile Include="Acceptance\LoginTests.cs" />
     <Compile Include="Unit\StubsAndMocks\Mvc\MvcMockHelpers.cs" />
     <Compile Include="Unit\Mvc\Controllers\UserControllerTests.cs" />
     <Compile Include="Integration\Search\SearchServiceTests.cs" />

@@ -94,7 +94,7 @@ namespace Roadkill.Core.Mvc.Controllers
 				return Json(new { status = "error", message = SiteStrings.FileManager_Error_DeleteFolder });
 			}
 
-            string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + Context.AttachmentsPath + folder);
+            string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + Context.AttachmentsPath + "/" + folder);
 
             if (!_attachmentPathUtil.IsAttachmentPathValid(physicalPath, false))
 			{

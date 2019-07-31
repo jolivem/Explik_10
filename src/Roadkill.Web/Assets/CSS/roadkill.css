@@ -125,6 +125,11 @@ a.external-link	{ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA
 #editpage-save-button		{ text-align:right; }
 #preview-toggle-container	{ margin-right:10px; }
 
+/* competition page [editors] */
+#competitionpage                   {min-height: 100%;height: 100%;width: 100%;clear: both;}
+#competitionpage-form label        {font-weight: normal !important;margin-top: 10px;}
+#competitionpage-button-container  {padding-top: 10px;}
+#competitionpage-save-button       {text-align: right;}
 
 #filechooser-iframe  { width:100%; height:100%; }
 #choose-image-dialog { padding-top: 5%; }

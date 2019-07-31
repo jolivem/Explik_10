@@ -1,0 +1,32 @@
+﻿@model PageViewModel
+@{
+    ViewBag.Title = SiteStrings.ParticipateCompetition_Title;
+}
+
+<div class="row">
+    <div class="col-sm-9">
+        <h2 class="pagetitle">@Model.Title</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-9">
+        <div id="pagecontent">
+            @MvcHtmlString.Create(Model.ContentAsHtml)
+        </div>
+    </div>
+</div>
+<br />
+@if (!RoadkillContext.IsAdmin)
+{
+    <div class="row" style="padding-top:20px;">
+        <div class="col-sm-7" style="padding-top:22px;">
+            @SiteStrings.ParticipateCompetition_Note2
+        </div>
+        <div class="col-sm-5" style="padding-top:20px;display:inline-flex;">
+            <span style="float:right; margin-left:10px;">@Html.ActionLink(SiteStrings.Shared_ParticipateLink, "ParticipateConfirmed", "Competitions", new { @class = "btn btn-mini btn-primary" })</span>
+        </div>
+    </div>
+}
+
+

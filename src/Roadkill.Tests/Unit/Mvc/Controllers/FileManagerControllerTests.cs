@@ -26,7 +26,7 @@ namespace Roadkill.Tests.Unit
 		private MocksAndStubsContainer _container;
 
 		private ApplicationSettings _applicationSettings;
-		private IUserContext _context;
+		private UserContextStub _context;
 		private RepositoryMock _repository;
 		private UserServiceMock _userService;
 		private PageService _pageService;
@@ -44,8 +44,9 @@ namespace Roadkill.Tests.Unit
 			_container = new MocksAndStubsContainer();
 
 			_applicationSettings = _container.ApplicationSettings;
-			_context = _container.UserContext;
-			_repository = _container.Repository;
+			//_context = _container.UserContext;
+            _context = new UserContextStub();
+            _repository = _container.Repository;
 			_pluginFactory = _container.PluginFactory;
 			_settingsService = _container.SettingsService;
 			_userService = _container.UserService;
@@ -53,7 +54,11 @@ namespace Roadkill.Tests.Unit
 			_pageService = _container.PageService;
 			_attachmentFileHandler = new AttachmentFileHandler(_applicationSettings);
 
-			try
+            _context.CurrentUser = "currentuser";
+            _context.CurrentUsername = "currentuser";
+            _context.AttachmentsPath = "currentuser_888";
+
+            try
 			{
 				// Delete any existing attachments folder
 				DirectoryInfo directoryInfo = new DirectoryInfo(_applicationSettings.AttachmentsFolder);
@@ -105,8 +110,10 @@ namespace Roadkill.Tests.Unit
 		[Test]
 		public void DeleteFile_Should_Return_Ok_Json_Status_And_Delete_File()
 		{
-			// Arrange
-			string testFile1Path = CreateTestFileInAttachments("test.txt");
+            // Arrange
+            CreateTestUserAttachmentsDirectory();
+
+            string testFile1Path = CreateTestFileInAttachments("test.txt");
 			string dirPath = CreateTestDirectoryInAttachments("test");
 			string testFile2Path = Path.Combine(dirPath, "test.txt");
 			File.WriteAllText(testFile2Path, "test");
@@ -129,8 +136,9 @@ namespace Roadkill.Tests.Unit
 		[Test]
 		public void DeleteFile_In_Subfolder_Should_Return_Ok_Json_Status_And_Delete_File()
 		{
-			// Arrange
-			string fullPath = CreateTestFileInAttachments("test.txt");
+            // Arrange
+            CreateTestUserAttachmentsDirectory();
+            string fullPath = CreateTestFileInAttachments("test.txt");
 
 			// Act
 			JsonResult result = _filesController.DeleteFile("/", "test.txt") as JsonResult;
@@ -149,10 +157,10 @@ namespace Roadkill.Tests.Unit
 		[Test]
 		public void DeleteFile_Missing_File_Should_Return_Json_Status_Ok()
 		{
-			// Arrange
-
-			// Act
-			JsonResult result = _filesController.DeleteFile("/", "doesntexist.txt") as JsonResult;
+            // Arrange
+            CreateTestUserAttachmentsDirectory();
+            // Act
+            JsonResult result = _filesController.DeleteFile("/", "doesntexist.txt") as JsonResult;
 
 			// Assert
 			Assert.That(result, Is.Not.Null, "JsonResult");
@@ -236,8 +244,8 @@ namespace Roadkill.Tests.Unit
 		public void DeleteFolder_Containing_Files_Should_Return_Error()
 		{
 			// Arrange
-			CreateTestDirectoryInAttachments("folder1");
-			string fullPath = Path.Combine(_applicationSettings.AttachmentsDirectoryPath, "folder1", "test.txt");
+			string dirpath = CreateTestDirectoryInAttachments("folder1");
+			string fullPath = Path.Combine(dirpath, "test.txt");
 			File.WriteAllText(fullPath, "test");
 
 			// Act
@@ -478,11 +486,12 @@ namespace Roadkill.Tests.Unit
 		{
 			// Arrange
 			_repository.SiteSettings.OverwriteExistingFiles = true;
-			CreateTestFileInAttachments("file1.png", "the original file");
+            string dirpath = CreateTestUserAttachmentsDirectory();
+            CreateTestFileInAttachments("file1.png", "the original file");
 
 			MvcMockContainer container = _filesController.SetFakeControllerContext();
 			SetupMockPostedFiles(container, "/", "file1.png");
-			string file1FullPath = Path.Combine(_applicationSettings.AttachmentsDirectoryPath, "file1.png");
+			string file1FullPath = Path.Combine(dirpath, "file1.png");
 
 			// Act
 			JsonResult result = _filesController.Upload();
@@ -502,9 +511,10 @@ namespace Roadkill.Tests.Unit
 		[Test]
 		public void FileUpload_Should_Be_Case_Insensitive()
 		{
-			// Arrange
-			SetupMockPostedFiles(_mvcMockContainer, "/", "file1.PNG");
-			string file1FullPath = Path.Combine(_applicationSettings.AttachmentsDirectoryPath, "file1.PNG");
+            // Arrange
+            string dirPath = CreateTestUserAttachmentsDirectory();
+            SetupMockPostedFiles(_mvcMockContainer, "/", "file1.PNG");
+			string file1FullPath = Path.Combine(dirPath, "file1.PNG");
 
 			// Act
 			JsonResult result = _filesController.Upload();
@@ -524,10 +534,11 @@ namespace Roadkill.Tests.Unit
 		[Test]
 		public void FileUpload_With_Multiple_Files_To_Root_Should_Save_Files_To_Disk_And_Return_Ok_Json_Status()
 		{
-			// Arrange
-			SetupMockPostedFiles(_mvcMockContainer, "/", "file1.png", "file2.png");
-			string file1FullPath = Path.Combine(_applicationSettings.AttachmentsDirectoryPath, "file1.png");
-			string file2FullPath = Path.Combine(_applicationSettings.AttachmentsDirectoryPath, "file2.png");
+            // Arrange
+            string dirPath = CreateTestUserAttachmentsDirectory();
+            SetupMockPostedFiles(_mvcMockContainer, "/", "file1.png", "file2.png");
+			string file1FullPath = Path.Combine(dirPath, "file1.png");
+			string file2FullPath = Path.Combine(dirPath, "file2.png");
 
 			// Act
 			JsonResult result = _filesController.Upload();
@@ -547,8 +558,9 @@ namespace Roadkill.Tests.Unit
 		[Test]
 		public void FileUpload_With_Multiple_Files_To_SubFolder_Should_Save_Files_To_Disk_And_Return_Ok_Json_Status()
 		{
-			// Arrange
-			SetupMockPostedFiles(_mvcMockContainer, "/folder1/folder2", "file1.png", "file2.png");
+            // Arrange
+            CreateTestUserAttachmentsDirectory();
+            SetupMockPostedFiles(_mvcMockContainer, "/folder1/folder2", "file1.png", "file2.png");
 
 			string fullPath = CreateTestDirectoryInAttachments("folder1");
 			string subPath = Path.Combine(fullPath, "folder2");
@@ -575,8 +587,9 @@ namespace Roadkill.Tests.Unit
 		[Test]
 		public void FileUpload_With_No_Files_To_Root_Should_Return_Ok_Json_Status()
 		{
-			// Arrange
-			SetupMockPostedFiles(_mvcMockContainer, "/");
+            // Arrange
+            CreateTestUserAttachmentsDirectory();
+            SetupMockPostedFiles(_mvcMockContainer, "/");
 
 			// Act
 			JsonResult result = _filesController.Upload();
@@ -594,8 +607,9 @@ namespace Roadkill.Tests.Unit
 		[ExpectedException(typeof(SecurityException))]
 		public void FileUpload_With_Bad_Folder_Path_Should_Throw_Exception()
 		{
-			// Arrange
-			MvcMockContainer container = _filesController.SetFakeControllerContext();
+            // Arrange
+            CreateTestUserAttachmentsDirectory();
+            MvcMockContainer container = _filesController.SetFakeControllerContext();
 			SetupMockPostedFiles(container, "/../../bad/path");
 
 			// Act
@@ -643,10 +657,11 @@ namespace Roadkill.Tests.Unit
 		{
 			// Arrange
 			_repository.SiteSettings.OverwriteExistingFiles = false;
-			CreateTestFileInAttachments("file1.png", "the original file");
+            string dirpath = CreateTestUserAttachmentsDirectory();
+            CreateTestFileInAttachments("file1.png", "the original file");
 
 			SetupMockPostedFiles(_mvcMockContainer, "/", "file1.png");
-			string file1FullPath = Path.Combine(_applicationSettings.AttachmentsDirectoryPath, "file1.png");
+			string file1FullPath = Path.Combine(dirpath, "file1.png");
 
 			// Act
 			JsonResult result = _filesController.Upload();
@@ -669,15 +684,16 @@ namespace Roadkill.Tests.Unit
 		{
 			// Arrange
 			_repository.SiteSettings.OverwriteExistingFiles = false;
-			CreateTestFileInAttachments("file3.png", "the original file");
+            string dirpath = CreateTestUserAttachmentsDirectory();
+            CreateTestFileInAttachments("file3.png", "the original file");
 
 			SetupMockPostedFiles(_mvcMockContainer, "/", "file1.png", "file2.png", "file3.png", "file4.png", "file5.png");
 
-			string file1FullPath = Path.Combine(_applicationSettings.AttachmentsDirectoryPath, "file1.png");
-			string file2FullPath = Path.Combine(_applicationSettings.AttachmentsDirectoryPath, "file2.png");
-			string file3FullPath = Path.Combine(_applicationSettings.AttachmentsDirectoryPath, "file3.png");
-			string file4FullPath = Path.Combine(_applicationSettings.AttachmentsDirectoryPath, "file4.png");
-			string file5FullPath = Path.Combine(_applicationSettings.AttachmentsDirectoryPath, "file5.png");
+			string file1FullPath = Path.Combine(dirpath, "file1.png");
+			string file2FullPath = Path.Combine(dirpath, "file2.png");
+			string file3FullPath = Path.Combine(dirpath, "file3.png");
+			string file4FullPath = Path.Combine(dirpath, "file4.png");
+			string file5FullPath = Path.Combine(dirpath, "file5.png");
 
 			// Act
 			JsonResult result = _filesController.Upload();
@@ -789,25 +805,30 @@ namespace Roadkill.Tests.Unit
 
 		private string CreateTestFileInAttachments(string filename, string filecontent = "test")
 		{
-			string fullPath = Path.Combine(_applicationSettings.AttachmentsDirectoryPath, filename);
+			string fullPath = Path.Combine(_applicationSettings.AttachmentsDirectoryPath + _context.AttachmentsPath, filename);
 			File.WriteAllText(fullPath, filecontent);
 
 			return fullPath;
 		}
 
-		private string CreateTestDirectoryInAttachments(string directoryName)
-		{
-			string fullPath = Path.Combine(_applicationSettings.AttachmentsDirectoryPath, directoryName);
-			Directory.CreateDirectory(fullPath);
+        private string CreateTestDirectoryInAttachments(string directoryName)
+        {
+            string fullPath = Path.Combine(_applicationSettings.AttachmentsDirectoryPath + _context.AttachmentsPath, directoryName);
+            Directory.CreateDirectory(fullPath);
 
-			return fullPath;
-		}
+            return fullPath;
+        }
 
-		/// <summary>
-		/// Sets up all the Request object's various properties to mock a file being uploaded. This sets the 
-		/// file size to 8192 bytes, and writes each file name to disk when SaveAs() is called, with the content "test contents"
-		/// </summary>
-		private void SetupMockPostedFiles(MvcMockContainer container, string destinationFolder, params string[] fileNames)
+        private string CreateTestUserAttachmentsDirectory()
+        {
+            return CreateTestDirectoryInAttachments("");
+        }
+
+        /// <summary>
+        /// Sets up all the Request object's various properties to mock a file being uploaded. This sets the 
+        /// file size to 8192 bytes, and writes each file name to disk when SaveAs() is called, with the content "test contents"
+        /// </summary>
+        private void SetupMockPostedFiles(MvcMockContainer container, string destinationFolder, params string[] fileNames)
 		{
 			// Mock the folder the files are saved to
 			container.Request.Setup(x => x.Form).Returns(delegate()

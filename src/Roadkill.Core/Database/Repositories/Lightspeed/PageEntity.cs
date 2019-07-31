@@ -66,6 +66,9 @@ namespace Roadkill.Core.Database.LightSpeed
         [Column("controllerrating")]
         private long _controllerrating;
 
+        [Column("competitionid")]
+        private int _competitionid;
+
         [ReverseAssociation("PageContents")]
 		private readonly EntityCollection<PageContentEntity> _pageContents = new EntityCollection<PageContentEntity>();
 
@@ -303,6 +306,17 @@ namespace Roadkill.Core.Database.LightSpeed
             set
             {
                 Set<long>(ref _controllerrating, value);
+            }
+        }
+        public int CompetitionId
+        {
+            get
+            {
+                return _competitionid;
+            }
+            set
+            {
+                Set<int>(ref _competitionid, value);
             }
         }
     }

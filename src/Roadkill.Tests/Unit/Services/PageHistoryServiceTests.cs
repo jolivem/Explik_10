@@ -108,7 +108,6 @@ namespace Roadkill.Tests.Unit
 			// Assert
 			Assert.That(historyList.Count, Is.EqualTo(2));
 			Assert.That(historyList[0].Id, Is.EqualTo(v2Content.Id));
-			Assert.That(historyList[0].EditedBy, Is.EqualTo(v2Content.EditedBy));
 			Assert.That(historyList[0].EditedOn, Is.EqualTo(v2Content.EditedOn));
 			Assert.That(historyList[0].EditedOnWithOffset, Is.Not.Empty);
 			Assert.That(historyList[0].IsPageAdminOnly, Is.EqualTo(page.IsLocked));
@@ -177,7 +176,6 @@ namespace Roadkill.Tests.Unit
 			// Assert
 			Assert.That(actualContent.VersionNumber, Is.EqualTo(3));
 			Assert.That(actualContent.Text, Is.EqualTo(v1Content.Text));
-			Assert.That(actualContent.EditedBy, Is.EqualTo(_context.CurrentUsername));
 		}
 
 		[Test]
@@ -197,7 +195,6 @@ namespace Roadkill.Tests.Unit
 			// Assert
 			Assert.That(actualContent.VersionNumber, Is.EqualTo(3));
 			Assert.That(actualContent.Text, Is.EqualTo(v1Content.Text));
-			Assert.That(actualContent.EditedBy, Is.EqualTo("admin"));
 		}
 
 		private Page NewPage(string author, string tags = "tag1,tag2,tag3", string title = "Title")

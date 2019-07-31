@@ -411,12 +411,17 @@
     <Compile Include="Attachments\IResponseWrapper.cs" />
     <Compile Include="Attachments\ResponseWrapper.cs" />
     <Compile Include="Database\Entities\Alert.cs" />
+    <Compile Include="Database\Entities\Competition.cs" />
+    <Compile Include="Database\Entities\CompetitionPage.cs" />
     <Compile Include="Database\Entities\Comment.cs" />
     <Compile Include="Database\Repositories\IAlertRepository.cs" />
     <Compile Include="Database\Repositories\ICommentRepository.cs" />
+    <Compile Include="Database\Repositories\ICompetitionRepository.cs" />
     <Compile Include="Database\Repositories\ISettingsRepository.cs" />
     <Compile Include="Database\Repositories\LightSpeed\AlertEntity.cs" />
     <Compile Include="Database\Repositories\LightSpeed\CommentEntity.cs" />
+    <Compile Include="Database\Repositories\LightSpeed\CompetitionEntity.cs" />
+    <Compile Include="Database\Repositories\LightSpeed\CompetitionPageEntity.cs" />
     <Compile Include="Email\EmailClient.cs" />
     <Compile Include="Email\EmailTemplate.cs" />
     <Compile Include="Email\IEmailClient.cs" />
@@ -442,6 +447,10 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Mvc\Controllers\CompetitionsController.cs" />
+    <Compile Include="Mvc\ViewModels\CompetitionViewModel.cs" />
+    <Compile Include="Mvc\ViewModels\GalleryViewModel.cs" />
+    <Compile Include="Mvc\ViewModels\PageAndUserRatingViewModel.cs" />
     <Compile Include="MyLucene\ElisionFilter.cs" />
     <Compile Include="MyLucene\FrenchAnalyzer.cs" />
     <Compile Include="MyLucene\FrenchStemFilter.cs" />
@@ -455,7 +464,6 @@
     <Compile Include="Mvc\UserActivity.cs" />
     <Compile Include="Mvc\ViewModels\AlertsViewModel.cs" />
     <Compile Include="Mvc\ViewModels\CommentViewModel.cs" />
-    <Compile Include="Mvc\ViewModels\GalleryViewModel.cs" />
     <Compile Include="Mvc\ViewModels\RateViewModel.cs" />
     <Compile Include="Security\AuthorizationProvider.cs" />
     <Compile Include="Security\IAuthorizationProvider.cs" />
@@ -536,8 +544,8 @@
     <Compile Include="Database\Schema\Postgres\PostgresSchema.cs" />
     <Compile Include="Database\Schema\SchemaBase.cs" />
     <Compile Include="Database\Schema\Sqlite\SqliteSchema.cs" />
-    <Compile Include="Database\Schema\SqlServerCE\SqlServerCESchema.cs" />
-    <Compile Include="Database\Schema\SqlServer\SqlServerSchema.cs" />
+    <Compile Include="Services\CompetitionService.cs" />
+    <Compile Include="Services\ICompetitionService.cs" />
     <Compile Include="Services\IPageService.cs" />
     <Compile Include="Exceptions\UpgradeException.cs" />
     <Compile Include="Attachments\MimeTypes.cs" />
@@ -648,6 +656,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="fonts\glyphicons-halflings-regular.woff" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -657,25 +668,11 @@
     <EmbeddedResource Include="Database\Schema\Postgres\Drop.sql" />
     <EmbeddedResource Include="Database\Schema\Sqlite\Create.sql" />
     <EmbeddedResource Include="Database\Schema\Sqlite\Drop.sql" />
-    <EmbeddedResource Include="Database\Schema\SqlServer\Create.sql" />
-    <EmbeddedResource Include="Database\Schema\SqlServer\Drop.sql" />
-    <EmbeddedResource Include="Database\Schema\SqlServerCE\Create2.sql" />
-    <EmbeddedResource Include="Database\Schema\SqlServerCE\Create3.sql" />
-    <EmbeddedResource Include="Database\Schema\SqlServerCE\Create4.sql" />
-    <EmbeddedResource Include="Database\Schema\SqlServerCE\Create5.sql" />
-    <EmbeddedResource Include="Database\Schema\SqlServerCE\Drop1.sql" />
-    <EmbeddedResource Include="Database\Schema\SqlServerCE\Drop4.sql" />
-    <EmbeddedResource Include="Database\Schema\SqlServerCE\Drop3.sql" />
-    <EmbeddedResource Include="Database\Schema\SqlServerCE\Drop2.sql" />
-    <EmbeddedResource Include="Database\Schema\SqlServerCE\Create1.sql" />
     <EmbeddedResource Include="Database\Schema\MySql\Create.sql" />
     <EmbeddedResource Include="Database\Schema\MySql\Drop.sql" />
     <EmbeddedResource Include="Database\Schema\MySql\Upgrade.sql" />
     <EmbeddedResource Include="Database\Schema\Postgres\Upgrade.sql" />
     <EmbeddedResource Include="Database\Schema\Sqlite\Upgrade.sql" />
-    <EmbeddedResource Include="Database\Schema\SqlServer\Upgrade.sql" />
-    <EmbeddedResource Include="Database\Schema\SqlServerCE\Upgrade1.sql" />
-    <EmbeddedResource Include="Database\Schema\SqlServerCE\Upgrade2.sql" />
     <EmbeddedResource Include="Localization\InstallStrings.cs.resx" />
     <EmbeddedResource Include="Localization\InstallStrings.de.resx" />
     <EmbeddedResource Include="Localization\InstallStrings.es.resx">
@@ -719,6 +716,7 @@
     <EmbeddedResource Include="Localization\SiteStrings.sv.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Localization\readme.txt" />
   </ItemGroup>
   <ItemGroup />

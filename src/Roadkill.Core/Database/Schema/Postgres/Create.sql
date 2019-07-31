@@ -21,6 +21,7 @@
   "videourl" TEXT, 
   "pseudonym" TEXT, 
   "controllerrating" INTEGER,
+  "competitionid" INTEGER,
 PRIMARY KEY("id")
 );
 
@@ -47,7 +48,7 @@ CREATE TABLE explik_users
   "attachmentspath" TEXT, 
   "isadmin" BOOLEAN NOT NULL, 
   "isactivated" BOOLEAN NOT NULL, 
-  "contributionlevel" INTEGER,
+  "contribution" INTEGER,
   "displayflags" INTEGER,
   "password" TEXT NOT NULL, 
   "passwordresetkey" TEXT, 

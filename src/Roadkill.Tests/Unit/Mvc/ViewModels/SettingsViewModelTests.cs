@@ -155,17 +155,17 @@ namespace Roadkill.Tests.Unit
 			Assert.That(actualCount, Is.EqualTo(expectedCount));
 		}
 
-		[Test]
-		public void MarkupTypesAvailable_Should_Contain_Known_Markups()
-		{
-			// Arrange
-			SettingsViewModel model = new SettingsViewModel();
+		//[Test]
+		//public void MarkupTypesAvailable_Should_Contain_Known_Markups()
+		//{
+		//	// Arrange
+		//	SettingsViewModel model = new SettingsViewModel();
 
-			// Act + Assert
-			Assert.That(model.MarkupTypesAvailable, Contains.Item("Creole"));
-			Assert.That(model.MarkupTypesAvailable, Contains.Item("Markdown"));
-			Assert.That(model.MarkupTypesAvailable, Contains.Item("MediaWiki"));
-		}
+		//	// Act + Assert
+		//	Assert.That(model.MarkupTypesAvailable, Contains.Item("Creole"));
+		//	Assert.That(model.MarkupTypesAvailable, Contains.Item("Markdown"));
+		//	Assert.That(model.MarkupTypesAvailable, Contains.Item("MediaWiki"));
+		//}
 
 		[Test]
 		public void Version_Should_Equal_ApplicationSettingsProductVersion()

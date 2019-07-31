@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using Roadkill.Core;
 using Roadkill.Core.Configuration;
@@ -18,10 +19,10 @@ namespace Roadkill.Tests.Unit
 			base.HtmlView = "htmlview";
 		}
 		
-		public override void Send(UserViewModel model)
-		{
-			base.Send(model);
-		}
+  //      public override void Send(MailMessage message, string plainTextContent, string htmlContent)
+  //      {
+		//	base.Send(message, plainTextContent, htmlContent);
+		//}
 
 		public IEmailClient GetEmailClient()
 		{

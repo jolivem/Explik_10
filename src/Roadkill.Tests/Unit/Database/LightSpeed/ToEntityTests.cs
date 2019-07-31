@@ -86,7 +86,6 @@ namespace Roadkill.Tests.Unit
 			// Arrange
 			PageContent pageContent = new PageContent();
 			pageContent.Id = Guid.NewGuid();
-			pageContent.EditedBy = "editedby";
 			pageContent.EditedOn = DateTime.UtcNow;
 			pageContent.Text = "text";
 
@@ -97,7 +96,6 @@ namespace Roadkill.Tests.Unit
 
 			// Assert
 			Assert.That(entity.Id, Is.Not.EqualTo(pageContent.Id));  // the id isn't copied from the page
-			Assert.That(entity.EditedBy, Is.EqualTo(pageContent.EditedBy));
 			Assert.That(entity.EditedOn, Is.EqualTo(pageContent.EditedOn));
 			Assert.That(entity.Text, Is.EqualTo(pageContent.Text));
 			Assert.That(entity.Page	, Is.Null);

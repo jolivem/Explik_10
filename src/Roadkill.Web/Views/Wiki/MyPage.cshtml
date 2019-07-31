@@ -5,6 +5,8 @@
 }
 
 @Html.Hidden("confirm-unpublish-text", @SiteStrings.MyPages_Confirm_Unpublish)
+@Html.Hidden("confirm-delete-text", @SiteStrings.MyPage_Confirm_Delete)
+@Html.Hidden("delete-success", @SiteStrings.MyPage_DeleteSuccess)
 
 <div class="row">
     <div class="col-sm-8">
@@ -21,29 +23,45 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-6" style="padding-top:15px;">
+
+        @if (Model.CompetitionInfo != "")
+        {
+            <div class="alert alert-info">
+                @Model.CompetitionInfo
+            </div>
+        }
     </div>
-    <div class="col-sm-5" style="padding-top:20px;display:inline-flex;">
+    <div class="col-sm-6" style="padding-top:20px;display:inline-flex;">
         <span style="margin-top:10px;">@SiteStrings.MyPage_Status&nbsp;@MvcHtmlString.Create(Model.Status)</span>
-        @if (@Model.IsDraft)
+
+        @if (Model.ModificationsEnable)
         {
-            <span style="float:right; margin-left:10px;">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", "Pages", new { id = Model.Id }, new { @class = "btn btn-mini btn-primary" })</span>
-            <span style="float:right; margin-left:10px;">@Html.ActionLink(SiteStrings.Shared_SubmitLink, "Submit", "Pages", new { id = Model.Id, view = "MyPage" }, new { @class = "btn btn-mini btn-primary" })</span>
-            @*<button style="float:right; margin-left:10px;" class="btn btn-primary btn-mini" onclick="SubmitPage('@Model.Id')">@SiteStrings.Shared_SubmitLink</button>*@
+            if (@Model.IsDraft)
+            {
+                <span style="float:right; margin-left:10px;">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", "Pages", new { id = Model.Id }, new { @class = "btn btn-mini btn-primary" })</span>
+                <span style="float:right; margin-left:10px;">@Html.ActionLink(SiteStrings.Shared_SubmitLink, "Submit", "Pages", new { id = Model.Id, view = "MyPage" }, new { @class = "btn btn-mini btn-primary" })</span>
+                @*<button style="float:right; margin-left:10px;" class="btn btn-primary btn-mini" onclick="SubmitPage('@Model.Id')">@SiteStrings.Shared_SubmitLink</button>*@
+            }
+            if (@Model.IsPublished)
+            {
+                <button style="float:right; margin-left:10px;" class="btn btn-warning btn-mini" onclick="ConfirmGetbackPage('@Model.Id', 'mypage')">@SiteStrings.Shared_UnpublishLink</button>
+            }
+            if (@Model.IsSubmitted)
+            {
+                <span style="float:right; margin-left:10px;">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", "Pages", new { id = Model.Id }, new { @class = "btn btn-mini btn-primary" })</span>
+            }
         }
-        @if (@Model.IsPublished)
-        {
-            <button style="float:right; margin-left:10px;" class="btn btn-warning btn-mini" onclick="ConfirmGetbackPage('@Model.Id', 'mypage')">@SiteStrings.Shared_UnpublishLink</button>
-        }
-        @if (@Model.IsSubmitted)
-        {
-            <span style="float:right; margin-left:10px;">@Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", "Pages", new { id = Model.Id }, new { @class = "btn btn-mini btn-primary" })</span>
-        }
+        <a href="#" onclick="ConfirmDeletePage('@Model.Id', 'mypage')" style="margin-top:10px;margin-left:10px;">@SiteStrings.Shared_DeleteLink</a>
+
     </div>
 </div>
-
-
-
+<br />
+@*<div class="row">
+    <div class="col-sm-7">
+        <p>@Html.ActionLink(SiteStrings.Shared_DeleteLink, "Delete", new { id = Model.Id }, new { @onclick = "ConfirmDeletePage('@Model.Id', 'mypage')" })</p>
+    </div>
+</div>*@
 
 @section PluginHead
 {

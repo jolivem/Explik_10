@@ -309,7 +309,7 @@ namespace Roadkill.Core.Configuration
 			EmailTemplateFolder = Path.Combine(AppDataPath, "EmailTemplates");
 			HtmlElementWhiteListPath = Path.Combine(AppDataInternalPath, "htmlwhitelist.xml");
 			MinimumPasswordLength = 6;
-			DataStoreType = DataStoreType.SqlServer2008;
+			DataStoreType = DataStoreType.MySQL;
 			AttachmentsRoutePath = "Attachments";
 			AttachmentsFolder = "~/App_Data/Attachments";
 			SearchIndexPath = Path.Combine(AppDataInternalPath, "Search");

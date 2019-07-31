@@ -141,7 +141,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 		    NbView = page.NbView;
 		    if (page.NbRating > 0)
 		    {
-		        Rating = page.TotalRating / page.NbRating;
+		        Rating = (double)page.TotalRating / (double)page.NbRating;
 		    }
 		    else
 		    {

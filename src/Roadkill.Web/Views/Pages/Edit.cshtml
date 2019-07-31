@@ -18,12 +18,16 @@
     <div id="editpage-form-container" class="col-sm-6">
         @Html.BootstrapValidationSummary(SiteStrings.EditPage_Error)
 
-        <h6>@SiteStrings.EditPage_Help_First_Page<a href="@Url.Action("About", "Home", new { tag="___firstpage"})"> @SiteStrings.Shared_ClickHere</a></h6>
+        @if (!RoadkillContext.IsAdmin)
+        {
+            <h6>@SiteStrings.EditPage_Help_First_Page<a href="@Url.Action("About", "Home", new { tag = "___firstpage" })"> @SiteStrings.Shared_ClickHere</a></h6>
+        }
 
         <form class="form-horizontal" role="form" method="post" id="editpage-form">
             @(Html.HiddenFor<PageViewModel, int>(p => p.Id))
             @(Html.HiddenFor<PageViewModel, string>(p => p.PreviousTitle))
             @(Html.HiddenFor<PageViewModel, string>(p => p.RawTags))
+            @(Html.HiddenFor<PageViewModel, int>(p => p.CompetitionId))
 
             @if (RoadkillContext.IsAdmin)
             {
@@ -31,13 +35,25 @@
                     @(Html.BootstrapCheckBoxFor<PageViewModel>(p => p.IsLocked, SiteStrings.EditPage_AdminOnly, 3))
                     @SiteStrings.EditPage_AdminOnly
                 </label>
+                <br />
             }
+
             <div class="form-group">
                 <div class="col-sm-12">
                     <label for="Title">@SiteStrings.EditPage_Title_Label</label>
                     @(Html.BootstrapTextBoxFor<PageViewModel, string>(p => p.Title, SiteStrings.EditPage_Title_Label, false, 1))
                 </div>
             </div>
+
+            @if (!RoadkillContext.IsAdmin && ViewBag.CompetitionPublicationOnGoing)
+            {
+                <label for="IsInCompetition" class="checkbox">
+                    @(Html.BootstrapCheckBoxFor<PageViewModel>(p => p.IsInCompetition, "", 3))
+                    @SiteStrings.EditPage_ParticipateToCompetition
+                    @Html.ActionLink((string)ViewBag.CompetitionLabel, "About", "Home", new { tag = ViewBag.CompetitionPageTag }, new { target = "_blank" })
+                </label>
+                <br />
+            }
 
             <div class="form-inline">
                 @(Html.TextBox("TagsEntry", null, new { @class = "form-control tm-input", autocomplete = "off", tabindex = 2, placeholder = SiteStrings.EditPage_Tags_Label }))
@@ -49,6 +65,7 @@
             </div>
 
             <div id="editpage-button-container" class="row">
+
                 <div class="col-sm-1">
                     @if (Model.Id > 0)
                     {

@@ -304,3 +304,32 @@ function ConfirmGetbackPage(pId) {
         });
     });
 }
+
+function ConfirmDeletePage(pId) {
+    var confirmMessage = $("#confirm-delete-text").attr("value");
+    var successMessage = $("#delete-success").attr("value");
+    Roadkill.Web.Dialogs.confirm(confirmMessage, function (result) {
+
+        if (!result)
+            return;
+        // Ajax request
+        $.ajax({
+            type: "POST",
+            url: "/Pages/DeletePage",
+            data: { id: pId },
+            success: function (response) {
+                toastr.success(successMessage);
+                setTimeout(
+                    function () {
+                        window.location.href = "/Pages/MyPages";
+                    }, 1000);
+            },
+            failure: function (response) {
+                alert("failure");
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    });
+}

@@ -1,0 +1,38 @@
+﻿
+@model List<PageAndUserRatingViewModel>
+@{
+    ViewBag.Title = SiteStrings.Competition_RatingTitle;
+}
+
+<h3>@ViewBag.competitionTitle</h3>
+<h4>@SiteStrings.Competition_RatingIntro</h4>
+<br />
+
+<div class=" row">
+    <div class="col-md-10">
+
+        <table>
+            @foreach (PageAndUserRatingViewModel page in Model)
+            {
+                <tr>
+                    <td class='searchresult-td'>
+                        <span class="searchresult-title">
+                            <a href="@Url.Action("ViewForRating", "Competitions", new { id = page.Id , CompetitionId = ViewBag.CompetitionId })">@page.Title</a>
+                        </span><br />
+                        <span class="searchresult-summary">@MvcHtmlString.Create(page.ContentSummary) ...</span><br />
+                        @MvcHtmlString.Create(PageViewModel.EncodeTags(page))
+                        @if (page.UserRating == 0)
+                        {
+                            <span style="color:crimson;">@SiteStrings.Competition_PageNotYetRated</span> <a href="@Url.Action("ViewForRating", "Competitions", new { id = page.Id , CompetitionId = ViewBag.CompetitionId })">@SiteStrings.Competition_RateNowLink</a>
+                        }
+                        else
+                        {
+                            <span style="display: inline-block;margin-bottom:-2px;">@MvcHtmlString.Create(PageViewModel.EncodePageRating((double)page.UserRating))</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+

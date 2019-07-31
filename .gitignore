@@ -370,3 +370,15 @@ ASALocalRun/
 /src/Roadkill.Web/Assets/Scripts/roadkill/installer/installwizard.js
 *.bak
 /src/Roadkill.Core/app.config
+/src/Roadkill.Web/Assets/Scripts/roadkill/typescript-ref/references.js.map
+/src/Roadkill.Web/Assets/Scripts/roadkill/typescript-ref/references.js
+/src/Roadkill.Web/Assets/Scripts/roadkill/typescript-ref/installerconstants.js.map
+/src/Roadkill.Web/Assets/Scripts/roadkill/typescript-ref/installerconstants.js
+/src/Roadkill.Web/Assets/Scripts/roadkill/typescript-ref/filemodel.js.map
+/src/Roadkill.Web/Assets/Scripts/roadkill/typescript-ref/filemodel.js
+/src/Roadkill.Web/Assets/Scripts/roadkill/typescript-ref/filemanager.references.js.map
+/src/Roadkill.Web/Assets/Scripts/roadkill/typescript-ref/filemanager.references.js
+/src/Roadkill.Web/Assets/Scripts/roadkill/typescript-ref/directoryviewmodel.js.map
+/src/Roadkill.Web/Assets/Scripts/roadkill/typescript-ref/directoryviewmodel.js
+/src/Roadkill.Web/Assets/Scripts/roadkill/typescript-ref/constants.js.map
+/src/Roadkill.Web/Assets/Scripts/roadkill/typescript-ref/constants.js

@@ -22,7 +22,12 @@ namespace Roadkill.Tests.Unit
 		// If this is set, GetTextPluginSettings returns it instead of a lookup
 		public PluginSettings PluginSettings { get; set; }
 
-		public bool Installed { get; set; }
+        public List<Alert> Alerts { get; set; }
+        public List<Comment> Comments { get; set; }
+        public List<Competition> Competitions { get; set; }
+        public List<CompetitionPage> CompetitionPages { get; set; }
+
+        public bool Installed { get; set; }
 		public DataStoreType InstalledDataStoreType { get; private set; }
 		public string InstalledConnectionString { get; private set; }
 		public bool InstalledEnableCache { get; private set; }
@@ -34,7 +39,11 @@ namespace Roadkill.Tests.Unit
 			Users = new List<User>();
 			SiteSettings = new SiteSettings();
 			TextPlugins = new List<TextPlugin>();
-		}
+            Comments = new List<Comment>();
+            Alerts = new List<Alert>();
+            Competitions = new List<Competition>();
+            CompetitionPages = new List<CompetitionPage>();
+        }
 
 		#region IRepository Members
 
@@ -95,7 +104,6 @@ namespace Roadkill.Tests.Unit
 
 			PageContent content = new PageContent();
 			content.Id = Guid.NewGuid();
-			content.EditedBy = editedBy;
 			content.EditedOn = editedOn;
 			content.Page = page;
 			content.Text = text;
@@ -109,7 +117,6 @@ namespace Roadkill.Tests.Unit
 		{
 			PageContent content = new PageContent();
 			content.Id = Guid.NewGuid();
-			page.ControlledBy = content.EditedBy = editedBy;
 			page.PublishedOn = content.EditedOn = editedOn;
 			content.Page = page;
 			content.Text = text;
@@ -130,7 +137,6 @@ namespace Roadkill.Tests.Unit
 			else
 			{
 				existingContent.EditedOn = content.EditedOn;
-				existingContent.EditedBy = content.EditedBy;
 				existingContent.Text = content.Text;
 				existingContent.VersionNumber = content.VersionNumber;
 			}
@@ -233,10 +239,10 @@ namespace Roadkill.Tests.Unit
             return Pages; //TODO MJO repository mock
         }
 
-        public IEnumerable<Page> Alerts()
-        {
-            return Pages; //TODO MJO repository mock
-        }
+        //public IEnumerable<Page> Alerts()
+        //{
+        //    return Pages; //TODO MJO repository mock
+        //}
 
         public IEnumerable<Page> MyPages(string id)
         {
@@ -293,20 +299,10 @@ namespace Roadkill.Tests.Unit
 			return PageContents.FirstOrDefault(p => p.Id == versionId);
 		}
 
-		//public IEnumerable<PageContent> GetPageContentByEditedBy(string username)
-		//{
-		//	return PageContents.Where(p => p.EditedBy == username);
-		//}
-
 		public IEnumerable<PageContent> FindPageContentsByPageId(int pageId)
 		{
 			return PageContents.Where(p => p.Page.Id == pageId).ToList();
 		}
-
-		//public IEnumerable<PageContent> FindPageContentsEditedBy(string username)
-		//{
-		//	return PageContents.Where(p => p.EditedBy == username);
-		//}
 
 		public IEnumerable<PageContent> AllPageContents()
 		{
@@ -384,125 +380,388 @@ namespace Roadkill.Tests.Unit
 
         public void AddPageRating(int pageId, int rating)
         {
-            throw new NotImplementedException();
+            Page page = Pages.Find(p => p.Id == pageId);
+            page.TotalRating += rating;
+            page.NbRating++;
         }
 
         public void RemovePageRating(int pageId, int rating)
         {
-            throw new NotImplementedException();
+            Page page = Pages.Find(p => p.Id == pageId);
+            page.TotalRating -= rating;
+            page.NbRating--;
         }
 
         public void DeletePage(int pageId)
         {
-            throw new NotImplementedException();
+            Page page = Pages.Find(p => p.Id == pageId);
+            Pages.Remove(page);
         }
 
         public void SetDraft(int pageId)
         {
-            throw new NotImplementedException();
+            Page page = Pages.Find(p => p.Id == pageId);
+            page.IsControlled = false;
+            page.IsSubmitted = false;
+            page.IsRejected = false;
         }
 
         public void SubmitPage(int pageId)
         {
-            throw new NotImplementedException();
+            Page page = Pages.Find(p => p.Id == pageId);
+            page.IsSubmitted = false;
         }
 
         public void RejectPage(int pageId)
         {
-            throw new NotImplementedException();
+            Page page = Pages.Find(p => p.Id == pageId);
+            page.IsControlled = false;
+            page.IsRejected = false;
         }
 
         public IEnumerable<Page> FindMostRecentPages(int number)
         {
-            throw new NotImplementedException();
+            return new List<Page>();
         }
 
         public IEnumerable<Page> FindPagesMostViewed(int number)
         {
-            throw new NotImplementedException();
+            return new List<Page>();
         }
 
         public IEnumerable<Page> FindPagesBestRated(int number)
         {
-            throw new NotImplementedException();
+            return new List<Page>();
         }
 
         public IEnumerable<Page> FindPagesWithAlerts()
         {
-            throw new NotImplementedException();
+            return new List<Page>();
         }
 
         public void IncrementNbView(int pageId)
         {
-            throw new NotImplementedException();
+            Page page = Pages.Find(p => p.Id == pageId);
+            page.NbView++;
         }
 
         public void SetNbView(int pageId, int nbView)
         {
-            throw new NotImplementedException();
+            Page page = Pages.Find(p => p.Id == pageId);
+            page.NbView = nbView;
         }
 
         public void SetRating(int pageId, int nbRating, int totalRating)
         {
-            throw new NotImplementedException();
+            Page page = Pages.Find(p => p.Id == pageId);
+            page.TotalRating = totalRating;
+            page.NbRating = nbRating;
         }
 
         public User GetControllerById(Guid id)
         {
-            throw new NotImplementedException();
+            User user = Users.FirstOrDefault(x => x.Id == id && x.IsController);
+            return user;
         }
 
         public void DeleteComment(Guid commentId)
         {
-            throw new NotImplementedException();
+            Comment comment = Comments.Find(c => c.Id == commentId);
+            Comments.Remove(comment);
         }
 
         public IEnumerable<Comment> FindCommentsByPage(int pageId)
         {
-            throw new NotImplementedException();
+            IEnumerable<Comment> comments = Comments.Where(c => c.PageId == pageId);
+            return(comments);
         }
 
         public void AddComment(Comment comment)
         {
-            throw new NotImplementedException();
+            Comments.Add(comment);
         }
 
-        public void UpdateRating(Guid commentId, int rating)
+        public void UpdateCommentRating(Guid commentId, int rating)
         {
-            throw new NotImplementedException();
+            Comment comment = Comments.Find(c => c.Id == commentId);
+            comment.Rating = rating;
         }
 
         public Comment FindCommentByPageAndUser(int pageId, string username)
         {
-            throw new NotImplementedException();
+            Comment comment = Comments.Find(c => c.PageId == pageId && c.CreatedBy == username);
+            return (comment);
         }
 
         public void DeleteAlert(Guid alertId)
         {
-            throw new NotImplementedException();
+            Alert alert = Alerts.Find(a => a.Id == alertId);
+            Alerts.Remove(alert);
         }
 
-        public void DeletPageAlerts(int pageId)
+        public void DeletePageAlerts(int pageId)
         {
-            throw new NotImplementedException();
+            Alert alert = Alerts.Find(a => a.PageId == pageId);
+            Alerts.Remove(alert);
         }
 
-        public void DeletCommentAlerts(Guid commentId)
+        public void DeleteCommentAlerts(Guid commentId)
         {
-            throw new NotImplementedException();
+            Alert alert = Alerts.Find(a => a.CommentId == commentId);
+            Alerts.Remove(alert);
         }
 
         public IEnumerable<Alert> FindAlertsByPage(int pageId)
         {
-            throw new NotImplementedException();
+            IEnumerable<Alert> alerts = Alerts.Where(a => a.PageId == pageId);
+            return alerts;
         }
 
         public IEnumerable<Alert> FindAlertsByComment(Guid commentGuid)
         {
-            throw new NotImplementedException();
+            IEnumerable<Alert> alerts = Alerts.Where(a => a.CommentId == commentGuid);
+            return alerts;
         }
 
         public void AddAlert(Alert alert)
+        {
+            Alerts.Add( alert);
+        }
+
+        public PageContent AddNewPageContentVersion(Page page, string text, DateTime editedOn, int version)
+        {
+            // TODO find the page
+            return new PageContent()
+            {
+                Id = Guid.NewGuid(),
+                VersionNumber = version,
+                Text = text,
+                EditedOn = editedOn,
+            };
+        }
+
+        public IEnumerable<Page> FindPagesByCompetitionId(int competitionId)
+        {
+            IEnumerable<Page> pages = Pages.Where(p => p.CompetitionId == competitionId);
+            return pages;
+        }
+
+        public void CleanPagesForCompetitionId(int competitionId)
+        {
+            IEnumerable<Page> pages = Pages.Where(p => p.CompetitionId == competitionId && !p.IsControlled);
+            foreach (var page in pages)
+            {
+                page.CompetitionId = -1;
+            }
+        }
+
+        public void SetCompetitionId(int pageId, int competitionId)
+        {
+            Page page = Pages.Where(p => p.Id == pageId).SingleOrDefault();
+            page.CompetitionId = competitionId;
+        }
+
+        public void ValidateComment(Guid commentId)
+        {
+            Comment comment = Comments.Find(c => c.Id == commentId);
+            comment.IsControlled = true;
+            comment.IsRejected = false;
+
+        }
+
+        public void RejectComment(Guid commentId)
+        {
+            Comment comment = Comments.Find(c => c.Id == commentId);
+            comment.IsControlled = true;
+            comment.IsRejected = true;
+        }
+
+        public void UpdateComment(Guid commentId, string text)
+        {
+            Comment comment = Comments.Find(c => c.Id == commentId);
+            comment.Text = text;
+            comment.IsControlled = false;
+            comment.IsRejected = false;
+        }
+
+        public void DeleteComments(int pageId)
+        {
+            Comments.RemoveAll(c => c.PageId == pageId);
+        }
+
+        public IEnumerable<Comment> FindCommentsToControl()
+        {
+            IEnumerable<Comment> comments = Comments.Where(c => c.IsControlled == false);
+            return comments;
+        }
+
+        public Alert FindAlertByPageAndUser(int pageId, string username)
+        {
+            Alert alert = Alerts.SingleOrDefault(a => a.PageId == pageId && a.CreatedBy == username);
+            return alert;
+
+        }
+
+        public void DeletPageAlertsByUser(int pageId, string username)
+        {
+            Alerts.RemoveAll(a => a.PageId == pageId && a.CreatedBy == username);
+            
+        }
+
+        public IEnumerable<Alert> GetAlerts()
+        {
+            return Alerts;
+        }
+
+        public void AddCompetition(Competition competition)
+        {
+            Competitions.Add( competition);
+        }
+
+        public void UpdateCompetition(Competition competition_)
+        {
+            Competition competition = Competitions.Find(c => c.Id == competition_.Id);
+            competition.Status = competition_.Status;
+            competition.RatingStart = competition_.RatingStart;
+            competition.RatingStop = competition_.RatingStop;
+            competition.PublicationStart = competition_.PublicationStart;
+            competition.PublicationStop = competition_.PublicationStop;
+            competition.PageId = competition_.PageId;
+            competition.PageTag = competition_.PageTag;
+        }
+
+        public void UpdateCompetitionPageId(int competitionId, int pageId)
+        {
+            CompetitionPage cp_ = CompetitionPages.SingleOrDefault(cp => cp.CompetitionId == competitionId);
+            if (cp_ != null)
+            {
+                cp_.PageId = pageId;
+            }
+
+        }
+
+        public IEnumerable<Competition> GetCompetitions(bool forAdmin = false)
+        {
+            return new List<Competition>()
+            {
+                new Competition()
+                {
+                    Id = 1,
+                    ObjectId = Guid.NewGuid(),
+                    PageId = 1,
+                    PageTag = "___competitionTag",
+                    PublicationStart = DateTime.Now,
+                    PublicationStop = DateTime.Now,
+                    RatingStart = DateTime.Now,
+                    RatingStop = DateTime.Now,
+                    Status = 1,
+                }
+            };
+        }
+    
+
+        public Competition GetCompetitionById(int id)
+        {
+            return new Competition()
+            {
+                Id = id,
+                ObjectId = Guid.NewGuid(),
+                PageId = 1,
+                PageTag = "___competitionTag",
+                PublicationStart = DateTime.Now,
+                PublicationStop = DateTime.Now,
+                RatingStart = DateTime.Now,
+                RatingStop = DateTime.Now,
+                Status = 1,
+            };
+        }
+
+        public Competition GetCompetitionByStatus(int status)
+        {
+            return new Competition()
+            {
+                Id = 1,
+                ObjectId = Guid.NewGuid(),
+                PageId = 1,
+                PageTag = "___competitionTag",
+                PublicationStart = DateTime.Now,
+                PublicationStop = DateTime.Now,
+                RatingStart = DateTime.Now,
+                RatingStop = DateTime.Now,
+                Status = 1,
+            };
+        }
+
+        public Competition GetCompetitionByPageTag(string tag)
+        {
+            return new Competition()
+            {
+                Id = 2,
+                ObjectId = Guid.NewGuid(),
+                PageId = 1,
+                PageTag = tag,
+                PublicationStart = DateTime.Now,
+                PublicationStop = DateTime.Now,
+                RatingStart = DateTime.Now,
+                RatingStop = DateTime.Now,
+                Status = 1,
+            };
+        }
+        public IEnumerable<CompetitionPage> GetCompetitionPages(int competitionId)
+        {
+            return CompetitionPages.Where(cp => cp.CompetitionId == competitionId);
+
+        }
+
+        public void DeleteCompetition(int id)
+        {
+            Competitions.RemoveAll(c => c.Id == id);
+        }
+
+        public void ArchiveCompetitionPage(int competitionId, int pageId)
+        {
+            CompetitionPages.Add( new CompetitionPage()
+            {
+                CompetitionId = competitionId,
+                PageId = pageId,
+            });
+        }
+
+ 
+        public void UpdateCompetitionPageRanking(int competitionId, int pageId, int ranking)
+        {
+            CompetitionPage cp = CompetitionPages.SingleOrDefault(c => c.CompetitionId == competitionId);
+            cp.Ranking = ranking;
+        }
+
+        public int GetPageRanking(int pageId)
+        {
+            int ranking = 0;
+            return 0;
+        }
+
+
+        public int GetRatingByPageAndUser(int pageId, string username)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletCompetitionPages(int competitionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletCompetitionPage(int pageId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ArchiveCompetitionPage(int competitionId, Page page)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int[] GetUserHits(string username)
         {
             throw new NotImplementedException();
         }

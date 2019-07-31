@@ -37,14 +37,14 @@ namespace Roadkill.Core.Mvc
 				"ServerError",
 				"wiki/servererror",
 				new { controller = "Wiki", action = "ServerError", id = UrlParameter.Optional }
-			);	
-
-			// The default way of getting to a page: "/wiki/123/page-title"
-			routes.MapLowercaseRoute(
-				"Wiki",
-				"Wiki/{id}/{title}",
-				new { controller = "Wiki", action = "Index", title = UrlParameter.Optional }
 			);
+
+            // The default way of getting to a page: "/wiki/123/page-title"
+            routes.MapLowercaseRoute(
+                "Wiki",
+                "Wiki/{id}/{title}",
+                new { controller = "Wiki", action = "Index", title = UrlParameter.Optional }
+            );
 
             // Don't lowercase pages that use Base6477
             routes.MapRoute(
@@ -154,6 +154,12 @@ namespace Roadkill.Core.Mvc
                 "DeletePageAlerts",
                 "Alerts/DeleteForPage",
                 new { controller = "Alerts", action = "DeleteForPage", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                "Competition",
+                "Competitions",
+                new { controller = "Competitions", action = "List" }
             );
 
             // Default

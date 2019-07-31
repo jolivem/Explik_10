@@ -141,6 +141,11 @@ namespace Roadkill.Core.Database
         public long ControllerRating { get; set; }
 
         /// <summary>
+        /// Is the page participatin to a competition: -1 or competitionId
+        /// </summary>
+        public int CompetitionId { get; set; }
+
+        /// <summary>
         /// The unique id for this object - for use with document stores that require a unique id for storage.
         /// </summary>
         public Guid ObjectId

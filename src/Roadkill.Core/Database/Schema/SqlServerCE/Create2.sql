@@ -1,1 +1,0 @@
-ALTER TABLE [explik_pages] ADD CONSTRAINT [PK_explik_pages_id] PRIMARY KEY ([Id]);

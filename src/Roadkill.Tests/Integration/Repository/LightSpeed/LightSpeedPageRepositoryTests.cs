@@ -8,7 +8,6 @@ using NUnit.Framework;
 using Roadkill.Core.Configuration;
 using Roadkill.Core.Database;
 using Roadkill.Core.Database.LightSpeed;
-using Roadkill.Core.Database.MongoDB;
 
 namespace Roadkill.Tests.Integration.Repository.LightSpeed
 {

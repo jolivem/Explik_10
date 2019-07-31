@@ -14,11 +14,11 @@ namespace Roadkill.Tests.Unit
 		{
 		}
 
-		public override void Send(UserViewModel model)
-		{
-			ReplaceTokens(model, "{EMAIL}");
-			IsSent = true;
-			Model = model;
-		}
+		//public override void Send(UserViewModel model)
+		//{
+		//	ReplaceTokens(model, "{EMAIL}");
+		//	IsSent = true;
+		//	Model = model;
+		//}
 	}
 }

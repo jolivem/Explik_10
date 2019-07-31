@@ -38,17 +38,21 @@ else
                     {
                         <tr class="searchresult">
                             <td class="searchresult-td">
-                                <span class="searchresult-title">@Html.ActionLink(result.Title, "Index", "Wiki", new { id = result.Id, title = result.EncodedTitle }, null)</span><br />
+                                <span class="searchresult-title">
+                                    @MvcHtmlString.Create(PageViewModel.EncodeImageRanking(page.Ranking))
+                                    @Html.ActionLink(result.Title, "Index", "Wiki", new { id = result.Id, title = result.EncodedTitle }, null)
+                                </span>
+                                <br />
                                 <span class="searchresult-summary">@MvcHtmlString.Create(result.ContentSummary)...</span><br />
                                 @MvcHtmlString.Create(result.EncodeTags())
                                 <span>
                                     @if (@result.CreatedBy.ToLower() == "explik")
                                     {
-                                        <span class="searchresult-date">@result.CreatedOn.ToString("dd MMM yyyy") - @result.NbView @SiteStrings.Page_Info_NbView</span>
+                                        <span class="searchresult-date">@result.CreatedOn.ToString("dd/MM/yyyy") - @result.NbView @SiteStrings.Page_Info_NbView</span>
                                     }
                                     else
                                     {
-                                        <span class="searchresult-date">@result.CreatedBy - @result.CreatedOn.ToString("dd MMM yyyy") - @result.NbView @SiteStrings.Page_Info_NbView</span>
+                                        <span class="searchresult-date">@result.CreatedBy - @result.CreatedOn.ToString("dd/MM/yyyy") - @result.NbView @SiteStrings.Page_Info_NbView</span>
                                     }
                                     <span style="display: inline-block;margin-bottom:-2px;">@MvcHtmlString.Create(@result.EncodePageRating(result.Rating))</span>
                                 </span>

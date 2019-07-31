@@ -74,7 +74,7 @@ namespace Roadkill.Core.Import
 									user.Email = email;
 									user.Username = username;
 									user.IsActivated = false;
-                                    user.ContributionLevel = 0;
+                                    user.Contribution = 0;
                                     user.DisplayFlags = 0;
 									user.SetPassword("password");
 
@@ -135,6 +135,7 @@ namespace Roadkill.Core.Import
                                 page.VideoUrl = reader["VideoUrl"].ToString();
                                 page.Pseudonym = reader["Pseudonym"].ToString();
                                 page.ControllerRating = (long)reader["ControllerRating"];
+                                page.CompetitionId = (int)reader["CompetitionId"];
                                 string categories = GetCategories(pageName);
 								if (!string.IsNullOrWhiteSpace(categories))
 									categories += ";";

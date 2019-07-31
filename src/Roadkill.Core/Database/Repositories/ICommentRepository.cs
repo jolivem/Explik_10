@@ -10,8 +10,9 @@ namespace Roadkill.Core.Database
     {
         void DeleteComment(Guid commentId);
         IEnumerable<Comment> FindCommentsByPage(int pageId);
+        int GetRatingByPageAndUser(int pageId, string username);
         void AddComment(Comment comment);
-        void UpdateRating(Guid commentId, int rating);
+        void UpdateCommentRating(Guid commentId, int rating);
         void ValidateComment(Guid commentId);
         void RejectComment(Guid commentId);
         void UpdateComment(Guid commentId, string text);

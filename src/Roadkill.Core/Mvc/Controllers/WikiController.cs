@@ -7,6 +7,7 @@ using Roadkill.Core.Services;
 using Roadkill.Core.Mvc.Attributes;
 using Roadkill.Core.Mvc.ViewModels;
 using Roadkill.Core.Security;
+using Roadkill.Core.Localization;
 
 namespace Roadkill.Core.Mvc.Controllers
 {
@@ -16,14 +17,16 @@ namespace Roadkill.Core.Mvc.Controllers
 	[OptionalAuthorization]
 	public class WikiController : ControllerBase
 	{
-		public PageService PageService { get; private set; }
+        public PageService _pageService { get; private set; }
+        public CompetitionService _competitionService { get; private set; }
 
-		public WikiController(ApplicationSettings settings, UserServiceBase userManager, PageService pageService,
-			IUserContext context, SettingsService settingsService)
+        public WikiController(ApplicationSettings settings, UserServiceBase userManager, PageService pageService,
+            CompetitionService competitionService, IUserContext context, SettingsService settingsService)
 			: base(settings, userManager, context, settingsService) 
 		{
-			PageService = pageService;
-		}
+            _pageService = pageService;
+            _competitionService = competitionService;
+        }
 
 		/// <summary>
 		/// Displays the wiki page using the provided id.
@@ -39,22 +42,50 @@ namespace Roadkill.Core.Mvc.Controllers
 			if (id == null || id < 1)
 				return RedirectToAction("Index", "Home");
 
-			PageViewModel model = PageService.GetById(id.Value, true);
+			PageViewModel model = _pageService.GetById(id.Value, true);
 
-		    if (model.CreatedBy == Context.CurrentUsername)
+            // If it is my page, don't display all the stuff !!!
+            if (model.CreatedBy == Context.CurrentUsername)
 		    {
+                model.CompetitionInfo = "";
+                model.ModificationsEnable = true;
+
+                if (model.CompetitionId != -1)
+                {
+                    CompetitionViewModel competition = _competitionService.GetById(model.CompetitionId);
+                    if (competition.Status == CompetitionViewModel.Statuses.PublicationOngoing)
+                    {
+                        model.ModificationsEnable = true;
+                        model.CompetitionInfo = SiteStrings.MyPage_IsInCompetitionPublicationOngoing;
+                    }
+                    if (model.IsPublished &&
+                        competition.Status == CompetitionViewModel.Statuses.PauseBeforeRating ||
+                        competition.Status == CompetitionViewModel.Statuses.RatingOngoing)
+                    {
+                        model.ModificationsEnable = false;
+                        model.CompetitionInfo = SiteStrings.MyPage_IsInCompetitionRatingOngoing;
+                    }
+                    if (model.IsPublished &&
+                        competition.Status == CompetitionViewModel.Statuses.Achieved ||
+                        competition.Status == CompetitionViewModel.Statuses.PauseBeforeAchieved)
+                    {
+                        model.ModificationsEnable = false;
+                        model.CompetitionInfo = SiteStrings.MyPage_IsInPastCompetition;
+                    }
+                }
+
                 return View("MyPage", model);
 		    }
 
             // TODO one request for optimization
-            ViewBag.userrating = PageService.GetPageRatingFromUser(model.Id, Context.CurrentUsername);
-            ViewBag.usercomment = PageService.GetPageCommentFromUser(model.Id, Context.CurrentUsername);
+            ViewBag.userrating = _pageService.GetPageRatingFromUser(model.Id, Context.CurrentUsername);
+            ViewBag.usercomment = _pageService.GetPageCommentFromUser(model.Id, Context.CurrentUsername);
             ViewBag.currentuser = Context.CurrentUsername;
-            string ip = PageService.GetUserIp();
-            ViewBag.useralert = PageService.GetPageAlertFromUser(model.Id, ip);
+            string ip = _pageService.GetUserIp();
+            ViewBag.useralert = _pageService.GetPageAlertFromUser(model.Id, ip);
             //model.CurrentUserComment = PageService.GetPageCommentFromUser(model.Id,  Context.CurrentUsername); // TODO remove
 
-            PageService.IncrementNbView(model.Id);
+            _pageService.IncrementNbView(model.Id);
 
 			if (model == null)
 				throw new HttpException(404, string.Format("The page with id '{0}' could not be found", id));
@@ -74,7 +105,7 @@ namespace Roadkill.Core.Mvc.Controllers
 			if (id == null || id < 1)
 				return Content("");
 
-			PageViewModel model = PageService.GetById(id.Value);
+			PageViewModel model = _pageService.GetById(id.Value);
 
 			if (model == null)
 				return Content(string.Format("The page with id '{0}' could not be found", id));
@@ -82,10 +113,11 @@ namespace Roadkill.Core.Mvc.Controllers
 			return PartialView(model);
 		}
 
-		/// <summary>
-		/// 404 not found page - configured in the web.config
-		/// </summary>
-		public ActionResult NotFound()
+
+        /// <summary>
+        /// 404 not found page - configured in the web.config
+        /// </summary>
+        public ActionResult NotFound()
 		{
 			return View("404");
 		}

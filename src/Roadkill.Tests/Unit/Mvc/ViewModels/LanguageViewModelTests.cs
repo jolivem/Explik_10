@@ -29,14 +29,14 @@ namespace Roadkill.Tests.Unit
 			Assert.That(model.Name, Is.EqualTo(name));
 		}
 
-		[Test]
-		public void SupportedLocales_Should_Return_List_Of_Languages()
-		{
-			// Arrange + Act
-			IEnumerable<LanguageViewModel> languages = LanguageViewModel.SupportedLocales();
+		//[Test]
+		//public void SupportedLocales_Should_Return_List_Of_Languages()
+		//{
+		//	// Arrange + Act
+		//	IEnumerable<LanguageViewModel> languages = LanguageViewModel.SupportedLocales();
 
-			// Assert
-			Assert.That(languages.Count(), Is.EqualTo(11));
-		}
+		//	// Assert
+		//	Assert.That(languages.Count(), Is.EqualTo(11));
+		//}
 	}
 }

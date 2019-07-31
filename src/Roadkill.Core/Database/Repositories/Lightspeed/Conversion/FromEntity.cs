@@ -39,8 +39,9 @@ namespace Roadkill.Core.Database.LightSpeed
             page.VideoUrl = entity.VideoUrl;
             page.Pseudonym = entity.Pseudonym;
             page.ControllerRating = entity.ControllerRating;
+            page.CompetitionId = entity.CompetitionId;
 
-			return page;
+            return page;
 		}
 
 		public static PageContent ToPageContent(PageContentEntity entity)
@@ -73,7 +74,7 @@ namespace Roadkill.Core.Database.LightSpeed
 			user.Email = entity.Email;
 			user.Firstname = entity.Firstname;
 			user.IsActivated = entity.IsActivated;
-            user.ContributionLevel = entity.ContributionLevel;
+            user.Contribution = entity.Contribution;
             user.DisplayFlags = entity.DisplayFlags;
 			user.IsAdmin = entity.IsAdmin;
             user.IsEditor = entity.IsEditor;
@@ -127,6 +128,45 @@ namespace Roadkill.Core.Database.LightSpeed
             alert.Ilk = entity.Ilk;
 
             return alert;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public static Competition ToCompetition(CompetitionEntity entity)
+        {
+            if (entity == null)
+                return null;
+
+            Competition competition = new Competition();
+            competition.Id = entity.Id;
+            competition.PageTag = entity.PageTag;
+            competition.PageId = entity.PageId;
+            competition.PublicationStart = entity.PublicationStart;
+            competition.PublicationStop = entity.PublicationStop;
+            competition.RatingStart = entity.RatingStart;
+            competition.RatingStop = entity.RatingStop;
+            competition.Status = entity.Status;
+
+            return competition;
+        }
+
+        public static CompetitionPage ToCompetitionPage(CompetitionPageEntity entity)
+        {
+            if (entity == null)
+                return null;
+
+            CompetitionPage competitionPage = new CompetitionPage();
+            competitionPage.Id = entity.Id;
+            competitionPage.PageId = entity.PageId;
+            competitionPage.NbRating = entity.NbRating;
+            competitionPage.TotalRating = entity.TotalRating;
+            competitionPage.UserName = entity.UserName;
+            competitionPage.Ranking = entity.Ranking;
+
+            return competitionPage;
         }
 
         public static IEnumerable<PageContent> ToPageContentList(IEnumerable<PageContentEntity> entities)
@@ -188,5 +228,30 @@ namespace Roadkill.Core.Database.LightSpeed
 
             return list;
         }
+
+        public static IEnumerable<Competition> ToCompetitionList(List<CompetitionEntity> entities)
+        {
+            List<Competition> list = new List<Competition>();
+            foreach (CompetitionEntity entity in entities)
+            {
+                Competition competition = ToCompetition(entity);
+                list.Add(competition);
+            }
+
+            return list;
+        }
+
+        public static IEnumerable<CompetitionPage> ToCompetitionPageList(List<CompetitionPageEntity> entities)
+        {
+            List<CompetitionPage> list = new List<CompetitionPage>();
+            foreach (CompetitionPageEntity entity in entities)
+            {
+                CompetitionPage competition = ToCompetitionPage(entity);
+                list.Add(competition);
+            }
+
+            return list;
+        }
+
     }
 }

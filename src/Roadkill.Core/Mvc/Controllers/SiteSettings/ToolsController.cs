@@ -17,6 +17,7 @@ using Roadkill.Core.Database.Export;
 using Roadkill.Core.Database;
 using Roadkill.Core.Plugins;
 using Roadkill.Core.Domain.Export;
+using static Roadkill.Core.Mvc.ViewModels.CompetitionViewModel;
 
 namespace Roadkill.Core.Mvc.Controllers
 {
@@ -36,11 +37,13 @@ namespace Roadkill.Core.Mvc.Controllers
 		private IRepository _repository;
 		private IPluginFactory _pluginFactory;
 		private WikiExporter _wikiExporter;
+        private ICompetitionService _competitionService;
 
-		public ToolsController(ApplicationSettings settings, UserServiceBase userManager,
+
+        public ToolsController(ApplicationSettings settings, UserServiceBase userManager,
 			SettingsService settingsService, PageService pageService, SearchService searchService, IUserContext context,
 			ListCache listCache, PageViewModelCache pageViewModelCache, IWikiImporter wikiImporter, 
-			IRepository repository, IPluginFactory pluginFactory, WikiExporter wikiExporter)
+			IRepository repository, IPluginFactory pluginFactory, WikiExporter wikiExporter, ICompetitionService competitionService)
 			: base(settings, userManager, context, settingsService) 
 		{
 			_settingsService = settingsService;
@@ -52,7 +55,8 @@ namespace Roadkill.Core.Mvc.Controllers
 			_repository = repository;
 			_pluginFactory = pluginFactory;
 			_wikiExporter = wikiExporter;
-		}
+            _competitionService = competitionService;
+        }
 
 		/// <summary>
 		/// Displays the main tools page.
@@ -229,5 +233,44 @@ namespace Roadkill.Core.Mvc.Controllers
 		{
 			return Content(SettingsService.GetSiteSettings().GetJson(), "text/json");
 		}
-	}
+
+        /// <summary>
+        /// Renames a tag in the system, and updates all pages that use it.
+        /// </summary>
+        /// <returns>Redirects to the Tools action.</returns>
+        [HttpPost]
+        [AdminRequired]
+        public ActionResult DebugCompetitions(string oldTagName, string newTagName)
+        {
+
+
+            //PageViewModel pageModel = new PageViewModel();
+            //pageModel.Title = "Competition page 1";
+            //pageModel.IsLocked = true;
+            ////pageModel.IsPublished = true;
+            //pageModel.CreatedBy = "Admin";
+            //pageModel.CreatedOn = DateTime.Now;
+            //pageModel.Content = "content";
+            //var newPageModel = _pageService.AddPage(pageModel);
+
+            // create competition
+            CompetitionViewModel modelCompet = new CompetitionViewModel();
+            //modelCompet.PageId = newPageModel.Id;
+            modelCompet.PublicationStart = DateTime.Now;
+            modelCompet.PublicationStop = DateTime.Now;
+            modelCompet.RatingStart = DateTime.Now;
+            modelCompet.RatingStop = DateTime.Now;
+            modelCompet.Status = Statuses.PublicationOngoing;
+            _competitionService.AddCompetition(modelCompet, true);
+            // create pages with competitionId
+
+            // some controlled, other no
+            // add rating
+            // 
+            _pageService.RenameTag(oldTagName, newTagName);
+
+            return RedirectToAction("Index");
+        }
+
+    }
 }

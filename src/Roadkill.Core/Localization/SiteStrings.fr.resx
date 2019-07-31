@@ -133,10 +133,10 @@
     <value>Catégories</value>
   </data>
   <data name="Navigation_AllPages" xml:space="preserve">
-    <value>Toutes les clés</value>
+    <value>Toutes les pages</value>
   </data>
   <data name="Navigation_NewPage" xml:space="preserve">
-    <value>Créer une clé</value>
+    <value>Créer une page</value>
   </data>
   <data name="Navigation_SiteSettings" xml:space="preserve">
     <value>Configuration</value>
@@ -204,7 +204,7 @@
     <comment>Fuzzy</comment>
   </data>
   <data name="Shared_Username_Label" xml:space="preserve">
-    <value>Username:</value>
+    <value>Nom d'utilisateur :</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="Shared_Email_Label" xml:space="preserve">
@@ -220,28 +220,28 @@
     <value>Une erreur est survenue :</value>
   </data>
   <data name="User_Validation_Username" xml:space="preserve">
-    <value>The username field is required.</value>
+    <value>Le nom d'utilisateur est requis.</value>
   </data>
   <data name="User_Validation_Email" xml:space="preserve">
-    <value>The email field is required.</value>
+    <value>La saisie de l'adresse mail est requise.</value>
   </data>
   <data name="User_Validation_Email_Check" xml:space="preserve">
-    <value>The email field does not contain a valid email.</value>
+    <value>L'adresse email n'est pas valide.</value>
   </data>
   <data name="User_Validation_UsernameExists" xml:space="preserve">
-    <value>The username {0} already exists.</value>
+    <value>Le nom d'utilisateur {0} existe déjà.</value>
   </data>
   <data name="User_Validation_UsernameEmpty" xml:space="preserve">
-    <value>The The username is empty.</value>
+    <value>Le nom d'utilisateur est vide.</value>
   </data>
   <data name="User_Validation_EmailExists" xml:space="preserve">
-    <value>The email {0} already exists.</value>
+    <value>L'adresse mail {0} existe déjà.</value>
   </data>
   <data name="User_Validation_PasswordsDontMatch" xml:space="preserve">
     <value>les mots de passe sont différents.</value>
   </data>
   <data name="User_Validation_PasswordTooShort" xml:space="preserve">
-    <value>The password is less than {0} characters</value>
+    <value>La longueur du mot de passe doit être supérieure à {0} caractères</value>
   </data>
   <data name="Login_Title" xml:space="preserve">
     <value>Connexion</value>
@@ -337,13 +337,13 @@
     <value>Merci, un email a été envoyé à {0} avec la méthode pour ré-initiliser le mot de passe.</value>
   </data>
   <data name="ResetPassword_Error" xml:space="preserve">
-    <value>Les mots de passe ne correspondent pas ou sont trop court</value>
+    <value>Les mots de passe ne correspondent pas ou sont trop courts.</value>
   </data>
   <data name="ResetPassword_Error_ServerError" xml:space="preserve">
-    <value>Erreur lors de la ré-initialisation du mot de passer.</value>
+    <value>Erreur lors de la ré-initialisation du mot de passe.</value>
   </data>
   <data name="ResetPassword_Error_EmailNotFound" xml:space="preserve">
-    <value>L'adresse email n'a pas été trouvée</value>
+    <value>L'adresse email n'a pas été trouvée.</value>
   </data>
   <data name="ResetPassword_Error_MissingEmail" xml:space="preserve">
     <value>Veuillez entrer une adresse mail </value>
@@ -352,7 +352,7 @@
     <value>Profile</value>
   </data>
   <data name="Profile_Error" xml:space="preserve">
-    <value>Erreur lors de l'enregistrement des modifications</value>
+    <value>Erreur lors de l'enregistrement des modifications.</value>
   </data>
   <data name="Search_PlaceHolder" xml:space="preserve">
     <value>Recherche</value>
@@ -361,13 +361,13 @@
     <value>Résultat de recherche pour '{0}'</value>
   </data>
   <data name="Search_NoResults" xml:space="preserve">
-    <value>Aucune clé trouvée pour '{0}'</value>
+    <value>Aucune page trouvée pour '{0}'</value>
   </data>
   <data name="AllPages_Title" xml:space="preserve">
-    <value>Toutes les clés</value>
+    <value>Toutes les pages</value>
   </data>
   <data name="AllPages_NoPages" xml:space="preserve">
-    <value>Aucune clé trouvée</value>
+    <value>Aucune page trouvée</value>
   </data>
   <data name="AllTags_Title" xml:space="preserve">
     <value>Toutes les catégories</value>
@@ -385,13 +385,13 @@
     <value>{0} n'a pas encore créé de pages.</value>
   </data>
   <data name="Pages_ForTag" xml:space="preserve">
-    <value>Toutes les clés de la catégorie {0}</value>
+    <value>Toutes les pages de la catégorie {0}</value>
   </data>
   <data name="Pages_ForTag_NoPages" xml:space="preserve">
-    <value>Aucune clé trouvé pour {0}</value>
+    <value>Aucune page trouvée pour {0}</value>
   </data>
   <data name="History_Title" xml:space="preserve">
-    <value>Historique de la clé</value>
+    <value>Historique de la page</value>
   </data>
   <data name="History_Version" xml:space="preserve">
     <value>Version</value>
@@ -421,28 +421,28 @@
     <value>Le</value>
   </data>
   <data name="Page_Info_ControlledBy" xml:space="preserve">
-    <value>Controlled by:</value>
+    <value>Controllé par:</value>
   </data>
   <data name="Page_Validation_Title" xml:space="preserve">
     <value>Le titre est obligatoire.</value>
   </data>
   <data name="EditPage_Title" xml:space="preserve">
-    <value>Ajouter / éditer une clé</value>
+    <value>Ajouter / éditer une page</value>
   </data>
   <data name="EditPage_Title_Label" xml:space="preserve">
-    <value>Titre / Objectif de la clé</value>
+    <value>Titre / Objectif de la page</value>
   </data>
   <data name="EditPage_Tags_Label" xml:space="preserve">
     <value>Catégorie</value>
   </data>
   <data name="EditPage_AdminOnly" xml:space="preserve">
-    <value>Clé réservée aux administrateurs.</value>
+    <value>Page réservée aux administrateurs.</value>
   </data>
   <data name="EditPage_Preview" xml:space="preserve">
     <value>Pré-visualisation</value>
   </data>
   <data name="EditPage_LinkUrl_PlaceHolder" xml:space="preserve">
-    <value>saisir le lien ou le nom de la clé</value>
+    <value>saisir le lien ou le nom de la page</value>
   </data>
   <data name="EditPage_LinkText_PlaceHolder" xml:space="preserve">
     <value>saisir le lien</value>
@@ -451,7 +451,7 @@
     <value>Titre de l'image</value>
   </data>
   <data name="EditPage_Error" xml:space="preserve">
-    <value>Impossible d'enregistrer la clé :</value>
+    <value>Impossible d'enregistrer la page :</value>
   </data>
   <data name="EditPage_Toolbar_Bold" xml:space="preserve">
     <value>Gras</value>
@@ -985,7 +985,7 @@
     <comment>Fuzzy</comment>
   </data>
   <data name="Recaptcha_Prompt" xml:space="preserve">
-    <value>As an anti-spam measure, please enter the two words below</value>
+    <value>Veuillez entrer les deux mots ci-dessous</value>
   </data>
   <data name="Button_Close" xml:space="preserve">
     <value>Fermer</value>
@@ -1009,7 +1009,7 @@
     <value>Nombre de notes :</value>
   </data>
   <data name="Navigation_AllNewPages" xml:space="preserve">
-    <value>Nouvelles clés</value>
+    <value>Pages à controller</value>
     <comment>for pages to be controlled</comment>
   </data>
   <data name="Shared_RejectLink" xml:space="preserve">
@@ -1019,16 +1019,16 @@
     <value>Valider</value>
   </data>
   <data name="AllMyPages_Title" xml:space="preserve">
-    <value>Mes clés</value>
+    <value>Mes pages</value>
   </data>
   <data name="Alerts_Title" xml:space="preserve">
-    <value>Alertes de clés</value>
+    <value>Alertes de pages</value>
   </data>
   <data name="AllNewPages_Title" xml:space="preserve">
-    <value>Nouvelles clés</value>
+    <value>Pages à controller</value>
   </data>
   <data name="Navigation_MyPages" xml:space="preserve">
-    <value>Mes clés</value>
+    <value>Mes pages</value>
   </data>
   <data name="Navigation_Alerts" xml:space="preserve">
     <value>Alertes</value>
@@ -1061,13 +1061,13 @@
     <value>Valider</value>
   </data>
   <data name="ControlPage_Title" xml:space="preserve">
-    <value>Contrôler la clé</value>
+    <value>Contrôler la page</value>
   </data>
   <data name="Button_Reject" xml:space="preserve">
     <value>Rejeter</value>
   </data>
   <data name="EditPage_IsVideo_Label" xml:space="preserve">
-    <value>Cette clé est une vidéo</value>
+    <value>Cette page est une vidéo</value>
   </data>
   <data name="EditPage_VideoUrl_Label" xml:space="preserve">
     <value>Lien vers la vidéo</value>
@@ -1100,7 +1100,7 @@
     <value>Modifier</value>
   </data>
   <data name="EditPage_CopiedFromOtherSite" xml:space="preserve">
-    <value>Clé copiée d'un autre site</value>
+    <value>Page copiée d'un autre site</value>
   </data>
   <data name="EditPage_Pseudonym" xml:space="preserve">
     <value>Pseudonyme</value>
@@ -1157,7 +1157,7 @@
     <value>Mon commentaire :</value>
   </data>
   <data name="Rating_added" xml:space="preserve">
-    <value>Note ajoutée</value>
+    <value>Note prise en compte</value>
   </data>
   <data name="Rating_removed" xml:space="preserve">
     <value>Votre note a été supprimée</value>
@@ -1280,7 +1280,7 @@
     <value>Aucune alerte</value>
   </data>
   <data name="ListAlerts_PageNo" xml:space="preserve">
-    <value>Clé</value>
+    <value>Page</value>
   </data>
   <data name="ListAlerts_Remove_Alerts_Button" xml:space="preserve">
     <value>Supprimer les alertes</value>
@@ -1295,7 +1295,7 @@
     <value>Reject</value>
   </data>
   <data name="ControlPage_Validate_Radio_Button" xml:space="preserve">
-    <value>Validate</value>
+    <value>Valider</value>
   </data>
   <data name="Page_Select_Reject" xml:space="preserve">
     <value>Sélectionner la raison du rejet</value>
@@ -1316,13 +1316,13 @@
     <value>Contenu publicitaire</value>
   </data>
   <data name="MyPages_Confirm_Unpublish" xml:space="preserve">
-    <value>La modification aura pour effet de sortir la clé des publications. Il faudra à nouveau la soumettre. Voulez-vous modifier la clé ?</value>
+    <value>La modification aura pour effet de sortir la page des publications. Il faudra à nouveau la soumettre. Voulez-vous modifier la page ?</value>
   </data>
   <data name="Shared_UnpublishLink" xml:space="preserve">
     <value>Reprendre</value>
   </data>
   <data name="EditPage_Help_First_Page" xml:space="preserve">
-    <value>Première clé ?</value>
+    <value>Première page ?</value>
   </data>
   <data name="Shared_ClickHere" xml:space="preserve">
     <value>Cliquez ici.</value>
@@ -1331,9 +1331,166 @@
     <value>Si vous postez une vidéo, ajoutez une description avec les principaux mots clés afin qu'elle soit indexée par le moteur de recherche. </value>
   </data>
   <data name="NewPage_ConnectionRequired" xml:space="preserve">
-    <value>Veuillez-vous connecter pour créer une clé.</value>
+    <value>Veuillez-vous connecter pour créer une page.</value>
   </data>
   <data name="Navigation_Partners" xml:space="preserve">
     <value>Sites partenaires</value>
+  </data>
+  <data name="Competitions_CreateNew" xml:space="preserve">
+    <value>Créer un concours ?  </value>
+  </data>
+  <data name="Competitions_None" xml:space="preserve">
+    <value>Aucun concours trouvé</value>
+  </data>
+  <data name="Competitions_Title" xml:space="preserve">
+    <value>Concours</value>
+  </data>
+  <data name="Competition_BtnCreate" xml:space="preserve">
+    <value>Créer</value>
+  </data>
+  <data name="Competition_ListDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Competition_ListStatus" xml:space="preserve">
+    <value>Etat</value>
+  </data>
+  <data name="Competition_ListSubject" xml:space="preserve">
+    <value>Sujet</value>
+  </data>
+  <data name="Competition_StatusAchieved" xml:space="preserve">
+    <value>Terminé</value>
+  </data>
+  <data name="Competition_StatusInit" xml:space="preserve">
+    <value>En préparation</value>
+  </data>
+  <data name="Competition_StatusPublication" xml:space="preserve">
+    <value>Publication en cours</value>
+  </data>
+  <data name="Competition_StatusRating" xml:space="preserve">
+    <value>Notation en cours</value>
+  </data>
+  <data name="EditCompetition_PublicationStartLabel" xml:space="preserve">
+    <value>Date de début des publications</value>
+  </data>
+  <data name="EditCompetition_PublicationStopLabel" xml:space="preserve">
+    <value>Date de fin des publications</value>
+  </data>
+  <data name="EditCompetition_RatingStartLabel" xml:space="preserve">
+    <value>Date de début des notations</value>
+  </data>
+  <data name="EditCompetition_RatingStopLabel" xml:space="preserve">
+    <value>Date de fin des notations</value>
+  </data>
+  <data name="EditCompetition_Status" xml:space="preserve">
+    <value>Etat courant</value>
+  </data>
+  <data name="EditCompetition_StatusHelp" xml:space="preserve">
+    <value>Modifie l'état courant du concours</value>
+  </data>
+  <data name="EditCompetition_Title" xml:space="preserve">
+    <value>Ajouter / éditer un concours</value>
+  </data>
+  <data name="Navigation_Competitions" xml:space="preserve">
+    <value>Concours</value>
+  </data>
+  <data name="EditCompetition_PageTagLabel" xml:space="preserve">
+    <value>Catégorie de la page associée</value>
+  </data>
+  <data name="EditCompetition_RemeberCreatePage" xml:space="preserve">
+    <value>Pensez à créer la page avec ce tag !</value>
+  </data>
+  <data name="ResultCompetition_TitleAuthor" xml:space="preserve">
+    <value>Auteur</value>
+  </data>
+  <data name="ResultCompetition_TitleRating" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="ResultCompetition_TitleTitle" xml:space="preserve">
+    <value>Titre</value>
+  </data>
+  <data name="Competitions_CreatePage" xml:space="preserve">
+    <value>Créer la page </value>
+  </data>
+  <data name="EditCompetition_ModifyPage" xml:space="preserve">
+    <value>Modifier la page</value>
+  </data>
+  <data name="Shared_ResultLink" xml:space="preserve">
+    <value>Résultat</value>
+  </data>
+  <data name="EditPage_ParticipateToCompetition" xml:space="preserve">
+    <value>Participer au concours : </value>
+  </data>
+  <data name="Competition_RateLink" xml:space="preserve">
+    <value>Noter</value>
+  </data>
+  <data name="ParticipateCompetition_Note1" xml:space="preserve">
+    <value>Not used</value>
+    <comment>Not used</comment>
+  </data>
+  <data name="ParticipateCompetition_Note2" xml:space="preserve">
+    <value>Pour participer, il suffit de cliquer sur la coche de participation lors de la création d'une page.</value>
+  </data>
+  <data name="ParticipateCompetition_Title" xml:space="preserve">
+    <value>Participer au concours</value>
+  </data>
+  <data name="Shared_ParticipateLink" xml:space="preserve">
+    <value>Participer</value>
+  </data>
+  <data name="Competition_PageNotYetRated" xml:space="preserve">
+    <value>Pas encore noté !</value>
+  </data>
+  <data name="Competition_RateNowLink" xml:space="preserve">
+    <value>Noter maintenant</value>
+  </data>
+  <data name="Competition_RatingIntro" xml:space="preserve">
+    <value>Voici la liste des pages en compétition, cliquez sur les liens pour les évaluer.</value>
+  </data>
+  <data name="Competition_RatingTitle" xml:space="preserve">
+    <value>Evaluation des pages de la compétition</value>
+  </data>
+  <data name="Competition_NoResult" xml:space="preserve">
+    <value>Aucun résultat</value>
+  </data>
+  <data name="Competition_ResultTitle" xml:space="preserve">
+    <value>Résultats classés par notation :</value>
+  </data>
+  <data name="Competition_StatusPauseBeforeAchieved" xml:space="preserve">
+    <value>Suspendue avant la cloture</value>
+  </data>
+  <data name="ControlPage_ParticipateToCompetition" xml:space="preserve">
+    <value>Participe au concours</value>
+  </data>
+  <data name="MyPage_Confirm_Delete" xml:space="preserve">
+    <value>La suppression est définitive. Voulez-vous vraiment supprimer cette page ?</value>
+  </data>
+  <data name="MyPage_IsInCompetitionPublicationOngoing" xml:space="preserve">
+    <value>Cette page est inscrite au concours. La phase de notation aura lieu prochainement.</value>
+  </data>
+  <data name="MyPage_IsInPastCompetition" xml:space="preserve">
+    <value>Cette page a participé à un précédent concours. Elle ne peut pas être modifiée.</value>
+  </data>
+  <data name="Competition_StatusPauseBeforeRating" xml:space="preserve">
+    <value>Suspendue avant la notation</value>
+  </data>
+  <data name="MyPage_DeleteSuccess" xml:space="preserve">
+    <value>La page est supprimée</value>
+  </data>
+  <data name="MyPage_IsInCompetitionRatingOngoing" xml:space="preserve">
+    <value>Cette page est inscrite au concours en phase de notation. Elle ne peut pas être modifiée.</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="MyPages_CompetitionAchieved" xml:space="preserve">
+    <value>Terminée</value>
+  </data>
+  <data name="MyPages_CompetitionOnPublication" xml:space="preserve">
+    <value>Phase de publication</value>
+  </data>
+  <data name="MyPages_CompetitionOnRating" xml:space="preserve">
+    <value>Notation en cours</value>
+  </data>
+  <data name="MyPages_Competition_Title" xml:space="preserve">
+    <value>Concours</value>
   </data>
 </root>

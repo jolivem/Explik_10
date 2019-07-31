@@ -74,6 +74,11 @@ namespace Roadkill.Core.Database
         public bool IsController { get; set; }
 
         /// <summary>
+        /// Gets or sets the contribution to Explik (pages, rating, competition)
+        /// </summary>
+        public long Contribution { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the account has been activated.
         /// </summary>
         /// <value>
@@ -94,12 +99,7 @@ namespace Roadkill.Core.Database
         /// </value>
         public bool IsDummy { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating the teaching level of the editor.
-        /// </summary>
-        public long ContributionLevel { get; set; }
-
-        /// <summary>
+         /// <summary>
         /// Gets or sets flags indicating display or not.
         /// </summary>
         public long DisplayFlags { get; set; }

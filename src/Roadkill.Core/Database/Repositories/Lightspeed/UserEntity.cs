@@ -40,8 +40,8 @@ namespace Roadkill.Core.Database.LightSpeed
 		[Column("isactivated")]
 		private bool _isActivated;
 
-        [Column("contributionlevel")]
-        private long _contributionLevel;
+        [Column("contribution")]
+        private long _contribution;
 
         [Column("displayflags")]
         private long _displayFlags;
@@ -184,15 +184,15 @@ namespace Roadkill.Core.Database.LightSpeed
 			}
 		}
 
-        public long ContributionLevel
+        public long Contribution
         {
             get
             {
-                return _contributionLevel;
+                return _contribution;
             }
             set
             {
-                Set<long>(ref _contributionLevel, value);
+                Set<long>(ref _contribution, value);
             }
         }
 

@@ -46,8 +46,11 @@ namespace Roadkill.Core.Cache
 		/// <summary>"alltags"</summary>
 		private static readonly string ALLTAGS = "alltags";
 
+        /// <summary>"competitions"</summary>
+        private static readonly string COMPETITIONS = "competitions";
+
 		/// <summary>"pagesbytag.{tag}"</summary>
-		private static readonly string PAGES_BY_TAG = "pagesbytag.{tag}";
+        private static readonly string PAGES_BY_TAG = "pagesbytag.{tag}";
 
 		/// <summary>"menu"</summary>
 		private static readonly string MENU = "menu";
@@ -206,6 +209,15 @@ namespace Roadkill.Core.Cache
         public static string MyPages()
         {
             return LIST_CACHE_PREFIX + MYPAGES;
+        }
+
+        /// <summary>
+        /// Gets the cache key for the competitions.
+        /// </summary>
+        /// <returns>The cache key.</returns>
+        public static string Competitions()
+        {
+            return LIST_CACHE_PREFIX + COMPETITIONS;
         }
 
         /// <summary>

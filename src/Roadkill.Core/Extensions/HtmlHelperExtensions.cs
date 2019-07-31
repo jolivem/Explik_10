@@ -89,7 +89,7 @@ namespace Roadkill.Core.Extensions
 			WikiController wikiController = controller as WikiController;
 			if (wikiController != null)
 			{
-				PageService pageService = wikiController.PageService;
+				PageService pageService = wikiController._pageService;
 
 				IEnumerable<PageViewModel> pages = pageService.FindByTag(tag);
 				if (pages.Count() > 0)

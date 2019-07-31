@@ -19,7 +19,7 @@ namespace Roadkill.Core.Database.LightSpeed
 			entity.Email = user.Email;
 			entity.Firstname = user.Firstname;
 			entity.IsActivated = user.IsActivated;
-            entity.ContributionLevel = user.ContributionLevel;
+            entity.Contribution = user.Contribution;
             entity.DisplayFlags = user.DisplayFlags;
 			entity.IsAdmin = user.IsAdmin;
             entity.IsEditor = user.IsEditor;
@@ -55,7 +55,30 @@ namespace Roadkill.Core.Database.LightSpeed
             entity.Ilk = alert.Ilk;
         }
 
-        public static void FromPage(Page page, PageEntity entity)
+        public static void FromCompetition(Competition competition, CompetitionEntity entity)
+        {
+            //entity.Id = competition.Id;
+            entity.PublicationStart = competition.PublicationStart;
+            entity.PublicationStop = competition.PublicationStop;
+            entity.RatingStart = competition.RatingStart;
+            entity.RatingStop = competition.RatingStop;
+            entity.Status = competition.Status;
+            entity.PageTag = competition.PageTag;
+            entity.PageId = competition.PageId;
+        }
+
+        public static void FromCompetitionPage(CompetitionPage competitionpage, CompetitionPageEntity entity)
+        {
+            entity.Id = competitionpage.Id;
+            entity.CompetitionId = competitionpage.CompetitionId;
+            entity.PageId = competitionpage.PageId;
+            entity.NbRating = competitionpage.NbRating;
+            entity.TotalRating = competitionpage.TotalRating;
+            entity.UserName = competitionpage.UserName;
+            entity.Ranking = competitionpage.Ranking;
+        }
+
+         public static void FromPage(Page page, PageEntity entity)
 		{
             entity.NbRating = page.NbRating;
             entity.NbView = page.NbView;
@@ -77,6 +100,7 @@ namespace Roadkill.Core.Database.LightSpeed
             entity.VideoUrl = page.VideoUrl;
             entity.Pseudonym = page.Pseudonym;
             entity.ControllerRating = page.ControllerRating;
+            entity.CompetitionId = page.CompetitionId;
         }
 
         public static void FromPageContent(PageContent pageContent, PageContentEntity entity)

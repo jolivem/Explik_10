@@ -1,0 +1,81 @@
+﻿@model CompetitionViewModel
+@{
+    ViewBag.Title = SiteStrings.EditCompetition_Title;
+}
+
+
+<style>
+    .searchbar {
+        display: none;
+    }
+</style>
+
+<div id="editcompetition" class="row">
+    <div id="editcompetition-form-container" class="col-sm-6">
+        @*@Html.BootstrapValidationSummary(SiteStrings.EditPage_Error)*@
+
+
+        <form class="form-horizontal" role="form" method="post">
+            @(Html.HiddenFor<CompetitionViewModel, int>(c => c.Id))
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <label for="PageTag">@SiteStrings.EditCompetition_PageTagLabel</label>
+                    @(Html.BootstrapTextBoxFor<CompetitionViewModel, string>(c => c.PageTag, SiteStrings.EditCompetition_PageTagLabel, false, 1))
+                    @*<label for="PageTag">@SiteStrings.EditCompetition_PageTagLabel</label>
+                @(Html.BootstrapTextBoxFor<CompetitionViewModel, string>(c => c.PageTag, SiteStrings.EditCompetition_PageTagLabel, false, 1))*@
+                    @if (Model.PageId == -1)
+                    {
+                        <p style="color: red">@SiteStrings.EditCompetition_RemeberCreatePage</p>
+                    }
+                    else
+                    {
+                        <p>@Html.ActionLink(SiteStrings.EditCompetition_ModifyPage, "Edit", "Pages", new { id = Model.PageId }, null)</p>
+                    }
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <label for="PublicationStartString">@SiteStrings.EditCompetition_PublicationStartLabel</label>
+                    @(Html.BootstrapTextBoxFor<CompetitionViewModel, string>(c => c.PublicationStartString, SiteStrings.EditCompetition_PublicationStartLabel, false, 2))
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <label for="PublicationStopString">@SiteStrings.EditCompetition_PublicationStopLabel</label>
+                    @(Html.BootstrapTextBoxFor<CompetitionViewModel, string>(c => c.PublicationStopString, SiteStrings.EditCompetition_PublicationStopLabel, false, 3))
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <label for="RatingStartString">@SiteStrings.EditCompetition_RatingStartLabel</label>
+                    @(Html.BootstrapTextBoxFor<CompetitionViewModel, string>(c => c.RatingStartString, SiteStrings.EditCompetition_RatingStartLabel, false, 4))
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <label for="RatingStopString">@SiteStrings.EditCompetition_RatingStopLabel</label>
+                    @(Html.BootstrapTextBoxFor<CompetitionViewModel, string>(c => c.RatingStopString, SiteStrings.EditCompetition_RatingStopLabel, false, 5))
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <label for="StatusString">@SiteStrings.EditCompetition_Status</label>
+                    @Html.BootstrapDropDownListFor(c => c.StatusString, new SelectList(Model.StatusesList, Model.StatusString), SiteStrings.EditCompetition_StatusHelp)
+                </div>
+            </div>
+
+            <div id="editcompetition-button-container" class="row">
+                <div id="editcompetition-save-button" class="col-sm-11">
+                    <input type="submit" class="btn btn-primary saveButton" value="@SiteStrings.Button_Save" tabindex="6" />
+                </div>
+            </div>
+        </form>
+    </div>
+ </div>
+

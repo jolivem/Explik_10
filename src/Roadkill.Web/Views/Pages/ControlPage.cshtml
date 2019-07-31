@@ -49,7 +49,7 @@
             <h2 class="pagetitle"> </h2>
             <p>
                 <b>Author:</b> @Model.CreatedBy<br />
-                <b>Author since:</b> @Model.GetUserActivity().OldestPageDate.ToString("dd/MM/yyy")<br />
+                <b>Author since:</b> @Model.GetUserActivity().OldestPageDate.ToString("dd/MM/yyyy")<br />
                 <b>Nb page published:</b> @Model.GetUserActivity().NbPublications<br />
                 <b>Global rating:</b> @Model.GetUserActivity().GlobalRating
             </p>
@@ -90,6 +90,45 @@
                             </div>
                         </div>
                     </div>
+                    <hr />
+
+                    @*do not display the rating if already rated*@
+                    @if (Model.NbRating == 0)
+                    {
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-5">
+                                    <label for="ControllerRating" class="control-label">Controller Rating [0;5]</label>
+                                </div>
+                                <div class="col-sm-7">
+                                    @(Html.TextBoxFor(p => p.ControllerRating, "", 3))
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <hr />
+                    @if (Model.IsInCompetition)
+                    {
+                        // controller can change the participation to the competition if subjects are too different
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-5">
+                                    <label for="IsInCompetition" class="control-label">@SiteStrings.EditPage_ParticipateToCompetition</label>
+                                </div>
+                                <div class="col-sm-7">
+                                    <label for="IsInCompetition" >
+                                        @(Html.BootstrapCheckBoxFor<PageViewModel>(p => p.IsInCompetition, "", 3))
+                                         @Html.ActionLink((string)ViewBag.CompetitionLabel, "About", "Home", new { tag = ViewBag.CompetitionPageTag }, new { target = "_blank" })
+                                    </label>
+                                    <br />
+
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
 
                 <div id="reject-page">
@@ -114,19 +153,6 @@
                 </div>
                 <hr />
 
-                <div class="row">
-                    <div class="form-group">
-                        <div class="col-sm-5">
-                            <label for="ControllerRating" class="control-label">Controller Rating [0;5]</label>
-                        </div>
-                        <div class="col-sm-7">
-                            <input name="ControllerRating" class="form-control" id="ControllerRating" type="text" value="@Model.ControllerRating">
-                            <br>
-                        </div>
-                    </div>
-                </div>
-                <hr />
-
                 <div class="form-group">
                     <input type="submit" id="btnSubmit" class="btn btn-primary right" value="@SiteStrings.Button_Validate" />
                 </div>
@@ -134,6 +160,7 @@
         </div>
     </div>
 </div>
+
 
 @*@section ViewHistoryLink
     {

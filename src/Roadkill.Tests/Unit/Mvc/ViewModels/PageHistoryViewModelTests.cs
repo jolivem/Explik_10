@@ -22,7 +22,6 @@ namespace Roadkill.Tests.Unit
 			PageContent content = new PageContent();
 			content.Page = new Page() { Id = 7, IsLocked = true };
 			content.EditedOn = DateTime.Today;
-			content.EditedBy = "adude";
 			content.VersionNumber = 9;
 
 			// Act
@@ -30,7 +29,6 @@ namespace Roadkill.Tests.Unit
 
 			// Assert
 			Assert.That(model.Id, Is.EqualTo(content.Id));
-			Assert.That(model.EditedBy, Is.EqualTo(content.EditedBy));
 			Assert.That(model.EditedOn, Is.EqualTo(content.EditedOn));
 			Assert.That(model.EditedOnWithOffset, Is.Not.Empty);
 			Assert.That(model.IsPageAdminOnly, Is.EqualTo(content.Page.IsLocked));

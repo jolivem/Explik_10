@@ -10,6 +10,7 @@ using Roadkill.Core;
 using Roadkill.Core.Cache;
 using Roadkill.Core.Configuration;
 using Roadkill.Core.Converters;
+using Roadkill.Core.Email;
 using Roadkill.Core.Security;
 using Roadkill.Core.Services;
 using Roadkill.Tests.Unit.StubsAndMocks;
@@ -33,14 +34,19 @@ namespace Roadkill.Tests.Unit
 		public PluginFactoryMock PluginFactory { get; set; }
 		public MarkupConverter MarkupConverter { get; set; }
 		public EmailClientMock EmailClient { get; set; }
+        public PublishPageEmail PublishPageEmail { get; set; }
+        public RejectPageEmail RejectPageEmail { get; set; }
+        public CompetitionService CompetitionService { get; set; }
 
-		/// <summary>
-		/// Creates a new instance of MocksAndStubsContainer.
-		/// </summary>
-		/// <param name="useCacheMock">The 'Roadkill' MemoryCache is used by default, but as this is static it can have problems with 
-		/// the test runner unless you clear the Container.MemoryCache on setup each time, but then doing that doesn't give a realistic 
-		/// reflection of how the MemoryCache is used inside an ASP.NET environment.</param>
-		public MocksAndStubsContainer(bool useCacheMock = false)
+
+
+        /// <summary>
+        /// Creates a new instance of MocksAndStubsContainer.
+        /// </summary>
+        /// <param name="useCacheMock">The 'Roadkill' MemoryCache is used by default, but as this is static it can have problems with 
+        /// the test runner unless you clear the Container.MemoryCache on setup each time, but then doing that doesn't give a realistic 
+        /// reflection of how the MemoryCache is used inside an ASP.NET environment.</param>
+        public MocksAndStubsContainer(bool useCacheMock = false)
 		{
 			ApplicationSettings = new ApplicationSettings();
 			ApplicationSettings.Installed = true;

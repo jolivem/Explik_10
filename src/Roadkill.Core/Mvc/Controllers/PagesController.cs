@@ -35,6 +35,8 @@ namespace Roadkill.Core.Mvc.Controllers
 		private SearchService _searchService;
 		private PageHistoryService _historyService;
         private AttachmentPathUtil _attachmentPathUtil;
+
+        private ICompetitionService _competitionService;
         //private UserServiceBase _userServiceBase;
         private IRepository _repository;
         private PublishPageEmail _publishPageEmail;
@@ -49,7 +51,7 @@ namespace Roadkill.Core.Mvc.Controllers
         public PagesController(ApplicationSettings settings, UserServiceBase userManager,
 			SettingsService settingsService, IPageService pageService, SearchService searchService,
             PageHistoryService historyService, IUserContext context, IRepository repository,
-            PublishPageEmail publishPageEmail, RejectPageEmail rejectPageEmail)
+            PublishPageEmail publishPageEmail, RejectPageEmail rejectPageEmail, ICompetitionService competitionService)
 			: base(settings, userManager, context, settingsService)
 		{
 			_settingsService = settingsService;
@@ -61,6 +63,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		    _repository = repository;
             _publishPageEmail = publishPageEmail;
             _rejectPageEmail = rejectPageEmail;
+            _competitionService = competitionService;
 
         }
 
@@ -109,8 +112,9 @@ namespace Roadkill.Core.Mvc.Controllers
         {
             // after submit, id = null --> leads to an exception
             // when changing the user, the id is the older one
-            ViewBag.IsUserAdmin = Context.IsAdmin;
+            //ViewBag.IsUserAdmin = Context.IsAdmin;
             string currentUser = Context.CurrentUsername;
+            IEnumerable<PageViewModel> models;
             if (id == Context.CurrentUsername)
             {
 
@@ -123,13 +127,47 @@ namespace Roadkill.Core.Mvc.Controllers
 
                 ViewData["Username"] = id;
 
-                return View(_pageService.MyPages(id));
+                models = _pageService.MyPages(id);
+                
             }
             else
             {
-                return View(_pageService.MyPages(currentUser));
-                //return View(); // TODO check what is the result --> exception
+                models = _pageService.MyPages(currentUser);
             }
+
+            // Add competition information to the model
+            foreach (PageViewModel model in models)
+            {
+                model.CompetitionInfo = "";
+                model.ModificationsEnable = true;
+                if (model.CompetitionId != -1)
+                {
+                    CompetitionViewModel competition = _competitionService.GetById(model.CompetitionId);
+
+                    if (competition.Status == CompetitionViewModel.Statuses.PublicationOngoing)
+                    {
+                        model.ModificationsEnable = true;
+                        model.CompetitionInfo = SiteStrings.MyPages_CompetitionOnPublication;
+                    }
+
+                    if (model.IsPublished &&
+                        competition.Status == CompetitionViewModel.Statuses.PauseBeforeRating ||
+                        competition.Status == CompetitionViewModel.Statuses.RatingOngoing)
+                    {
+                        model.ModificationsEnable = false;
+                        model.CompetitionInfo = SiteStrings.MyPages_CompetitionOnRating;
+                    }
+                    if (model.IsPublished &&
+                        competition.Status == CompetitionViewModel.Statuses.Achieved ||
+                        competition.Status == CompetitionViewModel.Statuses.PauseBeforeAchieved)
+                    {
+                        model.ModificationsEnable = false;
+                        model.CompetitionInfo = SiteStrings.MyPages_CompetitionAchieved;
+                    }
+                }
+            }
+
+            return View( models);
         }
 
         /// <summary>
@@ -224,6 +262,24 @@ namespace Roadkill.Core.Mvc.Controllers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [EditorRequired]
+        public ActionResult DeletePage(int? id)
+        {
+            if (id == null || id < 1)
+                return Content("");
+
+            _pageService.DeletePage(id.Value);
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+
+        }
+
+        /// <summary>
         /// Deletes a wiki page.
         /// </summary>
         /// <param name="id">The id of the page to delete.</param>
@@ -235,7 +291,7 @@ namespace Roadkill.Core.Mvc.Controllers
             if (Context.IsAdmin)
             {
                 // submit is a validate for the admin
-                _pageService.ValidatePage(id, Context.CurrentUsername, 0);
+                _pageService.ValidatePage(id, Context.CurrentUsername, 0, false);
             }
             else
             {
@@ -278,6 +334,26 @@ namespace Roadkill.Core.Mvc.Controllers
                 ViewBag.AlertControversial = AlertControversial;
                 ViewBag.AlertOther = AlertOther;
 
+                // Handle participation to current competition
+                var competition = _competitionService.GetCompetitionByStatus(CompetitionViewModel.Statuses.PublicationOngoing);
+                if (!Context.IsAdmin && // admin do not create pages for compeitiions
+                    model.IsInCompetition &&
+                    competition != null && model.CompetitionId == competition.Id) // prevent from all competition
+                {
+                    //ViewBag.CompetitionOnGoing = true; not used
+
+                    // for the link to the competition page
+                    PageViewModel page = _pageService.GetById(competition.PageId);
+                    ViewBag.CompetitionLabel = page.EncodedTitle;
+                    ViewBag.CompetitionPageTag = competition.PageTag; // tag is used to reach the page
+                }
+                else
+                {
+                    // change those values for consistency
+                    model.IsInCompetition = false;
+                    model.CompetitionId = -1;
+                }
+
                 return View("ControlPage", model);
             }
             else
@@ -294,33 +370,34 @@ namespace Roadkill.Core.Mvc.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <param name="svalidated"></param>
-        /// <param name="srating"></param>
         /// <param name="RawTags"></param>
-        /// <param name="rejecttype">"language", "publicity", "respect", "controversial" or "other"</param>
-        /// <param name="ControllerRating"></param>
+        /// <param name="rejecttype"></param>
+        /// <param name="model_"></param>
         /// <returns></returns>
         [ControllerRequired]
         [HttpPost]
-        public ActionResult ControlPage(int id, string svalidated, string RawTags, string rejecttype, string ControllerRating)
+        public ActionResult ControlPage(int id, string svalidated, string RawTags, string rejecttype, PageViewModel model)
         {
-            PageViewModel model = _pageService.GetById(id);
+            //PageViewModel model = _pageService.GetById(id);
             User user = _repository.GetUserByUsername(model.CreatedBy);
 
             if (svalidated == "true")
             {
-                // control should be made by front-end
-                int controlRating = Int32.Parse(ControllerRating);
-                if (controlRating > 5)
+
+                // if participation to competition has been removed
+                if (!model.IsInCompetition)
                 {
-                    controlRating = 5;
-                }
-                if (controlRating < 0)
-                {
-                    controlRating = 0;
+                    model.CompetitionId = -1;
                 }
 
-                _pageService.ValidatePage(id, Context.CurrentUsername, controlRating, RawTags);
+                if (model.ControllerRating > 5)
+                    model.ControllerRating = 5;
+                if (model.ControllerRating < 0)
+                    model.ControllerRating = 0;
 
+                _pageService.ValidatePage(id, Context.CurrentUsername, (int)model.ControllerRating, model.IsInCompetition, RawTags);
+
+                // send email
                 PageEmailInfo info = new PageEmailInfo(user, model, null);
                 _publishPageEmail.Send(info);
             }
@@ -390,7 +467,7 @@ namespace Roadkill.Core.Mvc.Controllers
             _rejectPageEmail.Send(info);
 
             // delete alerts of the page
-            _repository.DeletPageAlerts(id);
+            _repository.DeletePageAlerts(id);
 
             _pageService.RejectPage(id);
             return RedirectToAction("ListAlerts", "Alerts");
@@ -405,7 +482,7 @@ namespace Roadkill.Core.Mvc.Controllers
         [ControllerRequired]
         public ActionResult DeletPageAlerts(int pageId)
         {
-            _repository.DeletPageAlerts(pageId);
+            _repository.DeletePageAlerts(pageId);
             return RedirectToAction("AllNewPages");
         }
 
@@ -428,9 +505,24 @@ namespace Roadkill.Core.Mvc.Controllers
             if (model != null)
             {
                 if (model.IsLocked && !Context.IsAdmin)
-                    return new HttpStatusCodeResult(403, string.Format("The page '{0}' can only be edited by administrators.", model.Title));
+                    return new HttpStatusCodeResult(403,
+                        string.Format("The page '{0}' can only be edited by administrators.", model.Title));
 
                 model.AllTags = _pageService.AllTags().ToList();
+
+                // Handle current competition participation except for admins
+                if (!Context.IsAdmin)
+                {
+                    ViewBag.CompetitionPublicationOnGoing = false;
+                    var competition = _competitionService.GetCompetitionByStatus(CompetitionViewModel.Statuses.PublicationOngoing);
+                    if (competition != null)
+                    {
+                        ViewBag.CompetitionPublicationOnGoing = true;
+                        PageViewModel page = _pageService.GetById(competition.PageId);
+                        ViewBag.CompetitionLabel = page.EncodedTitle;
+                        ViewBag.CompetitionPageTag = competition.PageTag;
+                    }
+                }
 
                 return View("Edit", model);
             }
@@ -510,7 +602,22 @@ namespace Roadkill.Core.Mvc.Controllers
 
 			model.AllTags = _pageService.AllTags().ToList();
 
-			return View("Edit", model);
+            // Handle participation to current competition
+            if (!Context.IsAdmin)
+            {
+                ViewBag.CompetitionPublicationOnGoing = false;
+                var competition = _competitionService.GetCompetitionByStatus(CompetitionViewModel.Statuses.PublicationOngoing);
+                if (competition != null)
+                {
+                    ViewBag.CompetitionPublicationOnGoing = true;
+                    PageViewModel page = _pageService.GetById(competition.PageId);
+                    ViewBag.CompetitionLabel = page.EncodedTitle;
+                    ViewBag.CompetitionPageTag = competition.PageTag;
+                }
+            }
+
+
+            return View("Edit", model);
 		}
 
         /// <summary>
@@ -603,30 +710,6 @@ namespace Roadkill.Core.Mvc.Controllers
 			return View(model);
 		}
 
-
-        /// <summary>
-        /// Displays the edit View for the page provided in the id.
-        /// </summary>
-        /// <param name="id">The ID of the page to edit.</param>
-        /// <returns>An filled <see cref="PageViewModel"/> as the model. If the page id cannot be found, the action
-        /// redirects to the New page.</returns>
-        /// <remarks>This action requires editor rights.</remarks>
-        [EditorRequired]
-        public ActionResult Rate(int id)
-        {
-            RateViewModel model = new RateViewModel(_pageService.GetCurrentContent(id).Page);
-
-            if (model != null)
-            {
-                var view = View("Error", (Object)model);
-                return view;
-            }
-            else
-            {
-                return RedirectToAction("New");
-            }
-        }
-
         /// <summary>
         /// Save an alert for the page
         /// </summary>
@@ -671,14 +754,14 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <param name="model">A filled <see cref="PageViewModel"/> containing the new data.</param>
         /// <returns>Redirects to /Wiki/{id} using the passed in <see cref="PageViewModel.Id"/>.</returns>
         /// <remarks>This action requires editor rights.</remarks>
-        [EditorRequired]
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult Rate(PageViewModel model)
-        {
-            _pageService.UpdatePage(model);
-            return RedirectToAction("Index", "Wiki", new { id = model.Id });
-        }
+        //[EditorRequired]
+        //[HttpPost]
+        //[ValidateInput(false)]
+        //public ActionResult Rate(PageViewModel model) --> not used
+        //{
+        //    _pageService.UpdatePage(model);
+        //    return RedirectToAction("Index", "Wiki", new { id = model.Id });
+        //}
 
         [EditorRequired]
         [HttpPost]

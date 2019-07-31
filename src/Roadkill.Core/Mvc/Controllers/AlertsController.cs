@@ -50,7 +50,7 @@ namespace Roadkill.Core.Mvc.Controllers
                             if (!page.IsControlled || page.IsRejected)
                             {
                                 // remove alerts of this page
-                                _repository.DeletPageAlerts(page.Id);
+                                _repository.DeletePageAlerts(page.Id);
                             }
                             else
                             {
@@ -75,7 +75,7 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <returns></returns>
         public ActionResult DeleteForPage(int id)
         {
-            _repository.DeletPageAlerts(id);
+            _repository.DeletePageAlerts(id);
 
             return RedirectToAction("ListAlerts", "Alerts");
         }

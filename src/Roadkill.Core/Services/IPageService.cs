@@ -16,6 +16,8 @@ namespace Roadkill.Core.Services
         /// <exception cref="DatabaseException">An database error occurred while saving.</exception>
         /// <exception cref="SearchException">An error occurred adding the page to the search index.</exception>
         PageViewModel AddPage(PageViewModel model);
+
+
         void AddSeveralPagesForTests();
 
         /// <summary>
@@ -37,7 +39,7 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
         /// <exception cref="DatabaseException">An database error occurred while retrieving the list.</exception>
-        IEnumerable<PageViewModel> MyPages(string id, bool loadPageContent = false);
+        IEnumerable<PageViewModel> MyPages(string id);
 
         /// <summary>
         /// Retrieves the list of pages with alerts.
@@ -98,9 +100,10 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <param name="pageId"></param>
         /// <param name="controllername"></param>
-        /// <param name="rating"></param>
+        /// <param name="ControllerRating"></param>
+        /// <param name="isInCompetition">-</param>
         /// <param name="tags"></param>
-        void ValidatePage(int pageId, string controllername, int ControllerRating, string tags=null);
+        void ValidatePage(int pageId, string controllername, int ControllerRating, bool isInCompetition, string tags =null);
 
         /// <summary>
         /// 
@@ -246,6 +249,13 @@ namespace Roadkill.Core.Services
         /// <returns></returns>
         string GetUserIp();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="competitionId"></param>
+        /// <param name="userName">the user name so as to get the user ranking</param>
+        /// <returns></returns>
+        List<PageAndUserRatingViewModel> FindPagesByCompetition(int competitionId, string userName);
 
     }
 }

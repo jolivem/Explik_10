@@ -13,6 +13,8 @@ namespace Roadkill.Core.Database.Export
 	/// </summary>
 	public class SqlExportBuilder
 	{
+        //TODO add competitions, comments and alerts
+
 		private readonly IRepository _repository;
 		private readonly IPluginFactory _pluginFactory;
 
@@ -170,7 +172,7 @@ namespace Roadkill.Core.Database.Export
 			if (page == null)
 				return "";
 
-			string sql = "INSERT INTO explik_pages (id, title, summary, createdby, createdon, controlledby, publishedon, tags, islocked, issubmitted, iscontrolled, isrejected, iscopied, isvideo, nbrating, totalrating, nbview, filepath, videourl, pseudonym, controllerrating) VALUES (";
+			string sql = "INSERT INTO explik_pages (id, title, summary, createdby, createdon, controlledby, publishedon, tags, islocked, issubmitted, iscontrolled, isrejected, iscopied, isvideo, nbrating, totalrating, nbview, filepath, videourl, pseudonym, controllerrating, competitionid) VALUES (";
 			sql += string.Format("'{0}',", page.Id);
 			sql += string.Format("'{0}',", page.Title.ReplaceSingleQuotes());
             sql += string.Format("'{0}',", page.Summary.ReplaceSingleQuotes());
@@ -191,7 +193,8 @@ namespace Roadkill.Core.Database.Export
             sql += string.Format("'{0}',", page.FilePath);
             sql += string.Format("'{0}',", page.VideoUrl);
             sql += string.Format("'{0}',", page.Pseudonym);
-            sql += string.Format("'{0}'", page.ControllerRating);
+            sql += string.Format("'{0}',", page.ControllerRating);
+            sql += string.Format("'{0}'", page.CompetitionId);
 			sql += ");";
 
 			return sql;
@@ -220,7 +223,7 @@ namespace Roadkill.Core.Database.Export
 			if (user == null)
 				return "";
 
-            string sql = "INSERT INTO explik_users (id, activationkey, email, firstname, iseditor, iscontroller, attachmentspath, isadmin, isactivated, contributionlevel, displayflags, lastname, password, passwordresetkey, salt, username) VALUES (";
+            string sql = "INSERT INTO explik_users (id, activationkey, email, firstname, iseditor, iscontroller, attachmentspath, isadmin, isactivated, contribution, displayflags, lastname, password, passwordresetkey, salt, username) VALUES (";
 			sql += string.Format("'{0}',", user.Id);
 			sql += string.Format("'{0}',", user.ActivationKey);
 			sql += string.Format("'{0}',", user.Email.ReplaceSingleQuotes());
@@ -230,7 +233,7 @@ namespace Roadkill.Core.Database.Export
             sql += string.Format("'{0}',", user.AttachmentsPath);
             sql += string.Format("'{0}',", user.IsAdmin ? "1" : "0");
             sql += string.Format("'{0}',", user.IsActivated ? "1" : "0");
-            sql += string.Format("'{0}',", user.ContributionLevel);
+            sql += string.Format("'{0}',", user.Contribution);
             sql += string.Format("'{0}',", user.DisplayFlags);
             sql += string.Format("'{0}',", user.Lastname.ReplaceSingleQuotes());
 			sql += string.Format("'{0}',", user.Password.ReplaceSingleQuotes());

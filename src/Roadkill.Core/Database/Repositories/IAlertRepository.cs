@@ -8,8 +8,8 @@ namespace Roadkill.Core.Database
     public interface IAlertRepository
     {
         void DeleteAlert(Guid alertId);
-        void DeletPageAlerts(int pageId);
-        void DeletCommentAlerts(Guid commentId);
+        void DeletePageAlerts(int pageId);
+        void DeleteCommentAlerts(Guid commentId);
         IEnumerable<Alert> FindAlertsByPage(int pageId);
         Alert FindAlertByPageAndUser(int pageId, string usernamme);
         void DeletPageAlertsByUser(int pageId, string username);

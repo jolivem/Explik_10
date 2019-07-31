@@ -52,7 +52,8 @@ namespace Roadkill.Core.Email
         /// </summary>
         public virtual void Send(PageEmailInfo info, string subject)
         {
-            
+#if !DEBUG
+            //TODO TODO TODO
             if (info == null || string.IsNullOrEmpty(info.User.Email))
                 throw new EmailException(null, "The UserViewModel for the email is null or has an empty email");
 
@@ -75,6 +76,7 @@ namespace Roadkill.Core.Email
             message.To.Add(emailTo);
             message.Subject = subject;
             Send(message, plainTextContent, htmlContent);
+#endif
         }
 
         /// <summary>

@@ -303,7 +303,7 @@ namespace Roadkill.Tests.Unit
 				UseObjectCache = true,
 				UseBrowserCache = true,
 				ConnectionString = "connection string",
-				DataStoreTypeName = "MongoDB",
+				DataStoreTypeName = "MySQL",
 				EditorRoleName = "editor role name",
 				LdapConnectionString = "ldap connection string",
 				LdapUsername = "ldap username",
@@ -325,7 +325,7 @@ namespace Roadkill.Tests.Unit
 			Assert.That(appSettings.UseObjectCache, Is.EqualTo(viewModel.UseObjectCache), "UseObjectCache");
 			Assert.That(appSettings.UseBrowserCache, Is.EqualTo(viewModel.UseBrowserCache), "UseBrowserCache");
 			Assert.That(appSettings.ConnectionString, Is.EqualTo(viewModel.ConnectionString), "ConnectionStringName");
-			Assert.That(appSettings.DataStoreType, Is.EqualTo(DataStoreType.MongoDB), "DatabaseType");
+			Assert.That(appSettings.DataStoreType, Is.EqualTo(DataStoreType.MySQL), "DatabaseType");
 			Assert.That(appSettings.EditorRoleName, Is.EqualTo(viewModel.EditorRoleName), "EditorRoleName");
 			Assert.That(appSettings.IgnoreSearchIndexErrors, Is.EqualTo(viewModel.IgnoreSearchIndexErrors), "IgnoreSearchIndexErrors");
 			Assert.That(appSettings.IsPublicSite, Is.EqualTo(viewModel.IsPublicSite), "IsPublicSite");

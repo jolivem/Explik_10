@@ -1,0 +1,50 @@
+﻿@model IEnumerable<CompetitionViewModel>
+@{
+    ViewBag.Title = SiteStrings.Competitions_Title;
+}
+
+
+<h1>@SiteStrings.Competitions_Title</h1>
+
+@if (Model.Count() > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@SiteStrings.Competition_ListSubject</th>
+                <th>@SiteStrings.Competition_ListDate</th>
+                <th>@SiteStrings.Competition_ListStatus</th>
+                <th></th>
+            </tr>
+        </thead>
+        @foreach (CompetitionViewModel competitionModel in Model)
+        {
+        <tr>
+            @*<td class="pagename stretch">@Html.ActionLink(competitionModel.PageTitle, "Result", "Competitions", new { id = competitionModel.Id }, null)</td>*@
+            <td class="pagename stretch">@competitionModel.PageTitle</td>
+            <td class="pagename stretch">@MvcHtmlString.Create(competitionModel.DateString)</td>
+            <td class="pagename stretch">@MvcHtmlString.Create(competitionModel.StatusString)</td>
+            <td>
+                @if (competitionModel.Status == CompetitionViewModel.Statuses.Achieved)
+                {
+                    @Html.ActionLink(SiteStrings.Shared_ResultLink, "Result", new { id = competitionModel.Id }, new { @class = "btn btn-mini btn-primary" })
+                }
+                @if (competitionModel.Status == CompetitionViewModel.Statuses.PublicationOngoing)
+                {
+                    @Html.ActionLink(SiteStrings.Shared_ParticipateLink, "Participate", new { id = competitionModel.Id }, new { @class = "btn btn-mini btn-primary" })
+                }
+                @if (competitionModel.Status == CompetitionViewModel.Statuses.RatingOngoing)
+                {
+                    @Html.ActionLink(SiteStrings.Competition_RateLink, "ListPagesForRating", new { id = competitionModel.Id }, new { @class = "btn btn-mini btn-primary" })
+                }
+
+            </td>
+
+        </tr>
+        }
+    </table>
+}
+else
+{
+    <p>@SiteStrings.Competitions_None</p>
+}

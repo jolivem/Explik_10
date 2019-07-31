@@ -46,7 +46,6 @@ namespace Roadkill.Tests.Unit
 			PageContentEntity entity = new PageContentEntity();
 			entity.Page = new PageEntity() { Title = "Page title" };
 			//entity.Id = Guid.NewGuid(); // can't be tested
-			entity.EditedBy = "editedtest";
 			entity.EditedOn = DateTime.UtcNow;
 			entity.Text = "text";
 			entity.VersionNumber = 99;
@@ -55,7 +54,6 @@ namespace Roadkill.Tests.Unit
 			PageContent pageContent = FromEntity.ToPageContent(entity);
 
 			// Assert
-			Assert.That(pageContent.EditedBy, Is.EqualTo(entity.EditedBy));
 			Assert.That(pageContent.EditedOn, Is.EqualTo(entity.EditedOn));
 			Assert.That(pageContent.Text, Is.EqualTo(entity.Text));
 			Assert.That(pageContent.VersionNumber, Is.EqualTo(pageContent.VersionNumber));
@@ -102,19 +100,16 @@ namespace Roadkill.Tests.Unit
 		{
 			// Arrange
 			PageContentEntity entity1 = new PageContentEntity();
-			entity1.EditedBy = "editedtest1";
 			entity1.EditedOn = DateTime.UtcNow;
 			entity1.Text = "text";
 			entity1.VersionNumber = 90;		
 
 			PageContentEntity entity2 = new PageContentEntity();
-			entity2.EditedBy = "editedtest2";
 			entity2.EditedOn = DateTime.UtcNow;
 			entity2.Text = "text";
 			entity2.VersionNumber = 91;		
 
 			PageContentEntity entity3 = new PageContentEntity();
-			entity3.EditedBy = "editedtest3";
 			entity3.EditedOn = DateTime.UtcNow;
 			entity3.Text = "text";
 			entity3.VersionNumber = 92;

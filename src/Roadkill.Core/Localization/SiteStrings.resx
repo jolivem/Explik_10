@@ -1252,9 +1252,6 @@
   <data name="Navigation_AllNewComments" xml:space="preserve">
     <value>New comments</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
   <data name="Alert_Controversial" xml:space="preserve">
     <value>Controversial</value>
   </data>
@@ -1368,5 +1365,162 @@
   </data>
   <data name="Navigation_Partners" xml:space="preserve">
     <value>Partners</value>
+  </data>
+  <data name="Competitions_CreateNew" xml:space="preserve">
+    <value>Create a competition ?  </value>
+  </data>
+  <data name="Competitions_None" xml:space="preserve">
+    <value>No competitions</value>
+  </data>
+  <data name="Competitions_Title" xml:space="preserve">
+    <value>Competitions</value>
+  </data>
+  <data name="Competition_BtnCreate" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Competition_ListDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Competition_ListStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Competition_ListSubject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="Competition_StatusAchieved" xml:space="preserve">
+    <value>Achieved</value>
+  </data>
+  <data name="Competition_StatusInit" xml:space="preserve">
+    <value>Initiation</value>
+  </data>
+  <data name="Competition_StatusPublication" xml:space="preserve">
+    <value>Publication on going</value>
+  </data>
+  <data name="Competition_StatusRating" xml:space="preserve">
+    <value>Rating on going</value>
+  </data>
+  <data name="EditCompetition_PublicationStartLabel" xml:space="preserve">
+    <value>Publication start date</value>
+  </data>
+  <data name="EditCompetition_PublicationStopLabel" xml:space="preserve">
+    <value>Publication stop date</value>
+  </data>
+  <data name="EditCompetition_RatingStartLabel" xml:space="preserve">
+    <value>Rating start date</value>
+  </data>
+  <data name="EditCompetition_RatingStopLabel" xml:space="preserve">
+    <value>Rating stop date</value>
+  </data>
+  <data name="EditCompetition_Status" xml:space="preserve">
+    <value>Current state</value>
+  </data>
+  <data name="EditCompetition_StatusHelp" xml:space="preserve">
+    <value>Change competition current state</value>
+  </data>
+  <data name="EditCompetition_Title" xml:space="preserve">
+    <value>Add / edit a competition</value>
+  </data>
+  <data name="Navigation_Competitions" xml:space="preserve">
+    <value>Competitions</value>
+  </data>
+  <data name="EditCompetition_PageTagLabel" xml:space="preserve">
+    <value>Tag of the assoociated page</value>
+  </data>
+  <data name="EditCompetition_RemeberCreatePage" xml:space="preserve">
+    <value>Remember you have to create the page with the tag !</value>
+  </data>
+  <data name="ResultCompetition_TitleAuthor" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="ResultCompetition_TitleRating" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="ResultCompetition_TitleTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Competitions_CreatePage" xml:space="preserve">
+    <value>Create the associated page ?  </value>
+  </data>
+  <data name="EditCompetition_ModifyPage" xml:space="preserve">
+    <value>Modify the page</value>
+  </data>
+  <data name="Shared_ResultLink" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="EditPage_ParticipateToCompetition" xml:space="preserve">
+    <value>Participate to the competition: </value>
+  </data>
+  <data name="Competition_RateLink" xml:space="preserve">
+    <value>Rate</value>
+  </data>
+  <data name="ParticipateCompetition_Note1" xml:space="preserve">
+    <value>Not used</value>
+    <comment>Note used</comment>
+  </data>
+  <data name="ParticipateCompetition_Note2" xml:space="preserve">
+    <value>To take part, create a page and click on the participating tick</value>
+  </data>
+  <data name="ParticipateCompetition_Title" xml:space="preserve">
+    <value>Participate to the competition</value>
+  </data>
+  <data name="Shared_ParticipateLink" xml:space="preserve">
+    <value>Participate</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Competition_PageNotYetRated" xml:space="preserve">
+    <value>Not yet rated!</value>
+  </data>
+  <data name="Competition_RateNowLink" xml:space="preserve">
+    <value>Rate now</value>
+  </data>
+  <data name="Competition_RatingIntro" xml:space="preserve">
+    <value>Here is the list of the pages in competition, click on the links for evaluations.</value>
+  </data>
+  <data name="Competition_RatingTitle" xml:space="preserve">
+    <value>Rating the competition pages</value>
+  </data>
+  <data name="Competition_NoResult" xml:space="preserve">
+    <value>No result</value>
+  </data>
+  <data name="Competition_ResultTitle" xml:space="preserve">
+    <value>Results sorted by rating</value>
+  </data>
+  <data name="Competition_StatusPauseBeforeAchieved" xml:space="preserve">
+    <value>Suspended before achievement</value>
+  </data>
+  <data name="ControlPage_ParticipateToCompetition" xml:space="preserve">
+    <value>Participate to the competition</value>
+  </data>
+  <data name="MyPage_Confirm_Delete" xml:space="preserve">
+    <value>Etes-vous vraiment d'accord pour supprimer cette page ?</value>
+  </data>
+  <data name="MyPage_IsInCompetitionPublicationOngoing" xml:space="preserve">
+    <value>Cette page participe au concours en cours.</value>
+  </data>
+  <data name="MyPage_IsInPastCompetition" xml:space="preserve">
+    <value>Cette page a participé à un précédent concours. Elle ne peut pas être modifiée.</value>
+  </data>
+  <data name="Competition_StatusPauseBeforeRating" xml:space="preserve">
+    <value>Suspendue avant la notation</value>
+  </data>
+  <data name="MyPage_DeleteSuccess" xml:space="preserve">
+    <value>The page is deleted</value>
+  </data>
+  <data name="MyPage_IsInCompetitionRatingOngoing" xml:space="preserve">
+    <value>Cette page est inscrite au concours en phase de notation. Elle ne peut pas être modifiée.</value>
+  </data>
+  <data name="MyPages_CompetitionAchieved" xml:space="preserve">
+    <value>Terminée</value>
+  </data>
+  <data name="MyPages_CompetitionOnPublication" xml:space="preserve">
+    <value>Phase de publication</value>
+  </data>
+  <data name="MyPages_CompetitionOnRating" xml:space="preserve">
+    <value>Notation en cours</value>
+  </data>
+  <data name="MyPages_Competition_Title" xml:space="preserve">
+    <value>Competitions</value>
   </data>
 </root>

@@ -81,14 +81,23 @@ namespace Roadkill.Core.Services
                 page.PublishedOn = DateTime.UtcNow;
                 page.ControlledBy = AppendIpForDemoSite(currentUser);
                 page.ControllerRating = model.ControllerRating;
-                //page.IsVideo = model.IsVideo;
                 page.IsControlled = false;
                 page.IsRejected = false;
-                //page.IsCopied = false;
                 page.IsSubmitted = false;
                 page.VideoUrl = model.VideoUrl;
                 page.Pseudonym = model.Pseudonym;
                 page.FilePath = DateTime.UtcNow.ToString("yyyy-MM") + "/" + _context.CurrentUsername;
+
+                Competition competition = Repository.GetCompetitionByStatus((int)CompetitionViewModel.Statuses.PublicationOngoing);
+                if (model.IsInCompetition && competition != null)
+                {
+                    page.CompetitionId = competition.Id;
+                }
+                else
+                {
+                    page.CompetitionId = -1;
+                }
+                
 
                 // Double check, incase the HTML form was faked.
                 if (_context.IsAdmin)
@@ -167,7 +176,7 @@ namespace Roadkill.Core.Services
                         //rating
                         Repository.SetRating(pageContent.Page.Id, 10, r.Next(10, 500));
 
-                        ValidatePage(pageContent.Page.Id, "Controller", 3, "");
+                        ValidatePage(pageContent.Page.Id, "Controller", 3, false, "");
 
                         _listCache.RemoveAll();
                         _pageViewModelCache.RemoveAll(); // completely clear the cache to update any reciprocal links.
@@ -318,29 +327,30 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
         /// <exception cref="DatabaseException">An databaseerror occurred while retrieving the list.</exception>
-        public IEnumerable<PageViewModel> MyPages(string id, bool loadPageContent = false)
+        public IEnumerable<PageViewModel> MyPages(string id)
         {
             try
             {
                 string cacheKey = "";
                 IEnumerable<PageViewModel> pageModels;
 
-                if (loadPageContent)
-                {
-                    cacheKey = CacheKeys.AllPagesWithContent(); //TODO all pages useless
-                    pageModels = _listCache.Get<PageViewModel>(cacheKey);
+                //if (loadPageContent)
+                //{
+                //    cacheKey = CacheKeys.AllPagesWithContent(); //TODO all pages useless
+                //    pageModels = _listCache.Get<PageViewModel>(cacheKey);
 
-                    if (pageModels == null)
-                    {
-                        IEnumerable<Page> pages = Repository.MyPages(id).OrderBy(p => p.Title);
-                        pageModels = from page in pages
-                                     select new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+                //    if (pageModels == null)
+                //    {
+                //        IEnumerable<Page> pages = Repository.MyPages(id).OrderBy(p => p.Title);
+                //        pageModels = from page in pages
+                //                     select new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
 
-                        _listCache.Add<PageViewModel>(cacheKey, pageModels);
-                    }
-                }
-                else
-                {
+                //        pageModels.M
+                //        _listCache.Add<PageViewModel>(cacheKey, pageModels);
+                //    }
+                //}
+                //else
+                //{
                     cacheKey = CacheKeys.MyPages();
                     pageModels = _listCache.Get<PageViewModel>(cacheKey);
 
@@ -352,7 +362,7 @@ namespace Roadkill.Core.Services
 
                         _listCache.Add<PageViewModel>(cacheKey, pageModels);
                     }
-                }
+                //}
 
                 return pageModels;
             }
@@ -403,7 +413,7 @@ namespace Roadkill.Core.Services
             IEnumerable<Page> pages = Repository.FindMostRecentPages(number);
             foreach(Page page in pages)
             {
-                models.Add(GetById(page.Id));
+                models.Add(GetById(page.Id, true));
             }
             return models;
         }
@@ -419,7 +429,7 @@ namespace Roadkill.Core.Services
             IEnumerable<Page> pages = Repository.FindPagesBestRated(number);
             foreach (Page page in pages)
             {
-                models.Add(GetById(page.Id));
+                models.Add(GetById(page.Id, true));
             }
             return models;
         }
@@ -435,7 +445,7 @@ namespace Roadkill.Core.Services
             IEnumerable<Page> pages = Repository.FindPagesMostViewed(number);
             foreach (Page page in pages)
             {
-                models.Add(GetById(page.Id));
+                models.Add(GetById(page.Id, true));
             }
             return models;
         }
@@ -464,7 +474,7 @@ namespace Roadkill.Core.Services
                             if (!string.IsNullOrEmpty(tagName))
                             {
                                 // tags starting with "___" are reserved (___contact, ___about, ___privacy, ...)
-                                if (tagName.Substring(0, 3) != "___")
+                                if (tagName.Length >= 2 && tagName.Substring(0, 2) != "__")
                                 {
                                     TagViewModel tagModel = new TagViewModel(tagName);
                                     int index = tags.IndexOf(tagModel);
@@ -506,6 +516,21 @@ namespace Roadkill.Core.Services
                 try
                 {
                     _searchService.Delete(model);
+
+                    //update caches
+
+                    // remove tag caches (no matter the other pages for the tag)
+                    foreach (string tag in model.Tags)
+                    {
+                        if (!string.IsNullOrWhiteSpace(tag))
+                        {
+                            string cacheKey = CacheKeys.PagesByTagKey(tag);
+                            _listCache.Remove(cacheKey);
+                        }
+                    }
+
+                    // remove page
+
                 }
                 catch (SearchException ex)
                 {
@@ -550,6 +575,16 @@ namespace Roadkill.Core.Services
                 // Remove everything for now, to avoid reciprocal link issues
                 _listCache.RemoveAll();
                 _pageViewModelCache.RemoveAll();
+
+                // Remove from competitions
+                Repository.DeletCompetitionPage(pageId);
+
+                // Remove comments and ratings
+                Repository.DeleteComments(pageId);
+
+                // Remove  alerts
+                Repository.DeletePageAlerts(pageId);
+
             }
             catch (DatabaseException ex)
             {
@@ -558,32 +593,14 @@ namespace Roadkill.Core.Services
         }
 
         /// <summary>
-        /// Deletes a page from the database.
+        /// 
         /// </summary>
-        /// <param name="pageId">The id of the page to remove.</param>
-        /// <exception cref="DatabaseException">An databaseerror occurred while deleting the page.</exception>
-        //public void SubmitPage(int pageId)
-        //{
-        //    try
-        //    {
-        //        Page page = Repository.GetPageById(pageId);
-        //        page.IsControlled = false;
-        //        page.IsRejected = false;
-        //        page.IsSubmitted = true;
-        //        Repository.SaveOrUpdatePage(page);
-        //    }
-        //    catch (DatabaseException ex)
-        //    {
-        //        throw new DatabaseException(ex, "An error occurred while submitting the page id {0} from the database", pageId);
-        //    }
-        //}
-
-        /// <summary>
-        /// Validates a page from the database.
-        /// </summary>
-        /// <param name="pageId">The id of the page to validate.</param>
-        /// <exception cref="DatabaseException">An databaseerror occurred while deleting the page.</exception>
-        public void ValidatePage(int pageId, string controllerName, int controllerRating, string tags=null)
+        /// <param name="pageId"></param>
+        /// <param name="controllerName"></param>
+        /// <param name="controllerRating"></param>
+        /// <param name="isInCompetition">-1 if not involved in a competition</param>
+        /// <param name="tags"></param>
+        public void ValidatePage(int pageId, string controllerName, int controllerRating, bool isInCompetition, string tags=null)
         {
             try
             {
@@ -593,6 +610,7 @@ namespace Roadkill.Core.Services
                 page.IsSubmitted = false;
                 page.ControlledBy = controllerName;
                 page.PublishedOn = DateTime.UtcNow;
+                //TODO check competition
 
                 // Nb view,
                 // after validation, nb view = min 2
@@ -602,9 +620,9 @@ namespace Roadkill.Core.Services
                 }
 
                 // Controller Rating
-                // take ControllerRating into account only if there is no rating yet
-                // i.e. first control
-                if (page.NbRating == 0)
+                // take ControllerRating into account only if there is no rating yet, i.e. first control
+                // and if the controller has set the rating
+                if (page.NbRating == 0 && controllerRating > 0)
                 {
                     page.ControllerRating = controllerRating;
                     page.TotalRating = controllerRating ;
@@ -615,17 +633,32 @@ namespace Roadkill.Core.Services
                 {
                     page.Tags = tags; //TODO add controller tags to user tags, dont ecrase
                 }
+
+                // save competition Id if participation
+                page.CompetitionId = -1;
+                if (isInCompetition)
+                {
+                    var competition = Repository.GetCompetitionByStatus((int)CompetitionViewModel.Statuses.PublicationOngoing);
+                    if (competition != null)
+                    {
+                        page.CompetitionId = competition.Id;
+                    }
+                }
+
                 Repository.SaveOrUpdatePage(page);
 
-                //Update Lucene only when controlled
-                PageViewModel model = GetById(pageId, true);
-                try
+                //Update Lucene only when controlled, but not in competition (see CompetitionService.Achieve()
+                if (!isInCompetition)
                 {
-                    _searchService.Add(model);
-                }
-                catch (SearchException)
-                {
-                    // TODO: log
+                    PageViewModel model = GetById(pageId, true);
+                    try
+                    {
+                        _searchService.Add(model);
+                    }
+                    catch (SearchException)
+                    {
+                        // TODO: log
+                    }
                 }
             }
             catch (DatabaseException ex)
@@ -666,46 +699,9 @@ namespace Roadkill.Core.Services
             }
         }
 
-        /// <summary>
-        /// Rejects a page from the database.
-        /// </summary>
-        /// <param name="pageId">The id of the page to reject.</param>
-        /// <exception cref="DatabaseException">An databaseerror occurred while deleting the page.</exception>
-        //public void RejectPage(int pageId)
-        //{
-        //    try
-        //    {
-        //        Page page = Repository.GetPageById(pageId);
-        //        page.IsControlled = true;
-        //        page.IsRejected = true;
-        //        Repository.SaveOrUpdatePage(page);
-        //    }
-        //    catch (DatabaseException ex)
-        //    {
-        //        throw new DatabaseException(ex, "An error occurred while rejecting the page id {0} from the database", pageId);
-        //    }
-        //}
-
-        /// <summary>
-        /// Rejects a page from the database.
-        /// </summary>
-        /// <param name="pageId">The id of the page to reject.</param>
-        /// <exception cref="DatabaseException">An databaseerror occurred while deleting the page.</exception>
-        //public void DeletPageAlerts(int pageId) //TODO with new table
-        //{
-        //    try
-        //    {
-        //        Repository.DeletPageAlerts(pageId);
-        //    }
-        //    catch (DatabaseException ex)
-        //    {
-        //        throw new DatabaseException(ex, "An error occurred while reseting alerts of the page id {0} from the database", pageId);
-        //    }
-        //}
-
         public void DeletCommentAlerts(Guid commentGuid)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         /// <summary>
@@ -903,7 +899,11 @@ namespace Roadkill.Core.Services
                             }
                         }
 
+                        // needed for display through url /wiki/Id
                         pageModel.AllComments = FindAllCommentByPage(id);
+                        pageModel.Ranking = Repository.GetPageRanking(id);
+                        pageModel.UserHits = Repository.GetUserHits(page.CreatedBy);
+
                         _pageViewModelCache.Add(id, pageModel);
 
                         return pageModel;
@@ -937,6 +937,19 @@ namespace Roadkill.Core.Services
                 page.IsControlled = model.IsControlled;
                 page.IsRejected = model.IsRejected;
                 page.IsSubmitted = model.IsSubmitted;
+
+                // The participation to competition can be set only when publication is ongoing
+                // "update" implies participation to the current competition --> it depends on the competition status
+                page.CompetitionId = -1;
+                if (model.IsInCompetition)
+                {
+                    // save competition Id
+                    var competition = Repository.GetCompetitionByStatus((int)CompetitionViewModel.Statuses.PublicationOngoing);
+                    if (competition != null)
+                    {
+                        page.CompetitionId = competition.Id;
+                    }
+                }
 
                 //page.ControllerRating = model.ControllerRating; edit page doesn't change the controller rating
                 //page.IsVideo = model.IsVideo;
@@ -1206,11 +1219,6 @@ namespace Roadkill.Core.Services
             try
             {
                 Repository.AddComment(comment);
-                if (comment.Rating != 0)
-                {
-                    Repository.AddPageRating(comment.PageId, comment.Rating);
-                }
-
             }
             catch (DatabaseException ex)
             {
@@ -1259,7 +1267,7 @@ namespace Roadkill.Core.Services
         {
             try
             {
-                List<Comment> comments = (List<Comment>)Repository.FindCommentsByPage(pageId);
+                List<Comment> comments = Repository.FindCommentsByPage(pageId).ToList();
                 return comments;
             }
             catch (DatabaseException ex)
@@ -1288,60 +1296,60 @@ namespace Roadkill.Core.Services
         /// <summary>
         /// Adds the page to the database.
         /// </summary>
-        public int AddFakePageForTest(int number, bool isVideo, string user)
-        {
-            try
-            {
-                string currentUser = _context.CurrentUsername;
+        //public int AddFakePageForTest(int number, bool isVideo, string user)
+        //{
+        //    try
+        //    {
+        //        string currentUser = _context.CurrentUsername;
 
-                Page page = new Page();
-                page.Title = "Title for the page n° " + number;
-                //page.Summary = "This is a short summary to say that it is a page test and nothing more";
-                page.Tags = "";
-                page.CreatedBy = user;
-                page.CreatedOn = DateTime.UtcNow;
-                page.PublishedOn = DateTime.UtcNow;
-                page.ControlledBy = user;
-                //page.IsVideo = isVideo;
-                string content = "";
+        //        Page page = new Page();
+        //        page.Title = "Title for the page n° " + number;
+        //        //page.Summary = "This is a short summary to say that it is a page test and nothing more";
+        //        page.Tags = "";
+        //        page.CreatedBy = user;
+        //        page.CreatedOn = DateTime.UtcNow;
+        //        page.PublishedOn = DateTime.UtcNow;
+        //        page.ControlledBy = user;
+        //        //page.IsVideo = isVideo;
+        //        string content = "";
 
-                    content =
-                        "Mésange est un nom vernaculaire ambigu en français. Les mésanges sont pour la plupart des passereaux de la famille des Paridés. Ce sont de petits oiseaux actifs, au bec court, de forme assez trapue. Elles sont arboricoles, insectivores et granivores. Le mâle et la femelle sont semblables ; les jeunes ressemblent aux adultes. " +
-                        "Elles nichent dans des trous d'arbres, mais utilisent souvent les nichoirs dans les jardins. Elles sont très sociables et fréquentent volontiers les mangeoires en hiver. " +
-                        "Anciennement, la majorité des espèces appartenait au genre Parus. Elles figurent actuellement au sein de ce genre et de quatre autres : Cyanistes, Lophophanes, Periparus et Poecile. La mésange à longue queue fait, quant à elle, partie de la famille des Aegithalidae. ";
+        //            content =
+        //                "Mésange est un nom vernaculaire ambigu en français. Les mésanges sont pour la plupart des passereaux de la famille des Paridés. Ce sont de petits oiseaux actifs, au bec court, de forme assez trapue. Elles sont arboricoles, insectivores et granivores. Le mâle et la femelle sont semblables ; les jeunes ressemblent aux adultes. " +
+        //                "Elles nichent dans des trous d'arbres, mais utilisent souvent les nichoirs dans les jardins. Elles sont très sociables et fréquentent volontiers les mangeoires en hiver. " +
+        //                "Anciennement, la majorité des espèces appartenait au genre Parus. Elles figurent actuellement au sein de ce genre et de quatre autres : Cyanistes, Lophophanes, Periparus et Poecile. La mésange à longue queue fait, quant à elle, partie de la famille des Aegithalidae. ";
 
               
-                page.Pseudonym = null;
-                page.IsControlled = false;
-                page.IsRejected = false;
-                page.IsSubmitted = false;
-                page.IsLocked = false;
-                page.FilePath = DateTime.UtcNow.ToString("yyyy-MM") + "\\" + _context.CurrentUsername;
+        //        page.Pseudonym = null;
+        //        page.IsControlled = false;
+        //        page.IsRejected = false;
+        //        page.IsSubmitted = false;
+        //        page.IsLocked = false;
+        //        page.FilePath = DateTime.UtcNow.ToString("yyyy-MM") + "\\" + _context.CurrentUsername;
 
 
-                PageContent pageContent = Repository.AddNewPage(page, content, AppendIpForDemoSite(currentUser), DateTime.UtcNow);
+        //        PageContent pageContent = Repository.AddNewPage(page, content, AppendIpForDemoSite(currentUser), DateTime.UtcNow);
 
-                _listCache.RemoveAll();
-                _pageViewModelCache.RemoveAll(); // completely clear the cache to update any reciprocal links.
+        //        _listCache.RemoveAll();
+        //        _pageViewModelCache.RemoveAll(); // completely clear the cache to update any reciprocal links.
 
-                // Update the lucene index
-                PageViewModel savedModel = new PageViewModel(pageContent, _markupConverter);
-                try
-                {
-                    _searchService.Add(savedModel);
-                }
-                catch (SearchException)
-                {
-                    // TODO: log
-                }
+        //        // Update the lucene index
+        //        PageViewModel savedModel = new PageViewModel(pageContent, _markupConverter);
+        //        try
+        //        {
+        //            _searchService.Add(savedModel);
+        //        }
+        //        catch (SearchException)
+        //        {
+        //            // TODO: log
+        //        }
 
-                return pageContent.Page.Id;
-            }
-            catch (DatabaseException e)
-            {
-                throw new DatabaseException(e, "An error occurred while adding page to the database");
-            }
-        }
+        //        return pageContent.Page.Id;
+        //    }
+        //    catch (DatabaseException e)
+        //    {
+        //        throw new DatabaseException(e, "An error occurred while adding page to the database");
+        //    }
+        //}
 
         public void IncrementNbView(int pageId)
         {
@@ -1410,14 +1418,23 @@ namespace Roadkill.Core.Services
                 {
                     Repository.RemovePageRating(pageId, comment.Rating);
                 }
+                // if not rated or rating removed, add
+                else
+                {
+                    Repository.AddPageRating(comment.PageId, rating);
+                }
 
                 // add new rating only if it is a rating (rating != 0)
-                Repository.UpdateRating(comment.Id, rating);
+                Repository.UpdateCommentRating(comment.Id, rating);
             }
             else
             {
                 comment = new Comment(pageId, username, rating, "");
                 AddComment(comment);
+
+                // update page table
+                Repository.AddPageRating(comment.PageId, comment.Rating);
+
             }
         }
 
@@ -1485,5 +1502,34 @@ namespace Roadkill.Core.Services
             }
             return "";
         }
+
+        public List<PageAndUserRatingViewModel> FindPagesByCompetition(int competitionId, string userName)
+        {
+            try 
+            {
+                List<PageAndUserRatingViewModel> list = new List<PageAndUserRatingViewModel>();
+                List<Page> pages = Repository.FindPagesByCompetitionId(competitionId).ToList();
+                foreach( Page page in pages)
+                {
+                    // only controlled pages
+                    if (page.IsControlled)
+                    { 
+                        int rating = 0;
+                        if (userName != null && userName != "")
+                        {
+                            rating = Repository.GetRatingByPageAndUser(page.Id, userName);
+                        }
+                        list.Add(new PageAndUserRatingViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter, rating));
+                    }
+                }
+
+                return list;
+            }
+            catch (DatabaseException ex)
+            {
+                throw new DatabaseException(ex, "An error occurred while retrieving all pages created by {0} from the database", userName);
+            }
+        }
+
     }
 }

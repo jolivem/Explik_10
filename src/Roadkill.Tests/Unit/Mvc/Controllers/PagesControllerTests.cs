@@ -10,6 +10,7 @@ using Roadkill.Core.Converters;
 using Roadkill.Core.Database;
 using Roadkill.Core.Services;
 using Roadkill.Core.Mvc.ViewModels;
+using Roadkill.Core.Email;
 
 namespace Roadkill.Tests.Unit
 {
@@ -33,8 +34,11 @@ namespace Roadkill.Tests.Unit
 		private IPageService _pageService;
 		private MvcMockContainer _mocksContainer;
 		private PagesController _pagesController;
+        private PublishPageEmail _publishPageEmail;
+        private RejectPageEmail _rejectPageEmail;
+        private CompetitionService _competitionService;
 
-		[SetUp]
+        [SetUp]
 		public void Setup()
 		{
 			_container = new MocksAndStubsContainer();
@@ -47,9 +51,13 @@ namespace Roadkill.Tests.Unit
 			_historyService = _container.HistoryService;
 			_markupConverter = _container.MarkupConverter;
 			_searchService = _container.SearchService;
+            _publishPageEmail = _container.PublishPageEmail;
+            _rejectPageEmail = _container.RejectPageEmail;
+            _competitionService = _container.CompetitionService;
 
-			// Use a stub instead of the MocksAndStubsContainer's default
-			_contextStub = new UserContextStub();
+
+            // Use a stub instead of the MocksAndStubsContainer's default
+            _contextStub = new UserContextStub();
 
 			// Customise the page service so we can verify what was called
 			_pageServiceMock = new Mock<IPageService>();
@@ -71,7 +79,8 @@ namespace Roadkill.Tests.Unit
 			_pageServiceMock.Setup(x => x.FindByTag(It.IsAny<string>()));
 			_pageService = _pageServiceMock.Object;
 
-			_pagesController = new PagesController(_applicationSettings, _userService, _settingsService, _pageService, _searchService, _historyService, _contextStub, _repository);
+			_pagesController = new PagesController(_applicationSettings, _userService, _settingsService, _pageService, _searchService, _historyService, _contextStub, _repository,
+                _publishPageEmail, _rejectPageEmail, _competitionService);
 			_mocksContainer = _pagesController.SetFakeControllerContext();
 		}
 

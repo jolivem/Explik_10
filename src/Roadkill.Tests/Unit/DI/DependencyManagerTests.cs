@@ -12,7 +12,6 @@ using Roadkill.Core.Configuration;
 using Roadkill.Core.Converters;
 using Roadkill.Core.Database;
 using Roadkill.Core.Database.LightSpeed;
-using Roadkill.Core.Database.MongoDB;
 using Roadkill.Core.DI;
 using Roadkill.Core.Import;
 using Roadkill.Core.Mvc.Attributes;
@@ -198,22 +197,6 @@ namespace Roadkill.Tests.Unit
 		}
 
 		[Test]
-		public void Should_Load_Custom_Repository_From_DatabaseType()
-		{
-			// Arrange
-			ApplicationSettings applicationSettings = new ApplicationSettings();
-			applicationSettings.DataStoreType = DataStoreType.MongoDB;
-			DependencyManager container = new DependencyManager(applicationSettings);
-
-			// Act
-			container.Configure();
-
-			// Assert
-			IRepository respository = ObjectFactory.GetInstance<IRepository>();
-			Assert.That(respository, Is.TypeOf<MongoDBRepository>());
-		}
-
-		[Test]
 		public void Should_Fill_ISetterInjected_Properties()
 		{
 			// Arrange + Act
@@ -268,24 +251,6 @@ namespace Roadkill.Tests.Unit
 			// Assert
 			UserServiceBase userManager = ObjectFactory.GetInstance<UserServiceBase>();
 			Assert.That(userManager.GetType().FullName, Is.EqualTo("Roadkill.Tests.UserServiceStub"));
-		}
-
-		[Test]
-		[Explicit]
-		public void MongoDB_databaseType_Should_Load_Repository()
-		{
-			// Arrange
-			Mock<IRepository> mockRepository = new Mock<IRepository>();
-			Mock<IUserContext> mockContext = new Mock<IUserContext>();
-			ApplicationSettings settings = new ApplicationSettings();
-			settings.DataStoreType = DataStoreType.MongoDB;
-
-			// Act
-			DependencyManager iocContainer = new DependencyManager(settings, mockRepository.Object, mockContext.Object);
-			iocContainer.Configure();
-
-			// Assert
-			Assert.That(ServiceLocator.GetInstance<UserServiceBase>(), Is.TypeOf(typeof(FormsAuthUserService)));
 		}
 
 		[Test]
