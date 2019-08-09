@@ -276,17 +276,20 @@ namespace Roadkill.Core.Mvc.Controllers
 					// Check if it's an allowed extension
 					if (allowedExtensions.Contains(extension))
 					{
-						string fullFilePath = Path.Combine(physicalPath, sourceFile.FileName);
+                        // sourceFile.FileName is with the path
+                        string _fileName_ = Path.GetFileName(sourceFile.FileName);
+                        string fullFilePath = Path.Combine(physicalPath, _fileName_);
 
 						// Check if it exists on disk already
-						if (!siteSettings.OverwriteExistingFiles)
-						{
-							 if (System.IO.File.Exists(fullFilePath))
-							 {
-								 string errorMessage = string.Format(SiteStrings.FileManager_Upload_FileAlreadyExists, sourceFile.FileName);
-								 return Json(new { status = "error", message = errorMessage }, "text/plain");
-							 }
-						}
+						//if (!siteSettings.OverwriteExistingFiles)
+						//{
+						//	 if (System.IO.File.Exists(fullFilePath))
+						//	 {
+      //                          // do nothing
+						//		 //string errorMessage = string.Format(SiteStrings.FileManager_Upload_FileAlreadyExists, sourceFile.FileName);
+						//		 //return Json(new { status = "error", message = errorMessage }, "text/plain");
+						//	 }
+						//}
 
 						sourceFile.SaveAs(fullFilePath);
 						fileName = sourceFile.FileName;

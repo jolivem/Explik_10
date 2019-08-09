@@ -48,15 +48,16 @@ namespace Roadkill.Core.Mvc
 
 		private static void IncludeJQueryScripts(ScriptBundle jsBundle)
 		{
-			jsBundle.Include("~/Assets/Scripts/jquery/additional-methods.js");
-			jsBundle.Include("~/Assets/Scripts/jquery/jquery-1.9.1.js");
+			jsBundle.Include("~/Assets/Scripts/jquery/additional-methods-1.11.1.js");
+            jsBundle.Include("~/node_modules/jquery/dist/jquery.js");
+            //jsBundle.Include("~/Assets/Scripts/jquery/jquery-1.9.1.js");
 			jsBundle.Include("~/Assets/Scripts/jquery/jquery-ui-1.10.3.custom.js");
 			jsBundle.Include("~/Assets/Scripts/jquery/jquery.fieldSelection.js");
 			jsBundle.Include("~/Assets/Scripts/jquery/jquery.fileupload.js");
 			jsBundle.Include("~/Assets/Scripts/jquery/jquery.form-extensions.js");
 			jsBundle.Include("~/Assets/Scripts/jquery/jquery.iframe-transport.js");
 			jsBundle.Include("~/Assets/Scripts/jquery/jquery.timeago.js");
-			jsBundle.Include("~/Assets/Scripts/jquery/jquery.validate.js");
+			jsBundle.Include("~/Assets/Scripts/jquery/jquery.validate-1.11.1.js");
 		}
 
 		private static void IncludeRoadkillScripts(ScriptBundle jsBundle)
