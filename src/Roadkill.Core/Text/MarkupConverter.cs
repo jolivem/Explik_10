@@ -99,23 +99,26 @@ namespace Roadkill.Core.Converters
 				markupType = siteSettings.MarkupType.ToLower();
 			}
 
-			switch (markupType)
-			{
-				case "markdown":
-					_parser = new MarkdownParser();
-					break;
+            // tui-editor is with markdown
+            _parser = new MarkdownParser();
 
-				case "mediawiki":
-					_parser = new MediaWikiParser(_applicationSettings, siteSettings);
-					break;
+            //switch (markupType)
+            //{
+            //	case "markdown":
+            //		_parser = new MarkdownParser();
+            //		break;
 
-				case "creole":
-				default:
-					_parser = new CreoleParser(_applicationSettings, siteSettings);
-					break;
-			}
+            //	case "mediawiki":
+            //		_parser = new MediaWikiParser(_applicationSettings, siteSettings);
+            //		break;
 
-			_parser.LinkParsed += LinkParsed;
+            //	case "creole":
+            //	default:
+            //		_parser = new CreoleParser(_applicationSettings, siteSettings);
+            //		break;
+            //}
+
+            _parser.LinkParsed += LinkParsed;
 			_parser.ImageParsed += ImageParsed;
 		}
 
