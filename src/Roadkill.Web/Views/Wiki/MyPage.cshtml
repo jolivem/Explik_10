@@ -15,6 +15,7 @@
     </div>
 </div>
 
+
 <!-- Viewer Dependencies -->
 @*<script src="../lib/jquery/dist/jquery.js"></script>*@
 @*<script src="../lib/markdown-it/dist/markdown-it.js"></script>*@
@@ -22,79 +23,94 @@
 @*<script src="../lib/highlightjs/highlight.pack.js"></script>*@
 @*<link rel="stylesheet" href="../lib/highlightjs/styles/github.css">*@
 @*<script src="../dist/tui-editor-Viewer.js"></script>
-<link rel="stylesheet" href="../dist/tui-editor-contents.css">*@
+    <link rel="stylesheet" href="../dist/tui-editor-contents.css">*@
+
+@*<script src="~/node_modules/markdown-it/dist/markdown-it.js?v=@(myGuid)"></script>
+    <script src="~/node_modules/tui-code-snippet/dist/tui-code-snippet.js?v=@(myGuid)"></script>
+    <script src="~/node_modules/highlight.js/lib/highlight.js?v=@(myGuid)"></script>
+    <script src="~/node_modules/tui-editor/dist/tui-editor-Editor.js?v=@(myGuid)"></script>
+    <link rel="stylesheet" href="~/node_modules/highlight.js/styles/github.css">*@
+
 
 <script src="~/node_modules/markdown-it/dist/markdown-it.js?v=@(myGuid)"></script>
+<script src="~/node_modules/to-mark/dist/to-mark-explik.js?v=@(myGuid)"></script>
+<script src="~/node_modules/to-mark/dist/to-mark.js?v=@(myGuid)"></script>
 <script src="~/node_modules/tui-code-snippet/dist/tui-code-snippet.js?v=@(myGuid)"></script>
+<script src="~/node_modules/codemirror/lib/codemirror.js?v=@(myGuid)"></script>
 <script src="~/node_modules/highlight.js/lib/highlight.js?v=@(myGuid)"></script>
+<script src="~/node_modules/squire-rte/build/squire-raw.js?v=@(myGuid)"></script>
+<script src="~/node_modules/tui-editor/dist/tui-editor-Viewer.js?v=@(myGuid)"></script>
+<script src="~/Assets/Scripts/jquery/tui-editor-extYoutube.js?v=@(myGuid)"></script>
+<link rel="stylesheet" href="~/node_modules/codemirror/lib/codemirror.css">
 <link rel="stylesheet" href="~/node_modules/highlight.js/styles/github.css">
+<link rel="stylesheet" href="~/node_modules/tui-editor/dist/tui-editor.css">
+<link rel="stylesheet" href="~/node_modules/tui-editor/dist/tui-editor-contents.css">
+<link href="~/Plugins/SyntaxHighlighter/css/shCore.css?version=1.0" rel="stylesheet" type="text/css" />
+<link href="~/Plugins/SyntaxHighlighter/css/shThemeMidnight.css?version=1.0" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shCore.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushAppleScript.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushAS3.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushBash.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushColdFusion.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushCpp.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushCSharp.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushCss.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushDelphi.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushDiff.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushErlang.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushGroovy.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushJava.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushJavaFX.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushJScript.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushPerl.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushPhp.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushPlain.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushPowerShell.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushPython.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushRuby.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushSass.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushScala.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushSql.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushVb.js",
+"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushXml.js",
+        "@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushTS.js", function () { SyntaxHighlighter.all(); })
+</script>
+
+
 
 <!-- Viewer -->
-<script src="~/node_modules/tui-editor/dist/tui-editor-Viewer.js"></script>
-<link rel="stylesheet" href="../dist/tui-editor-contents.css">
+@*<script src="~/node_modules/tui-editor/dist/tui-editor-Viewer.js?v=@(myGuid)"></script>
+<script src="~/Assets/Scripts/jquery/tui-editor-extYoutube.js?v=@(myGuid)"></script>*@
+
 
 <script type="text/javascript">
     $(document).ready(function () {
 
         $('#Content').hide();
-
-        //mdIt.block.ruler.before('fence', 'rk_fence', rk_fence, { alt: ['paragraph', 'reference', 'blockquote', 'list'] });
-        //mdItHighlight.block.ruler.before('fence', 'rk_fence', rk_fence, { alt: ['paragraph', 'reference', 'blockquote', 'list'] });
-        //mdIt.disable('fence');
-        //mdItHighlight.disable('fence');
-
+        var origMD = $('#Content').val();
         var theEditor = new tui.Editor({
-            el: document.querySelector('#editSection'),
+            el: document.querySelector('#viewSection'),
             height: '300px',
+            exts: ['youtube'],
         });
 
-        @*editor.setValue('@Model.Content');*@
-        var origMD = $('#Content').val();
+        
         theEditor.setMarkdown(origMD, false);
-
-        // Transform and set the markdown in the wysiwyg
-        //theEditor.setMarkdown(toStdMarkdown(origMD), false);
-        // When switching to markdown mode we have to run a minimal markdown transformation
-        //theEditor.eventManager.listen('changeModeToMarkdown', function () {
-        //    theEditor.setMarkdown(origMD, false);
-        //    SyntaxHighlighter.highlight();
-        //});
-
-        //theEditor.eventManager.listen('changeModeBefore', function (currentMode) {
-        //    // If a changeMode event was fired, and we're in markdown mode, that means we're about to switch to wysiwyg mode
-        //    if (currentMode === 'markdown') {
-        //        // Set the markdown to use the codemirror-compatible code block markdown
-        //        theEditor.setMarkdown(toStdMarkdown(origMD), false);
-        //    }
-        //});
-
-        // If a developer somehow changed the value in the hidden form field
-        //$('#Content').on('change keyup paste mouseup', function () {
-        //    if ($(this).val() != origMD) {
-        //        // Propegate changes to wysiwyg editor via the transformed markdown
-        //        origMD = $(this).val();
-        //        theEditor.setMarkdown(toStdMarkdown(origMD), false);
-        //    }
-        //});
-
-        // Transform CommonMark to standard markdown
-        //function toStdMarkdown(commonMarkdown) {
-        //    return commonMarkdown
-        //        .replace(/&#/g, '&amp;#');                           // TUI entity escape
-        //}
 
     });
 </script>
 
 <div class="row">
     <div class="col-sm-9">
-        <textarea id="Content">@Model.Content</textarea>
-        <div id="editSection"></div>
+        <div id="viewSection"></div>
         @*<div id="pagecontent">
-            @MvcHtmlString.Create(Model.ContentAsHtml)
-        </div>*@
+                @MvcHtmlString.Create(Model.ContentAsHtml)
+            </div>*@
     </div>
-    </div>
+</div>
+        <textarea id="Content">@Model.Content</textarea>
 
 
 <div class="row">
