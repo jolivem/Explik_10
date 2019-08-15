@@ -47,9 +47,11 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
 "@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushSql.js",
 "@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushVb.js",
 "@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushXml.js",
-    "@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushTS.js", function () { SyntaxHighlighter.all(); })</script>
+        "@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushTS.js", function () { SyntaxHighlighter.all(); })
+</script>
+
 <script type="text/javascript">
-	$(document).ready(function () {
+    $(document).ready(function () {
         // KW: Tui Editor initialization
         // Hide some of the original form and form-related elements
         $('#Content').hide();
@@ -60,16 +62,45 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
         var editPage = new Roadkill.Web.EditPage(pageTags);
         var origMD = $('#Content').val();
 
+        // Transform CommonMark to standard markdown
+        function toStdMarkdown(commonMarkdown) {
+            return commonMarkdown
+                .replace(/&#/g, '&amp;#');                           // TUI entity escape
+        }
 
+        // Roadkill-compatible image urls token-rendering rule
+        function rk_image_renderer (tokens, idx, options, env, slf) {
+            var token = tokens[idx];
+            token.attrs[token.attrIndex('alt')][1] =
+                slf.renderInlineAsText(token.children, options, env);
+
+            var src = token.attrs[token.attrIndex('src')][1];
+            //console.log('img src before: ' + src);
+            if (src.indexOf("Attachments") < 0) {
+                token.attrs[token.attrIndex('src')][1] = src.replace(/(.+)/, '@(Url.Content("~/Attachments/" + RoadkillContext.AttachmentsPath))$1');
+            }
+
+
+            //token.attrs[token.attrIndex('src')][1] = src.replace(/(.+)/, '@(Url.Content("~/"))$1');
+            //console.log('img src after: ' + token.attrs[token.attrIndex('src')][1]);
+            //Context.AttachmentsPath
+                return slf.renderToken(tokens, idx, options);
+        }
+
+        var mdItHighlight = tui.Editor.markdownitHighlight,
+        mdIt = tui.Editor.markdownit;
+
+        mdItHighlight.renderer.rules.image = rk_image_renderer;
+        mdIt.renderer.rules.image = rk_image_renderer;
 
         var theEditor = new tui.Editor({
             el: document.querySelector('#editSection'),
             initialEditType: 'wysiwyg',
             previewStyle: 'vertical',
             height: '600px',
-            exts: ['youtube'],
-            //usageStatistics: false,
-            //useDefaultHTMLSanitizer: false,
+            exts: ['youtube', 'chart', 'uml'],
+            usageStatistics: false,
+            useDefaultHTMLSanitizer: false,
             codeBlockLanguages: [ //needed otherwise scrollView exception
                 'actionscript',
             //    'bash',
@@ -94,7 +125,7 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
             //    'vbnet',
             //    'xml'
             ],
-             hooks: {
+            hooks: {
                 // Inserting images via wysiwyg
                 addImageBlobHook: function (blob, callback) {
                 // New web form w params
@@ -103,8 +134,8 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
                 fd.append('files[]', blob);
 
                     // POST webform with inserted file to the upload controller
-                $.ajax({
-                    url: '@(Url.Content("~/"))FileManager/Upload',
+                    $.ajax({
+                        url: '@(Url.Content("~/"))FileManager/Upload',
                         data: fd,
                         processData: false,
                         contentType: false,
@@ -123,10 +154,10 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
                         error: function (xhr, err) {
                             alert("Error from uploader API");
                         }
-                });
+                    });
 
                 return false;
-             }
+                }
             },
             toolbarItems: [
               'heading',
@@ -141,18 +172,17 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
               'divider',
               'image',
               'link',
-              //'divider',
-              //'code',
-              //'codeblock',
-              //'table'
+              'divider',
+              'code',
+              'codeblock',
+              'table'
             ]
         });
 
         theEditor.setMarkdown(origMD, false);
-
-     });
-
+    });
 </script>
+
 <style>
     .searchbar {
         display: none;
