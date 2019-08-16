@@ -12,6 +12,13 @@
 <script src="~/node_modules/highlight.js/lib/highlight.js?v=@(myGuid)"></script>
 <script src="~/node_modules/squire-rte/build/squire-raw.js?v=@(myGuid)"></script>
 <script src="~/node_modules/tui-editor/dist/tui-editor-Editor.js?v=@(myGuid)"></script>
+
+<!-- chart extention
+<script src="~/node_modules/raphael/raphael.js"></script>
+<script src="~/node_modules/tui-chart/dist/tui-chart-polyfill.js?v=@(myGuid)"></script>
+<script src="~/node_modules/tui-editor/dist/tui-editor-extChart.js?v=@(myGuid)"></script>
+<link rel="stylesheet" href="~/node_modules/tui-chart/dist/tui-chart.css"> -->
+
 <script src="~/Assets/Scripts/jquery/tui-editor-extYoutube.js?v=@(myGuid)"></script>
 <link rel="stylesheet" href="~/node_modules/codemirror/lib/codemirror.css">
 <link rel="stylesheet" href="~/node_modules/highlight.js/styles/github.css">
@@ -61,12 +68,6 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
 		var pageTags = [ @(Html.Raw(Model.JavascriptArrayForAllTags())) ];
         var editPage = new Roadkill.Web.EditPage(pageTags);
         var origMD = $('#Content').val();
-
-        // Transform CommonMark to standard markdown
-        function toStdMarkdown(commonMarkdown) {
-            return commonMarkdown
-                .replace(/&#/g, '&amp;#');                           // TUI entity escape
-        }
 
         // Roadkill-compatible image urls token-rendering rule
         function rk_image_renderer (tokens, idx, options, env, slf) {
@@ -220,8 +221,7 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
                 </div>
             }
 
-            @Html.Partial("WysiwgToolbar")
-            @(Html.TextAreaFor<PageViewModel, string>(p => p.Content, new { @class = "form-control", tabindex = 5 }))
+             @(Html.TextAreaFor<PageViewModel, string>(p => p.Content, new { @class = "form-control", tabindex = 5 }))
 
             <div id="editpage-button-container" class="row">
                 <div class="col-sm-1">
@@ -240,20 +240,8 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
                 </div>
             </div>
 
-            @Html.DialogPartial("ChooseImage")
-            @Html.DialogPartial("MarkupHelp")
         </form>
     </div>
 
-    <!-- Preview panel -->
-    <div class="col-lg-6" id="previewpanel-container">
-        <div id="previewpanel-inner" class="panel panel-default">
-            <div id="preview-heading" class="panel-heading">@SiteStrings.EditPage_Preview</div>
-            <div class="panel-body" id="preview-wrapper">
-                <div id="previewLoading" class="hide"><img src="@(Url.Content("~/Assets/Images/white-loading.gif"))" border="0" alt="loading" /></div>
-                <div id="preview"><br class="clear" /></div>
-            </div>
-        </div>
-    </div>
 </div>
 
