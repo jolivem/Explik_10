@@ -126,6 +126,15 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
             //    'vbnet',
             //    'xml'
             ],
+            events: {
+                change: function () {
+                    origMD = theEditor.getMarkdown()
+                        .replace(/`[^`]+`/gm, function (match) { return match.replace(/\\/gm, '\\\\'); }) // Escape certain chars within inline code blocks
+                        .replace(/\\([,-_.\[])/gm, '$1')    // Unescape important chars
+                        .replace(/\\\|/gm, '|');            // Unescape pipe
+                    $('#Content').val(origMD);
+                }
+            },
             hooks: {
                 // Inserting images via wysiwyg
                 addImageBlobHook: function (blob, callback) {

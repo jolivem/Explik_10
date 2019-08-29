@@ -119,7 +119,7 @@ a.external-link	{ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA
 .tm-tag						{ margin-bottom: 10px; } /* minor adjustment for tag manager alignment */
 #editpage-form textarea		{ width: 100%;height: 100px; }
 #editpage-form label		{ font-weight:normal !important;margin-top:10px;}
-#wysiwyg-toolbar			{ padding-bottom: 5px;padding-top: 15px;}
+/*#wysiwyg-toolbar			{ padding-bottom: 5px;padding-top: 15px;}*/
 #preview-wrapper			{ overflow:scroll;border:2px solid #F8F8F8;border-radius:2px;height:100%; }
 #editpage-button-container	{ padding-top:10px; }
 #editpage-save-button		{ text-align:right; }

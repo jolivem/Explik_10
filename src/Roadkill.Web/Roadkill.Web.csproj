@@ -50,7 +50,18 @@
     <Prefer32Bit>false</Prefer32Bit>
     <TypeScriptTarget>ES5</TypeScriptTarget>
     <TypeScriptIncludeComments>true</TypeScriptIncludeComments>
-    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>False</TypeScriptNoEmitOnError>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -2992,7 +3003,7 @@
     <Content Include="node_modules\squire-rte\test\blank.html" />
     <Content Include="node_modules\squire-rte\test\index.html" />
     <Content Include="node_modules\squire-rte\test\squire.spec.js" />
-    <Content Include="node_modules\to-mark\dist\to-mark-explik.js" />
+    <Content Include="node_modules\to-mark\dist\to-mark.js" />
     <Content Include="node_modules\to-mark\dist\to-mark.min.js" />
     <Content Include="node_modules\tui-chart\.eslintrc.js" />
     <Content Include="node_modules\tui-chart\dist\maps\china.js" />
@@ -3219,98 +3230,6 @@
     <Content Include="node_modules\tui-chart\src\js\themes\defaultTheme.js" />
     <Content Include="node_modules\tui-chart\src\js\themes\defaultThemesRegistration.js" />
     <Content Include="node_modules\tui-chart\src\js\themes\themeManager.js" />
-    <Content Include="node_modules\tui-chart\test\.eslintrc.js" />
-    <Content Include="node_modules\tui-chart\test\apis\barChart.api.spec.js" />
-    <Content Include="node_modules\tui-chart\test\apis\bulletChart.api.spec.js" />
-    <Content Include="node_modules\tui-chart\test\apis\lineChart.api.spec.js" />
-    <Content Include="node_modules\tui-chart\test\charts\barChart.spec.js" />
-    <Content Include="node_modules\tui-chart\test\charts\bubbleChart.spec.js" />
-    <Content Include="node_modules\tui-chart\test\charts\chartBase.spec.js" />
-    <Content Include="node_modules\tui-chart\test\charts\colorSpectrum.spec.js" />
-    <Content Include="node_modules\tui-chart\test\charts\componentManager.spec.js" />
-    <Content Include="node_modules\tui-chart\test\charts\dynamicDataHelper.spec.js" />
-    <Content Include="node_modules\tui-chart\test\charts\lineChart.spec.js" />
-    <Content Include="node_modules\tui-chart\test\charts\mapChartMapModel.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\axes\axis.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\chartExportMenu\chartExportMenu.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\legends\circleLegend.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\legends\legend.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\legends\legendModel.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\legends\spectrumLegend.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\mouseEventDetectors\areaTypeDataModel.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\mouseEventDetectors\boundsBaseCoordinateModel.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\mouseEventDetectors\groupTypeEventDetector.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\mouseEventDetectors\mapChartEventDetector.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\mouseEventDetectors\mouseEventDetectorBase.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\mouseEventDetectors\tickBaseCoordinateModel.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\mouseEventDetectors\zoomMixer.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\plots\plot.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\plots\radialPlot.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\series\areaChartSeries.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\series\barChartSeries.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\series\barTypeSeriesBase.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\series\boxPlotChartSeries.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\series\bubbleChartSeries.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\series\bulletChartSeries.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\series\columnChartSeries.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\series\heatmapChartSeries.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\series\lineTypeSeriesBase.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\series\mapChartSeries.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\series\pieChartSeries.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\series\radialSeries.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\series\renderingLabelHelper.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\series\scatterChartSeries.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\series\series.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\series\squarifier.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\series\treemapChartSeries.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\series\zoom.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\tooltips\groupTooltip.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\tooltips\groupTooltipPositionModel.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\tooltips\normalTooltip.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\tooltips\singleTooltipMixer.spec.js" />
-    <Content Include="node_modules\tui-chart\test\components\tooltips\tooltipBase.spec.js" />
-    <Content Include="node_modules\tui-chart\test\factories\chartFactory.spec.js" />
-    <Content Include="node_modules\tui-chart\test\factories\pluginFactory.spec.js" />
-    <Content Include="node_modules\tui-chart\test\helpers\calculator.spec.js" />
-    <Content Include="node_modules\tui-chart\test\helpers\chartExporter.spec.js" />
-    <Content Include="node_modules\tui-chart\test\helpers\dataExporter.spec.js" />
-    <Content Include="node_modules\tui-chart\test\helpers\domHandler.spec.js" />
-    <Content Include="node_modules\tui-chart\test\helpers\geometric.spec.js" />
-    <Content Include="node_modules\tui-chart\test\helpers\renderUtil.spec.js" />
-    <Content Include="node_modules\tui-chart\test\helpers\seriesDataImporter.spec.js" />
-    <Content Include="node_modules\tui-chart\test\helpers\templateMaker.spec.js" />
-    <Content Include="node_modules\tui-chart\test\index.js" />
-    <Content Include="node_modules\tui-chart\test\models\bounds\axisCalculator.spec.js" />
-    <Content Include="node_modules\tui-chart\test\models\bounds\boundsModel.spec.js" />
-    <Content Include="node_modules\tui-chart\test\models\bounds\circleLegendCalculator.spec.js" />
-    <Content Include="node_modules\tui-chart\test\models\bounds\legendCalculator.spec.js" />
-    <Content Include="node_modules\tui-chart\test\models\bounds\seriesCalculator.spec.js" />
-    <Content Include="node_modules\tui-chart\test\models\data\dataProcessor.spec.js" />
-    <Content Include="node_modules\tui-chart\test\models\data\mapChartDataProcessor.spec.js" />
-    <Content Include="node_modules\tui-chart\test\models\data\rawDataHandler.spec.js" />
-    <Content Include="node_modules\tui-chart\test\models\data\seriesDataModel.spec.js" />
-    <Content Include="node_modules\tui-chart\test\models\data\seriesDataModelForBullet.spec.js" />
-    <Content Include="node_modules\tui-chart\test\models\data\seriesDataModelForTreemap.spec.js" />
-    <Content Include="node_modules\tui-chart\test\models\data\seriesGroup.spec.js" />
-    <Content Include="node_modules\tui-chart\test\models\data\seriesItem.spec.js" />
-    <Content Include="node_modules\tui-chart\test\models\scaleData\axisDataMaker.spec.js" />
-    <Content Include="node_modules\tui-chart\test\models\scaleData\coordinateScaleCalculator.spec.js" />
-    <Content Include="node_modules\tui-chart\test\models\scaleData\scaleDataMaker.spec.js" />
-    <Content Include="node_modules\tui-chart\test\models\scaleData\scaleDataModel.spec.js" />
-    <Content Include="node_modules\tui-chart\test\models\scaleData\scaleLabelFormatter.spec.js" />
-    <Content Include="node_modules\tui-chart\test\plugins\raphaelAreaChart.spec.js" />
-    <Content Include="node_modules\tui-chart\test\plugins\raphaelAxisComponent.spec.js" />
-    <Content Include="node_modules\tui-chart\test\plugins\raphaelBarChart.spec.js" />
-    <Content Include="node_modules\tui-chart\test\plugins\raphaelBulletChart.spec.js" />
-    <Content Include="node_modules\tui-chart\test\plugins\raphaelLineChart.spec.js" />
-    <Content Include="node_modules\tui-chart\test\plugins\raphaelLineTypeBase.spec.js" />
-    <Content Include="node_modules\tui-chart\test\plugins\raphaelPieChart.spec.js" />
-    <Content Include="node_modules\tui-chart\test\plugins\raphaelRenderUtil.spec.js" />
-    <Content Include="node_modules\tui-chart\test\plugins\raphaelTitleComponent.spec.js" />
-    <Content Include="node_modules\tui-chart\test\publicEvents\barChart.publicEvent.spec.js" />
-    <Content Include="node_modules\tui-chart\test\publicEvents\comboChart.publicEvent.spec.js" />
-    <Content Include="node_modules\tui-chart\test\publicEvents\lineChart.publicEvent.spec.js" />
-    <Content Include="node_modules\tui-chart\test\themes\themeManager.spec.js" />
     <Content Include="node_modules\tui-chart\tsBannerGenerator.js" />
     <Content Include="node_modules\tui-chart\webpack.config.js" />
     <Content Include="node_modules\tui-code-snippet\.eslintrc.js" />
@@ -3783,7 +3702,6 @@
     <Content Include="node_modules\tui-chart\README.md" />
     <Content Include="node_modules\tui-chart\src\less\prefixer.less" />
     <Content Include="node_modules\tui-chart\src\less\style.less" />
-    <Content Include="node_modules\tui-chart\test\types\tsconfig.json" />
     <Content Include="node_modules\tui-chart\tslint.json" />
     <Content Include="node_modules\tui-chart\tuidoc.config.json" />
     <Content Include="node_modules\tui-code-snippet\bower.json" />
@@ -3913,20 +3831,6 @@
     </None>
     <TypeScriptCompile Include="node_modules\resize-observer-polyfill\src\index.d.ts" />
     <TypeScriptCompile Include="node_modules\tui-chart\index.d.ts" />
-    <TypeScriptCompile Include="node_modules\tui-chart\test\types\areaChart.ts" />
-    <TypeScriptCompile Include="node_modules\tui-chart\test\types\barChart.ts" />
-    <TypeScriptCompile Include="node_modules\tui-chart\test\types\boxplotChart.ts" />
-    <TypeScriptCompile Include="node_modules\tui-chart\test\types\bubbleChart.ts" />
-    <TypeScriptCompile Include="node_modules\tui-chart\test\types\bulletChart.ts" />
-    <TypeScriptCompile Include="node_modules\tui-chart\test\types\columnChart.ts" />
-    <TypeScriptCompile Include="node_modules\tui-chart\test\types\comboChart.ts" />
-    <TypeScriptCompile Include="node_modules\tui-chart\test\types\heatmapChart.ts" />
-    <TypeScriptCompile Include="node_modules\tui-chart\test\types\lineChart.ts" />
-    <TypeScriptCompile Include="node_modules\tui-chart\test\types\mapChart.ts" />
-    <TypeScriptCompile Include="node_modules\tui-chart\test\types\pieChart.ts" />
-    <TypeScriptCompile Include="node_modules\tui-chart\test\types\radialChart.ts" />
-    <TypeScriptCompile Include="node_modules\tui-chart\test\types\scatterChart.ts" />
-    <TypeScriptCompile Include="node_modules\tui-chart\test\types\treemapChart.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Scripts\jquery\jquery.form-extensions.js" />

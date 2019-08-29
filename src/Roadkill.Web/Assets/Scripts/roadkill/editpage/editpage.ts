@@ -19,7 +19,7 @@ module Roadkill.Web
 			editor.bindEvents();
 
 			// Setup the help popovers for the buttons
-			$("#wysiwyg-toolbar button").popover({ trigger: "hover", html: false, delay: { show: 250, hide: 100 } });
+			//$("#wysiwyg-toolbar button").popover({ trigger: "hover", html: false, delay: { show: 250, hide: 100 } });
 			
 			// Set the preview pane to auto-update
 			this.bindPreview();
@@ -76,9 +76,9 @@ module Roadkill.Web
 					var tag: string = $("#TagsEntry").val();
 					if (this.isValidTag(tag))
 					{
-						if ($("#IsLocked").length == 0)
-							$(".wysiwyg-bold").focus();
-						else
+						if ($("#IsLocked").length != 0) 
+						//	$(".wysiwyg-bold").focus(); //TODO focus on good element
+						//else
 							$("#IsLocked").focus();
 					}
 					return false;
