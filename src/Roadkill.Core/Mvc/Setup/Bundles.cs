@@ -48,7 +48,8 @@ namespace Roadkill.Core.Mvc
 
 		private static void IncludeJQueryScripts(ScriptBundle jsBundle)
 		{
-			jsBundle.Include("~/Assets/Scripts/jquery/additional-methods-1.11.1.js");
+            //jsBundle.Include("~/Assets/Scripts/jquery/additional-methods-1.11.1.js");
+            jsBundle.Include("~/Assets/Scripts/jquery/additional-methods.js");
             jsBundle.Include("~/node_modules/jquery/dist/jquery.js");
             //jsBundle.Include("~/Assets/Scripts/jquery/jquery-1.9.1.js");
 			jsBundle.Include("~/Assets/Scripts/jquery/jquery-ui-1.10.3.custom.js");
@@ -57,10 +58,11 @@ namespace Roadkill.Core.Mvc
 			jsBundle.Include("~/Assets/Scripts/jquery/jquery.form-extensions.js");
 			jsBundle.Include("~/Assets/Scripts/jquery/jquery.iframe-transport.js");
 			jsBundle.Include("~/Assets/Scripts/jquery/jquery.timeago.js");
-			jsBundle.Include("~/Assets/Scripts/jquery/jquery.validate-1.11.1.js");
-		}
+            //jsBundle.Include("~/Assets/Scripts/jquery/jquery.validate-1.11.1.js");
+            jsBundle.Include("~/Assets/Scripts/jquery/jquery.validate-explik.js");
+        }
 
-		private static void IncludeRoadkillScripts(ScriptBundle jsBundle)
+        private static void IncludeRoadkillScripts(ScriptBundle jsBundle)
 		{
 			jsBundle.Include("~/Assets/Scripts/roadkill/dialogs.js");
 			jsBundle.Include("~/Assets/Scripts/roadkill/setup.js");
@@ -70,15 +72,15 @@ namespace Roadkill.Core.Mvc
             jsBundle.Include("~/Assets/Scripts/roadkill/controlpage/controlpage.js");
             jsBundle.Include("~/Assets/Scripts/roadkill/editpage/wysiwygeditor.js");
 
-			jsBundle.Include("~/Assets/Scripts/roadkill/filemanager/ajaxrequest.js");
-			jsBundle.Include("~/Assets/Scripts/roadkill/filemanager/breadcrumbtrail.js");
-			jsBundle.Include("~/Assets/Scripts/roadkill/filemanager/buttonevents.js");
-			jsBundle.Include("~/Assets/Scripts/roadkill/filemanager/htmlbuilder.js");
-			jsBundle.Include("~/Assets/Scripts/roadkill/filemanager/setup.js");
-			jsBundle.Include("~/Assets/Scripts/roadkill/filemanager/tableevents.js");
-			jsBundle.Include("~/Assets/Scripts/roadkill/filemanager/util.js");
+            jsBundle.Include("~/Assets/Scripts/roadkill/filemanager/ajaxrequest.js");
+            jsBundle.Include("~/Assets/Scripts/roadkill/filemanager/breadcrumbtrail.js");
+            jsBundle.Include("~/Assets/Scripts/roadkill/filemanager/buttonevents.js");
+            jsBundle.Include("~/Assets/Scripts/roadkill/filemanager/htmlbuilder.js");
+            jsBundle.Include("~/Assets/Scripts/roadkill/filemanager/setup.js");
+            jsBundle.Include("~/Assets/Scripts/roadkill/filemanager/tableevents.js");
+            jsBundle.Include("~/Assets/Scripts/roadkill/filemanager/util.js");
 
-			jsBundle.Include("~/Assets/Scripts/roadkill/sitesettings/settings.js");
+            jsBundle.Include("~/Assets/Scripts/roadkill/sitesettings/settings.js");
 		}
 
 		private static void IncludeSharedScripts(ScriptBundle jsBundle)
