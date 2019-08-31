@@ -430,17 +430,16 @@
     <Content Include="Assets\opensearch.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Assets\Scripts\jquery\additional-methods.js" />
+    <Content Include="Assets\Scripts\jquery\jquery.validate-explik.js" />
     <Content Include="Assets\Scripts\jquery\tui-editor-extYoutube.js" />
     <Content Include="Assets\Scripts\shared\rating.js" />
     <Content Include="Assets\Scripts\shared\bootbox.js" />
     <Content Include="Assets\Scripts\readme.txt" />
-    <Content Include="Assets\Scripts\jquery\additional-methods.js" />
     <Content Include="Assets\Scripts\jquery\jquery-ui-1.10.3.custom.js" />
-    <Content Include="Assets\Scripts\jquery\jquery.validate.js" />
     <Content Include="Assets\Scripts\shared\tagmanager.js" />
     <TypeScriptCompile Include="Assets\Scripts\roadkill\controlpage\controlpage.ts" />
     <TypeScriptCompile Include="Assets\Scripts\roadkill\dialogs.ts" />
-    <Content Include="Assets\Scripts\jquery\jquery.fileupload.js" />
     <Content Include="Assets\Scripts\jquery\jquery.iframe-transport.js" />
     <Content Include="Assets\Scripts\jquery\jquery.fieldSelection.js" />
     <Content Include="Areas\SiteSettings\Web.config">
