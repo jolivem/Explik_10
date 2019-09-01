@@ -15,17 +15,17 @@ module Roadkill.Web
 			this.initializeTagManager(tags);
 
 			// Bind all the button events
-			var editor = new WysiwygEditor();
-			editor.bindEvents();
+			//var editor = new WysiwygEditor();
+			//editor.bindEvents();
 
 			// Setup the help popovers for the buttons
 			//$("#wysiwyg-toolbar button").popover({ trigger: "hover", html: false, delay: { show: 250, hide: 100 } });
 			
 			// Set the preview pane to auto-update
-			this.bindPreview();
+			//this.bindPreview();
 
 			// Set the preview pane toggle button
-			this.bindPreviewToggleButton();
+			//this.bindPreviewToggleButton();
 
 			// Form validation
 			var validationRules =
@@ -121,7 +121,7 @@ module Roadkill.Web
 			return true;
 		}
 
-		private bindPreview()
+		/*private bindPreview()
 		{
 			this.resizePreviewPane();
 			EditPage.updatePreviewPane();
@@ -200,7 +200,7 @@ module Roadkill.Web
 
 		/**
 		Grabs a preview from the server for the wiki markup, and displays it in the preview pane.
-		*/
+		
 		public static updatePreviewPane()
 		{
 			$("#previewLoading").show();
@@ -230,5 +230,6 @@ module Roadkill.Web
 				$("#previewLoading").hide();
 			});
 		}
+*/
 	}
 }

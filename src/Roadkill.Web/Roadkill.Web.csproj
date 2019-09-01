@@ -564,7 +564,6 @@
     <TypeScriptCompile Include="Assets\Scripts\roadkill\installer\step1.ts" />
     <TypeScriptCompile Include="Assets\Scripts\roadkill\installer\installwizard.ts" />
     <TypeScriptCompile Include="Assets\Scripts\roadkill\validation.ts" />
-    <TypeScriptCompile Include="Assets\Scripts\roadkill\editpage\wysiwygeditor.ts" />
     <TypeScriptCompile Include="Assets\Scripts\roadkill\setup.ts" />
     <TypeScriptCompile Include="Assets\Scripts\roadkill\editpage\editpage.ts" />
     <TypeScriptCompile Include="Assets\Scripts\roadkill\sitesettings\settings.ts" />
@@ -601,9 +600,6 @@
     <Content Include="Assets\Scripts\roadkill\typescript-ref\installerconstants.ts" />
     <Content Include="Assets\Scripts\roadkill\setup.js">
       <DependentUpon>setup.ts</DependentUpon>
-    </Content>
-    <Content Include="Assets\Scripts\roadkill\editpage\wysiwygeditor.js">
-      <DependentUpon>wysiwygeditor.ts</DependentUpon>
     </Content>
     <Content Include="Assets\CSS\toastr.css" />
     <Content Include="Plugins\SyntaxHighlighter\javascript\XRegExp.js" />
