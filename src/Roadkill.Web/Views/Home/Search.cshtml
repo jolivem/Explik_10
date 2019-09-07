@@ -39,7 +39,7 @@ else
                         <tr class="searchresult">
                             <td class="searchresult-td">
                                 <span class="searchresult-title">
-                                    @MvcHtmlString.Create(PageViewModel.EncodeImageRanking(page.Ranking))
+                                    @MvcHtmlString.Create(PageViewModel.EncodeImageRanking(result.Ranking))
                                     @Html.ActionLink(result.Title, "Index", "Wiki", new { id = result.Id, title = result.EncodedTitle }, null)
                                 </span>
                                 <br />

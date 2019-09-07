@@ -439,7 +439,7 @@ namespace Roadkill.Core.Converters
 			text = DoHorizontalRules(text);
 			text = DoULs(text);
 			_listLevel = 0;     // KW: Reset here since we know we're starting at root level for the below call to DoOLs
-			text = DoOLs(text);
+			 text = DoOLs(text);
             text = DoTables(text);
 			text = DoCodeBlocks(text);
 			text = DoBlockQuotes(text);

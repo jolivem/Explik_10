@@ -99,6 +99,8 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// </summary>
         public long TotalRating { get; internal set; }
 
+        public int Ranking { get; internal set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -114,7 +116,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 		{
 		}
 
-		public SearchResultViewModel(Document document, ScoreDoc scoreDoc, Page page)
+		public SearchResultViewModel(Document document, ScoreDoc scoreDoc, Page page, int ranking)
 		{
 			if (document == null)
 				throw new ArgumentNullException("document");
@@ -147,7 +149,9 @@ namespace Roadkill.Core.Mvc.ViewModels
 		    {
 		        Rating = 0.0;
 		    }
-		    //Canvas = page.FilePath + "page_" + page.Id + ".png";
+
+            //Canvas = page.FilePath + "page_" + page.Id + ".png";
+            Ranking = ranking;
 
 		}
 
@@ -156,18 +160,7 @@ namespace Roadkill.Core.Mvc.ViewModels
             this.document = document;
             this.scoreDoc = scoreDoc;
         }
-        /*                                 @foreach (string tag in result.TagsAsList())
-                                {
-                                    if (!string.IsNullOrWhiteSpace(tag))
-                                    {
-                                        <span class="searchresult-tags">@tag &nbsp;</span>
-                                    }
-                                }
-                                @if (result.Tags != null)
-                                {
-                                    <br/>
-                                }
-                                */
+
         public string EncodeTags()
         {
             StringBuilder builder = new StringBuilder();

@@ -98,8 +98,9 @@ namespace Roadkill.Core.Services
                             Page page = _repository.GetPageById(id);
 						    if (page != null)
 						    {
-                                page.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + page.FilePath + "/";
-						        var model = new SearchResultViewModel(document, scoreDoc, page);
+                                //page.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + page.FilePath + "/";
+                                int ranking = _repository.GetPageRanking(id);
+                                var model = new SearchResultViewModel(document, scoreDoc, page, ranking);
 						        list.Add(model);
 						    }
 						}

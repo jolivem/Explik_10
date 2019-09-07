@@ -827,17 +827,80 @@ namespace Roadkill.Core.Mvc.ViewModels
             string modelHtml = Content;
             Regex _removeTagsRegex = new Regex("<(.|\n)*?>");
             modelHtml = markupConverter.ToHtml(modelHtml);
+            modelHtml = ReplaceImgInHtml(modelHtml);
+            modelHtml = ReplaceYoutubeInHtml(modelHtml);
+
+
+            //TODO find youtube and image 
             modelHtml = _removeTagsRegex.Replace(modelHtml, "");
 
             if (modelHtml.Length > 150)
                 modelHtml = modelHtml.Substring(0, 149);
 
-            if (Content.Contains("youtube") && modelHtml.Length <= 3) // 2 is for "\n"
-            {
-                modelHtml = "Vidéo. " + modelHtml; //TODO english traduction
-            }
             return modelHtml;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        private string ReplaceImgInHtml( string html)
+        {
+            bool found;
+            string newHtml = html;
+            do
+            {
+                found = false;
+                // find image tag
+                int index1 = newHtml.IndexOf("<img src=");
+                if (index1 >= 0)
+                {
+                    int index2 = newHtml.IndexOf("\">", index1);
+                    if (index2 > index1)
+                    {
+                        found = true;
+                        string sub1 = newHtml.Substring(0, index1);
+                        string sub2 = newHtml.Substring(index2 + 2);
+                        newHtml = sub1 + "[image] " + sub2;
+                    }
+                }
+            } while (found);
+
+            return newHtml;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        private string ReplaceYoutubeInHtml(string html)
+        {
+            bool found;
+            string newHtml = html;
+            do
+            {
+                found = false;
+                // find youtube tag
+                int index1 = newHtml.IndexOf("<code>youtube");
+                if (index1 >= 0)
+                {
+                    int index2 = newHtml.IndexOf("</code>", index1);
+                    if (index2 > index1)
+                    {
+                        found = true;
+                        string sub1 = newHtml.Substring(0, index1);
+                        string sub2 = newHtml.Substring(index2 + 7);
+                        newHtml = sub1 + "[video]" + sub2;
+                    }
+                }
+
+            } while (found);
+
+            return newHtml;
+        }
+
         /// <summary>
         /// 
         /// </summary>

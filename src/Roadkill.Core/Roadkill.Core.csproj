@@ -610,7 +610,6 @@
     <Compile Include="Text\ImageEventArgs.cs" />
     <Compile Include="Text\IMarkupParser.cs" />
     <Compile Include="Text\LinkEventArgs.cs" />
-    <Compile Include="Text\Parsers\MediaWikiParser.cs" />
     <Compile Include="Security\Windows\ActiveDirectoryUserService.cs" />
     <Compile Include="Security\FormsAuthUserService.cs" />
     <Compile Include="Security\UserServiceBase.cs" />
@@ -634,7 +633,6 @@
     <Compile Include="Mvc\Controllers\SiteSettings\SettingsController.cs" />
     <Compile Include="Mvc\ViewModels\PageHistoryViewModel.cs" />
     <Compile Include="Mvc\ViewModels\TagViewModel.cs" />
-    <Compile Include="Text\Parsers\CreoleParser.cs" />
     <Compile Include="Text\HtmlDiff.cs" />
     <Compile Include="Text\Parsers\Markdown.cs" />
     <Compile Include="Text\MarkupConverter.cs" />
