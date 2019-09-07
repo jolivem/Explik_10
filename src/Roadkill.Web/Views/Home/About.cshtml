@@ -5,8 +5,10 @@
     ViewBag.Title = Model.Title;
 }
 
+@Html.Partial("HeadContentTuiEditorView")
+
 <script type="text/javascript">
-  // hide back link if new tab or new window
+    // hide back link if new tab or new window
     $(document).ready(function () {
         if (history.back.length == 0) {
             $("#back").hide();
@@ -17,9 +19,9 @@
 <!-- Title and page info -->
 <div class="row">
     <div class="col-sm-8">
-        <div id="pagecontent" style="text-align: justify;text-justify: inter-word">
-            @MvcHtmlString.Create(Model.ContentAsHtml)
-        </div>
+        <div id="viewSection"></div>
+        <!-- markdown got by Tui-editor -->
+        <textarea id="Content" style="visibility:hidden;">@Model.Content</textarea>
     </div>
 </div>
 <div id="back" class="row">

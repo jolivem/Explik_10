@@ -3,6 +3,8 @@
     ViewBag.Title = SiteStrings.ParticipateCompetition_Title;
 }
 
+@Html.Partial("HeadContentTuiEditorView")
+
 <div class="row">
     <div class="col-sm-9">
         <h2 class="pagetitle">@Model.Title</h2>
@@ -11,9 +13,9 @@
 
 <div class="row">
     <div class="col-sm-9">
-        <div id="pagecontent">
-            @MvcHtmlString.Create(Model.ContentAsHtml)
-        </div>
+        <div id="viewSection"></div>
+        <!-- markdown got by Tui-editor -->
+        <textarea id="Content" style="visibility:hidden;">@Model.Content</textarea>
     </div>
 </div>
 <br />

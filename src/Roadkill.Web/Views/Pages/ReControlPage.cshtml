@@ -3,29 +3,9 @@
     ViewBag.Title = SiteStrings.ControlPage_Title;
 }
 
-@*<script type="text/javascript">
-        $(document).ready(function () {
-            var pageTags = [ @(Html.Raw(Model.JavascriptArrayForAllTags()))];
-            var editPage = new Roadkill.Web.EditPage(pageTags);
-            $("#reject-page").hide();
-            $("#valid-page").show();
-        });
-        $(document).on('change', 'input:radio[id^="q_op_"]', function (event) {
-            if ($("input[name='op']:checked").val() == 'validate') {
-                $("#valid-page").show();
-                $("#reject-page").hide();
-                $("#btnreject").attr("value", "Validate");
-                $("#svalidated").val("true");
-            }
-            if ($("input[name='op']:checked").val() == 'reject') {
-                $("#valid-page").hide();
-                $("#reject-page").show();
-                $("#btnreject").attr("value", "Reject");
-                $("#svalidated").val("false");
-            }
-        });
+@Html.Partial("HeadContentTuiEditorView")
 
-    </script>*@
+
 <style>
     .searchbar {
         display: none;
@@ -40,9 +20,8 @@
             <div id="controlpage" pageid="@Model.Id">
                 <h2 class="pagetitle">@Model.Title</h2>
 
-                <div id="pagecontent__">
-                    @MvcHtmlString.Create(Model.ContentAsHtml)
-                </div>
+                <div id="viewSection"></div>
+                <textarea id="Content" style="visibility:hidden;">@Model.Content</textarea>
             </div>
         </div>
     </div>

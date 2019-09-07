@@ -14,6 +14,8 @@ using Roadkill.Core.Logging;
 using StructureMap;
 using StructureMap.Attributes;
 
+//TODO all plugins can be removed
+
 namespace Roadkill.Core.Plugins
 {
 	/// <summary>

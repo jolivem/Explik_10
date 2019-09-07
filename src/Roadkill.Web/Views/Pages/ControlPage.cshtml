@@ -3,6 +3,8 @@
     ViewBag.Title = SiteStrings.ControlPage_Title;
 }
 
+@Html.Partial("HeadContentTuiEditorView")
+
 <script type="text/javascript">
     $(document).ready(function () {
         var pageTags = [ @(Html.Raw(Model.JavascriptArrayForAllTags()))];
@@ -10,6 +12,7 @@
         $("#reject-page").hide();
         $("#valid-page").show();
     });
+
     $(document).on('change', 'input:radio[id^="q_op_"]', function (event) {
         if ($("input[name='op']:checked").val() == 'validate') {
             $("#valid-page").show();
@@ -39,10 +42,8 @@
         <div class="col-sm-8">
             <div id="controlpage" pageid="@Model.Id">
                 <h2 class="pagetitle">@Model.Title</h2>
-
-                <div id="pagecontent__">
-                    @MvcHtmlString.Create(Model.ContentAsHtml)
-                </div>
+                <div id="viewSection"></div>
+                <textarea id="Content" style="visibility:hidden;">@Model.Content</textarea>
             </div>
         </div>
         <div class="col-sm-4">
@@ -118,9 +119,9 @@
                                     <label for="IsInCompetition" class="control-label">@SiteStrings.EditPage_ParticipateToCompetition</label>
                                 </div>
                                 <div class="col-sm-7">
-                                    <label for="IsInCompetition" >
+                                    <label for="IsInCompetition">
                                         @(Html.BootstrapCheckBoxFor<PageViewModel>(p => p.IsInCompetition, "", 3))
-                                         @Html.ActionLink((string)ViewBag.CompetitionLabel, "About", "Home", new { tag = ViewBag.CompetitionPageTag }, new { target = "_blank" })
+                                        @Html.ActionLink((string)ViewBag.CompetitionLabel, "About", "Home", new { tag = ViewBag.CompetitionPageTag }, new { target = "_blank" })
                                     </label>
                                     <br />
 

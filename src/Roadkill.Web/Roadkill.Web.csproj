@@ -709,6 +709,7 @@
     <Content Include="Views\Competitions\ListPagesForRating.cshtml" />
     <Content Include="Views\Competitions\ViewForRating.cshtml" />
     <Content Include="tsconfig.json" />
+    <Content Include="Views\Shared\HeadContentTuiEditorView.cshtml" />
     <None Include="Web.Mono.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

@@ -247,10 +247,16 @@ namespace Roadkill.Core.Mvc.Controllers
 		public JsonResult Upload()
 		{
 			string destinationFolder = Request.Form["destination_folder"];
-            string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + Context.AttachmentsPath + destinationFolder);
+            string physicalPath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath("/" + destinationFolder);
+
+            if (!Directory.Exists(physicalPath))
+            {
+                Directory.CreateDirectory(physicalPath);
+            }
 
             if (!_attachmentPathUtil.IsAttachmentPathValid(physicalPath))
 			{
+                //TODO
 				throw new SecurityException("Attachment path was invalid when uploading.", null);
 			}
 

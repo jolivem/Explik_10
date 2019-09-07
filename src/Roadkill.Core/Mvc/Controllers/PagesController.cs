@@ -594,13 +594,19 @@ namespace Roadkill.Core.Mvc.Controllers
 		[EditorRequired]
 		public ActionResult New(string title = "", string tags = "")
 		{
-			PageViewModel model = new PageViewModel()
-			{
-				Title = title,
-				RawTags = tags,
-			};
+            PageViewModel model = new PageViewModel()
+            {
+                Title = title,
+                RawTags = tags,
+            };
 
-			model.AllTags = _pageService.AllTags().ToList();
+            // define a folder for images
+            // use a GUID because pageId is not known yet
+            Guid guid = Guid.NewGuid();
+            string pagePath = guid.ToString("N").Substring(0, 6);
+            model.FilePath = Context.AttachmentsPath + "/" + pagePath;
+
+            model.AllTags = _pageService.AllTags().ToList();
 
             // Handle participation to current competition
             if (!Context.IsAdmin)

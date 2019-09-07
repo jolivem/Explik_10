@@ -1,9 +1,9 @@
 ﻿@model PageViewModel
 @{
-    /**/
-
     ViewBag.Title = Model.Title;
 }
+
+@Html.Partial("HeadContentTuiEditorView")
 
 @Html.DialogPartial("PageAddComment", Model)
 @Html.DialogPartial("PageRemoveComment", Model)
@@ -37,6 +37,7 @@
 <div id="page-view" pageid="@Model.Id" style="visibility:hidden;"></div>
 <div id="current-user" name="@ViewBag.currentuser" style="visibility:hidden;"></div>
 
+
 <!-- Title and page info -->
 <div class="row">
     <div class="col-sm-8">
@@ -45,9 +46,9 @@
             @MvcHtmlString.Create(PageViewModel.EncodeImageRanking(Model.Ranking))
             @Model.Title
         </h2>
-        <div id="pagecontent" style="text-align: justify;text-justify: inter-word">
-            @MvcHtmlString.Create(Model.ContentAsHtml)
-        </div>
+        <div id="viewSection"></div>
+        <textarea id="Content" style="visibility:hidden;">@Model.Content</textarea>
+
         <div id="alert" pageid="@Model.Id">
             @if (@ViewBag.useralert == "")
             {
@@ -90,7 +91,6 @@
         @Html.Hidden("alert-request", @SiteStrings.Page_Alert_Link)
         <hr size=2 align=left width="100%" style="border-top:2px solid #eee;" />
 
-        @*<h4>Donner votre avis:TODO</h4>*@
         <div id="newrating">
             <h4 style="margin-bottom:0px;">@SiteStrings.Page_Info_My_Rating</h4>
             <div>
@@ -117,7 +117,8 @@
             </p>
         </div>
     </div>
-    </div>
+</div>
+
 <!-- Comment action -->
 <div class="row">
     <div class="col-sm-8">

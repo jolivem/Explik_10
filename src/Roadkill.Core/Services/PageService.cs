@@ -86,7 +86,7 @@ namespace Roadkill.Core.Services
                 page.IsSubmitted = false;
                 page.VideoUrl = model.VideoUrl;
                 page.Pseudonym = model.Pseudonym;
-                page.FilePath = DateTime.UtcNow.ToString("yyyy-MM") + "/" + _context.CurrentUsername;
+                page.FilePath = model.FilePath; // attachment path + partial guid
 
                 Competition competition = Repository.GetCompetitionByStatus((int)CompetitionViewModel.Statuses.PublicationOngoing);
                 if (model.IsInCompetition && competition != null)

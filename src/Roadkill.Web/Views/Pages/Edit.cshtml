@@ -78,7 +78,7 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
             var src = token.attrs[token.attrIndex('src')][1];
             //console.log('img src before: ' + src);
             if (src.indexOf("Attachments") < 0) {
-                token.attrs[token.attrIndex('src')][1] = src.replace(/(.+)/, '@(Url.Content("~/Attachments/" + RoadkillContext.AttachmentsPath))$1');
+                token.attrs[token.attrIndex('src')][1] = src.replace(/(.+)/, '@(Url.Content("~/Attachments/" + @Model.FilePath))$1');
             }
 
 
@@ -140,7 +140,7 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
                 addImageBlobHook: function (blob, callback) {
                 // New web form w params
                 var fd = new FormData();
-                fd.append('destination_folder', '/');
+                fd.append('destination_folder', '/'+'@Model.FilePath');
                 fd.append('files[]', blob);
 
                     // POST webform with inserted file to the upload controller
@@ -207,6 +207,7 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
             @(Html.HiddenFor<PageViewModel, int>(p => p.Id))
             @(Html.HiddenFor<PageViewModel, string>(p => p.PreviousTitle))
             @(Html.HiddenFor<PageViewModel, string>(p => p.RawTags))
+            @(Html.HiddenFor<PageViewModel, string>(p => p.FilePath))
 
             <div class="form-group">
                 <div class="col-sm-12">
@@ -230,7 +231,7 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
                 </div>
             }
 
-             @(Html.TextAreaFor<PageViewModel, string>(p => p.Content, new { @class = "form-control", tabindex = 5 }))
+            @(Html.TextAreaFor<PageViewModel, string>(p => p.Content, new { @class = "form-control", tabindex = 5 }))
 
             <div id="editpage-button-container" class="row">
                 <div class="col-sm-1">

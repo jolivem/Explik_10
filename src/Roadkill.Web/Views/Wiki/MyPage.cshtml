@@ -1,9 +1,10 @@
-﻿
-@model PageViewModel
+﻿@model PageViewModel
 @{
     ViewBag.Title = Model.Title;
-    string myGuid = Guid.NewGuid().ToString();
 }
+
+@Html.Partial("HeadContentTuiEditorView")
+
 
 @Html.Hidden("confirm-unpublish-text", @SiteStrings.MyPages_Confirm_Unpublish)
 @Html.Hidden("confirm-delete-text", @SiteStrings.MyPage_Confirm_Delete)
@@ -15,102 +16,12 @@
     </div>
 </div>
 
-
-<!-- Viewer Dependencies -->
-@*<script src="../lib/jquery/dist/jquery.js"></script>*@
-@*<script src="../lib/markdown-it/dist/markdown-it.js"></script>*@
-@*<script src="../lib/tui-code-snippet/dist/tui-code-snippet.js"></script>*@
-@*<script src="../lib/highlightjs/highlight.pack.js"></script>*@
-@*<link rel="stylesheet" href="../lib/highlightjs/styles/github.css">*@
-@*<script src="../dist/tui-editor-Viewer.js"></script>
-    <link rel="stylesheet" href="../dist/tui-editor-contents.css">*@
-
-@*<script src="~/node_modules/markdown-it/dist/markdown-it.js?v=@(myGuid)"></script>
-    <script src="~/node_modules/tui-code-snippet/dist/tui-code-snippet.js?v=@(myGuid)"></script>
-    <script src="~/node_modules/highlight.js/lib/highlight.js?v=@(myGuid)"></script>
-    <script src="~/node_modules/tui-editor/dist/tui-editor-Editor.js?v=@(myGuid)"></script>
-    <link rel="stylesheet" href="~/node_modules/highlight.js/styles/github.css">*@
-
-
-<script src="~/node_modules/markdown-it/dist/markdown-it.js?v=@(myGuid)"></script>
-@*<script src="~/node_modules/to-mark/dist/to-mark-explik.js?v=@(myGuid)"></script>*@
-<script src="~/node_modules/to-mark/dist/to-mark.js?v=@(myGuid)"></script>
-<script src="~/node_modules/tui-code-snippet/dist/tui-code-snippet.js?v=@(myGuid)"></script>
-<script src="~/node_modules/codemirror/lib/codemirror.js?v=@(myGuid)"></script>
-<script src="~/node_modules/highlight.js/lib/highlight.js?v=@(myGuid)"></script>
-<script src="~/node_modules/squire-rte/build/squire-raw.js?v=@(myGuid)"></script>
-<script src="~/node_modules/tui-editor/dist/tui-editor-Viewer.js?v=@(myGuid)"></script>
-<script src="~/Assets/Scripts/jquery/tui-editor-extYoutube.js?v=@(myGuid)"></script>
-<link rel="stylesheet" href="~/node_modules/codemirror/lib/codemirror.css">
-<link rel="stylesheet" href="~/node_modules/highlight.js/styles/github.css">
-<link rel="stylesheet" href="~/node_modules/tui-editor/dist/tui-editor.css">
-<link rel="stylesheet" href="~/node_modules/tui-editor/dist/tui-editor-contents.css">
-<link href="~/Plugins/SyntaxHighlighter/css/shCore.css?version=1.0" rel="stylesheet" type="text/css" />
-<link href="~/Plugins/SyntaxHighlighter/css/shThemeMidnight.css?version=1.0" rel="stylesheet" type="text/css" />
-<script type="text/javascript">
-head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shCore.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushAppleScript.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushAS3.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushBash.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushColdFusion.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushCpp.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushCSharp.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushCss.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushDelphi.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushDiff.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushErlang.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushGroovy.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushJava.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushJavaFX.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushJScript.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushPerl.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushPhp.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushPlain.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushPowerShell.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushPython.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushRuby.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushSass.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushScala.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushSql.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushVb.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushXml.js",
-        "@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushTS.js", function () { SyntaxHighlighter.all(); })
-</script>
-
-
-
-<!-- Viewer -->
-@*<script src="~/node_modules/tui-editor/dist/tui-editor-Viewer.js?v=@(myGuid)"></script>
-<script src="~/Assets/Scripts/jquery/tui-editor-extYoutube.js?v=@(myGuid)"></script>*@
-
-
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        $('#Content').hide();
-        var origMD = $('#Content').val();
-        var theEditor = new tui.Editor({
-            el: document.querySelector('#viewSection'),
-            height: '300px',
-            exts: ['youtube'],
-        });
-
-        
-        theEditor.setMarkdown(origMD, false);
-
-    });
-</script>
-
 <div class="row">
     <div class="col-sm-9">
         <div id="viewSection"></div>
-        @*<div id="pagecontent">
-                @MvcHtmlString.Create(Model.ContentAsHtml)
-            </div>*@
+        <textarea id="Content" style="visibility:hidden;">@Model.Content</textarea>
     </div>
 </div>
-        <textarea id="Content">@Model.Content</textarea>
 
 
 <div class="row">
@@ -148,29 +59,3 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
     </div>
 </div>
 <br />
-@*<div class="row">
-        <div class="col-sm-7">
-            <p>@Html.ActionLink(SiteStrings.Shared_DeleteLink, "Delete", new { id = Model.Id }, new { @onclick = "ConfirmDeletePage('@Model.Id', 'mypage')" })</p>
-        </div>
-    </div>*@
-
-@section PluginHead
-{
-    <!-- Plugins -->
-    @Html.Raw(Model.PluginHeadHtml)<!-- End plugins head -->
-}
-
-@section PluginPreContainer
-{
-    @MvcHtmlString.Create(Model.PluginPreContainer)
-}
-
-@section PluginPostContainer
-{
-    @MvcHtmlString.Create(Model.PluginPostContainer)
-}
-
-@section PluginFooter
-{
-    @MvcHtmlString.Create(Model.PluginFooterHtml)
-}
