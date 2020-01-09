@@ -30,8 +30,8 @@ namespace Roadkill.Core.Mvc.Controllers
 		private ListCache _listCache;
 		private PageViewModelCache _pageViewModelCache;
 		private SiteCache _siteCache;
-		private IRepository _repository;
-		private IPluginFactory _pluginFactory;
+		//private IRepository _repository;
+		//private IPluginFactory _pluginFactory;
 
 		public CacheController(ApplicationSettings settings, UserServiceBase userService,
 			SettingsService settingsService, IUserContext context,

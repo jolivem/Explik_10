@@ -416,12 +416,12 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Assets\Scripts\jquery\additional-methods.js" />
+    <Content Include="Assets\Scripts\jquery\jquery-ui-1.12.1\jquery-ui.js" />
     <Content Include="Assets\Scripts\jquery\jquery.validate-explik.js" />
     <Content Include="Assets\Scripts\jquery\tui-editor-extYoutube.js" />
     <Content Include="Assets\Scripts\shared\rating.js" />
     <Content Include="Assets\Scripts\shared\bootbox.js" />
     <Content Include="Assets\Scripts\readme.txt" />
-    <Content Include="Assets\Scripts\jquery\jquery-ui-1.10.3.custom.js" />
     <Content Include="Assets\Scripts\shared\tagmanager.js" />
     <TypeScriptCompile Include="Assets\Scripts\roadkill\controlpage\controlpage.ts" />
     <TypeScriptCompile Include="Assets\Scripts\roadkill\dialogs.ts" />
@@ -447,8 +447,8 @@
     <Content Include="node_modules\to-mark\dist\to-mark.min.js" />
     <Content Include="node_modules\tui-code-snippet\dist\tui-code-snippet.js" />
     <Content Include="node_modules\tui-code-snippet\dist\tui-code-snippet.min.js" />
-    <Content Include="node_modules\tui-editor\dist\tui-editor-contents.css" />
-    <Content Include="node_modules\tui-editor\dist\tui-editor-contents.min.css" />
+    <Content Include="node_modules\tui-editor\dist\tui-editor-contents-explik.css" />
+    <Content Include="node_modules\tui-editor\dist\tui-editor-contents-explik.min.css" />
     <Content Include="node_modules\tui-editor\dist\tui-editor-Editor-all.js" />
     <Content Include="node_modules\tui-editor\dist\tui-editor-Editor-all.min.js" />
     <Content Include="node_modules\tui-editor\dist\tui-editor-Editor-full.js" />
@@ -665,7 +665,6 @@
     <Content Include="Views\FileManager\Index.cshtml" />
     <Content Include="Views\FileManager\Select.cshtml" />
     <Content Include="Views\FileManager\Navigator.cshtml" />
-    <Content Include="Views\Pages\Dialogs\MarkupHelp.cshtml" />
     <Content Include="Views\Pages\Dialogs\ChooseImage.cshtml" />
     <Content Include="Views\Pages\Dialogs\PreviewPage.cshtml" />
     <Content Include="Views\Wiki\500.cshtml" />
@@ -675,7 +674,6 @@
     <Content Include="Areas\SiteSettings\Views\PluginSettings\Edit.cshtml" />
     <Content Include="Views\Help\Index.cshtml" />
     <Content Include="Themes\Responsive\Theme.cshtml" />
-    <Content Include="Views\Pages\WysiwgToolbar.cshtml" />
     <None Include="Properties\PublishProfiles\roadkill - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\roadkill - Web Deploy.pubxml" />
     <Content Include="Areas\SiteSettings\Views\UserManagement\AddAdmin.cshtml" />
@@ -699,7 +697,9 @@
     <Content Include="Views\Comments\AllNewComments.cshtml" />
     <Content Include="Views\Alerts\ListAlerts.cshtml" />
     <Content Include="Views\Pages\ReControlPage.cshtml" />
-    <Content Include="Roadkill.config" />
+    <Content Include="Roadkill.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Competitions\List.cshtml" />
     <Content Include="Views\Competitions\Edit.cshtml" />
@@ -710,6 +710,7 @@
     <Content Include="Views\Competitions\ViewForRating.cshtml" />
     <Content Include="tsconfig.json" />
     <Content Include="Views\Shared\HeadContentTuiEditorView.cshtml" />
+    <Content Include="Views\Pages\Dialogs\ToolbarHelp.cshtml" />
     <None Include="Web.Mono.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

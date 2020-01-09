@@ -455,7 +455,7 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <returns>A <see cref="IEnumerable{TagViewModel}"/> for the tags.</returns>
         /// <exception cref="DatabaseException">An databaseerror occurred while getting the tags.</exception>
-        public IEnumerable<TagViewModel> AllTags()
+        public IEnumerable<TagViewModel> AllControlledTags()
         {
             try
             {
@@ -464,7 +464,7 @@ namespace Roadkill.Core.Services
                 List<TagViewModel> tags = _listCache.Get<TagViewModel>(cacheKey);
                 if (tags == null)
                 {
-                    IEnumerable<string> tagList = Repository.AllTags();
+                    IEnumerable<string> tagList = Repository.AllControlledTags();
                     tags = new List<TagViewModel>();
 
                     foreach (string item in tagList)
@@ -492,7 +492,7 @@ namespace Roadkill.Core.Services
                         }
                     }
 
-                    _listCache.Add<TagViewModel>(cacheKey, tags);
+                    //_listCache.Add<TagViewModel>(cacheKey, tags);
                 }
 
                 return tags;

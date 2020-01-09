@@ -502,7 +502,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <Compile Include="Unit\Text\CreoleParserTests.cs" />
     <Compile Include="Unit\StubsAndMocks\Mvc\MvcMockHelpers.cs" />
     <Compile Include="Unit\Mvc\Controllers\UserControllerTests.cs" />
     <Compile Include="Integration\Search\SearchServiceTests.cs" />

@@ -182,7 +182,7 @@ namespace Roadkill.Core.Configuration
                     "* %mypages%\r\n" +
                     "* %alerts%\r\n" +
                     "* %newpage%\r\n" +
-                    "* %managefiles%\r\n" +
+                    //"* %managefiles%\r\n" +
                     "* %competitions%\r\n" +
 					"* %sitesettings%\r\n\r\n";
 		}

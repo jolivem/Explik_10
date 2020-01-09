@@ -87,8 +87,6 @@ namespace Roadkill.Core.Mvc.ViewModels
                 {
                     return RatingStop.ToString("dd/MM/yyyy");
                 }
-
-                return "-";
             }
         }
 

@@ -32,7 +32,7 @@ namespace Roadkill.Core.Services
         private static Regex _removeTagsRegex = new Regex("<(.|\n)*?>");
 		private MarkupConverter _markupConverter;
 		protected virtual string IndexPath { get; set; }
-		private IPluginFactory _pluginFactory;
+		//private IPluginFactory _pluginFactory;
 		private static readonly LuceneVersion LUCENEVERSION = LuceneVersion.LUCENE_29;
 	    //private PageService pageService;
 	    private IRepository _repository;

@@ -107,32 +107,29 @@ namespace Roadkill.Core.Mvc.Controllers
             return View("ListForAdmin", models);
         }
 
-/// <summary>
-/// Results from CompetitionPages
-/// </summary>
-/// <param name="id">competition id</param>
-/// <returns></returns>
+        /// <summary>
+        /// Results from CompetitionPages
+        /// </summary>
+        /// <param name="id">competition id</param>
+        /// <returns></returns>
         public ActionResult Result(int id)
         {
-            if (id != null)
+            CompetitionViewModel competition = _competitionService.GetById(id);
+            if (competition != null)
             {
-                CompetitionViewModel competition = _competitionService.GetById(id);
-                if (competition != null)
+                // get info about the competition
+                ViewBag.competitionTitle = competition.PageTitle;
+                ViewBag.CompetitionContent = "";
+                PageViewModel page = _pageService.GetById(competition.PageId, true);
+                if (page != null)
                 {
-                    // get info about the competition
-                    ViewBag.competitionTitle = competition.PageTitle;
-                    ViewBag.CompetitionContent = "";
-                    PageViewModel page = _pageService.GetById(competition.PageId, true);
-                    if (page != null)
-                    {
-                        ViewBag.CompetitionContent = page.ContentAsHtml;
-                    }
-
-                    // get list of competition Pages
-                    List<PageViewModel> model = _competitionService.GetCompetitionPages(id);
-
-                    return View(model);
+                    ViewBag.CompetitionContent = page.ContentAsHtml;
                 }
+
+                // get list of competition Pages
+                List<PageViewModel> model = _competitionService.GetCompetitionPages(id);
+
+                return View(model);
             }
 
             return RedirectToAction("List");
@@ -144,14 +141,11 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <returns></returns>
         public ActionResult Participate(int id)
         {
-            if (id != null)
+            CompetitionViewModel competition = _competitionService.GetById(id);
+            if (competition != null && competition.PageId != -1)
             {
-                CompetitionViewModel competition = _competitionService.GetById(id);
-                if (competition != null && competition.PageId != -1)
-                {
-                    PageViewModel model = _pageService.GetById(competition.PageId);
-                    return View(model);
-                }
+                PageViewModel model = _pageService.GetById(competition.PageId);
+                return View(model);
             }
             return RedirectToAction("List");
         }
@@ -171,16 +165,13 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <returns></returns>
         public ActionResult ListPagesForRating(int id)
         {
-            if (id != null)
+            CompetitionViewModel competition = _competitionService.GetById(id);
+            List<PageAndUserRatingViewModel> model = _pageService.FindPagesByCompetition(id, Context.CurrentUsername);
+            if (model != null)
             {
-                CompetitionViewModel competition = _competitionService.GetById(id);
-                List<PageAndUserRatingViewModel> model = _pageService.FindPagesByCompetition(id, Context.CurrentUsername);
-                if (model != null)
-                {
-                    ViewBag.competitionId = id;
-                    ViewBag.competitionTitle = competition.PageTitle;
-                    return View(model);
-                }
+                ViewBag.competitionId = id;
+                ViewBag.competitionTitle = competition.PageTitle;
+                return View(model);
             }
             return RedirectToAction("List");
         }

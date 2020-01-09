@@ -23,7 +23,7 @@ namespace Roadkill.Core.Text
         private static readonly string ALERTS_TOKEN = "%alerts%";
         private static readonly string MAINPAGE_TOKEN = "%mainpage%";
 		private static readonly string NEWPAGE_TOKEN = "%newpage%";
-		private static readonly string MANAGEFILES_TOKEN = "%managefiles%";
+		//private static readonly string MANAGEFILES_TOKEN = "%managefiles%";
         private static readonly string SITESETTINGS_TOKEN = "%sitesettings%";
         private static readonly string COMPETITIONS_TOKEN = "%competitions%";
 
@@ -116,7 +116,7 @@ namespace Roadkill.Core.Text
             string alerts = CreateAnchorTag("/Alerts/ListAlerts/", SiteStrings.Navigation_Alerts);
             string mainPage = CreateAnchorTag("/", SiteStrings.Navigation_MainPage);
 			string newpage = CreateAnchorTag("/pages/new", SiteStrings.Navigation_NewPage);
-			string manageFiles = CreateAnchorTag("/filemanager", SiteStrings.FileManager_Title);
+			//string manageFiles = CreateAnchorTag("/filemanager", SiteStrings.FileManager_Title);
             string siteSettings = CreateAnchorTag("/settings", SiteStrings.Navigation_SiteSettings);
             string competitions = CreateAnchorTag("/competitions", SiteStrings.Navigation_Competitions);
 
@@ -132,7 +132,7 @@ namespace Roadkill.Core.Text
                 alerts = CreateAnchorTag(urlHelper.Action("ListAlerts", "Alerts"), SiteStrings.Navigation_Alerts);
                 mainPage = CreateAnchorTag(urlHelper.Action("Index", "Home"), SiteStrings.Navigation_MainPage);
 				newpage = CreateAnchorTag(urlHelper.Action("New", "Pages"), SiteStrings.Navigation_NewPage);
-				manageFiles = CreateAnchorTag(urlHelper.Action("Index", "FileManager"), SiteStrings.FileManager_Title);
+				//manageFiles = CreateAnchorTag(urlHelper.Action("Index", "FileManager"), SiteStrings.FileManager_Title);
 				siteSettings = CreateAnchorTag(urlHelper.Action( "Index", "Settings"), SiteStrings.Navigation_SiteSettings);
                 competitions = CreateAnchorTag(urlHelper.Action( "List", "competitions"), SiteStrings.Navigation_Competitions);
             }
@@ -165,7 +165,7 @@ namespace Roadkill.Core.Text
                 allNewComments = "";
                 alerts = "";
                 siteSettings = "";
-                competitions = "";
+                //competitions = "";
             }
 
             else // simple visitor
@@ -178,7 +178,7 @@ namespace Roadkill.Core.Text
                 alerts = "";
                 //mainPage = "";
                 //newpage = "";
-                manageFiles = "";
+                //manageFiles = "";
                 siteSettings = "";
                 //competitions = "";
             }
@@ -191,7 +191,7 @@ namespace Roadkill.Core.Text
             html = html.Replace(MYPAGES_TOKEN, myPages);
             html = html.Replace(MAINPAGE_TOKEN, mainPage);
 			html = html.Replace(NEWPAGE_TOKEN, newpage);
-			html = html.Replace(MANAGEFILES_TOKEN, manageFiles);
+			//html = html.Replace(MANAGEFILES_TOKEN, manageFiles);
             html = html.Replace(SITESETTINGS_TOKEN, siteSettings);
             html = html.Replace(COMPETITIONS_TOKEN, competitions);
 

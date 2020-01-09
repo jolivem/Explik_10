@@ -114,7 +114,7 @@ namespace Roadkill.Core.Mvc.Controllers
             // when changing the user, the id is the older one
             //ViewBag.IsUserAdmin = Context.IsAdmin;
             string currentUser = Context.CurrentUsername;
-            IEnumerable<PageViewModel> models;
+            List<PageViewModel> models;
             if (id == Context.CurrentUsername)
             {
 
@@ -127,15 +127,17 @@ namespace Roadkill.Core.Mvc.Controllers
 
                 ViewData["Username"] = id;
 
-                models = _pageService.MyPages(id);
+                models = _pageService.MyPages(id).ToList();
                 
             }
             else
             {
-                models = _pageService.MyPages(currentUser);
+                models = _pageService.MyPages(currentUser).ToList();
             }
 
             // Add competition information to the model
+            //for (int ind = 0; ind < models.Count; ind++)
+
             foreach (PageViewModel model in models)
             {
                 model.CompetitionInfo = "";
@@ -177,7 +179,7 @@ namespace Roadkill.Core.Mvc.Controllers
         [BrowserCache]
 		public ActionResult AllTags()
 		{
-			return View(_pageService.AllTags().OrderBy(x => x.Name));
+			return View(_pageService.AllControlledTags().OrderBy(x => x.Name));
 		}
 
 		/// <summary>
@@ -189,7 +191,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		[EditorRequired]
 		public ActionResult AllTagsAsJson(string term = "")
 		{
-			IEnumerable<TagViewModel> tags = _pageService.AllTags();
+			IEnumerable<TagViewModel> tags = _pageService.AllControlledTags();
 			if (!string.IsNullOrEmpty(term))
 				tags = tags.Where(x => x.Name.StartsWith(term, StringComparison.InvariantCultureIgnoreCase));
 
@@ -323,7 +325,7 @@ namespace Roadkill.Core.Mvc.Controllers
                 if (model.IsLocked && !Context.IsAdmin)
                     return new HttpStatusCodeResult(403, string.Format("The page '{0}' can only be edited by administrators.", model.Title));
 
-                model.AllTags = _pageService.AllTags().ToList();
+                model.AllTags = _pageService.AllControlledTags().ToList();
 
                 UserActivity userActivity = _pageService.GetUserActivity(model.CreatedBy);
                 model.SetUserActivity(userActivity);
@@ -376,7 +378,7 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <returns></returns>
         [ControllerRequired]
         [HttpPost]
-        public ActionResult ControlPage(int id, string svalidated, string RawTags, string rejecttype, PageViewModel model)
+        public ActionResult ControlPage(int id, string svalidated, PageViewModel model)
         {
             //PageViewModel model = _pageService.GetById(id);
             User user = _repository.GetUserByUsername(model.CreatedBy);
@@ -395,10 +397,10 @@ namespace Roadkill.Core.Mvc.Controllers
                 if (model.ControllerRating < 0)
                     model.ControllerRating = 0;
 
-                _pageService.ValidatePage(id, Context.CurrentUsername, (int)model.ControllerRating, model.IsInCompetition, RawTags);
+                _pageService.ValidatePage(id, Context.CurrentUsername, (int)model.ControllerRating, model.IsInCompetition, model.RawTags);
 
                 // send email
-                PageEmailInfo info = new PageEmailInfo(user, model, null);
+                PageEmailInfo info = new PageEmailInfo(user, model);
                 _publishPageEmail.Send(info);
             }
 
@@ -408,7 +410,7 @@ namespace Roadkill.Core.Mvc.Controllers
                 _pageService.RejectPage(id);
 
                 // send an email
-                PageEmailInfo info = new PageEmailInfo(user, model, rejecttype);
+                PageEmailInfo info = new PageEmailInfo(user, model);
                 _rejectPageEmail.Send(info);
             }
 
@@ -430,7 +432,7 @@ namespace Roadkill.Core.Mvc.Controllers
                 if (model.IsLocked && !Context.IsAdmin)
                     return new HttpStatusCodeResult(403, string.Format("The page '{0}' can only be edited by administrators.", model.Title));
 
-                model.AllTags = _pageService.AllTags().ToList();
+                model.AllTags = _pageService.AllControlledTags().ToList();
 
                 ViewBag.AlertLanguage = AlertLanguage;
                 ViewBag.AlertPublicity = AlertPublicity;
@@ -451,8 +453,8 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="rejecttype"></param>
+        /// <param name="id">page id</param>
+        /// <param name="rejecttype">not used</param>
         /// <returns></returns>
         [HttpPost]
         [ControllerRequired]
@@ -463,7 +465,7 @@ namespace Roadkill.Core.Mvc.Controllers
             // Send an email
             PageViewModel model = _pageService.GetById(id);
             User user = _repository.GetUserByUsername(model.CreatedBy);
-            PageEmailInfo info = new PageEmailInfo(user, model, rejecttype);
+            PageEmailInfo info = new PageEmailInfo(user, model);
             _rejectPageEmail.Send(info);
 
             // delete alerts of the page
@@ -508,7 +510,7 @@ namespace Roadkill.Core.Mvc.Controllers
                     return new HttpStatusCodeResult(403,
                         string.Format("The page '{0}' can only be edited by administrators.", model.Title));
 
-                model.AllTags = _pageService.AllTags().ToList();
+                model.AllTags = _pageService.AllControlledTags().ToList();
 
                 // Handle current competition participation except for admins
                 if (!Context.IsAdmin)
@@ -606,7 +608,7 @@ namespace Roadkill.Core.Mvc.Controllers
             string pagePath = guid.ToString("N").Substring(0, 6);
             model.FilePath = Context.AttachmentsPath + "/" + pagePath;
 
-            model.AllTags = _pageService.AllTags().ToList();
+            model.AllTags = _pageService.AllControlledTags().ToList();
 
             // Handle participation to current competition
             if (!Context.IsAdmin)
@@ -724,10 +726,10 @@ namespace Roadkill.Core.Mvc.Controllers
         /// redirects to the New page.</returns>
         /// <remarks>This action requires editor rights.</remarks>
         [HttpPost]
-        public ActionResult PageAlert(int id, string alerttype)
+        public ActionResult PageAlert(int id)
         {
             string ip = _pageService.GetUserIp();
-            Alert alert = new Alert(id, ip, alerttype);
+            Alert alert = new Alert(id, ip, "--"); // shall be != empty for alert to be true
             _pageService.AddAlert(alert);
             return RedirectToAction("Index", "Wiki", new { id });
         }
@@ -800,6 +802,12 @@ namespace Roadkill.Core.Mvc.Controllers
 
             // TODO redirect strange because it is an ajax post
             return RedirectToAction("Index", "Wiki");
+        }
+
+        public ActionResult ToolbarHelp()
+        {
+ 
+            return PartialView("ToolBarHelp");
         }
     }
 }

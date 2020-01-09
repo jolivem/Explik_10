@@ -27,31 +27,12 @@ namespace Roadkill.Core.Email
 
 		public void Send(PageEmailInfo info)
 		{
-            if (info.RejectType == null)
-            {
-                return;
-            }
+            //if (info.RejectType == null)
+            //{
+            //    return;
+            //}
 
-            string rejectReason = "";
-            switch (info.RejectType)
-            {
-                case PagesController.AlertLanguage:
-                    rejectReason = SiteStrings.Alert_Reason_Language;
-                    break;
-                case PagesController.AlertPublicity:
-                    rejectReason = SiteStrings.Alert_Reason_Publicity;
-                    break;
-                case PagesController.AlertRespect:
-                    rejectReason = SiteStrings.Alert_Reason_Disrespectful;
-                    break;
-                case PagesController.AlertControversial:
-                    rejectReason = SiteStrings.Alert_Reason_Controversial;
-                    break;
-                case PagesController.AlertOther:
-                    rejectReason = SiteStrings.Alert_Reason_Other;
-                    break;
-
-            }
+            //string rejectReason = SiteStrings.Reject_Reason;
 
             // Thread safety should not be an issue here
             if (string.IsNullOrEmpty(_plainTextContent))

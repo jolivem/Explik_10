@@ -13,13 +13,11 @@
 
                 <div class="row">
                     <div class="col-sm-6">
-                        <label for="Theme">@SiteStrings.SiteSettings_Configuration_Theme</label>
+                        @*<label for="Theme">@SiteStrings.SiteSettings_Configuration_Theme</label>
                         @Html.BootstrapDropDownListFor(x => x.Theme, new SelectList(Model.ThemesAvailable, Model.Theme), SiteStrings.SiteSettings_Configuration_Theme_Help)
 
                         <label for="HeadContent">@SiteStrings.SiteSettings_Configuration_HeadContent</label>
-                        @Html.BootstrapTextAreaFor(s => s.HeadContent, LocalizationTokens.ReplaceHeadToken(SiteStrings.SiteSettings_Configuration_HeadContent_Help))
-
-
+                        @Html.BootstrapTextAreaFor(s => s.HeadContent, LocalizationTokens.ReplaceHeadToken(SiteStrings.SiteSettings_Configuration_HeadContent_Help))*@
                 </div>
             </div>
 

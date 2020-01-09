@@ -33,6 +33,18 @@
     .searchbar {
         display: none;
     }
+
+    ul.ui-autocomplete {
+        /*color: green !important;*/
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+    }
+
+    .ui-menu li {
+        /*list-style-type: none;
+        display: inline;*/
+        line-height: 1;
+    }
 </style>
 
 <div class="container">
@@ -76,7 +88,11 @@
             <form role="form" method="post">
                 @Html.BootstrapValidationSummary(SiteStrings.EditPage_Error)
                 @Html.Hidden("svalidated", "true")
-                @Html.Hidden("RawTags", Model.RawTags)
+                @*@Html.Hidden("RawTags", Model.RawTags)*@
+                @(Html.HiddenFor<PageViewModel, string>(p => p.CreatedBy))
+                @(Html.HiddenFor<PageViewModel, string>(p => p.Title))
+                @(Html.HiddenFor<PageViewModel, string>(p => p.RawTags))
+
 
                 <div id="valid-page">
 
@@ -132,26 +148,26 @@
                     }
                 </div>
 
-                <div id="reject-page">
-                    <label for="RejectReason">@SiteStrings.Page_Select_Reject</label>
+                @*<div id="reject-page">
+            <label for="RejectReason">@SiteStrings.Page_Select_Reject</label>
 
-                    <input id="rejecttype" type="hidden" name="rejecttype" value="language">
-                    <div class="radio">
-                        <label><input type="radio" id="reject1" name="optreject" value="@ViewBag.AlertLanguage" checked>@SiteStrings.Reject_Reason_Language</label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" id="reject2" name="optreject" value="@ViewBag.AlertPublicity">@SiteStrings.Reject_Reason_Publicity</label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" id="reject3" name="optreject" value="@ViewBag.AlertRespect">@SiteStrings.Reject_Reason_Disrespectful</label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" id="reject4" name="optreject" value="@ViewBag.AlertControversial">@SiteStrings.Reject_Reason_Controversial</label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" id="reject5" name="optreject" value="@ViewBag.AlertOther">@SiteStrings.Reject_Reason_Other</label>
-                    </div>
-                </div>
+            <input id="rejecttype" type="hidden" name="rejecttype" value="language">
+            <div class="radio">
+                <label><input type="radio" id="reject1" name="optreject" value="@ViewBag.AlertLanguage" checked>@SiteStrings.Reject_Reason_Language</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="reject2" name="optreject" value="@ViewBag.AlertPublicity">@SiteStrings.Reject_Reason_Publicity</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="reject3" name="optreject" value="@ViewBag.AlertRespect">@SiteStrings.Reject_Reason_Disrespectful</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="reject4" name="optreject" value="@ViewBag.AlertControversial">@SiteStrings.Reject_Reason_Controversial</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="reject5" name="optreject" value="@ViewBag.AlertOther">@SiteStrings.Reject_Reason_Other</label>
+            </div>
+        </div>*@
                 <hr />
 
                 <div class="form-group">

@@ -60,12 +60,13 @@ namespace Roadkill.Core.Services
         List<PageViewModel> PagesBestRated(int number);
         List<PageViewModel> PagesMostViewed(int number);
 
-		/// <summary>
-		/// Retrieves a list of all tags in the system.
-		/// </summary>
-		/// <returns>A <see cref="IEnumerable{TagViewModel}"/> for the tags.</returns>
-		/// <exception cref="DatabaseException">An database error occurred while getting the tags.</exception>
-		IEnumerable<TagViewModel> AllTags();
+        /// <summary>
+        /// Retrieves a list of all tags in the system.
+        /// </summary>
+        /// <returns>A <see cref="IEnumerable{TagViewModel}"/> for the tags.</returns>
+        /// <exception cref="DatabaseException">An database error occurred while getting the tags.</exception>
+        //IEnumerable<TagViewModel> AllTags();
+        IEnumerable<TagViewModel> AllControlledTags();
 
         /// <summary>
         /// Deletes a page from the database.

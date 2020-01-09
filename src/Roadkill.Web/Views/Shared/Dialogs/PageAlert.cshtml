@@ -13,9 +13,11 @@
             @using (Html.BeginForm("PageAlert", "Pages", FormMethod.Post))
             {
                 <div class="modal-body">
+                    <div>@SiteStrings.Alert_Text</div>
+
+                    @*<input id="alerttype" type="hidden" name="alerttype" value="@SiteStrings.Alert_Language">
                     <label for="HeadContent">@SiteStrings.Page_Select_Alert</label>
-                    <input id="alerttype" type="hidden" name="alerttype" value="@SiteStrings.Alert_Language">
-                    <div class="radio">
+                                <div class="radio">
                         <label><input type="radio" id="alert1" name="optalert" value="@SiteStrings.Alert_Language" checked>@SiteStrings.Alert_Reason_Language</label>
                     </div>
                     <div class="radio">
@@ -29,11 +31,11 @@
                     </div>
                     <div class="radio">
                         <label><input type="radio" id="alert5" name="optalert" value="@SiteStrings.Alert_Other">@SiteStrings.Alert_Reason_Other</label>
-                    </div>
+                    </div>*@
                 </div>
                 <div class="modal-footer">
                     <a href="#" data-dismiss="modal" class="btn pull-left">&lt; @SiteStrings.Shared_Back_Link</a>
-                    <input type="submit" id="btnSubmit" class="btn btn-primary right" value="@SiteStrings.Button_Submit" />
+                    <input type="submit" id="btnSubmit" class="btn btn-primary right" value="@SiteStrings.Button_Confirm" />
                 </div>
             }
         </div>

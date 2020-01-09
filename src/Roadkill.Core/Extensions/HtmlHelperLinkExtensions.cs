@@ -36,7 +36,7 @@ namespace Roadkill.Core.Extensions
 			if (controller != null && controller.Context.IsLoggedIn)
 			{
 				string text = string.Format("{0} {1}", SiteStrings.Shared_LoggedInAs, controller.Context.CurrentUsername);
-				return helper.ActionLink(text, "Profile", "User");
+				return helper.ActionLink(text, "UserProfile", "User");
 			}
 			else
 			{

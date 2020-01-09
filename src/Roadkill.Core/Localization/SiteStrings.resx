@@ -1300,8 +1300,8 @@
   <data name="AllNewComments_Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
-  <data name="ListAlerts_AlertTypes" xml:space="preserve">
-    <value>Types</value>
+  <data name="ListAlerts_AlertNumber" xml:space="preserve">
+    <value>Number</value>
   </data>
   <data name="ListAlerts_No_Alert" xml:space="preserve">
     <value>No alert</value>
@@ -1339,8 +1339,8 @@
   <data name="Reject_Reason_Language" xml:space="preserve">
     <value>Bad language usage</value>
   </data>
-  <data name="Reject_Reason_Other" xml:space="preserve">
-    <value>Other</value>
+  <data name="Reject_Reason" xml:space="preserve">
+    <value>The content of the page dooen't fit the site charter.</value>
   </data>
   <data name="Reject_Reason_Publicity" xml:space="preserve">
     <value>Contains publicity</value>
@@ -1522,5 +1522,8 @@
   </data>
   <data name="MyPages_Competition_Title" xml:space="preserve">
     <value>Competitions</value>
+  </data>
+  <data name="Alert_Text" xml:space="preserve">
+    <value>The page doesn't fit the charter of the site</value>
   </data>
 </root>

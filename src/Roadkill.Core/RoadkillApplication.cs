@@ -11,7 +11,6 @@ using Roadkill.Core.Logging;
 using Roadkill.Core.Mvc;
 using System.IO;
 using Roadkill.Core.DI;
-using Roadkill.Core.Mvc;
 using System.Web.Http;
 
 namespace Roadkill.Core

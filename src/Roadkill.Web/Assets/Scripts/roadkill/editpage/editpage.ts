@@ -45,7 +45,14 @@ module Roadkill.Web
 		{
 			// Use jQuery UI autocomplete, as typeahead is currently broken for BS3
 			$("#TagsEntry").autocomplete({
-				source: tags
+                source: tags,
+                //my: 'bottom',
+                //at: 'top',
+                //open: function () {
+                //    $("ul.ui-menu").height($(this).innerHeight());
+                //    //$("#TagsEntry").autocomplete("widget").css("height", "300px");
+                //}
+
 			});
 
 			$("#TagsEntry").tagsManager({
@@ -69,16 +76,15 @@ module Roadkill.Web
 
 			$("#TagsEntry").keydown((e) =>
 			{
-				// Tab adds the tag, but then focuses the toolbar (the next tab index)
+				// "Tab" adds the tag, but then focuses the toolbar (the next tab index)
 				var code = e.keyCode || e.which;
-				if (code == "9")
-				{
+				if (code == "9") {
 					var tag: string = $("#TagsEntry").val();
 					if (this.isValidTag(tag))
 					{
 						if ($("#IsLocked").length != 0) 
-						//	$(".wysiwyg-bold").focus(); //TODO focus on good element
-						//else
+							$(".wysiwyg-bold").focus(); //TODO focus on good element
+						else
 							$("#IsLocked").focus();
 					}
 					return false;
@@ -87,7 +93,7 @@ module Roadkill.Web
 				return true;
 			});
 
-			$("#TagsEntry").blur(function (e)
+            $("#TagsEntry").blur(function (e)
 			{
 				// Push the tag when focus is lost, e.g. Save is pressed
 				$("#TagsEntry").tagsManager("pushTag", $("#TagsEntry").val());
@@ -121,82 +127,82 @@ module Roadkill.Web
 			return true;
 		}
 
-		/*private bindPreview()
-		{
-			this.resizePreviewPane();
-			EditPage.updatePreviewPane();
+		//private bindPreview()
+		//{
+		//	this.resizePreviewPane();
+		//	EditPage.updatePreviewPane();
 
-			$(document).on("resize", () =>
-			{
-				this.resizePreviewPane();
-			});
+		//	$(document).on("resize", () =>
+		//	{
+		//		this.resizePreviewPane();
+		//	});
 
-			// Keydown fires the preview after 1/100th second, but each keypress resets this.
-			$("#Content").on("keydown", () =>
-			{
-				if (this._timeout !== null)
-				{
-					clearTimeout(this._timeout);
-					this._timeout = null;
-				}
+		//	// Keydown fires the preview after 1/100th second, but each keypress resets this.
+		//	//$("#Content").on("keydown", () =>
+		//	//{
+		//	//	if (this._timeout !== null)
+		//	//	{
+		//	//		clearTimeout(this._timeout);
+		//	//		this._timeout = null;
+		//	//	}
 
-				this._timeout = setTimeout(EditPage.updatePreviewPane, 100);
-			});
-		}
+		//	//	this._timeout = setTimeout(EditPage.updatePreviewPane, 100);
+		//	//});
+		//}
 
-		private bindPreviewToggleButton()
-		{
-			$("#preview-toggle").click(function ()
-			{
-				// Switch the bootstrap classes so the form area fills or collapses
-				var panelContainer = $("#previewpanel-container");
+		//private bindPreviewToggleButton()
+		//{
+		//	$("#preview-toggle").click(function ()
+		//	{
+		//		// Switch the bootstrap classes so the form area fills or collapses
+		//		var panelContainer = $("#previewpanel-container");
 
-				if (panelContainer.is(":visible"))
-				{
-					// Hide the preview
-					$("#preview-toggle span")
-						.removeClass("glyphicon-chevron-right")
-						.addClass("glyphicon-chevron-left");
+		//		if (panelContainer.is(":visible"))
+		//		{
+		//			// Hide the preview
+		//			$("#preview-toggle span")
+		//				.removeClass("glyphicon-chevron-right")
+		//				.addClass("glyphicon-chevron-left");
 
-					$("#editpage-form-container")
-						.removeClass("col-lg-6")
-						.addClass("col-lg-12");
+		//			$("#editpage-form-container")
+		//				.removeClass("col-lg-6")
+		//				.addClass("col-lg-12");
 
-					$("#previewpanel-container")
-						.removeClass("col-lg-6")
-				}
-				else
-				{
-					// Show the preview
-					$("#preview-toggle span")
-						.removeClass("glyphicon-chevron-left")
-						.addClass("glyphicon-chevron-right");
+		//			$("#previewpanel-container")
+		//				.removeClass("col-lg-6")
+		//		}
+		//		else
+		//		{
+		//			// Show the preview
+		//			$("#preview-toggle span")
+		//				.removeClass("glyphicon-chevron-left")
+		//				.addClass("glyphicon-chevron-right");
 
-					$("#editpage-form-container")
-						.removeClass("col-lg-12")
-						.addClass("col-lg-6");
+		//			$("#editpage-form-container")
+		//				.removeClass("col-lg-12")
+		//				.addClass("col-lg-6");
 
-					$("#previewpanel-container")
-						.addClass("col-lg-6");
-				}
+		//			$("#previewpanel-container")
+		//				.addClass("col-lg-6");
+		//		}
 
-				panelContainer.toggle();
-				return false;
-			});
-		}
+		//		panelContainer.toggle();
+		//		return false;
+		//	});
+		//}
 
-		private resizePreviewPane()
-		{
-			// Height fix for CSS heights sucking
-			$("#Content").height($("#container").height());
+		//private resizePreviewPane()
+		//{
+		//	// Height fix for CSS heights sucking
+		//	$("#Content").height($("#container").height());
 
-			var previewTitleHeight: number = $("#preview-heading").outerHeight(true); // true to include margin
-			var buttonsHeight: number = $("#editpage-button-container").outerHeight(true);
-			var scrollbarHeight: number = 36; // top and bottom scrollbars
-			var formHeight: number = $("#editpage-form-container").outerHeight(true) - (buttonsHeight + scrollbarHeight + previewTitleHeight);
+		//	var previewTitleHeight: number = $("#preview-heading").outerHeight(true); // true to include margin
+		//	var buttonsHeight: number = $("#editpage-button-container").outerHeight(true);
+		//	var scrollbarHeight: number = 36; // top and bottom scrollbars
+		//	var formHeight: number = $("#editpage-form-container").outerHeight(true) - (buttonsHeight + scrollbarHeight + previewTitleHeight);
 
-			$("#preview-wrapper").height(formHeight);
-		}
+		//	$("#preview-wrapper").height(formHeight);
+		//}
 
 		/**
 		Grabs a preview from the server for the wiki markup, and displays it in the preview pane.

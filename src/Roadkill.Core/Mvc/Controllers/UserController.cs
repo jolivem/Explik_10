@@ -187,7 +187,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		/// <summary>
 		/// Provides a page for editing the logged in user's profile details.
 		/// </summary>
-		public ActionResult Profile()
+		public ActionResult UserProfile()
 		{
 			if (Context.IsLoggedIn)
 			{
@@ -210,7 +210,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		/// Updates the POST'd user profile details.
 		/// </summary>
 		[HttpPost]
-		public ActionResult Profile(UserViewModel model)
+		public ActionResult UserProfile(UserViewModel model)
 		{
 			if (!Context.IsLoggedIn)
 				return RedirectToAction("Login");

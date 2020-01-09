@@ -54,7 +54,7 @@ namespace Roadkill.Core.Mvc.Controllers
                             }
                             else
                             {
-                                PageAlertsInfo info = new PageAlertsInfo(alert.PageId, alert.Ilk, page.Title);
+                                PageAlertsInfo info = new PageAlertsInfo(alert.PageId, page.Title);
                                 model.Add(info);
                             }
                         }

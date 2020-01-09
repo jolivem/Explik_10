@@ -364,9 +364,14 @@ namespace Roadkill.Core.Database.LightSpeed
             return FromEntity.ToPageContentList(entities);
         }
 
-        public IEnumerable<string> AllTags()
+        //public IEnumerable<string> AllTags()
+        //{
+        //    return new List<string>(Pages.Select(p => p.Tags));
+        //}
+
+        public IEnumerable<string> AllControlledTags()
         {
-            return new List<string>(Pages.Select(p => p.Tags));
+            return new List<string>(Pages.Where(p => p.IsControlled).Select(p => p.Tags));
         }
 
         public void DeleteAllPages()

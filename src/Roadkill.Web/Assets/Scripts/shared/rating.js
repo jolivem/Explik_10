@@ -191,36 +191,37 @@ $(document).ready(function () {
         });
     });
 
-    $("#alert1").click(function () {
-        setAlertValue();
-    });
+    //$("#alert1").click(function () {
+    //    setAlertValue();
+    //});
 
-    $("#alert2").click(function () {
-        setAlertValue();
-    });
+    //$("#alert2").click(function () {
+    //    setAlertValue();
+    //});
 
-    $("#alert3").click(function () {
-        setAlertValue();
-    });
+    //$("#alert3").click(function () {
+    //    setAlertValue();
+    //});
 
-    $("#alert4").click(function () {
-        setAlertValue();
-    });
+    //$("#alert4").click(function () {
+    //    setAlertValue();
+    //});
 
-    $("#alert5").click(function () {
-        setAlertValue();
-    });
+    //$("#alert5").click(function () {
+    //    setAlertValue();
+    //});
 
-    function setAlertValue() {
-        var radios = document.getElementsByName('optalert');
+    //function setAlertValue() {
+    //    var radios = document.getElementsByName('optalert');
 
-        for (var i = 0, length = radios.length; i < length; i++) {
-            if (radios[i].checked) {
-                $("#alerttype").val(radios[i].value);
-                break;
-            }
-        }
-    }
+    //    for (var i = 0, length = radios.length; i < length; i++) {
+    //        if (radios[i].checked) {
+    //            $("#alerttype").val(radios[i].value);
+    //            break;
+    //        }
+    //    }
+    //}
+
     $("#remove-alert").click(function () {
 
         var pID = $("#page-view").attr("pageid");
@@ -248,36 +249,36 @@ $(document).ready(function () {
         });
     });
 
-    $("#reject1").click(function () {
-        setRejectValue();
-    });
+    //$("#reject1").click(function () {
+    //    setRejectValue();
+    //});
 
-    $("#reject2").click(function () {
-        setRejectValue();
-    });
+    //$("#reject2").click(function () {
+    //    setRejectValue();
+    //});
 
-    $("#reject3").click(function () {
-        setRejectValue();
-    });
+    //$("#reject3").click(function () {
+    //    setRejectValue();
+    //});
 
-    $("#reject4").click(function () {
-        setRejectValue();
-    });
+    //$("#reject4").click(function () {
+    //    setRejectValue();
+    //});
 
-    $("#reject5").click(function () {
-        setRejectValue();
-    });
+    //$("#reject5").click(function () {
+    //    setRejectValue();
+    //});
 
-    function setRejectValue() {
-        var radios = document.getElementsByName('optreject');
+    //function setRejectValue() {
+    //    var radios = document.getElementsByName('optreject');
 
-        for (var i = 0, length = radios.length; i < length; i++) {
-            if (radios[i].checked) {
-                $("#rejecttype").val(radios[i].value);
-                break;
-            }
-        }
-    }
+    //    for (var i = 0, length = radios.length; i < length; i++) {
+    //        if (radios[i].checked) {
+    //            $("#rejecttype").val(radios[i].value);
+    //            break;
+    //        }
+    //    }
+    //}
 });
 
 function ConfirmGetbackPage(pId) {

@@ -1046,7 +1046,7 @@
     <value>Publiée</value>
   </data>
   <data name="Page_Info_Submitted" xml:space="preserve">
-    <value>Soumis</value>
+    <value>Soumise</value>
   </data>
   <data name="Shared_SubmitLink" xml:space="preserve">
     <value>Soumettre</value>
@@ -1220,7 +1220,7 @@
     <value>Sélectionner une image</value>
   </data>
   <data name="Navigation_AllNewComments" xml:space="preserve">
-    <value>Nouveaux commentaires</value>
+    <value>Commentaires</value>
   </data>
   <data name="AllNewComments_Reject_Button" xml:space="preserve">
     <value>Rejeter</value>
@@ -1273,8 +1273,8 @@
   <data name="AllNewComments_Comment" xml:space="preserve">
     <value>Commentaire</value>
   </data>
-  <data name="ListAlerts_AlertTypes" xml:space="preserve">
-    <value>Types</value>
+  <data name="ListAlerts_AlertNumber" xml:space="preserve">
+    <value>Nombre</value>
   </data>
   <data name="ListAlerts_No_Alert" xml:space="preserve">
     <value>Aucune alerte</value>
@@ -1309,14 +1309,14 @@
   <data name="Reject_Reason_Language" xml:space="preserve">
     <value>Français incorrect</value>
   </data>
-  <data name="Reject_Reason_Other" xml:space="preserve">
-    <value>Autres</value>
+  <data name="Reject_Reason" xml:space="preserve">
+    <value>Le contenu de la page ne respecte pas la charte du site.</value>
   </data>
   <data name="Reject_Reason_Publicity" xml:space="preserve">
     <value>Contenu publicitaire</value>
   </data>
   <data name="MyPages_Confirm_Unpublish" xml:space="preserve">
-    <value>La modification aura pour effet de sortir la page des publications. Il faudra à nouveau la soumettre. Voulez-vous modifier la page ?</value>
+    <value>La reprise d'une page a pour effet de l'extraire des publications. Après modification, il faudra à nouveau la soumettre au contrôle du site.&lt;br /&gt;Voulez-vous reprendre la page ?</value>
   </data>
   <data name="Shared_UnpublishLink" xml:space="preserve">
     <value>Reprendre</value>
@@ -1464,7 +1464,7 @@
     <value>La suppression est définitive. Voulez-vous vraiment supprimer cette page ?</value>
   </data>
   <data name="MyPage_IsInCompetitionPublicationOngoing" xml:space="preserve">
-    <value>Cette page est inscrite au concours. La phase de notation aura lieu prochainement.</value>
+    <value>Cette page est inscrite au concours. Veuillez la soumettre pour finaliser la candidature.</value>
   </data>
   <data name="MyPage_IsInPastCompetition" xml:space="preserve">
     <value>Cette page a participé à un précédent concours. Elle ne peut pas être modifiée.</value>
@@ -1482,7 +1482,7 @@
     <value> </value>
   </data>
   <data name="MyPages_CompetitionAchieved" xml:space="preserve">
-    <value>Terminée</value>
+    <value>Terminé</value>
   </data>
   <data name="MyPages_CompetitionOnPublication" xml:space="preserve">
     <value>Phase de publication</value>
@@ -1492,5 +1492,8 @@
   </data>
   <data name="MyPages_Competition_Title" xml:space="preserve">
     <value>Concours</value>
+  </data>
+  <data name="Alert_Text" xml:space="preserve">
+    <value>Vous jugez que cette page ne respecte pas les règles de la charte du site. Veuillez confirmer.</value>
   </data>
 </root>

@@ -50,8 +50,9 @@ namespace Roadkill.Core.Mvc
 		{
 			jsBundle.Include("~/Assets/Scripts/jquery/additional-methods.js");
             jsBundle.Include("~/node_modules/jquery/dist/jquery.js");
-			jsBundle.Include("~/Assets/Scripts/jquery/jquery-ui-1.10.3.custom.js");
-			jsBundle.Include("~/Assets/Scripts/jquery/jquery.fieldSelection.js");
+            //jsBundle.Include("~/Assets/Scripts/jquery/jquery-ui-1.10.3.custom.js"); // exception with getClientRect
+            jsBundle.Include("~/Assets/Scripts/jquery/jquery-ui-1.12.1/jquery-ui.js"); 
+            jsBundle.Include("~/Assets/Scripts/jquery/jquery.fieldSelection.js");
 			jsBundle.Include("~/Assets/Scripts/jquery/jquery.form-extensions.js");
 			jsBundle.Include("~/Assets/Scripts/jquery/jquery.iframe-transport.js");
 			jsBundle.Include("~/Assets/Scripts/jquery/jquery.timeago.js");

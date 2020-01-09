@@ -19,13 +19,52 @@
 <script src="~/node_modules/tui-editor/dist/tui-editor-extChart.js?v=@(myGuid)"></script>
 <link rel="stylesheet" href="~/node_modules/tui-chart/dist/tui-chart.css"> -->
 
+<style>
+
+    ul.ui-autocomplete {
+        /*color: green !important;*/
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+    }
+
+    .ui-menu li {
+        /*list-style-type: none;
+        display: inline;*/
+        line-height: 1;
+    }
+</style>
+<style type="text/css">
+    .custom-button {
+        float: left;
+        box-sizing: border-box;
+        outline: none;
+        cursor: pointer;
+        background-color: #fff;
+        width: 24px;
+        height: 24px;
+        border-radius: 0;
+        margin: 5px;
+        padding: 3px 0px 3px 0px;
+        border: 1px solid #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .custom-button:hover {
+            border-width: 2;
+            border-color: #aaa;
+        }
+</style>
+
 <script src="~/Assets/Scripts/jquery/tui-editor-extYoutube.js?v=@(myGuid)"></script>
 <link rel="stylesheet" href="~/node_modules/codemirror/lib/codemirror.css">
 <link rel="stylesheet" href="~/node_modules/highlight.js/styles/github.css">
 <link rel="stylesheet" href="~/node_modules/tui-editor/dist/tui-editor.css">
-<link rel="stylesheet" href="~/node_modules/tui-editor/dist/tui-editor-contents.css">
+<link rel="stylesheet" href="~/node_modules/tui-editor/dist/tui-editor-contents-explik.min.css">
 <link href="~/Plugins/SyntaxHighlighter/css/shCore.css?version=1.0" rel="stylesheet" type="text/css" />
 <link href="~/Plugins/SyntaxHighlighter/css/shThemeMidnight.css?version=1.0" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 <script type="text/javascript">
 head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
 "@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shCore.js",
@@ -58,19 +97,21 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
 </script>
 
 <script type="text/javascript">
+
     $(document).ready(function () {
+
         // KW: Tui Editor initialization
         // Hide some of the original form and form-related elements
         $('#Content').hide();
         $('#previewpanel-container').hide();
         $('#wysiwyg-toolbar').hide();
 
-		var pageTags = [ @(Html.Raw(Model.JavascriptArrayForAllTags())) ];
+        var pageTags = [ @(Html.Raw(Model.JavascriptArrayForAllTags())) ];
         var editPage = new Roadkill.Web.EditPage(pageTags);
         var origMD = $('#Content').val();
 
         // Roadkill-compatible image urls token-rendering rule
-        function rk_image_renderer (tokens, idx, options, env, slf) {
+        function rk_image_renderer(tokens, idx, options, env, slf) {
             var token = tokens[idx];
             token.attrs[token.attrIndex('alt')][1] =
                 slf.renderInlineAsText(token.children, options, env);
@@ -85,11 +126,11 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
             //token.attrs[token.attrIndex('src')][1] = src.replace(/(.+)/, '@(Url.Content("~/"))$1');
             //console.log('img src after: ' + token.attrs[token.attrIndex('src')][1]);
             //Context.AttachmentsPath
-                return slf.renderToken(tokens, idx, options);
+            return slf.renderToken(tokens, idx, options);
         }
 
         var mdItHighlight = tui.Editor.markdownitHighlight,
-        mdIt = tui.Editor.markdownit;
+            mdIt = tui.Editor.markdownit;
 
         mdItHighlight.renderer.rules.image = rk_image_renderer;
         mdIt.renderer.rules.image = rk_image_renderer;
@@ -103,28 +144,28 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
             usageStatistics: false,
             useDefaultHTMLSanitizer: false,
             codeBlockLanguages: [ //needed otherwise scrollView exception
-                'actionscript',
-            //    'bash',
-            //    'cpp',
-            //    'cs',
-            //    'css',
-            //    'delphi',
-            //    'diff',
-            //    'erlang',
-            //    'groovy',
-            //    'html',
-            //    'java',
-            //    'javascript',
-            //    'perl',
-            //    'php',
-            //    'powershell',
-            //    'python',
-            //    'ruby',
-            //    'scala',
-            //    'sql',
-            //    'typescript',
-            //    'vbnet',
-            //    'xml'
+                'youtube',
+                //    'bash',
+                //    'cpp',
+                //    'cs',
+                //    'css',
+                //    'delphi',
+                //    'diff',
+                //    'erlang',
+                //    'groovy',
+                //    'html',
+                //    'java',
+                //    'javascript',
+                //    'perl',
+                //    'php',
+                //    'powershell',
+                //    'python',
+                //    'ruby',
+                //    'scala',
+                //    'sql',
+                //    'typescript',
+                //    'vbnet',
+                //    'xml'
             ],
             events: {
                 change: function () {
@@ -138,10 +179,10 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
             hooks: {
                 // Inserting images via wysiwyg
                 addImageBlobHook: function (blob, callback) {
-                // New web form w params
-                var fd = new FormData();
-                fd.append('destination_folder', '/'+'@Model.FilePath');
-                fd.append('files[]', blob);
+                    // New web form w params
+                    var fd = new FormData();
+                    fd.append('destination_folder', '/' + '@Model.FilePath');
+                    fd.append('files[]', blob);
 
                     // POST webform with inserted file to the upload controller
                     $.ajax({
@@ -159,37 +200,71 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
                             }
                             //console.log(data);
                             callback('@(Url.Content("~/"))' + blob.name, 'Uploaded Image');
-                            theEditor.setMarkdown( theEditor.getMarkdown() );
+                            theEditor.setMarkdown(theEditor.getMarkdown());
                         },
                         error: function (xhr, err) {
                             alert("Error from uploader API");
                         }
                     });
 
-                return false;
+                    return false;
                 }
             },
             toolbarItems: [
-              'heading',
-              'bold',
-              'italic',
-              'divider',
-              'hr',
-              'quote',
-              'divider',
-              'ul',
-              'ol',
-              'divider',
-              'image',
-              'link',
-              'divider',
-              'code',
-              'codeblock',
-              'table'
+                'heading',
+                'bold',
+                'italic',
+                'divider',
+                'hr',
+                'quote',
+                'divider',
+                'ul',
+                'ol',
+                'divider',
+                'image',
+                'link',
+                'divider',
+                'code',
+                'codeblock',
+                'table'
             ]
         });
 
         theEditor.setMarkdown(origMD, false);
+
+        var toolbar = theEditor.getUI().getToolbar();
+
+        theEditor.eventManager.addEventType('EventHelp');
+        theEditor.eventManager.listen('EventHelp', function () {
+            //@*@Url.Action("About", "Home", new { tag = "__help" })*@
+            var url = '/Home/about/__help/';
+            window.open( url); 
+            //alert('button click!');
+            //Roadkill.Web.Dialogs.openModal("#toolbar-help-dialog");
+
+            // Do some other thing...
+
+        });
+
+        toolbar.addButton({
+            name: 'customize',
+            //className: 'fab fa-accessible-icon',
+            event: 'EventHelp',
+            tooltip: 'Help!',
+            //$el: $('<div class="custom-button"><i class="fab fa-apple"></i></div>')
+            $el: $('<div class="custom-button"><i class="glyphicon glyphicon-question-sign"></i></div>')
+        }, 1);
+
+        //toolbar.insertItem(98, {
+        //    type: 'button',
+        //    options: {
+        //        name: 'MN_Edit_CSV',
+        //        className: 'MN_button fa fa-apple',
+        //        event: 'fnPluginEditButtonCSVClicked',
+        //        tooltip: 'Apple 2'
+        //    }
+        //});
+
     });
 </script>
 
@@ -211,6 +286,7 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
 
             <div class="form-group">
                 <div class="col-sm-12">
+                    <label for="Title">@SiteStrings.EditPage_Title_Label</label>
                     @(Html.BootstrapTextBoxFor<PageViewModel, string>(p => p.Title, SiteStrings.EditPage_Title_Label, false, 1))
                 </div>
             </div>
@@ -218,8 +294,6 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
             <div class="form-inline">
                 @(Html.TextBox("TagsEntry", null, new { @class = "form-control tm-input", autocomplete = "off", tabindex = 2, placeholder = SiteStrings.EditPage_Tags_Label }))
             </div>
-
-            <div id="editSection"></div>
 
             @if (RoadkillContext.IsAdmin)
             {
@@ -231,7 +305,19 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
                 </div>
             }
 
-            @(Html.TextAreaFor<PageViewModel, string>(p => p.Content, new { @class = "form-control", tabindex = 5 }))
+            @if (!RoadkillContext.IsAdmin && ViewBag.CompetitionPublicationOnGoing)
+            {
+                <label for="IsInCompetition" class="checkbox">
+                    @(Html.BootstrapCheckBoxFor<PageViewModel>(p => p.IsInCompetition, "", 3))
+                    @SiteStrings.EditPage_ParticipateToCompetition
+                    @Html.ActionLink((string)ViewBag.CompetitionLabel, "About", "Home", new { tag = ViewBag.CompetitionPageTag }, new { target = "_blank" })
+                </label>
+                <br />
+            }
+
+            <div id="editSection"></div>
+
+            @(Html.TextAreaFor<PageViewModel, string>(p => p.Content, new { @class = "form-control hidden", tabindex = 5 }))
 
             <div id="editpage-button-container" class="row">
                 <div class="col-sm-1">
@@ -254,4 +340,6 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
     </div>
 
 </div>
+
+@Html.DialogPartial("ToolbarHelp")
 

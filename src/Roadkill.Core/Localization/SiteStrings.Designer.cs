@@ -205,6 +205,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à The page doesn&apos;t fit the charter of the site.
+        /// </summary>
+        public static string Alert_Text {
+            get {
+                return ResourceManager.GetString("Alert_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à View Alerts.
         /// </summary>
         public static string Alerts_Title {
@@ -1465,11 +1474,11 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Types.
+        ///   Recherche une chaîne localisée semblable à Number.
         /// </summary>
-        public static string ListAlerts_AlertTypes {
+        public static string ListAlerts_AlertNumber {
             get {
-                return ResourceManager.GetString("ListAlerts_AlertTypes", resourceCulture);
+                return ResourceManager.GetString("ListAlerts_AlertNumber", resourceCulture);
             }
         }
         
@@ -2374,6 +2383,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à The content of the page dooen&apos;t fit the site charter..
+        /// </summary>
+        public static string Reject_Reason {
+            get {
+                return ResourceManager.GetString("Reject_Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Content is controversial.
         /// </summary>
         public static string Reject_Reason_Controversial {
@@ -2397,15 +2415,6 @@ namespace Roadkill.Core.Localization {
         public static string Reject_Reason_Language {
             get {
                 return ResourceManager.GetString("Reject_Reason_Language", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Other.
-        /// </summary>
-        public static string Reject_Reason_Other {
-            get {
-                return ResourceManager.GetString("Reject_Reason_Other", resourceCulture);
             }
         }
         

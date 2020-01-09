@@ -441,7 +441,7 @@ namespace Roadkill.Core.Mvc.ViewModels
             if (AllComments != null && AllComments.Count != 0)
             {
                 //builder.AppendLine("<p>&nbsp;</p>");
-                builder.AppendLine("<hr size=2 align=left width='100 %'/>");
+                builder.AppendLine("<hr size=4 align=left width='100 %' style='border-top-color:#4f8bdf;'/>");
                 builder.AppendLine("<div class='row col-sm-8'>");
 
                 //builder.AppendLine("<div id='container-comments' class='container'>");

@@ -11,7 +11,7 @@
         <thead>
             <tr>
                 <th>@SiteStrings.ListAlerts_PageNo</th>
-                <th>@SiteStrings.ListAlerts_AlertTypes</th>
+                <th>@SiteStrings.ListAlerts_AlertNumber</th>
                 <th></th>
             </tr>
         </thead>
@@ -19,7 +19,7 @@
         {
         <tr>
             <td >@Html.ActionLink(info.Value.PageTitle, "RecontrolPage", "Pages", new { id = info.Key }, null)</td>
-            <td><small>@info.Value.Ilks</small></td>
+            <td>@info.Value.Number</td>
             <td class="edit">@Html.ActionLink(@SiteStrings.ListAlerts_Remove_Alerts_Button, "DeleteForPage", new { id = @info.Value.PageId }, new { @class = "btn btn-xs btn-primary confirm" })</td>
         </tr>
         }

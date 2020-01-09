@@ -52,7 +52,6 @@ namespace Roadkill.Core.Email
         /// </summary>
         public virtual void Send(PageEmailInfo info, string subject)
         {
-#if !DEBUG
             //TODO TODO TODO
             if (info == null || string.IsNullOrEmpty(info.User.Email))
                 throw new EmailException(null, "The UserViewModel for the email is null or has an empty email");
@@ -75,6 +74,7 @@ namespace Roadkill.Core.Email
             MailMessage message = new MailMessage();
             message.To.Add(emailTo);
             message.Subject = subject;
+#if !DEBUG
             Send(message, plainTextContent, htmlContent);
 #endif
         }
@@ -91,8 +91,8 @@ namespace Roadkill.Core.Email
             result = result.Replace("{FIRSTNAME}", info.User.Firstname);
             result = result.Replace("{LASTNAME}", info.User.Lastname);
             result = result.Replace("{PAGETITLE}", info.Page.Title);
-            result = result.Replace("{REJECTREASON}", info.RejectType);
-            ////result = result.Replace("{ACTIVATIONKEY}", model.ActivationKey);
+            //result = result.Replace("{REJECTREASON}", info.RejectType);
+            //result = result.Replace("{ACTIVATIONKEY}", model.ActivationKey);
             //result = result.Replace("{RESETKEY}", model.PasswordResetKey);
             //result = result.Replace("{USERID}", model.Id.ToString());
             //result = result.Replace("{SITENAME}", SiteSettings.SiteName);
