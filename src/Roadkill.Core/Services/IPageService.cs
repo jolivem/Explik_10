@@ -65,8 +65,10 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <returns>A <see cref="IEnumerable{TagViewModel}"/> for the tags.</returns>
         /// <exception cref="DatabaseException">An database error occurred while getting the tags.</exception>
+        /// checkCompetition = false default --> get AllTags, no metter if the page is in ongoing competition
+        /// checkCompetition = true --> don't get tags if page is in competition. 
         //IEnumerable<TagViewModel> AllTags();
-        IEnumerable<TagViewModel> AllControlledTags();
+        IEnumerable<TagViewModel> AllControlledTags(bool checkCompetition = false);
 
         /// <summary>
         /// Deletes a page from the database.

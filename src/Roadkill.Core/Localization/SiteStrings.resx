@@ -1526,4 +1526,16 @@
   <data name="Alert_Text" xml:space="preserve">
     <value>The page doesn't fit the charter of the site</value>
   </data>
+  <data name="Navigation_AboutCompetitions" xml:space="preserve">
+    <value>Competitions</value>
+  </data>
+  <data name="EditPage_SaveFrequently" xml:space="preserve">
+    <value>Penser à enregistrer fréquemment</value>
+  </data>
+  <data name="EmailSubject_AccountActivation" xml:space="preserve">
+    <value>Activation de votre compte</value>
+  </data>
+  <data name="EmailSubject_ReinitPassword" xml:space="preserve">
+    <value>Réinitialisation de votre mot de passe</value>
+  </data>
 </root>

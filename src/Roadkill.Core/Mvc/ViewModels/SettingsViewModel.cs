@@ -66,10 +66,18 @@ namespace Roadkill.Core.Mvc.ViewModels
 		public bool IsPublicSite { get; set; }
 		public bool IgnoreSearchIndexErrors { get; set; }
 
-		/// <summary>
-		/// True when the model was updated during postback
-		/// </summary>
-		public bool UpdateSuccessful { get; set; }
+        /// <summary>
+        /// SMTP stuff to send emails
+        /// </summary>
+        public string SmtpFromEmail { get; set; }
+        public string SmtpFromPwd { get; set; }
+        public string SmtpServerHost { get; set; }
+        public int    SmtpServerPort { get; set; }
+
+        /// <summary>
+        /// True when the model was updated during postback
+        /// </summary>
+        public bool UpdateSuccessful { get; set; }
 
 		public IEnumerable<string> DatabaseTypesAvailable
 		{

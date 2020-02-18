@@ -257,7 +257,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         //public bool IsCopied { get; set; }
 
         /// <summary>
-        /// true if the page is prticipating to the current competition
+        /// true if the page is participating to the current competition
         /// </summary>
         public bool IsInCompetition { get; set; }
 

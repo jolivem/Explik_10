@@ -14,6 +14,7 @@ using Roadkill.Core.Logging;
 using Roadkill.Core.Mvc.ViewModels;
 using Roadkill.Core.Plugins;
 using StructureMap;
+using static Roadkill.Core.Mvc.ViewModels.CompetitionViewModel;
 using PluginSettings = Roadkill.Core.Plugins.Settings;
 
 namespace Roadkill.Core.Database.LightSpeed
@@ -369,9 +370,25 @@ namespace Roadkill.Core.Database.LightSpeed
         //    return new List<string>(Pages.Select(p => p.Tags));
         //}
 
-        public IEnumerable<string> AllControlledTags()
+        public IEnumerable<string> AllControlledTags(bool checkCompetition = false)
         {
+            int competitionId = -1;
+            if (checkCompetition == true)
+            {
+                // get current competitionID
+                competitionId = GetOnGoingCompetitionId();
+                if (competitionId != -1)
+                {
+                    // page tags out of competition
+                    return new List<string>(Pages.Where(p => p.IsControlled && p.CompetitionId != competitionId).Select(p => p.Tags));
+                }
+
+            }
+
+            // all tags
             return new List<string>(Pages.Where(p => p.IsControlled).Select(p => p.Tags));
+
+
         }
 
         public void DeleteAllPages()
@@ -1100,6 +1117,22 @@ namespace Roadkill.Core.Database.LightSpeed
             }
 
             return null;
+        }
+
+        public int GetOnGoingCompetitionId()
+        {
+            CompetitionEntity entity = Competitions.SingleOrDefault(x =>
+              x.Status == (int)Statuses.PublicationOngoing ||
+              x.Status == (int)Statuses.PauseBeforeRating ||
+              x.Status == (int)Statuses.RatingOngoing ||
+              x.Status == (int)Statuses.PauseBeforeAchieved);
+
+            if (entity != null)
+            {
+                return entity.Id;
+            }
+
+            return -1;
         }
 
         public void AddCompetition(Competition competition)

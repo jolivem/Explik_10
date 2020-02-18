@@ -1060,6 +1060,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Penser à enregistrer fréquemment.
+        /// </summary>
+        public static string EditPage_SaveFrequently {
+            get {
+                return ResourceManager.GetString("EditPage_SaveFrequently", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Summary.
         /// </summary>
         public static string EditPage_Summary_Label {
@@ -1227,6 +1236,24 @@ namespace Roadkill.Core.Localization {
         public static string EditPage_VideoUrl_Label {
             get {
                 return ResourceManager.GetString("EditPage_VideoUrl_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Activation de votre compte.
+        /// </summary>
+        public static string EmailSubject_AccountActivation {
+            get {
+                return ResourceManager.GetString("EmailSubject_AccountActivation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Réinitialisation de votre mot de passe.
+        /// </summary>
+        public static string EmailSubject_ReinitPassword {
+            get {
+                return ResourceManager.GetString("EmailSubject_ReinitPassword", resourceCulture);
             }
         }
         
@@ -1677,6 +1704,15 @@ namespace Roadkill.Core.Localization {
         public static string Navigation_About_Explik {
             get {
                 return ResourceManager.GetString("Navigation_About_Explik", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Competitions.
+        /// </summary>
+        public static string Navigation_AboutCompetitions {
+            get {
+                return ResourceManager.GetString("Navigation_AboutCompetitions", resourceCulture);
             }
         }
         

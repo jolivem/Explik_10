@@ -19,7 +19,7 @@ namespace Roadkill.Core.Database
         IEnumerable<Page> MyPages(string username);
         IEnumerable<PageContent> AllPageContents();
 		//IEnumerable<string> AllTags();
-        IEnumerable<string> AllControlledTags();
+        IEnumerable<string> AllControlledTags(bool checkCompetition = false);
         void DeletePage(int pageId);
         void SetDraft(int pageId);
         void SubmitPage(int pageId);

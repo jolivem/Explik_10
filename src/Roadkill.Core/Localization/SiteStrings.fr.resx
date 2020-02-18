@@ -1115,7 +1115,7 @@
     <value>vues=</value>
   </data>
   <data name="Page_Info_Rejected" xml:space="preserve">
-    <value>Décliné</value>
+    <value>Rejetée</value>
   </data>
   <data name="Page_Link_Rate" xml:space="preserve">
     <value>Noter</value>
@@ -1316,7 +1316,7 @@
     <value>Contenu publicitaire</value>
   </data>
   <data name="MyPages_Confirm_Unpublish" xml:space="preserve">
-    <value>La reprise d'une page a pour effet de l'extraire des publications. Après modification, il faudra à nouveau la soumettre au contrôle du site.&lt;br /&gt;Voulez-vous reprendre la page ?</value>
+    <value>Suite à la reprise, la page ne sera plus visible par les internautes. Après modification, il faudra à nouveau la soumettre.&lt;br /&gt;Voulez-vous reprendre la page ?</value>
   </data>
   <data name="Shared_UnpublishLink" xml:space="preserve">
     <value>Reprendre</value>
@@ -1482,18 +1482,30 @@
     <value> </value>
   </data>
   <data name="MyPages_CompetitionAchieved" xml:space="preserve">
-    <value>Terminé</value>
+    <value>Concours terminé</value>
   </data>
   <data name="MyPages_CompetitionOnPublication" xml:space="preserve">
-    <value>Phase de publication</value>
+    <value>Concours, publication en cours</value>
   </data>
   <data name="MyPages_CompetitionOnRating" xml:space="preserve">
-    <value>Notation en cours</value>
+    <value>Concours, notation en cours</value>
   </data>
   <data name="MyPages_Competition_Title" xml:space="preserve">
     <value>Concours</value>
   </data>
   <data name="Alert_Text" xml:space="preserve">
     <value>Vous jugez que cette page ne respecte pas les règles de la charte du site. Veuillez confirmer.</value>
+  </data>
+  <data name="Navigation_AboutCompetitions" xml:space="preserve">
+    <value>Concours</value>
+  </data>
+  <data name="EditPage_SaveFrequently" xml:space="preserve">
+    <value>Penser à enregistrer fréquemment</value>
+  </data>
+  <data name="EmailSubject_AccountActivation" xml:space="preserve">
+    <value>Activation de votre compte</value>
+  </data>
+  <data name="EmailSubject_ReinitPassword" xml:space="preserve">
+    <value>Réinitialisation de votre mot de passe</value>
   </data>
 </root>
