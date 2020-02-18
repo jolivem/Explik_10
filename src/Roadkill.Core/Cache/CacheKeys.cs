@@ -16,14 +16,15 @@ namespace Roadkill.Core.Cache
         public static readonly string PRIVACYPAGE = "___privacy";
         public static readonly string WARNINGSPAGE = "___warnings";
         public static readonly string HOMEPAGE = "___home";
+        public static readonly string COMPETITIONPAGE = "___competitions";
 
 
 
         /// <summary>'latesthomepage'</summary>
         //private static readonly string HOMEPAGE = "latesthomepage";
 
-		/// <summary>'{id}.{version}'</summary>
-		private static readonly string PAGEVIEWMODEL_FORMAT = "{id}.{version}";
+        /// <summary>'{id}.{version}'</summary>
+        private static readonly string PAGEVIEWMODEL_FORMAT = "{id}.{version}";
 
 		/// <summary>"allpages.with.content"</summary>
 		private static readonly string ALLPAGES_WITH_CONTENT = "allpages.with.content";

@@ -179,7 +179,8 @@ namespace Roadkill.Core.Mvc.Controllers
         [BrowserCache]
 		public ActionResult AllTags()
 		{
-			return View(_pageService.AllControlledTags().OrderBy(x => x.Name));
+            // true -> don't get pages which are in ongoing competition
+			return View(_pageService.AllControlledTags(true).OrderBy(x => x.Name)); 
 		}
 
 		/// <summary>
@@ -647,6 +648,19 @@ namespace Roadkill.Core.Mvc.Controllers
             return RedirectToAction("Index", "Wiki", new { id = model.Id });
         }
 
+
+        /// <summary>
+        /// Keep session alive during page editing
+        /// </summary>
+        /// <returns></returns>
+        [EditorRequired]
+        [HttpPost]
+        public JsonResult KeepAlive()
+        {
+            return Json(new { status = "done"}, "text/plain");
+        }
+
+
         /// <summary>
         /// Reverts a page to the version specified, creating a new version in the process.
         /// </summary>
@@ -771,7 +785,7 @@ namespace Roadkill.Core.Mvc.Controllers
         //    return RedirectToAction("Index", "Wiki", new { id = model.Id });
         //}
 
-        [EditorRequired]
+        //[EditorRequired] allow for every body --> set Remote IP if not loged in
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult  PageRating(int id, string rating)

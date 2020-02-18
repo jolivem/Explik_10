@@ -19,6 +19,7 @@ using Roadkill.Core.Logging;
 using Roadkill.Core.Mvc;
 using Roadkill.Core.Text;
 using Roadkill.Core.Plugins;
+using static Roadkill.Core.Mvc.ViewModels.CompetitionViewModel;
 
 namespace Roadkill.Core.Services
 {
@@ -413,7 +414,20 @@ namespace Roadkill.Core.Services
             IEnumerable<Page> pages = Repository.FindMostRecentPages(number);
             foreach(Page page in pages)
             {
-                models.Add(GetById(page.Id, true));
+                // ignore pages whose competition is ongoing, add only if competition is Achived
+                if (page.CompetitionId != -1)
+                {
+                    Competition competition = Repository.GetCompetitionById(page.CompetitionId);
+                    if (competition.Status == (int)Statuses.Achieved )
+                    {
+                        models.Add(GetById(page.Id, true));
+                    }
+                }
+                else
+                {
+                    models.Add(GetById(page.Id, true));
+                }
+                
             }
             return models;
         }
@@ -455,7 +469,7 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <returns>A <see cref="IEnumerable{TagViewModel}"/> for the tags.</returns>
         /// <exception cref="DatabaseException">An databaseerror occurred while getting the tags.</exception>
-        public IEnumerable<TagViewModel> AllControlledTags()
+        public IEnumerable<TagViewModel> AllControlledTags(bool checkCompetition = false)
         {
             try
             {
@@ -464,7 +478,7 @@ namespace Roadkill.Core.Services
                 List<TagViewModel> tags = _listCache.Get<TagViewModel>(cacheKey);
                 if (tags == null)
                 {
-                    IEnumerable<string> tagList = Repository.AllControlledTags();
+                    IEnumerable<string> tagList = Repository.AllControlledTags(checkCompetition);
                     tags = new List<TagViewModel>();
 
                     foreach (string item in tagList)
@@ -641,6 +655,7 @@ namespace Roadkill.Core.Services
                     var competition = Repository.GetCompetitionByStatus((int)CompetitionViewModel.Statuses.PublicationOngoing);
                     if (competition != null)
                     {
+
                         page.CompetitionId = competition.Id;
                     }
                 }
@@ -979,6 +994,8 @@ namespace Roadkill.Core.Services
                     _pageViewModelCache.RemovePageWithTag(CacheKeys.WARNINGSPAGE);
                 if (model.Tags.Contains(CacheKeys.HOMEPAGE))
                     _pageViewModelCache.RemovePageWithTag(CacheKeys.HOMEPAGE);
+                if (model.Tags.Contains(CacheKeys.COMPETITIONPAGE))
+                    _pageViewModelCache.RemovePageWithTag(CacheKeys.COMPETITIONPAGE);
 
                 _listCache.RemoveAll();
 
@@ -1293,64 +1310,6 @@ namespace Roadkill.Core.Services
             }
         }
 
-        /// <summary>
-        /// Adds the page to the database.
-        /// </summary>
-        //public int AddFakePageForTest(int number, bool isVideo, string user)
-        //{
-        //    try
-        //    {
-        //        string currentUser = _context.CurrentUsername;
-
-        //        Page page = new Page();
-        //        page.Title = "Title for the page n° " + number;
-        //        //page.Summary = "This is a short summary to say that it is a page test and nothing more";
-        //        page.Tags = "";
-        //        page.CreatedBy = user;
-        //        page.CreatedOn = DateTime.UtcNow;
-        //        page.PublishedOn = DateTime.UtcNow;
-        //        page.ControlledBy = user;
-        //        //page.IsVideo = isVideo;
-        //        string content = "";
-
-        //            content =
-        //                "Mésange est un nom vernaculaire ambigu en français. Les mésanges sont pour la plupart des passereaux de la famille des Paridés. Ce sont de petits oiseaux actifs, au bec court, de forme assez trapue. Elles sont arboricoles, insectivores et granivores. Le mâle et la femelle sont semblables ; les jeunes ressemblent aux adultes. " +
-        //                "Elles nichent dans des trous d'arbres, mais utilisent souvent les nichoirs dans les jardins. Elles sont très sociables et fréquentent volontiers les mangeoires en hiver. " +
-        //                "Anciennement, la majorité des espèces appartenait au genre Parus. Elles figurent actuellement au sein de ce genre et de quatre autres : Cyanistes, Lophophanes, Periparus et Poecile. La mésange à longue queue fait, quant à elle, partie de la famille des Aegithalidae. ";
-
-              
-        //        page.Pseudonym = null;
-        //        page.IsControlled = false;
-        //        page.IsRejected = false;
-        //        page.IsSubmitted = false;
-        //        page.IsLocked = false;
-        //        page.FilePath = DateTime.UtcNow.ToString("yyyy-MM") + "\\" + _context.CurrentUsername;
-
-
-        //        PageContent pageContent = Repository.AddNewPage(page, content, AppendIpForDemoSite(currentUser), DateTime.UtcNow);
-
-        //        _listCache.RemoveAll();
-        //        _pageViewModelCache.RemoveAll(); // completely clear the cache to update any reciprocal links.
-
-        //        // Update the lucene index
-        //        PageViewModel savedModel = new PageViewModel(pageContent, _markupConverter);
-        //        try
-        //        {
-        //            _searchService.Add(savedModel);
-        //        }
-        //        catch (SearchException)
-        //        {
-        //            // TODO: log
-        //        }
-
-        //        return pageContent.Page.Id;
-        //    }
-        //    catch (DatabaseException e)
-        //    {
-        //        throw new DatabaseException(e, "An error occurred while adding page to the database");
-        //    }
-        //}
-
         public void IncrementNbView(int pageId)
         {
             try
@@ -1410,6 +1369,14 @@ namespace Roadkill.Core.Services
         /// <param name="rating">if 0, remove rating</param>
         public void SetPageRatingForUser(int pageId, string username, int rating)
         {
+            if (string.IsNullOrEmpty(username))
+            {
+                // use the IP address instead of the user
+                username = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                if (string.IsNullOrEmpty(username))
+                    username = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+            }
+
             Comment comment = FindCommentByPageAndUser(pageId, username);
             if (comment != null)
             {
@@ -1469,6 +1436,14 @@ namespace Roadkill.Core.Services
         /// <returns></returns>
         public int GetPageRatingFromUser(int id, string username)
         {
+            if (string.IsNullOrEmpty(username))
+            {
+                // use the IP address instead of the user
+                username = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                if (string.IsNullOrEmpty(username))
+                    username = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+            }
+
             Comment comment = FindCommentByPageAndUser(id, username);
             if (comment != null)
             {

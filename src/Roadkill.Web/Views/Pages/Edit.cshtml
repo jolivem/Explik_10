@@ -13,11 +13,6 @@
 <script src="~/node_modules/squire-rte/build/squire-raw.js?v=@(myGuid)"></script>
 <script src="~/node_modules/tui-editor/dist/tui-editor-Editor.js?v=@(myGuid)"></script>
 
-<!-- chart extention
-<script src="~/node_modules/raphael/raphael.js"></script>
-<script src="~/node_modules/tui-chart/dist/tui-chart-polyfill.js?v=@(myGuid)"></script>
-<script src="~/node_modules/tui-editor/dist/tui-editor-extChart.js?v=@(myGuid)"></script>
-<link rel="stylesheet" href="~/node_modules/tui-chart/dist/tui-chart.css"> -->
 
 <style>
 
@@ -67,33 +62,8 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 <script type="text/javascript">
 head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shCore.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushAppleScript.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushAS3.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushBash.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushColdFusion.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushCpp.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushCSharp.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushCss.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushDelphi.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushDiff.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushErlang.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushGroovy.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushJava.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushJavaFX.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushJScript.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushPerl.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushPhp.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushPlain.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushPowerShell.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushPython.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushRuby.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushSass.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushScala.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushSql.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushVb.js",
-"@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushXml.js",
-        "@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushTS.js", function () { SyntaxHighlighter.all(); })
+    "@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/shBrushTS.js",
+    function () { SyntaxHighlighter.all(); })
 </script>
 
 <script type="text/javascript">
@@ -122,10 +92,6 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
                 token.attrs[token.attrIndex('src')][1] = src.replace(/(.+)/, '@(Url.Content("~/Attachments/" + @Model.FilePath))$1');
             }
 
-
-            //token.attrs[token.attrIndex('src')][1] = src.replace(/(.+)/, '@(Url.Content("~/"))$1');
-            //console.log('img src after: ' + token.attrs[token.attrIndex('src')][1]);
-            //Context.AttachmentsPath
             return slf.renderToken(tokens, idx, options);
         }
 
@@ -140,32 +106,11 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
             initialEditType: 'wysiwyg',
             previewStyle: 'vertical',
             height: '600px',
-            exts: ['youtube', 'chart', 'uml'],
+            exts: ['youtube', 'chart', 'uml', 'scrollSync'],
             usageStatistics: false,
             useDefaultHTMLSanitizer: false,
             codeBlockLanguages: [ //needed otherwise scrollView exception
                 'youtube',
-                //    'bash',
-                //    'cpp',
-                //    'cs',
-                //    'css',
-                //    'delphi',
-                //    'diff',
-                //    'erlang',
-                //    'groovy',
-                //    'html',
-                //    'java',
-                //    'javascript',
-                //    'perl',
-                //    'php',
-                //    'powershell',
-                //    'python',
-                //    'ruby',
-                //    'scala',
-                //    'sql',
-                //    'typescript',
-                //    'vbnet',
-                //    'xml'
             ],
             events: {
                 change: function () {
@@ -232,12 +177,10 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
 
         theEditor.setMarkdown(origMD, false);
 
-        var toolbar = theEditor.getUI().getToolbar();
-
         theEditor.eventManager.addEventType('EventHelp');
         theEditor.eventManager.listen('EventHelp', function () {
             //@*@Url.Action("About", "Home", new { tag = "__help" })*@
-            var url = '/Home/about/__help/';
+            var url = '/Home/about/___help/';
             window.open( url); 
             //alert('button click!');
             //Roadkill.Web.Dialogs.openModal("#toolbar-help-dialog");
@@ -246,6 +189,7 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
 
         });
 
+        var toolbar = theEditor.getUI().getToolbar();
         toolbar.addButton({
             name: 'customize',
             //className: 'fab fa-accessible-icon',
@@ -255,16 +199,17 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
             $el: $('<div class="custom-button"><i class="glyphicon glyphicon-question-sign"></i></div>')
         }, 1);
 
-        //toolbar.insertItem(98, {
-        //    type: 'button',
-        //    options: {
-        //        name: 'MN_Edit_CSV',
-        //        className: 'MN_button fa fa-apple',
-        //        event: 'fnPluginEditButtonCSVClicked',
-        //        tooltip: 'Apple 2'
-        //    }
-        //});
-
+        // keep alive mechanism
+        setInterval(function () {
+            $.ajax({
+                type: "POST",
+                url: "/Pages/KeepALive",
+                success: function (response) { },
+                failure: function (response) { },
+                error: function (response) { }
+            });
+        }, 10000);
+ 
     });
 </script>
 
@@ -331,7 +276,7 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
                     }
                 </div>
                 <div id="editpage-save-button" class="col-sm-11">
-                    <!-- @SiteStrings.Button_Preview" -->
+                    <span style="text-align:right;color:red;font-size:12px;">@SiteStrings.EditPage_SaveFrequently</span>
                     <input type="submit" class="btn btn-primary saveButton" value="@SiteStrings.Button_Save" tabindex="6" />
                 </div>
             </div>

@@ -345,6 +345,7 @@
     <Content Include="Assets\Images\2_silver.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Images\Explik-48-Blue-Yellow.png" />
     <Content Include="Assets\Images\Explik-48.png" />
     <Content Include="Assets\Images\filemanager\cancel.png" />
     <Content Include="Assets\Images\filemanager\directory.png" />
@@ -423,6 +424,7 @@
     <Content Include="Assets\Scripts\shared\bootbox.js" />
     <Content Include="Assets\Scripts\readme.txt" />
     <Content Include="Assets\Scripts\shared\tagmanager.js" />
+    <Content Include="_README.txt" />
     <TypeScriptCompile Include="Assets\Scripts\roadkill\controlpage\controlpage.ts" />
     <TypeScriptCompile Include="Assets\Scripts\roadkill\dialogs.ts" />
     <Content Include="Assets\Scripts\jquery\jquery.iframe-transport.js" />
@@ -442,11 +444,13 @@
     <Content Include="node_modules\jquery\dist\jquery.min.js" />
     <Content Include="node_modules\markdown-it\dist\markdown-it.js" />
     <Content Include="node_modules\markdown-it\dist\markdown-it.min.js" />
+    <Content Include="node_modules\squire-rte\build\squire-raw.js" />
     <Content Include="node_modules\squire-rte\build\squire.js" />
     <Content Include="node_modules\to-mark\dist\to-mark.js" />
     <Content Include="node_modules\to-mark\dist\to-mark.min.js" />
     <Content Include="node_modules\tui-code-snippet\dist\tui-code-snippet.js" />
     <Content Include="node_modules\tui-code-snippet\dist\tui-code-snippet.min.js" />
+    <Content Include="node_modules\tui-editor\dist\tui-editor-2x.png" />
     <Content Include="node_modules\tui-editor\dist\tui-editor-contents-explik.css" />
     <Content Include="node_modules\tui-editor\dist\tui-editor-contents-explik.min.css" />
     <Content Include="node_modules\tui-editor\dist\tui-editor-Editor-all.js" />
@@ -473,6 +477,7 @@
     <Content Include="node_modules\tui-editor\dist\tui-editor-Viewer.min.js" />
     <Content Include="node_modules\tui-editor\dist\tui-editor.css" />
     <Content Include="node_modules\tui-editor\dist\tui-editor.min.css" />
+    <Content Include="node_modules\tui-editor\dist\tui-editor.png" />
     <Content Include="Plugins\ExternalLinksInNewWindow\externallinksinnewwindow.js" />
     <Content Include="Plugins\ClickableImages\clickableimages.js" />
     <Content Include="Plugins\ResizeImages\resizeimages.css" />
@@ -501,6 +506,7 @@
     <Content Include="Plugins\SyntaxHighlighter\javascript\shBrushSass.js" />
     <Content Include="Plugins\SyntaxHighlighter\javascript\shBrushScala.js" />
     <Content Include="Plugins\SyntaxHighlighter\javascript\shBrushSql.js" />
+    <Content Include="Plugins\SyntaxHighlighter\javascript\shBrushTS.js" />
     <Content Include="Plugins\SyntaxHighlighter\javascript\shBrushVb.js" />
     <Content Include="Plugins\SyntaxHighlighter\javascript\shBrushXml.js" />
     <Content Include="Plugins\SyntaxHighlighter\javascript\shCore.js" />

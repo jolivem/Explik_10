@@ -112,12 +112,15 @@ $(document).ready(function () {
 
     $("#submit-rating").click(function () {
 
-        // check login
-        var currentUser = $("#current-user").attr("name");
-        if (currentUser == "") {
-            bootbox.setDefaults({ animate: false });
-            bootbox.alert($("#text-login-rating").attr("value"))
-            return;
+        // check login if text-login-rating exists (exists for competition rating, not for usual view)
+        if ($('#text-login-rating').length)  
+        {
+            var currentUser = $("#current-user").attr("name");
+            if (currentUser == "") {
+                bootbox.setDefaults({ animate: false });
+                bootbox.alert($("#text-login-rating").attr("value"))
+                return;
+            }
         }
 
         var pID = $("#page-view").attr("pageid");
