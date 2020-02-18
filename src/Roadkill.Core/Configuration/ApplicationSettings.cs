@@ -283,11 +283,19 @@ namespace Roadkill.Core.Configuration
 				return FileVersionInfo.GetVersionInfo(typeof(ApplicationSettings).Assembly.Location).ProductVersion;
 			}
 		}
+        
+        /// <summary>
+        /// SMTP stuff to send emails
+        /// </summary>
+        public string SmtpFromEmail { get; set; }
+        public string SmtpFromPwd { get; set; }
+        public string SmtpServerHost { get; set; }
+        public int SmtpServerPort { get; set; }
 
-		/// <summary>
-		/// The file version of the Roadkill product version, e.g. "1.7.0.0"
-		/// </summary>
-		public static string FileVersion
+        /// <summary>
+        /// The file version of the Roadkill product version, e.g. "1.7.0.0"
+        /// </summary>
+        public static string FileVersion
 		{
 			get
 			{

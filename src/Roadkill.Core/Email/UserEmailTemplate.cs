@@ -28,7 +28,9 @@ namespace Roadkill.Core.Email
     /// </remarks>
     public abstract class UserEmailTemplate : EmailTemplate
     {
- 
+
+        //private string emailFrom;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="UserEmailTemplate"/> class.
         /// </summary>
@@ -39,7 +41,7 @@ namespace Roadkill.Core.Email
         protected UserEmailTemplate(ApplicationSettings applicationSettings, SiteSettings siteSettings, IEmailClient emailClient)
             :base (applicationSettings, siteSettings, emailClient)
         {
-
+            //emailFrom = applicationSettings.SmtpFromEmail;
         }
 
         /// <summary>
@@ -67,10 +69,12 @@ namespace Roadkill.Core.Email
                 throw new EmailException(null, "The UserViewModel has an empty current or new email address");
 
             // Construct the message and the two views
-            MailMessage message = new MailMessage();
-            message.To.Add(emailTo);
+            //MailMessage message = new MailMessage(emailFrom, emailTo);
+            //message.To.Add(emailTo);
+            MailMessage message = new MailMessage(
+                new MailAddress(FromEmail, "Explik"), new MailAddress(emailTo));
             message.Subject = subject;
-            Send(message, plainTextContent, htmlContent);
+            base.Send(message, plainTextContent, htmlContent);
         }
 
 

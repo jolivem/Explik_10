@@ -7,6 +7,7 @@ using System.Web;
 using System.Globalization;
 using Roadkill.Core.Configuration;
 using Roadkill.Core.Mvc.ViewModels;
+using Roadkill.Core.Localization;
 
 namespace Roadkill.Core.Email
 {
@@ -35,7 +36,7 @@ namespace Roadkill.Core.Email
 			PlainTextView = _plainTextContent;
 			HtmlView = _htmlContent;
 
-			base.Send(model, "Réinitialisation du mot de passe");
+			base.Send(model, SiteStrings.EmailSubject_ReinitPassword);
 		}
 	}
 }

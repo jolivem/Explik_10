@@ -28,7 +28,8 @@ namespace Roadkill.Core.Email
     /// </remarks>
     public abstract class PageEmailTemplate : EmailTemplate
     {
- 
+        //private string emailFrom;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PageEmailTemplate"/> class.
         /// </summary>
@@ -39,6 +40,8 @@ namespace Roadkill.Core.Email
         protected PageEmailTemplate(ApplicationSettings applicationSettings, SiteSettings siteSettings, IEmailClient emailClient)
             :base (applicationSettings, siteSettings, emailClient)
         {
+            //emailFrom = applicationSettings.SmtpFromEmail;
+
             //ApplicationSettings = applicationSettings;
             //SiteSettings = siteSettings;
 
@@ -71,11 +74,12 @@ namespace Roadkill.Core.Email
                 throw new EmailException(null, "The PageEmailInfo has an empty email address");
 
             // Construct the message and the two views
-            MailMessage message = new MailMessage();
-            message.To.Add(emailTo);
+            MailMessage message = new MailMessage(
+                new MailAddress(FromEmail, "Explik"), new MailAddress(emailTo));
+            //message.To.Add(emailTo);
             message.Subject = subject;
 #if !DEBUG
-            Send(message, plainTextContent, htmlContent);
+            base.Send(message, plainTextContent, htmlContent);
 #endif
         }
 

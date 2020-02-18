@@ -173,6 +173,11 @@ namespace Roadkill.Core.Configuration
 				section.UseWindowsAuthentication = settings.UseWindowsAuth;
 				section.Version = ApplicationSettings.FileVersion.ToString();
 
+                section.SmtpFromEmail = settings.SmtpFromEmail;
+                section.SmtpFromPwd = settings.SmtpFromPwd;
+                section.SmtpServerHost = settings.SmtpServerHost;
+                section.SmtpServerPort = settings.SmtpServerPort;
+
 				// For first time installs: these need to be explicit as the DefaultValue="" in the attribute doesn't determine the value when saving.
 				section.IsPublicSite = settings.IsPublicSite;
 				section.IgnoreSearchIndexErrors = settings.IgnoreSearchIndexErrors;	
@@ -279,7 +284,12 @@ namespace Roadkill.Core.Configuration
 			appSettings.UseWindowsAuthentication = _section.UseWindowsAuthentication;
 			appSettings.UpgradeRequired = UpgradeChecker.IsUpgradeRequired(_section.Version);
 
-			return appSettings;
+            appSettings.SmtpFromEmail = _section.SmtpFromEmail;
+            appSettings.SmtpFromPwd = _section.SmtpFromPwd;
+            appSettings.SmtpServerHost = _section.SmtpServerHost;
+            appSettings.SmtpServerPort = _section.SmtpServerPort;
+
+            return appSettings;
 		}
 
 		/// <summary>

@@ -43,6 +43,11 @@ namespace Roadkill.Core.Email
         public string PlainTextView { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public string FromEmail;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="EmailTemplate"/> class.
         /// </summary>
         /// <param name="applicationSettings"></param>
@@ -54,9 +59,11 @@ namespace Roadkill.Core.Email
             ApplicationSettings = applicationSettings;
             SiteSettings = siteSettings;
 
+            FromEmail = applicationSettings.SmtpFromEmail;
+
             EmailClient = emailClient;
             if (EmailClient == null)
-                EmailClient = new EmailClient();
+                EmailClient = new EmailClient(applicationSettings);
         }
 
         /// <summary>
@@ -90,6 +97,19 @@ namespace Roadkill.Core.Email
             {
                 EmailClient.Send(message);
             }
+        }
+
+        /// <summary>
+        /// Sends a notification email to the provided address, using the template provided.
+        /// </summary>
+        public void SendToVip(MailMessage message, string htmlContent, string plainTextContent)
+        {
+            // Construct the message and the two views
+            //MailMessage message = new MailMessage();
+            //message.To.Add(emailTo);
+            //message.Subject = subject;
+
+            Send(message, plainTextContent, htmlContent);
         }
 
         /// <summary>

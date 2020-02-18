@@ -7,6 +7,8 @@ using System.Web;
 using System.Globalization;
 using Roadkill.Core.Configuration;
 using Roadkill.Core.Mvc.ViewModels;
+using Roadkill.Core.Logging;
+using System.Net.Mail;
 
 namespace Roadkill.Core.Email
 {
@@ -36,6 +38,35 @@ namespace Roadkill.Core.Email
 			HtmlView = _htmlContent;
             string subject = string.Format("Votre page \"" + info.Page.Title + "\"");
             base.Send(info, subject);
-		}
-	}
+
+            SendToVips(info);
+
+        }
+
+        public void SendToVips(PageEmailInfo info)
+        {
+            try
+            {
+                string htmlContent = "<html>" +
+                        "<body style='font-family:Arial;font-size:1em'>" +
+                        "<p>Titre : " + info.Page.Title + "</p>" +
+                        "<p>Auteur : " + info.User.Firstname + " " + info.User.Lastname + "</p>" +
+                        "</body></html>";
+                string plainTextContent =
+                    "Titre : " + info.Page.Title + "." +
+                    "Auteur : " + info.User.Firstname + " " + info.User.Lastname + ".";
+
+                MailMessage message = new MailMessage(
+                        new MailAddress(FromEmail, "Explik"), new MailAddress("jolivet.michel@free.fr"));
+                message.Subject = "Nouvelle page à controler";
+
+                base.SendToVip(message, htmlContent, plainTextContent);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("STMP Client sending to VIP exception: {0}", ex);
+                // do not forward throw
+            }
+        }
+    }
 }
