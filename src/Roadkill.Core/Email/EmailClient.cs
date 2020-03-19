@@ -53,7 +53,7 @@ namespace Roadkill.Core.Email
             catch (Exception ex)
             {
                 Log.Error("STMP Client sending exception: {0}", ex);
-                throw;
+                //throw; do not throw
             }
         }
 

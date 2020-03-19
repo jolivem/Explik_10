@@ -56,7 +56,7 @@ namespace Roadkill.Core.Services
             //            foreach (Page page in pages)
             //{
             //     page.FilePath = _attachmentPathUtil.ConvertUrlPathToPhysicalPath
-                
+
             //}
             //TODO change file path
         }
@@ -98,7 +98,7 @@ namespace Roadkill.Core.Services
                 {
                     page.CompetitionId = -1;
                 }
-                
+
 
                 // Double check, incase the HTML form was faked.
                 if (_context.IsAdmin)
@@ -150,13 +150,13 @@ namespace Roadkill.Core.Services
                         Page page = new Page();
                         page.Title = "Title of this wondefull page n° " + p;
                         //page.Summary = "This is a short summary to say that it is a page test and nothing more";
-                        page.Tags = "tage"+i;
+                        page.Tags = "tage" + i;
                         page.CreatedBy = AppendIpForDemoSite(currentUser);
                         page.CreatedOn = DateTime.UtcNow;
                         page.PublishedOn = DateTime.UtcNow;
                         page.ControlledBy = AppendIpForDemoSite(currentUser);
                         page.FilePath = DateTime.UtcNow.ToString("yyyy-MM") + "/" + _context.CurrentUsername;
-                        
+
 
                         // Double check, incase the HTML form was faked.
                         //if (_context.IsAdmin)
@@ -195,7 +195,7 @@ namespace Roadkill.Core.Services
                     }
                 }
 
-                return ;
+                return;
             }
             catch (DatabaseException e)
             {
@@ -352,17 +352,17 @@ namespace Roadkill.Core.Services
                 //}
                 //else
                 //{
-                    cacheKey = CacheKeys.MyPages();
-                    pageModels = _listCache.Get<PageViewModel>(cacheKey);
+                cacheKey = CacheKeys.MyPages();
+                pageModels = _listCache.Get<PageViewModel>(cacheKey);
 
-                    if (pageModels == null)
-                    {
-                        IEnumerable<Page> pages = Repository.MyPages(id).OrderBy(p => p.Title);
-                        pageModels = from page in pages
-                                     select new PageViewModel(page);
+                if (pageModels == null)
+                {
+                    IEnumerable<Page> pages = Repository.MyPages(id).OrderByDescending(p => p.Id);
+                    pageModels = from page in pages
+                                 select new PageViewModel(page);
 
-                        _listCache.Add<PageViewModel>(cacheKey, pageModels);
-                    }
+                    _listCache.Add<PageViewModel>(cacheKey, pageModels);
+                }
                 //}
 
                 return pageModels;
@@ -410,15 +410,15 @@ namespace Roadkill.Core.Services
         /// <returns></returns>
         public List<PageViewModel> PagesMostRecent(int number)
         {
-            List<PageViewModel> models=new List<PageViewModel>();
+            List<PageViewModel> models = new List<PageViewModel>();
             IEnumerable<Page> pages = Repository.FindMostRecentPages(number);
-            foreach(Page page in pages)
+            foreach (Page page in pages)
             {
                 // ignore pages whose competition is ongoing, add only if competition is Achived
                 if (page.CompetitionId != -1)
                 {
                     Competition competition = Repository.GetCompetitionById(page.CompetitionId);
-                    if (competition.Status == (int)Statuses.Achieved )
+                    if (competition.Status == (int)Statuses.Achieved)
                     {
                         models.Add(GetById(page.Id, true));
                     }
@@ -427,7 +427,7 @@ namespace Roadkill.Core.Services
                 {
                     models.Add(GetById(page.Id, true));
                 }
-                
+
             }
             return models;
         }
@@ -614,7 +614,7 @@ namespace Roadkill.Core.Services
         /// <param name="controllerRating"></param>
         /// <param name="isInCompetition">-1 if not involved in a competition</param>
         /// <param name="tags"></param>
-        public void ValidatePage(int pageId, string controllerName, int controllerRating, bool isInCompetition, string tags=null)
+        public void ValidatePage(int pageId, string controllerName, int controllerRating, bool isInCompetition, string tags = null)
         {
             try
             {
@@ -639,7 +639,7 @@ namespace Roadkill.Core.Services
                 if (page.NbRating == 0 && controllerRating > 0)
                 {
                     page.ControllerRating = controllerRating;
-                    page.TotalRating = controllerRating ;
+                    page.TotalRating = controllerRating;
                     page.NbRating = 1;
                 }
 
@@ -843,6 +843,36 @@ namespace Roadkill.Core.Services
         }
 
         /// <summary>
+        /// Finds controlled pages with the given tag.
+        /// </summary>
+        /// <param name="tag">The tag to search for.</param>
+        /// <returns>A <see cref="IEnumerable{PageViewModel}"/> of pages tagged with the provided tag.</returns>
+        /// <exception cref="DatabaseException">An database error occurred while getting the list.</exception>
+        public IEnumerable<PageViewModel> FindControlledPagesByTag(string tag)
+        {
+            try
+            {
+                string cacheKey = string.Format("pagesbytag.{0}", tag);
+
+                IEnumerable<PageViewModel> models = _listCache.Get<PageViewModel>(cacheKey);
+                if (models == null)
+                {
+
+                    IEnumerable<Page> pages = Repository.FindControlledPagesByTag(tag).OrderBy(p => p.Title);
+                    models = from page in pages
+                             select new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+
+                    _listCache.Add<PageViewModel>(cacheKey, models);
+                }
+
+                return models;
+            }
+            catch (DatabaseException ex)
+            {
+                throw new DatabaseException(ex, "An error occurred finding the tag '{0}' in the database", tag);
+            }
+        }
+        /// <summary>
         /// Finds a page by its title
         /// </summary>
         /// <param name="title">The page title</param>
@@ -885,6 +915,62 @@ namespace Roadkill.Core.Services
                 //    return pageModel;
                 //}
                 //else
+                PageViewModel pageModel;
+                if (true)
+                {
+                    Page page = Repository.GetPageById(id);
+
+                    if (page == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        // If object caching is enabled, ignore the "loadcontent" parameter as the cache will be 
+                        // used on the second call anyway, so performance isn't an issue.
+                        if (ApplicationSettings.UseObjectCache)
+                        {
+                            pageModel = new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+                        }
+                        else
+                        {
+                            if (loadContent)
+                            {
+                                pageModel = new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+                            }
+                            else
+                            {
+                                pageModel = new PageViewModel(page);
+                            }
+                        }
+
+                        // needed for display through url /wiki/Id
+                        pageModel.AllComments = FindAllCommentByPage(id);
+                        pageModel.Ranking = Repository.GetPageRanking(id);
+                        pageModel.UserHits = Repository.GetUserHits(page.CreatedBy);
+
+                        _pageViewModelCache.Add(id, pageModel);
+
+                        return pageModel;
+                    }
+                }
+            }
+            catch (DatabaseException ex)
+            {
+                throw new DatabaseException(ex, "An error occurred getting the page with id '{0}' from the database", id);
+            }
+        }
+
+        /// <summary>
+        /// Retrieves the page given the competition id.
+        /// </summary>
+        /// <param name="id">The id of the page</param>
+        /// <returns>A <see cref="PageViewModel"/> for the page.</returns>
+        /// <exception cref="DatabaseException">An databaseerror occurred while getting the page.</exception>
+        public PageViewModel GetByCompetitionId(int id, bool loadContent = false)
+        {
+            try
+            {
                 PageViewModel pageModel;
                 if (true)
                 {
@@ -996,13 +1082,15 @@ namespace Roadkill.Core.Services
                     _pageViewModelCache.RemovePageWithTag(CacheKeys.HOMEPAGE);
                 if (model.Tags.Contains(CacheKeys.COMPETITIONPAGE))
                     _pageViewModelCache.RemovePageWithTag(CacheKeys.COMPETITIONPAGE);
+                //if (model.Tags.Contains(CacheKeys.))
+                //    _pageViewModelCache.RemovePageWithTag(CacheKeys.COMPETITIONPAGE);
 
                 _listCache.RemoveAll();
 
                 int newVersion = _historyService.MaxVersion(model.Id) + 1;
                 //PageContent pageContent = Repository.AddNewPageContentVersion(page, model.Content, AppendIpForDemoSite(currentUser), DateTime.UtcNow, newVersion);
                 PageContent pageContent = Repository.AddNewPageContentVersion(page, model.Content, DateTime.UtcNow, newVersion);
-                
+
                 // Update all links to this page (if it has had its title renamed). Case changes don't need any updates.
                 if (model.PreviousTitle != null && model.PreviousTitle.ToLower() != model.Title.ToLower())
                 {
@@ -1320,20 +1408,20 @@ namespace Roadkill.Core.Services
             {
                 throw new DatabaseException(ex, "An exception occurred while incrementing nb views.");
             }
-            
+
         }
 
         public Page FindById(int id) //TODO handle cache ???
         {
             try
             {
-                 return Repository.GetPageById(id);
+                return Repository.GetPageById(id);
             }
             catch (DatabaseException ex)
             {
                 //throw new DatabaseException(ex, "An error occurred getting the page with id '{0}' from the database", id);
                 return null;
-            }        
+            }
         }
 
         public UserActivity GetUserActivity(string username)
@@ -1478,17 +1566,23 @@ namespace Roadkill.Core.Services
             return "";
         }
 
-        public List<PageAndUserRatingViewModel> FindPagesByCompetition(int competitionId, string userName)
+        /// <summary>
+        /// Get pages for rating, get the rating of the user if nay
+        /// </summary>
+        /// <param name="competitionId"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public List<PageAndUserRatingViewModel> FindControlledfPagesByCompetition(int competitionId, string userName)
         {
-            try 
+            try
             {
                 List<PageAndUserRatingViewModel> list = new List<PageAndUserRatingViewModel>();
-                List<Page> pages = Repository.FindPagesByCompetitionId(competitionId).ToList();
-                foreach( Page page in pages)
+                List<Page> pages = Repository.FindControlledPagesByCompetitionId(competitionId).ToList();
+                foreach (Page page in pages)
                 {
                     // only controlled pages
                     if (page.IsControlled)
-                    { 
+                    {
                         int rating = 0;
                         if (userName != null && userName != "")
                         {
@@ -1506,5 +1600,28 @@ namespace Roadkill.Core.Services
             }
         }
 
+        /// <summary>
+        /// Get pages for rating, get the rating of the user if nay
+        /// </summary>
+        /// <param name="competitionId"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public IEnumerable<PageViewModel> FindPagesByCompetitionId(int competitionId)
+        {
+            try
+            {
+                IEnumerable<PageViewModel> pageModels;
+
+                IEnumerable<Page> pages = Repository.FindPagesByCompetitionId(competitionId).ToList();
+                pageModels = from page in pages
+                             select new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+
+                return pageModels;
+            }
+            catch (DatabaseException ex)
+            {
+                throw new DatabaseException(ex, "An error occurred while retrieving all new pages from the database");
+            }
+        }
     }
 }

@@ -1508,4 +1508,16 @@
   <data name="EmailSubject_ReinitPassword" xml:space="preserve">
     <value>Réinitialisation de votre mot de passe</value>
   </data>
+  <data name="Competition_ListPages" xml:space="preserve">
+    <value>Pages</value>
+  </data>
+  <data name="Competition_ListPagesTitle" xml:space="preserve">
+    <value>Liste des pages en compétition</value>
+  </data>
+  <data name="Google_Title" xml:space="preserve">
+    <value>Explik, aide scolaire en ligne</value>
+  </data>
+  <data name="Competition_Result" xml:space="preserve">
+    <value>Résultats du concours</value>
+  </data>
 </root>

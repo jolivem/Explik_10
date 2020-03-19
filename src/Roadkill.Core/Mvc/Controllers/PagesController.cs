@@ -347,7 +347,7 @@ namespace Roadkill.Core.Mvc.Controllers
 
                     // for the link to the competition page
                     PageViewModel page = _pageService.GetById(competition.PageId);
-                    ViewBag.CompetitionLabel = page.EncodedTitle;
+                    ViewBag.CompetitionLabel = page.Title;
                     ViewBag.CompetitionPageTag = competition.PageTag; // tag is used to reach the page
                 }
                 else
@@ -522,7 +522,7 @@ namespace Roadkill.Core.Mvc.Controllers
                     {
                         ViewBag.CompetitionPublicationOnGoing = true;
                         PageViewModel page = _pageService.GetById(competition.PageId);
-                        ViewBag.CompetitionLabel = page.EncodedTitle;
+                        ViewBag.CompetitionLabel = page.Title;
                         ViewBag.CompetitionPageTag = competition.PageTag;
                     }
                 }
@@ -620,7 +620,7 @@ namespace Roadkill.Core.Mvc.Controllers
                 {
                     ViewBag.CompetitionPublicationOnGoing = true;
                     PageViewModel page = _pageService.GetById(competition.PageId);
-                    ViewBag.CompetitionLabel = page.EncodedTitle;
+                    ViewBag.CompetitionLabel = page.Title;
                     ViewBag.CompetitionPageTag = competition.PageTag;
                 }
             }
@@ -690,7 +690,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		{
             MarkupConverter converter = _pageService.GetMarkupConverter();
             GalleryViewModel galleryModel = new GalleryViewModel(converter);
-            galleryModel.listPages = _pageService.FindByTag(id).ToList();
+            galleryModel.listPages = _pageService.FindControlledPagesByTag(id).ToList();
 
             galleryModel.Title = string.Format(SiteStrings.Pages_ForTag, HttpUtility.UrlDecode(id));
             //SiteStrings.Gallery_Last_Publications;

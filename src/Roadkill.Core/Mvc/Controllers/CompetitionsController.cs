@@ -136,6 +136,33 @@ namespace Roadkill.Core.Mvc.Controllers
         }
 
         /// <summary>
+        /// Results from CompetitionPages
+        /// </summary>
+        /// <param name="id">competition id</param>
+        /// <returns></returns>
+        [AdminRequired]
+        public ActionResult ListPagesForAdmin(int id)
+        {
+            try
+            {
+                CompetitionViewModel competition = _competitionService.GetById(id);
+                IEnumerable<PageViewModel> model = _pageService.FindPagesByCompetitionId(id);
+                if (model != null)
+                {
+                    ViewBag.competitionId = id;
+                    ViewBag.competitionTitle = competition.PageTitle;
+                    return View(model);
+                }
+                return RedirectToAction("List");
+            }
+            catch( Exception ex)
+            {
+                var toto = ex;
+            }
+            return null;
+        }
+
+        /// <summary>
         /// Display the competition page and a button to participate
         /// </summary>
         /// <returns></returns>
@@ -166,7 +193,7 @@ namespace Roadkill.Core.Mvc.Controllers
         public ActionResult ListPagesForRating(int id)
         {
             CompetitionViewModel competition = _competitionService.GetById(id);
-            List<PageAndUserRatingViewModel> model = _pageService.FindPagesByCompetition(id, Context.CurrentUsername);
+            List<PageAndUserRatingViewModel> model = _pageService.FindControlledfPagesByCompetition(id, Context.CurrentUsername);
             if (model != null)
             {
                 ViewBag.competitionId = id;

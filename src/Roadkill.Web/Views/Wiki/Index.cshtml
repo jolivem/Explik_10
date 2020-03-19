@@ -1,6 +1,6 @@
 ﻿@model PageViewModel
 @{
-    ViewBag.Title = Model.Title;
+    ViewBag.Title = @SiteStrings.Google_Title;
 }
 
 @Html.Partial("HeadContentTuiEditorView")
@@ -40,7 +40,7 @@
 
 <!-- Title and page info -->
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-9">
 
         <h2 class="pagetitle">
             @MvcHtmlString.Create(PageViewModel.EncodeImageRanking(Model.Ranking))
@@ -61,7 +61,7 @@
             }
         </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         <h2> </h2>
         @MvcHtmlString.Create(@Model.EncodePageAverageRating())
         <p style="color:green;">@Model.NbView @SiteStrings.Page_Info_NbView</p>
@@ -80,7 +80,7 @@
 </div>
 <!-- Rating actions -->
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-9">
         @Html.Hidden("text-unrate", @SiteStrings.Page_Link_Unrate)
         @Html.Hidden("text-rate", @SiteStrings.Page_Link_Rate)
         @Html.Hidden("srating", (object)ViewBag.userrating)
@@ -121,7 +121,7 @@
 
 <!-- Comment action -->
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-9">
 
         <h4 style="margin-bottom:0px;">@SiteStrings.Page_Info_My_Comment_2</h4>
         @if (@ViewBag.usercomment != "")

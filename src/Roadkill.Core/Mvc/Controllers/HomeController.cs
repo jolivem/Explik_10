@@ -51,7 +51,7 @@ namespace Roadkill.Core.Mvc.Controllers
 
             galleryModel.listPages = (List<PageViewModel>)_pageService.PagesMostRecent(30);
 
-            galleryModel.Title = SiteStrings.Gallery_Last_Publications;
+            galleryModel.Title = SiteStrings.Google_Title;
 
             // find Explik introduction
             ViewBag.ExplikIntroduction = "";

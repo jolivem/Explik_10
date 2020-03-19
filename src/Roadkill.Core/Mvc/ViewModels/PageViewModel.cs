@@ -829,7 +829,7 @@ namespace Roadkill.Core.Mvc.ViewModels
             modelHtml = markupConverter.ToHtml(modelHtml);
             modelHtml = ReplaceImgInHtml(modelHtml);
             modelHtml = ReplaceYoutubeInHtml(modelHtml);
-
+            modelHtml = ReplacePdfInHtml(modelHtml);
 
             //TODO find youtube and image 
             modelHtml = _removeTagsRegex.Replace(modelHtml, "");
@@ -901,6 +901,36 @@ namespace Roadkill.Core.Mvc.ViewModels
             return newHtml;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        private string ReplacePdfInHtml(string html)
+        {
+            bool found;
+            string newHtml = html;
+            do
+            {
+                found = false;
+                // find youtube tag
+                int index1 = newHtml.IndexOf("<code>pdf");
+                if (index1 >= 0)
+                {
+                    int index2 = newHtml.IndexOf("</code>", index1);
+                    if (index2 > index1)
+                    {
+                        found = true;
+                        string sub1 = newHtml.Substring(0, index1);
+                        string sub2 = newHtml.Substring(index2 + 7);
+                        newHtml = sub1 + "[pdf]" + sub2;
+                    }
+                }
+
+            } while (found);
+
+            return newHtml;
+        }
         /// <summary>
         /// 
         /// </summary>

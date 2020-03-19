@@ -81,35 +81,35 @@ namespace Roadkill.Core.Extensions
         /// <example>
         /// usage:   @Html.RenderPageByTag("secondMenu")
         /// </example>
-        public static MvcHtmlString RenderPageByTag(this HtmlHelper helper, string tag)
-        {
-			string html = "";
+   //     public static MvcHtmlString RenderPageByTag(this HtmlHelper helper, string tag)
+   //     {
+			//string html = "";
 
-			ControllerBase controller = helper.ViewContext.Controller as ControllerBase;
-			WikiController wikiController = controller as WikiController;
-			if (wikiController != null)
-			{
-				PageService pageService = wikiController._pageService;
+			//ControllerBase controller = helper.ViewContext.Controller as ControllerBase;
+			//WikiController wikiController = controller as WikiController;
+			//if (wikiController != null)
+			//{
+			//	PageService pageService = wikiController._pageService;
 
-				IEnumerable<PageViewModel> pages = pageService.FindByTag(tag);
-				if (pages.Count() > 0)
-				{
-					// Find the page, first search for a locked page.
-					PageViewModel model = pages.FirstOrDefault(h => h.IsLocked);
-					if (model == null)
-					{
-						model = pages.FirstOrDefault();
-					}
+			//	IEnumerable<PageViewModel> pages = pageService.FindByTag(tag);
+			//	if (pages.Count() > 0)
+			//	{
+			//		// Find the page, first search for a locked page.
+			//		PageViewModel model = pages.FirstOrDefault(h => h.IsLocked);
+			//		if (model == null)
+			//		{
+			//			model = pages.FirstOrDefault();
+			//		}
 
-					if (model != null)
-					{
-						html = model.ContentAsHtml;
-					}
-				}
-			}
+			//		if (model != null)
+			//		{
+			//			html = model.ContentAsHtml;
+			//		}
+			//	}
+			//}
 
-			return MvcHtmlString.Create(html);
-        }
+			//return MvcHtmlString.Create(html);
+   //     }
 
 		/// <summary>
 		/// An alias for Partial() to indicate a dialog's HTML is being rendered.

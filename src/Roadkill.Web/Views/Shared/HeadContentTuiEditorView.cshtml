@@ -10,6 +10,7 @@
 <script src="~/node_modules/squire-rte/build/squire-raw.js?v=@(myGuid)"></script>
 <script src="~/node_modules/tui-editor/dist/tui-editor-Viewer.js?v=@(myGuid)"></script>
 <script src="~/Assets/Scripts/jquery/tui-editor-extYoutube.js?v=@(myGuid)"></script>
+<script src="~/Assets/Scripts/jquery/tui-editor-extPdf.js?v=@(myGuid)"></script>
 <link rel="stylesheet" href="~/node_modules/codemirror/lib/codemirror.css">
 <link rel="stylesheet" href="~/node_modules/highlight.js/styles/github.css">
 <link rel="stylesheet" href="~/node_modules/tui-editor/dist/tui-editor.css">
@@ -52,7 +53,7 @@
         var theEditor = new tui.Editor({
             el: document.querySelector('#viewSection'),
             height: '300px',
-            exts: ['youtube'],
+            exts: ['youtube', 'pdf'],
         });
 
         theEditor.setMarkdown(origMD, false);

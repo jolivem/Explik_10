@@ -18,7 +18,8 @@
             <th>@SiteStrings.Competition_ListSubject</th>
             <th>@SiteStrings.Competition_ListDate</th>
             <th>@SiteStrings.Competition_ListStatus</th>
-            <th></th>
+            <th>@SiteStrings.Competition_ListStatus</th>
+            <th>@SiteStrings.Competition_ListPages</th>
             <th></th>
         </tr>
     </thead>
@@ -40,6 +41,11 @@
         <td>
             @Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", new { id = competitionModel.Id }, new { @class = "btn btn-mini btn-primary" })
         </td>
+
+            <td>
+                @Html.ActionLink(SiteStrings.Competition_ListPages, "ListPagesForAdmin", new { id = competitionModel.Id }, new { @class = "btn btn-mini btn-primary" })
+            </td>
+       
 
         @if (competitionModel.Status == CompetitionViewModel.Statuses.Achieved)
         {

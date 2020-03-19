@@ -405,7 +405,7 @@ namespace Roadkill.Core.Services
                 // Remove previous achievement if any
                 Repository.DeletCompetitionPages(competitionId);
 
-                List<Page> pages = Repository.FindPagesByCompetitionId(competitionId).ToList();
+                List<Page> pages = Repository.FindControlledPagesByCompetitionId(competitionId).ToList();
                 if (pages.Count > 0)
                 {
                     foreach (Page page in pages)

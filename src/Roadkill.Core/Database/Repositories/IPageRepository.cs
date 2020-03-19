@@ -36,6 +36,7 @@ namespace Roadkill.Core.Database
 
 	    IEnumerable<Page> FindPagesMostViewed(int number);
         IEnumerable<Page> FindPagesBestRated(int number);
+        IEnumerable<Page> FindControlledPagesByCompetitionId(int competitionId);
         IEnumerable<Page> FindPagesByCompetitionId(int competitionId);
         void DeletCompetitionPages(int competitionId);
         void DeletCompetitionPage(int pageId);
@@ -46,7 +47,8 @@ namespace Roadkill.Core.Database
         IEnumerable<Page> FindPagesWithAlerts();
         IEnumerable<Page> FindPagesControlledBy(string username);
 		IEnumerable<Page> FindPagesContainingTag(string tag);
-		IEnumerable<PageContent> FindPageContentsByPageId(int pageId);
+        IEnumerable<Page> FindControlledPagesByTag(string tag);
+        IEnumerable<PageContent> FindPageContentsByPageId(int pageId);
 		//IEnumerable<PageContent> FindPageContentsEditedBy(string username);
 		PageContent GetLatestPageContent(int pageId);
 		Page GetPageById(int id);

@@ -448,8 +448,10 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public IEnumerable<Page> FindMostRecentPages(int number)
         {
+            // ignore all pages that are in the ongoing competition
+            int id = GetOnGoingCompetitionId();
             List<PageEntity> entities = Pages
-                .Where(p => p.IsControlled && !p.IsLocked)
+                .Where(p => p.IsControlled && !p.IsLocked && p.CompetitionId != id)
                 .OrderByDescending(p => p.PublishedOn)
                 .Take(number)
                 .ToList();
@@ -482,9 +484,15 @@ namespace Roadkill.Core.Database.LightSpeed
             return FromEntity.ToPageList(entities);
         }
 
-        public IEnumerable<Page> FindPagesByCompetitionId(int competitionId)
+        public IEnumerable<Page> FindControlledPagesByCompetitionId(int competitionId)
         {
             List<PageEntity> entities = Pages.Where(p => p.CompetitionId == competitionId && p.IsControlled == true).ToList();
+            return FromEntity.ToPageList(entities);
+        }
+
+        public IEnumerable<Page> FindPagesByCompetitionId(int competitionId)
+        {
+            List<PageEntity> entities = Pages.Where(p => p.CompetitionId == competitionId).ToList();
             return FromEntity.ToPageList(entities);
         }
 
@@ -521,6 +529,16 @@ namespace Roadkill.Core.Database.LightSpeed
             IEnumerable<PageEntity>
                 entities = Pages.Where(p =>
                     p.Tags.ToLower().Contains(tag.ToLower())); // Lightspeed doesn't support ToLowerInvariant
+            return FromEntity.ToPageList(entities);
+        }
+
+        public IEnumerable<Page> FindControlledPagesByTag(string tag)
+        {
+            IEnumerable<PageEntity>
+                entities = Pages.Where(p =>
+                    p.Tags.ToLower().Contains(tag.ToLower())// Lightspeed doesn't support ToLowerInvariant
+                    && p.CompetitionId == -1 // ignore if in competition
+                    && p.IsControlled == true);
             return FromEntity.ToPageList(entities);
         }
 
@@ -677,6 +695,12 @@ namespace Roadkill.Core.Database.LightSpeed
             {
                 entity.TotalRating -= rating;
                 entity.NbRating--;
+                if (entity.TotalRating<=0 || entity.NbRating<=0)
+                {
+                    // todo log error
+                    entity.TotalRating = 0;
+                    entity.NbRating=0;
+                }
                 UnitOfWork.SaveChanges();
             }
         }

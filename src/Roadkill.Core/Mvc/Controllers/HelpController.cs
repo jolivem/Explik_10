@@ -30,15 +30,15 @@ namespace Roadkill.Core.Mvc.Controllers
 			return View();
 		}
 
-		public ActionResult About()
-		{
-			// Get the first page with an "about" tag
-			PageViewModel model = _pageService.FindByTag("about").FirstOrDefault();
-			if (model == null)
-				return RedirectToAction("New", "Pages", new { title = "about", tags = "about" });
-			else
-				return View("../Wiki/Index", model);
-		}
+		//public ActionResult About()
+		//{
+		//	// Get the first page with an "about" tag
+		//	PageViewModel model = _pageService.FindByTag("about").FirstOrDefault();
+		//	if (model == null)
+		//		return RedirectToAction("New", "Pages", new { title = "about", tags = "about" });
+		//	else
+		//		return View("../Wiki/Index", model);
+		//}
 
 		public ActionResult CreoleReference()
 		{

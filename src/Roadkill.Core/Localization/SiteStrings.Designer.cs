@@ -628,6 +628,24 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Pages.
+        /// </summary>
+        public static string Competition_ListPages {
+            get {
+                return ResourceManager.GetString("Competition_ListPages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Liste de spages en compétition.
+        /// </summary>
+        public static string Competition_ListPagesTitle {
+            get {
+                return ResourceManager.GetString("Competition_ListPagesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Status.
         /// </summary>
         public static string Competition_ListStatus {
@@ -696,6 +714,15 @@ namespace Roadkill.Core.Localization {
         public static string Competition_RatingTitle {
             get {
                 return ResourceManager.GetString("Competition_RatingTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à .
+        /// </summary>
+        public static string Competition_Result {
+            get {
+                return ResourceManager.GetString("Competition_Result", resourceCulture);
             }
         }
         
@@ -1434,6 +1461,15 @@ namespace Roadkill.Core.Localization {
         public static string Gallery_Last_Publications {
             get {
                 return ResourceManager.GetString("Gallery_Last_Publications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Explik, aide scolaire en ligne.
+        /// </summary>
+        public static string Google_Title {
+            get {
+                return ResourceManager.GetString("Google_Title", resourceCulture);
             }
         }
         

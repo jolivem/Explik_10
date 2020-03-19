@@ -259,15 +259,19 @@ namespace Roadkill.Core.Services
 		/// </summary>
 		internal string GetContentSummary(PageViewModel model)
 		{
-			// Turn the contents into HTML, then strip the tags for the mini summary. This needs some works
-			string modelHtml = model.Content;
-			modelHtml = _markupConverter.ToHtml(modelHtml);
-			modelHtml = _removeTagsRegex.Replace(modelHtml, "");
+            return model.GetContentSummary(_markupConverter);
+			//// Turn the contents into HTML, then strip the tags for the mini summary. This needs some works
+			//string modelHtml = model.Content;
+			//modelHtml = _markupConverter.ToHtml(modelHtml);
+   //         modelHtml = ReplaceImgInHtml(modelHtml);
+   //         modelHtml = ReplaceYoutubeInHtml(modelHtml);
 
-			if (modelHtml.Length > 150)
-				modelHtml = modelHtml.Substring(0, 149);
+   //         modelHtml = _removeTagsRegex.Replace(modelHtml, "");
 
-			return modelHtml;
+			//if (modelHtml.Length > 150)
+			//	modelHtml = modelHtml.Substring(0, 149);
+
+			//return modelHtml;
 		}
 	}
 }

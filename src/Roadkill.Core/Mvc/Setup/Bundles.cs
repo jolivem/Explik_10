@@ -49,7 +49,7 @@ namespace Roadkill.Core.Mvc
 		private static void IncludeJQueryScripts(ScriptBundle jsBundle)
 		{
 			jsBundle.Include("~/Assets/Scripts/jquery/additional-methods.js");
-            jsBundle.Include("~/node_modules/jquery/dist/jquery.js");
+            jsBundle.Include("~/node_modules/jquery/dist/jquery.js"); // with jquery.min, tui is not working !!!
             //jsBundle.Include("~/Assets/Scripts/jquery/jquery-ui-1.10.3.custom.js"); // exception with getClientRect
             jsBundle.Include("~/Assets/Scripts/jquery/jquery-ui-1.12.1/jquery-ui.js"); 
             jsBundle.Include("~/Assets/Scripts/jquery/jquery.fieldSelection.js");
@@ -87,7 +87,7 @@ namespace Roadkill.Core.Mvc
 			jsBundle.Include("~/Assets/Scripts/shared/tagmanager.js");
             jsBundle.Include("~/Assets/Scripts/shared/toastr.js");
             jsBundle.Include("~/Assets/Scripts/shared/es6-promise.auto.min.js");
-            jsBundle.Include("~/Assets/Scripts/shared/html2canvas.min.js"); //TODO, big file remove
+            //jsBundle.Include("~/Assets/Scripts/shared/html2canvas.min.js"); //TODO, big file remove
             jsBundle.Include("~/Assets/Scripts/shared/rating.js");
         }
     }

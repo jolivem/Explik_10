@@ -1,7 +1,7 @@
 ﻿
-@model List<PageViewModel>
+@model IEnumerable<PageViewModel>
 @{
-    ViewBag.Title = @SiteStrings.Competition_Result;
+    ViewBag.Title = "TODO";
 }
 
 <div class=" row">
@@ -16,7 +16,7 @@
         }
         <br />
 
-        <h4>@SiteStrings.Competition_ResultTitle</h4>
+        <h4>@SiteStrings.Competition_ListPagesTitle</h4>
         <br />
         <table>
             @foreach (PageViewModel page in Model)
@@ -24,20 +24,12 @@
                 <tr>
                     <td class='searchresult-td'>
                         <span class="searchresult-title">
-                            @MvcHtmlString.Create(PageViewModel.EncodeImageRanking(page.Ranking))
                             <a href="@Url.Action("Index", "Wiki", new { id = page.Id , title = page.EncodedTitle })">@page.Title</a>
                         </span><br />
                         <span class="searchresult-summary">@MvcHtmlString.Create(page.ContentSummary) ...</span><br />
                         @MvcHtmlString.Create(PageViewModel.EncodeTags(page))
                         <span>
-                            @if (@page.CreatedBy.ToLower() == "explik")
-                            {
-                                <span class="searchresult-date">@page.PublishedOn.Date.ToString("dd/MM/yyyy") - @page.NbView @SiteStrings.Page_Info_NbView</span>
-                            }
-                            else
-                            {
-                                <span class="searchresult-date">@page.CreatedBy - @page.PublishedOn.Date.ToString("dd/MM/yyyy") - @page.NbView @SiteStrings.Page_Info_NbView</span>
-                            }
+                            <span class="searchresult-date">@page.CreatedBy - @page.PublishedOn.Date.ToString("dd/MM/yyyy") - @page.NbView @SiteStrings.Page_Info_NbView</span>
                             <span style="display: inline-block;margin-bottom:-2px;">@MvcHtmlString.Create(PageViewModel.EncodePageRating(page))</span>
                         </span>
                     </td>

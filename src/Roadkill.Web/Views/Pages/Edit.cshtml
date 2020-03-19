@@ -1,7 +1,9 @@
 ﻿@model PageViewModel
 @{
-    ViewBag.Title = SiteStrings.EditPage_Title;
-    string myGuid = Guid.NewGuid().ToString();
+                /**/
+
+                ViewBag.Title = SiteStrings.EditPage_Title;
+                string myGuid = Guid.NewGuid().ToString();
 }
 
 <script src="~/node_modules/markdown-it/dist/markdown-it.js?v=@(myGuid)"></script>
@@ -11,7 +13,9 @@
 <script src="~/node_modules/codemirror/lib/codemirror.js?v=@(myGuid)"></script>
 <script src="~/node_modules/highlight.js/lib/highlight.js?v=@(myGuid)"></script>
 <script src="~/node_modules/squire-rte/build/squire-raw.js?v=@(myGuid)"></script>
-<script src="~/node_modules/tui-editor/dist/tui-editor-Editor.js?v=@(myGuid)"></script>
+<script src="~/node_modules/tui-editor/dist/tui-editor-Editor-all.min.js?v=@(myGuid)"></script>
+@*<script src="~/node_modules/tui-editor/dist/tui-editor-extColorSyntax.min.js?v=@(myGuid)"></script>*@
+<script src="~/node_modules/tui-editor/dist/tui-editor-extScrollSync.min.js"></script>
 
 
 <style>
@@ -53,6 +57,7 @@
 </style>
 
 <script src="~/Assets/Scripts/jquery/tui-editor-extYoutube.js?v=@(myGuid)"></script>
+<script src="~/Assets/Scripts/jquery/tui-editor-extPdf.js?v=@(myGuid)"></script>
 <link rel="stylesheet" href="~/node_modules/codemirror/lib/codemirror.css">
 <link rel="stylesheet" href="~/node_modules/highlight.js/styles/github.css">
 <link rel="stylesheet" href="~/node_modules/tui-editor/dist/tui-editor.css">
@@ -105,12 +110,13 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
             el: document.querySelector('#editSection'),
             initialEditType: 'wysiwyg',
             previewStyle: 'vertical',
-            height: '600px',
-            exts: ['youtube', 'chart', 'uml', 'scrollSync'],
+            height: '450px',
+            exts: ['youtube', 'scrollSync', 'pdf'],
             usageStatistics: false,
             useDefaultHTMLSanitizer: false,
             codeBlockLanguages: [ //needed otherwise scrollView exception
                 'youtube',
+                'pdf',
             ],
             events: {
                 change: function () {
@@ -181,7 +187,7 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
         theEditor.eventManager.listen('EventHelp', function () {
             //@*@Url.Action("About", "Home", new { tag = "__help" })*@
             var url = '/Home/about/___help/';
-            window.open( url); 
+            window.open( url);
             //alert('button click!');
             //Roadkill.Web.Dialogs.openModal("#toolbar-help-dialog");
 
@@ -208,8 +214,8 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
                 failure: function (response) { },
                 error: function (response) { }
             });
-        }, 10000);
- 
+        }, 120000);
+
     });
 </script>
 

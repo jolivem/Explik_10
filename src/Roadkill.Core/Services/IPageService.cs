@@ -144,6 +144,7 @@ namespace Roadkill.Core.Services
 		/// <returns>A <see cref="IEnumerable{PageViewModel}"/> of pages tagged with the provided tag.</returns>
 		/// <exception cref="DatabaseException">An database error occurred while getting the list.</exception>
 		IEnumerable<PageViewModel> FindByTag(string tag);
+        IEnumerable<PageViewModel> FindControlledPagesByTag(string tag);
 
         /// <summary>
         /// Finds the first page with the tag 'homepage'. Any pages that are locked by an administrator take precedence.
@@ -258,7 +259,8 @@ namespace Roadkill.Core.Services
         /// <param name="competitionId"></param>
         /// <param name="userName">the user name so as to get the user ranking</param>
         /// <returns></returns>
-        List<PageAndUserRatingViewModel> FindPagesByCompetition(int competitionId, string userName);
+        List<PageAndUserRatingViewModel> FindControlledfPagesByCompetition(int competitionId, string userName);
 
+        IEnumerable<PageViewModel> FindPagesByCompetitionId(int competitionId);
     }
 }
