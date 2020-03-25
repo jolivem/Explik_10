@@ -55,6 +55,37 @@
             border-color: #aaa;
         }
 </style>
+<style>
+    .video-responsive {
+        overflow: hidden;
+        padding-bottom: 56.25%;
+        position: relative;
+        height: 0;
+    }
+
+        .video-responsive iframe {
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+        }
+
+    .pdf-responsive {
+        overflow: hidden;
+        padding-bottom: 130%;
+        position: relative;
+        height: 0;
+    }
+
+        .pdf-responsive iframe {
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+        }
+</style>
 
 <script src="~/Assets/Scripts/jquery/tui-editor-extYoutube.js?v=@(myGuid)"></script>
 <script src="~/Assets/Scripts/jquery/tui-editor-extPdf.js?v=@(myGuid)"></script>

@@ -923,7 +923,7 @@ namespace Roadkill.Core.Mvc.ViewModels
                         found = true;
                         string sub1 = newHtml.Substring(0, index1);
                         string sub2 = newHtml.Substring(index2 + 7);
-                        newHtml = sub1 + "[pdf]" + sub2;
+                        newHtml = sub1 + "[doc]" + sub2;
                     }
                 }
 

@@ -2,6 +2,39 @@
     string myGuid = Guid.NewGuid().ToString();
 }
 
+<style>
+    .video-responsive {
+        overflow: hidden;
+        padding-bottom: 56.25%;
+        position: relative;
+        height: 0;
+    }
+
+        .video-responsive iframe {
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+        }
+
+    .pdf-responsive {
+        overflow: hidden;
+        padding-bottom: 130%;
+        position: relative;
+        height: 0;
+    }
+
+        .pdf-responsive iframe {
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+        }
+
+</style>
+
 <script src="~/node_modules/markdown-it/dist/markdown-it.js?v=@(myGuid)"></script>
 <script src="~/node_modules/to-mark/dist/to-mark.js?v=@(myGuid)"></script>
 <script src="~/node_modules/tui-code-snippet/dist/tui-code-snippet.js?v=@(myGuid)"></script>

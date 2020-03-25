@@ -11,7 +11,6 @@ Editor.defineExtension('youtube', function () {
 
 function renderYoutube(wrapperId, youtubeId) {
     var el = document.querySelector('#' + wrapperId);
-    el.innerHTML = '<iframe width="420" height="315" src="https://www.youtube.com/embed/' + youtubeId + '"></iframe>';
+    el.innerHTML = '<div class="video-responsive"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/' + youtubeId + '"></iframe></div>';
     //el.innerHTML = '<div> TOTO TATA TITI ' + youtubeId + '</div > ';
 }
-

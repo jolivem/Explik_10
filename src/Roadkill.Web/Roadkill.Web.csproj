@@ -310,8 +310,6 @@
     <Content Include="App_Data\Internal\Export\emptyfile.txt" />
     <Content Include="App_Data\Logs\emptyfile.txt" />
     <Content Include="App_Data\Internal\htmlwhitelist.xml" />
-    <Content Include="App_Data\Internal\SQLiteBinaries\x64\SQLite.Interop.dll" />
-    <Content Include="App_Data\Internal\SQLiteBinaries\x86\SQLite.Interop.dll" />
     <Content Include="App_Data\customvariables.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -419,11 +417,13 @@
     <Content Include="Assets\Scripts\jquery\additional-methods.js" />
     <Content Include="Assets\Scripts\jquery\jquery-ui-1.12.1\jquery-ui.js" />
     <Content Include="Assets\Scripts\jquery\jquery.validate-explik.js" />
+    <Content Include="Assets\Scripts\jquery\tui-editor-extPdf.js" />
     <Content Include="Assets\Scripts\jquery\tui-editor-extYoutube.js" />
     <Content Include="Assets\Scripts\shared\rating.js" />
     <Content Include="Assets\Scripts\shared\bootbox.js" />
     <Content Include="Assets\Scripts\readme.txt" />
     <Content Include="Assets\Scripts\shared\tagmanager.js" />
+    <Content Include="Run\NoteCompetition.php" />
     <Content Include="_README.txt" />
     <TypeScriptCompile Include="Assets\Scripts\roadkill\controlpage\controlpage.ts" />
     <TypeScriptCompile Include="Assets\Scripts\roadkill\dialogs.ts" />
@@ -717,6 +717,8 @@
     <Content Include="tsconfig.json" />
     <Content Include="Views\Shared\HeadContentTuiEditorView.cshtml" />
     <Content Include="Views\Pages\Dialogs\ToolbarHelp.cshtml" />
+    <Content Include="Views\Competitions\ListPagesForAdmin.cshtml" />
+    <None Include="Properties\PublishProfiles\WebDeploy Ikoula.pubxml" />
     <None Include="Web.Mono.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

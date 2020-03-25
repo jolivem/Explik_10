@@ -213,23 +213,26 @@ namespace Roadkill.Core.Services
 				{
 					foreach (Page page in Repository.AllPages().ToList())
 					{
-						PageViewModel pageModel = new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+                        if (!page.IsLocked) // do not index admin pages
+                        {
+                            PageViewModel pageModel = new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
 
-						Document document = new Document();
-						document.Add(new Field("id", pageModel.Id.ToString(), Field.Store.YES, Field.Index.ANALYZED));
-						document.Add(new Field("content", pageModel.Content, Field.Store.YES, Field.Index.ANALYZED));
-						document.Add(new Field("contentsummary", GetContentSummary(pageModel), Field.Store.YES, Field.Index.NO));
-						document.Add(new Field("title", pageModel.Title, Field.Store.YES, Field.Index.ANALYZED));
-						document.Add(new Field("tags", pageModel.SpaceDelimitedTags(), Field.Store.YES, Field.Index.ANALYZED));
-						document.Add(new Field("createdby", pageModel.CreatedBy, Field.Store.YES, Field.Index.NOT_ANALYZED));
-						document.Add(new Field("createdon", pageModel.CreatedOn.ToShortDateString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-                        document.Add(new Field("contentlength", pageModel.Content.Length.ToString(), Field.Store.YES, Field.Index.NO));
-                        //document.Add(new Field("summary", pageModel.Summary.ToString(), Field.Store.YES, Field.Index.ANALYZED));
-                        //document.Add(new Field("nbview", pageModel.NbView.ToString(), Field.Store.YES, Field.Index.NO));
-                        //document.Add(new Field("nbrating", pageModel.NbRating.ToString(), Field.Store.YES, Field.Index.NO));
-                        //document.Add(new Field("totalrating", pageModel.TotalRating.ToString(), Field.Store.YES, Field.Index.NO));
+                            Document document = new Document();
+                            document.Add(new Field("id", pageModel.Id.ToString(), Field.Store.YES, Field.Index.ANALYZED));
+                            document.Add(new Field("content", pageModel.Content, Field.Store.YES, Field.Index.ANALYZED));
+                            document.Add(new Field("contentsummary", GetContentSummary(pageModel), Field.Store.YES, Field.Index.NO));
+                            document.Add(new Field("title", pageModel.Title, Field.Store.YES, Field.Index.ANALYZED));
+                            document.Add(new Field("tags", pageModel.SpaceDelimitedTags(), Field.Store.YES, Field.Index.ANALYZED));
+                            document.Add(new Field("createdby", pageModel.CreatedBy, Field.Store.YES, Field.Index.NOT_ANALYZED));
+                            document.Add(new Field("createdon", pageModel.CreatedOn.ToShortDateString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+                            document.Add(new Field("contentlength", pageModel.Content.Length.ToString(), Field.Store.YES, Field.Index.NO));
+                            //document.Add(new Field("summary", pageModel.Summary.ToString(), Field.Store.YES, Field.Index.ANALYZED));
+                            //document.Add(new Field("nbview", pageModel.NbView.ToString(), Field.Store.YES, Field.Index.NO));
+                            //document.Add(new Field("nbrating", pageModel.NbRating.ToString(), Field.Store.YES, Field.Index.NO));
+                            //document.Add(new Field("totalrating", pageModel.TotalRating.ToString(), Field.Store.YES, Field.Index.NO));
 
-                        writer.AddDocument(document);
+                            writer.AddDocument(document);
+                        }
 					}
 
 					writer.Optimize();
