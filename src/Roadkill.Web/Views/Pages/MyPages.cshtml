@@ -19,6 +19,7 @@
         <thead>
             <tr>
                 <th>@SiteStrings.AllPages_TitleColumnHeading</th>
+                <th>@SiteStrings.MyPages_Tags</th>
                 <th>@SiteStrings.MyPages_Competition_Title</th>
                 <th>@SiteStrings.MyPages_Status_Title</th>
                 <th>@SiteStrings.MyPages_Action_Title</th>
@@ -33,6 +34,7 @@
         {
         <tr>
             <td class="pagename stretch">@Html.ActionLink(pageModel.Title, "Index", "Wiki", new { id = pageModel.Id, title = pageModel.EncodedTitle }, null)</td>
+            <td class="pagename">@MvcHtmlString.Create(pageModel.RawTags)</td>
             <td class="pagename">@MvcHtmlString.Create(pageModel.CompetitionInfo)</td>
             <td class="pagename">@MvcHtmlString.Create(pageModel.Status)</td>
             @if (RoadkillContext.IsLoggedIn)

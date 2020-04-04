@@ -1550,4 +1550,7 @@
   <data name="Competition_Result" xml:space="preserve">
     <value />
   </data>
+  <data name="MyPages_Tags" xml:space="preserve">
+    <value>Catégories</value>
+  </data>
 </root>

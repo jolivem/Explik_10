@@ -1735,6 +1735,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Catégories.
+        /// </summary>
+        public static string MyPages_Tags {
+            get {
+                return ResourceManager.GetString("MyPages_Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à About Explik.
         /// </summary>
         public static string Navigation_About_Explik {

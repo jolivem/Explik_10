@@ -1178,7 +1178,7 @@
     <value>Oui</value>
   </data>
   <data name="Navigation_About_Explik" xml:space="preserve">
-    <value>A propos d'Explik</value>
+    <value>A propos</value>
   </data>
   <data name="Navigation_Contact" xml:space="preserve">
     <value>Contact</value>
@@ -1519,5 +1519,8 @@
   </data>
   <data name="Competition_Result" xml:space="preserve">
     <value>Résultats du concours</value>
+  </data>
+  <data name="MyPages_Tags" xml:space="preserve">
+    <value>Catégories</value>
   </data>
 </root>
