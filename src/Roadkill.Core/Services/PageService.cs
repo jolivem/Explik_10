@@ -415,18 +415,18 @@ namespace Roadkill.Core.Services
             foreach (Page page in pages)
             {
                 // ignore pages whose competition is ongoing, add only if competition is Achived
-                if (page.CompetitionId != -1)
-                {
-                    Competition competition = Repository.GetCompetitionById(page.CompetitionId);
-                    if (competition.Status == (int)Statuses.Achieved)
-                    {
-                        models.Add(GetById(page.Id, true));
-                    }
-                }
-                else
-                {
+                //if (page.CompetitionId != -1)
+                //{
+                //    Competition competition = Repository.GetCompetitionById(page.CompetitionId);
+                //    if (competition.Status == (int)Statuses.Achieved)
+                //    {
+                //        models.Add(GetById(page.Id, true));
+                //    }
+                //}
+                //else
+                //{
                     models.Add(GetById(page.Id, true));
-                }
+                //}
 
             }
             return models;

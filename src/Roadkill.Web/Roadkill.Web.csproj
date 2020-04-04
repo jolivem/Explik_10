@@ -719,6 +719,7 @@
     <Content Include="Views\Pages\Dialogs\ToolbarHelp.cshtml" />
     <Content Include="Views\Competitions\ListPagesForAdmin.cshtml" />
     <None Include="Properties\PublishProfiles\WebDeploy Ikoula.pubxml" />
+    <Content Include="Views\Pages\QuickEdit.cshtml" />
     <None Include="Web.Mono.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

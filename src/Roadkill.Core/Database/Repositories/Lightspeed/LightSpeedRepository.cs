@@ -450,12 +450,25 @@ namespace Roadkill.Core.Database.LightSpeed
         {
             // ignore all pages that are in the ongoing competition
             int id = GetOnGoingCompetitionId();
-            List<PageEntity> entities = Pages
-                .Where(p => p.IsControlled && !p.IsLocked && p.CompetitionId != id)
-                .OrderByDescending(p => p.PublishedOn)
-                .Take(number)
-                .ToList();
-            return FromEntity.ToPageList(entities);
+            if (id != -1)
+            {
+                List<PageEntity> entities = Pages
+                    .Where(p => p.IsControlled && !p.IsLocked && p.CompetitionId != id)
+                    .OrderByDescending(p => p.PublishedOn)
+                    .Take(number)
+                    .ToList();
+                return FromEntity.ToPageList(entities);
+            }
+            else
+            {
+                List<PageEntity> entities = Pages
+                    .Where(p => p.IsControlled && !p.IsLocked)
+                    .OrderByDescending(p => p.PublishedOn)
+                    .Take(number)
+                    .ToList();
+                return FromEntity.ToPageList(entities);
+            }
+            
         }
 
         public IEnumerable<Page> FindPagesBestRated(int number)

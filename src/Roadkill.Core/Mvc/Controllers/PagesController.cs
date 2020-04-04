@@ -533,6 +533,7 @@ namespace Roadkill.Core.Mvc.Controllers
             {
                 return RedirectToAction("New");
             }
+
         }
 
 		/// <summary>
@@ -597,6 +598,12 @@ namespace Roadkill.Core.Mvc.Controllers
 		[EditorRequired]
 		public ActionResult New(string title = "", string tags = "")
 		{
+            if (Context.CurrentUsername == "Explik")
+            {
+                // mode for quick edit / submission / control ...
+                return RedirectToAction("QuickEdit");
+            }
+ 
             PageViewModel model = new PageViewModel()
             {
                 Title = title,
@@ -822,6 +829,64 @@ namespace Roadkill.Core.Mvc.Controllers
         {
  
             return PartialView("ToolBarHelp");
+        }
+        /// <summary>
+        /// Displays the Edit view in new page mode for quick edit
+        /// </summary>
+        /// <returns>An empty <see cref="PageViewModel"/> as the model.</returns>
+        /// <remarks>This action requires editor rights.</remarks>
+        [EditorRequired]
+        public ActionResult QuickEdit()
+        {
+            PageViewModel model = new PageViewModel()
+            {
+                Title = "",
+                RawTags = "",
+                Content = "```youtube\n\n```\n",
+                ContentAsHtml = "<p><code>youtube\n\n</code></p>",
+            };
+
+            // define a folder for images
+            // use a GUID because pageId is not known yet
+            Guid guid = Guid.NewGuid();
+            string pagePath = guid.ToString("N").Substring(0, 6);
+            model.FilePath = Context.AttachmentsPath + "/" + pagePath;
+
+            model.AllTags = _pageService.AllControlledTags().ToList();
+
+            // Handle participation to current competition
+            ViewBag.CompetitionPublicationOnGoing = false;
+            var competition = _competitionService.GetCompetitionByStatus(CompetitionViewModel.Statuses.PublicationOngoing);
+            if (competition != null)
+            {
+                ViewBag.CompetitionPublicationOnGoing = true;
+                PageViewModel page = _pageService.GetById(competition.PageId);
+                ViewBag.CompetitionLabel = page.Title;
+                ViewBag.CompetitionPageTag = competition.PageTag;
+            }
+
+            return View("QuickEdit", model);
+        }
+
+        /// <summary>
+        /// Saves all POST'd data for a page edit to the database.
+        /// </summary>
+        /// <param name="model">A filled <see cref="PageViewModel"/> containing the new data.</param>
+        /// <returns>Redirects to /Wiki/{id} using the passed in <see cref="PageViewModel.Id"/>.</returns>
+        /// <remarks>This action requires editor rights.</remarks>
+        [EditorRequired]
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult QuickEdit(PageViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View("QuickEdit", model);
+
+            model = _pageService.AddPage(model);
+
+            _pageService.ValidatePage(model.Id, Context.CurrentUsername, 4, model.IsInCompetition, model.RawTags);
+
+            return RedirectToAction("Index", "Wiki", new { id = model.Id });
         }
     }
 }
