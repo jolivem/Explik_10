@@ -255,7 +255,6 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
         <form class="form-horizontal" role="form" method="post" id="editpage-form">
             @(Html.HiddenFor<PageViewModel, int>(p => p.Id))
             @(Html.HiddenFor<PageViewModel, string>(p => p.PreviousTitle))
-            @(Html.HiddenFor<PageViewModel, string>(p => p.RawTags))
             @(Html.HiddenFor<PageViewModel, string>(p => p.FilePath))
 
             <div class="form-group">
@@ -265,8 +264,11 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
                 </div>
             </div>
 
-            <div class="form-inline">
-                @(Html.TextBox("TagsEntry", null, new { @class = "form-control tm-input", autocomplete = "off", tabindex = 2, placeholder = SiteStrings.EditPage_Tags_Label }))
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <label for="Title">@SiteStrings.EditPage_Tags_Label</label>
+                    @(Html.BootstrapTextBoxFor<PageViewModel, string>(p => p.RawTags, SiteStrings.EditPage_Tags_Label, false, 2))
+                </div>
             </div>
 
             @if (!RoadkillContext.IsAdmin && ViewBag.CompetitionPublicationOnGoing)
@@ -295,7 +297,7 @@ head.js("@(Url.Content("~"))Plugins/SyntaxHighlighter/javascript/XRegExp.js",
                     }
                 </div>
                 <div id="editpage-save-button" class="col-sm-11">
-                  
+
                     <input type="submit" class="btn btn-primary saveButton" value="@SiteStrings.Button_Save" tabindex="6" />
                 </div>
             </div>

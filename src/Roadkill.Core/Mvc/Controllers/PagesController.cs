@@ -598,7 +598,16 @@ namespace Roadkill.Core.Mvc.Controllers
 		[EditorRequired]
 		public ActionResult New(string title = "", string tags = "")
 		{
-            if (Context.CurrentUsername == "Explik")
+            if (Context.CurrentUsername == "Explik" ||
+                Context.CurrentUsername == "Yvan.Monka" ||
+                Context.CurrentUsername == "Yannick.Sayer" ||
+                Context.CurrentUsername == "SchoolMouv" ||
+                Context.CurrentUsername == "digiSchool" ||
+                Context.CurrentUsername == "Mathrix" ||
+                Context.CurrentUsername == "PCCL" ||
+                Context.CurrentUsername == "Paul.Olivier" ||
+                Context.CurrentUsername == "Monsieur.Petit" ||
+                Context.CurrentUsername == "LesBonsProfs")
             {
                 // mode for quick edit / submission / control ...
                 return RedirectToAction("QuickEdit");
@@ -851,8 +860,8 @@ namespace Roadkill.Core.Mvc.Controllers
             Guid guid = Guid.NewGuid();
             string pagePath = guid.ToString("N").Substring(0, 6);
             model.FilePath = Context.AttachmentsPath + "/" + pagePath;
-
-            model.AllTags = _pageService.AllControlledTags().ToList();
+            model.RawTags = "";
+            //model.AllTags = _pageService.AllControlledTags().ToList();
 
             // Handle participation to current competition
             ViewBag.CompetitionPublicationOnGoing = false;

@@ -66,7 +66,7 @@ namespace Roadkill.Core.Services
 				return list;
 
             MyFrenchAnalyzer analyzer = new MyFrenchAnalyzer(LUCENEVERSION);
-			MultiFieldQueryParser parser = new MultiFieldQueryParser(LuceneVersion.LUCENE_29, new string[] { "content", "title", "tags" }, analyzer);
+			MultiFieldQueryParser parser = new MultiFieldQueryParser(LuceneVersion.LUCENE_29, new string[] { "content", "title", "tags", "createdby" }, analyzer);
             parser.DefaultOperator = QueryParser.Operator.AND;
 
 			Query query = null;
@@ -143,7 +143,7 @@ namespace Roadkill.Core.Services
                         document.Add(new Field("contentsummary", GetContentSummary(model), Field.Store.YES, Field.Index.NO));
                         document.Add(new Field("title", model.Title, Field.Store.YES, Field.Index.ANALYZED));
                         document.Add(new Field("tags", model.SpaceDelimitedTags(), Field.Store.YES, Field.Index.ANALYZED));
-                        document.Add(new Field("createdby", model.CreatedBy, Field.Store.YES, Field.Index.NOT_ANALYZED));
+                        document.Add(new Field("createdby", model.CreatedBy, Field.Store.YES, Field.Index.ANALYZED));
                         document.Add(new Field("createdon", model.CreatedOn.ToShortDateString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
                         document.Add(new Field("contentlength", model.Content.Length.ToString(), Field.Store.YES, Field.Index.NO));
 
@@ -223,7 +223,7 @@ namespace Roadkill.Core.Services
                             document.Add(new Field("contentsummary", GetContentSummary(pageModel), Field.Store.YES, Field.Index.NO));
                             document.Add(new Field("title", pageModel.Title, Field.Store.YES, Field.Index.ANALYZED));
                             document.Add(new Field("tags", pageModel.SpaceDelimitedTags(), Field.Store.YES, Field.Index.ANALYZED));
-                            document.Add(new Field("createdby", pageModel.CreatedBy, Field.Store.YES, Field.Index.NOT_ANALYZED));
+                            document.Add(new Field("createdby", pageModel.CreatedBy, Field.Store.YES, Field.Index.ANALYZED));
                             document.Add(new Field("createdon", pageModel.CreatedOn.ToShortDateString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
                             document.Add(new Field("contentlength", pageModel.Content.Length.ToString(), Field.Store.YES, Field.Index.NO));
                             //document.Add(new Field("summary", pageModel.Summary.ToString(), Field.Store.YES, Field.Index.ANALYZED));
