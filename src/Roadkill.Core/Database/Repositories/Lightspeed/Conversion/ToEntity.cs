@@ -110,5 +110,21 @@ namespace Roadkill.Core.Database.LightSpeed
 			entity.Text = pageContent.Text;
 			entity.VersionNumber = pageContent.VersionNumber;
 		}
-	}
+
+        public static void FromCourse(Course course, CourseEntity entity)
+        {
+            //entity.Id = competition.Id;
+            entity.Id = course.Id;
+            entity.Title = course.Title;
+            entity.CreatedBy = course.CreatedBy;
+        }
+
+        public static void FromCoursePage(CoursePage coursepage, CoursePageEntity entity)
+        {
+            entity.CourseId = coursepage.Id;
+            entity.PageId = coursepage.PageId;
+            entity.Order = coursepage.Order;
+        }
+
+    }
 }

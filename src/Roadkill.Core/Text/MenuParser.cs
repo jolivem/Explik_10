@@ -20,10 +20,10 @@ namespace Roadkill.Core.Text
         private static readonly string ALLNEWPAGES_TOKEN = "%allnewpages%";
         private static readonly string ALLNEWCOMMENTS_TOKEN = "%allnewcomments%";
         private static readonly string MYPAGES_TOKEN = "%mypages%";
+        private static readonly string MYCOURSES_TOKEN = "%mycourses%";
         private static readonly string ALERTS_TOKEN = "%alerts%";
         private static readonly string MAINPAGE_TOKEN = "%mainpage%";
 		private static readonly string NEWPAGE_TOKEN = "%newpage%";
-		//private static readonly string MANAGEFILES_TOKEN = "%managefiles%";
         private static readonly string SITESETTINGS_TOKEN = "%sitesettings%";
         private static readonly string COMPETITIONS_TOKEN = "%competitions%";
 
@@ -113,6 +113,7 @@ namespace Roadkill.Core.Text
             string allNewPages = CreateAnchorTag("/pages/allnewpages", SiteStrings.Navigation_AllNewPages);
             string allNewComments = CreateAnchorTag("/comments/allnewcomments", SiteStrings.Navigation_AllNewComments);
             string myPages = CreateAnchorTag("/pages/mypages/", SiteStrings.Navigation_MyPages);
+            string myCourses = CreateAnchorTag("/pages/mycourses/", SiteStrings.Navigation_MyCourses);
             string alerts = CreateAnchorTag("/Alerts/ListAlerts/", SiteStrings.Navigation_Alerts);
             string mainPage = CreateAnchorTag("/", SiteStrings.Navigation_MainPage);
 			string newpage = CreateAnchorTag("/pages/new", SiteStrings.Navigation_NewPage);
@@ -129,6 +130,7 @@ namespace Roadkill.Core.Text
                 allNewPages = CreateAnchorTag(urlHelper.Action("AllNewPages", "Pages"), SiteStrings.Navigation_AllNewPages);
                 allNewComments = CreateAnchorTag(urlHelper.Action("AllNewComments", "Comments"), SiteStrings.Navigation_AllNewComments);
                 myPages = CreateAnchorTag(urlHelper.Action("MyPages", "Pages") + "/" + _userContext.CurrentUsername, SiteStrings.Navigation_MyPages);
+                myCourses = CreateAnchorTag(urlHelper.Action("MyCourses", "Courses") + "/" + _userContext.CurrentUsername, SiteStrings.Navigation_MyCourses);
                 alerts = CreateAnchorTag(urlHelper.Action("ListAlerts", "Alerts"), SiteStrings.Navigation_Alerts);
                 mainPage = CreateAnchorTag(urlHelper.Action("Index", "Home"), SiteStrings.Navigation_MainPage);
 				newpage = CreateAnchorTag(urlHelper.Action("New", "Pages"), SiteStrings.Navigation_NewPage);
@@ -175,6 +177,7 @@ namespace Roadkill.Core.Text
                 allNewPages = "";
                 allNewComments = "";
                 myPages = "";
+                myCourses = "";
                 alerts = "";
                 //mainPage = "";
                 //newpage = "";
@@ -189,6 +192,7 @@ namespace Roadkill.Core.Text
             html = html.Replace(ALLNEWCOMMENTS_TOKEN, allNewComments);
             html = html.Replace(ALERTS_TOKEN, alerts);
             html = html.Replace(MYPAGES_TOKEN, myPages);
+            html = html.Replace(MYCOURSES_TOKEN, myCourses);
             html = html.Replace(MAINPAGE_TOKEN, mainPage);
 			html = html.Replace(NEWPAGE_TOKEN, newpage);
 			//html = html.Replace(MANAGEFILES_TOKEN, manageFiles);

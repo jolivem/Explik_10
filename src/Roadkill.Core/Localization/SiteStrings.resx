@@ -1553,4 +1553,7 @@
   <data name="MyPages_Tags" xml:space="preserve">
     <value>Catégories</value>
   </data>
+  <data name="Navigation_MyCourses" xml:space="preserve">
+    <value>My courses</value>
+  </data>
 </root>

@@ -253,5 +253,32 @@ namespace Roadkill.Core.Database.LightSpeed
             return list;
         }
 
+        public static Course ToCourse(CourseEntity entity)
+        {
+            if (entity == null)
+                return null;
+
+            Course course = new Course();
+            course.Id = entity.Id;
+            course.Title = entity.Title;
+            course.CreatedBy = entity.CreatedBy;
+
+            return course;
+        }
+
+        public static CoursePage ToCoursePage(CoursePageEntity entity)
+        {
+            if (entity == null)
+                return null;
+
+            CoursePage coursePage = new CoursePage();
+            coursePage.Id = entity.Id;
+            coursePage.PageId = entity.PageId;
+            coursePage.CourseId = entity.CourseId;
+            coursePage.Order = entity.Order;
+
+            return coursePage;
+        }
+
     }
 }

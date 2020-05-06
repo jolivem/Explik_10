@@ -1888,6 +1888,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à My courses.
+        /// </summary>
+        public static string Navigation_MyCourses {
+            get {
+                return ResourceManager.GetString("Navigation_MyCourses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à My pages.
         /// </summary>
         public static string Navigation_MyPages {

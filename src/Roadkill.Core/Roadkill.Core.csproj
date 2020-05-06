@@ -416,14 +416,19 @@
     <Compile Include="Database\Entities\Competition.cs" />
     <Compile Include="Database\Entities\CompetitionPage.cs" />
     <Compile Include="Database\Entities\Comment.cs" />
+    <Compile Include="Database\Entities\Course.cs" />
+    <Compile Include="Database\Entities\CoursePage.cs" />
     <Compile Include="Database\Repositories\IAlertRepository.cs" />
     <Compile Include="Database\Repositories\ICommentRepository.cs" />
     <Compile Include="Database\Repositories\ICompetitionRepository.cs" />
+    <Compile Include="Database\Repositories\ICourseRepository.cs" />
     <Compile Include="Database\Repositories\ISettingsRepository.cs" />
     <Compile Include="Database\Repositories\LightSpeed\AlertEntity.cs" />
     <Compile Include="Database\Repositories\LightSpeed\CommentEntity.cs" />
     <Compile Include="Database\Repositories\LightSpeed\CompetitionEntity.cs" />
     <Compile Include="Database\Repositories\LightSpeed\CompetitionPageEntity.cs" />
+    <Compile Include="Database\Repositories\LightSpeed\CourseEntity.cs" />
+    <Compile Include="Database\Repositories\LightSpeed\CoursePageEntity.cs" />
     <Compile Include="Email\EmailClient.cs" />
     <Compile Include="Email\EmailTemplate.cs" />
     <Compile Include="Email\IEmailClient.cs" />
@@ -449,7 +454,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Mvc\Controllers\CoursesController.cs" />
     <Compile Include="Mvc\Controllers\CompetitionsController.cs" />
+    <Compile Include="Mvc\ViewModels\CourseViewModel.cs" />
     <Compile Include="Mvc\ViewModels\CompetitionViewModel.cs" />
     <Compile Include="Mvc\ViewModels\GalleryViewModel.cs" />
     <Compile Include="Mvc\ViewModels\PageAndUserRatingViewModel.cs" />
@@ -547,7 +554,9 @@
     <Compile Include="Database\Schema\SchemaBase.cs" />
     <Compile Include="Database\Schema\Sqlite\SqliteSchema.cs" />
     <Compile Include="Services\CompetitionService.cs" />
+    <Compile Include="Services\CourseService.cs" />
     <Compile Include="Services\ICompetitionService.cs" />
+    <Compile Include="Services\ICourseService.cs" />
     <Compile Include="Services\IPageService.cs" />
     <Compile Include="Exceptions\UpgradeException.cs" />
     <Compile Include="Attachments\MimeTypes.cs" />
