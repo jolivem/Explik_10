@@ -134,7 +134,6 @@ namespace Roadkill.Core.Text
                 alerts = CreateAnchorTag(urlHelper.Action("ListAlerts", "Alerts"), SiteStrings.Navigation_Alerts);
                 mainPage = CreateAnchorTag(urlHelper.Action("Index", "Home"), SiteStrings.Navigation_MainPage);
 				newpage = CreateAnchorTag(urlHelper.Action("New", "Pages"), SiteStrings.Navigation_NewPage);
-				//manageFiles = CreateAnchorTag(urlHelper.Action("Index", "FileManager"), SiteStrings.FileManager_Title);
 				siteSettings = CreateAnchorTag(urlHelper.Action( "Index", "Settings"), SiteStrings.Navigation_SiteSettings);
                 competitions = CreateAnchorTag(urlHelper.Action( "List", "competitions"), SiteStrings.Navigation_Competitions);
             }
@@ -147,7 +146,6 @@ namespace Roadkill.Core.Text
                 //myPages = "";
                 mainPage = "";
                 //newpage = "";
-                //manageFiles = "";
                 siteSettings = "";
                 //competitions = "";
             }

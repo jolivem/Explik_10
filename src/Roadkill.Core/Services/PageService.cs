@@ -335,23 +335,6 @@ namespace Roadkill.Core.Services
                 string cacheKey = "";
                 IEnumerable<PageViewModel> pageModels;
 
-                //if (loadPageContent)
-                //{
-                //    cacheKey = CacheKeys.AllPagesWithContent(); //TODO all pages useless
-                //    pageModels = _listCache.Get<PageViewModel>(cacheKey);
-
-                //    if (pageModels == null)
-                //    {
-                //        IEnumerable<Page> pages = Repository.MyPages(id).OrderBy(p => p.Title);
-                //        pageModels = from page in pages
-                //                     select new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
-
-                //        pageModels.M
-                //        _listCache.Add<PageViewModel>(cacheKey, pageModels);
-                //    }
-                //}
-                //else
-                //{
                 cacheKey = CacheKeys.MyPages();
                 pageModels = _listCache.Get<PageViewModel>(cacheKey);
 
@@ -363,7 +346,6 @@ namespace Roadkill.Core.Services
 
                     _listCache.Add<PageViewModel>(cacheKey, pageModels);
                 }
-                //}
 
                 return pageModels;
             }

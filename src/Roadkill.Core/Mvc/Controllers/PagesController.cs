@@ -15,7 +15,6 @@ using System.Web;
 using Roadkill.Core.Text;
 using Roadkill.Core.Extensions;
 using Roadkill.Core.Database;
-using System.IO;
 
 using Roadkill.Core.Attachments;
 using Roadkill.Core.Email;
@@ -663,8 +662,6 @@ namespace Roadkill.Core.Mvc.Controllers
 
             return RedirectToAction("Index", "Wiki", new { id = model.Id });
         }
-
-
         /// <summary>
         /// Keep session alive during page editing
         /// </summary>

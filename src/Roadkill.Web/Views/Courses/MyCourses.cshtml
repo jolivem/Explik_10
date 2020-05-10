@@ -1,0 +1,45 @@
+﻿@model List<CourseViewModel>
+@{
+    ViewBag.Title = SiteStrings.AllMyCourses_Title;
+}
+
+<script type="text/javascript">
+    $(function () {
+        Roadkill.Web.Setup.bindConfirmDelete();
+    });
+</script>
+
+<h1>@SiteStrings.AllMyCourses_Title</h1>
+
+<p>
+    @SiteStrings.Courses_CreateNew @Html.ActionLink(SiteStrings.Course_BtnCreate, "Edit", "Courses", new { @class = "btn btn-primary btn-sm" })
+</p>
+
+
+
+@if (Model.Count() > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@SiteStrings.AllCourses_TitleColumnHeading</th>
+                <th>@SiteStrings.MyCourses_Action_Title</th>
+            </tr>
+        </thead>
+        @foreach (CourseViewModel courseModel in Model)
+        {
+        <tr>
+            <td class="coursename stretch">
+                @Html.ActionLink(courseModel.Title, "Index", "Wiki", new { id = courseModel.Id, title = courseModel.EncodedTitle }, null)
+            </td>
+            <td style="padding:4px;">
+                @Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", new { id = courseModel.Id }, new { @class = "btn btn-primary btn-sm", @style = "width:100%;" })
+            </td>
+        </tr>
+        }
+    </table>
+}
+@*else
+{
+    <p>@SiteStrings.AllPages_NoPages</p>
+}*@

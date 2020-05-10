@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Roadkill.Core.Configuration;
 using Roadkill.Core.Services;
 using Roadkill.Core.Security;
 using Roadkill.Core.Mvc.Attributes;
+using Roadkill.Core.Extensions;
 using Roadkill.Core.Database;
-
-using Roadkill.Core.Attachments;
-using Roadkill.Core.Localization;
 using Roadkill.Core.Mvc.ViewModels;
-using Roadkill.Core.Converters;
+using System.Linq;
 
 namespace Roadkill.Core.Mvc.Controllers
 {
@@ -22,9 +19,7 @@ namespace Roadkill.Core.Mvc.Controllers
     public class CoursesController : ControllerBase
     {
 
-        private IRepository _repository;
         private ICourseService _courseService;
-        //private PageService _pageService;
 
         /// <summary>
         /// Constructor
@@ -36,12 +31,10 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <param name="courseService"></param>
         /// <param name="repository"></param>
         public CoursesController(ApplicationSettings settings, UserServiceBase userManager, SettingsService settingsService, IUserContext context, 
-            ICourseService courseService, PageService pageService, IRepository repository)
+            ICourseService courseService)
             : base(settings, userManager, context, settingsService)
         {
-            _repository = repository;
             _courseService = courseService;
-            _pageService = pageService;
         }
 
         /// <summary>
@@ -49,15 +42,14 @@ namespace Roadkill.Core.Mvc.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [AdminRequired]
+        [EditorRequired]
         public ActionResult Edit(int? id)
         {
             if (id != null)
             {
-                CourseViewModel model = _courseService.GetById((int)id);
+                CourseViewModel model = _courseService.GetByIdWithPages((int)id);
                 if (model != null)
                 {
-                    // already done model.StatusString = CourseViewModel.StatusToString(model.Status);
                     return View("Edit", model);
                 }
             }
@@ -69,7 +61,7 @@ namespace Roadkill.Core.Mvc.Controllers
         /// Edit a new Course
         /// </summary>
         /// <returns></returns>
-        [AdminRequired]
+        [EditorRequired]
         public ActionResult New()
         {
             CourseViewModel model = new CourseViewModel();
@@ -77,117 +69,95 @@ namespace Roadkill.Core.Mvc.Controllers
             return View("Edit", model);
         }
 
+
         /// <summary>
-        /// List all courses
+        /// Displays a list of current user page titles and ids in Roadkill.
         /// </summary>
-        /// <returns></returns>
-        public ActionResult List()
+        /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
+        [EditorRequired]
+        [BrowserCache]
+        public ActionResult MyCourses(string id, bool? encoded)
         {
-            if (Context.IsAdmin)
+            // Don't load CoursePages here, only Titles !
+
+            // after submit, id = null --> leads to an exception
+            // when changing the user, the id is the older one
+            string currentUser = Context.CurrentUsername;
+            List<CourseViewModel> models;
+            if (id == Context.CurrentUsername)
             {
-                return RedirectToAction("ListForAdmin");
+
+                // Usernames are base64 encoded by roadkill (to cater for usernames like domain\john).
+                // However the URL also supports humanly-readable format, e.g. /ByUser/chris
+                if (encoded == true)
+                {
+                    id = id.FromBase64();
+                }
+
+                ViewData["Username"] = id;
+
+                models = _courseService.MyCourses(id).ToList();
+                return View(models);
             }
             else
             {
-                // only achieved courses and possibility to see results
-                List<CourseViewModel> models = _courseService.GetCourses();
-                return View(models);
+                models = _courseService.MyCourses(currentUser).ToList();
             }
+
+            return View(models);
         }
 
         /// <summary>
-        /// Results from CoursePages
+        /// Displays a list of current user page titles and ids in Roadkill.
         /// </summary>
-        /// <param name="id">course id</param>
-        /// <returns></returns>
-        public ActionResult Result(int id)
+        /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
+        [EditorRequired]
+        [BrowserCache]
+        public ActionResult SelectPages(int id, string title)
         {
-            CourseViewModel course = _courseService.GetById(id);
-            if (course != null)
+            if (id == -1)
             {
-                // get info about the course
-                ViewBag.courseTitle = course.PageTitle;
-                ViewBag.CourseContent = "";
-                PageViewModel page = _pageService.GetById(course.PageId, true);
-                if (page != null)
-                {
-                    ViewBag.CourseContent = page.ContentAsHtml;
-                }
-
-                // get list of course Pages
-                List<PageViewModel> model = _courseService.GetCoursePages(id);
-
-                return View(model);
+                // it is a new course, create
+                id = _courseService.AddCourse(title, Context.CurrentUsername);
             }
-
-            return RedirectToAction("List");
-        }
-
-        /// <summary>
-        /// Results from CoursePages
-        /// </summary>
-        /// <param name="id">course id</param>
-        /// <returns></returns>
-        [AdminRequired]
-        public ActionResult ListPagesForAdmin(int id)
-        {
-            try
-            {
-                CourseViewModel course = _courseService.GetById(id);
-                IEnumerable<PageViewModel> model = _pageService.FindPagesByCourseId(id);
-                if (model != null)
-                {
-                    ViewBag.courseId = id;
-                    ViewBag.courseTitle = course.PageTitle;
-                    return View(model);
-                }
-                return RedirectToAction("List");
-            }
-            catch( Exception ex)
-            {
-                var toto = ex;
-            }
-            return null;
+            
+            CourseViewModel models;
+            models = _courseService.GetByIdWithAllUserPages(id, Context.CurrentUsername);
+            return View(models);
         }
 
         #region HttpPost
 
         [HttpPost]
-        [AdminRequired]
+        [EditorRequired]
         public ActionResult Edit(CourseViewModel model)
         {
-            model.Status = CourseViewModel.StatusStringToEnum(model.StatusString);
+            //model.Status = CourseViewModel.StatusStringToEnum(model.StatusString);
 
             _courseService.UpdateCourse(model);
 
             return RedirectToAction("List");
         }
 
-        [ValidateInput(false)]
-        [AdminRequired]
-        [HttpPost]
-        public ActionResult New(CourseViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return View("Edit", model);
-
-            model.Status = CourseViewModel.StatusStringToEnum(model.StatusString);
-            _courseService.AddCourse(model);
-
-            return RedirectToAction("List");
-        }
-
+        /// <summary>
+        /// New courses = list of pages
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        //[ValidateInput(false)]
+        //[EditorRequired]
         //[HttpPost]
-        //public ActionResult Achieve(int id)
+        //public ActionResult New(CourseViewModel model)
         //{
-        //    _courseService.Achieve(id);
+        //    if (!ModelState.IsValid)
+        //        return View("Edit", model);
+
+        //    _courseService.AddCourse(model);
+
         //    return RedirectToAction("List");
         //}
 
-
         #endregion
-
-
     }
 }
 

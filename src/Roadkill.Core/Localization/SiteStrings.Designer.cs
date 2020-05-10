@@ -223,6 +223,42 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Aucun cours n&apos;a été créé.
+        /// </summary>
+        public static string AllCourses_NoCourses {
+            get {
+                return ResourceManager.GetString("AllCourses_NoCourses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Aucune page n&apos;est présente dans ce cours..
+        /// </summary>
+        public static string AllCourses_NoPages {
+            get {
+                return ResourceManager.GetString("AllCourses_NoPages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Title.
+        /// </summary>
+        public static string AllCourses_TitleColumnHeading {
+            get {
+                return ResourceManager.GetString("AllCourses_TitleColumnHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à My Courses.
+        /// </summary>
+        public static string AllMyCourses_Title {
+            get {
+                return ResourceManager.GetString("AllMyCourses_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à My Pages.
         /// </summary>
         public static string AllMyPages_Title {
@@ -880,6 +916,51 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Create.
+        /// </summary>
+        public static string Course_BtnCreate {
+            get {
+                return ResourceManager.GetString("Course_BtnCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Select.
+        /// </summary>
+        public static string Course_BtnSelect {
+            get {
+                return ResourceManager.GetString("Course_BtnSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Modifier la sélection ? .
+        /// </summary>
+        public static string Courses_ChangeSelection {
+            get {
+                return ResourceManager.GetString("Courses_ChangeSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Create a course ?.
+        /// </summary>
+        public static string Courses_CreateNew {
+            get {
+                return ResourceManager.GetString("Courses_CreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Sélectionner les pages de ce cours ?  .
+        /// </summary>
+        public static string Courses_SelectPages {
+            get {
+                return ResourceManager.GetString("Courses_SelectPages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Database connection failed:.
         /// </summary>
         public static string DatabaseConnection_Failure {
@@ -984,6 +1065,33 @@ namespace Roadkill.Core.Localization {
         public static string EditCompetition_Title {
             get {
                 return ResourceManager.GetString("EditCompetition_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cannot save the course:.
+        /// </summary>
+        public static string EditCourse_Error {
+            get {
+                return ResourceManager.GetString("EditCourse_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Edit the course.
+        /// </summary>
+        public static string EditCourse_Title {
+            get {
+                return ResourceManager.GetString("EditCourse_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Title.
+        /// </summary>
+        public static string EditCourse_Title_Label {
+            get {
+                return ResourceManager.GetString("EditCourse_Title_Label", resourceCulture);
             }
         }
         
@@ -1614,6 +1722,42 @@ namespace Roadkill.Core.Localization {
         public static string Login_Unsuccessful_Title {
             get {
                 return ResourceManager.GetString("Login_Unsuccessful_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Edit.
+        /// </summary>
+        public static string MyCourses_Action_Title {
+            get {
+                return ResourceManager.GetString("MyCourses_Action_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nombre de pages.
+        /// </summary>
+        public static string MyCourses_NbPages_Title {
+            get {
+                return ResourceManager.GetString("MyCourses_NbPages_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Status.
+        /// </summary>
+        public static string MyCourses_Status_Title {
+            get {
+                return ResourceManager.GetString("MyCourses_Status_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Tags.
+        /// </summary>
+        public static string MyCourses_Tags {
+            get {
+                return ResourceManager.GetString("MyCourses_Tags", resourceCulture);
             }
         }
         

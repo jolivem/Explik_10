@@ -59,7 +59,9 @@ namespace Roadkill.Core.Database
 		/// <param name="title"></param>
 		/// <returns></returns>
 		Page GetPageByTitle(string title);
-		PageContent GetPageContentById(Guid id);
+        string GetPageTitle(int pageId);
+
+        PageContent GetPageContentById(Guid id);
 		PageContent GetPageContentByPageIdAndVersionNumber(int id, int versionNumber);
 		//IEnumerable<PageContent> GetPageContentByEditedBy(string username);
 		Page SaveOrUpdatePage(Page page);

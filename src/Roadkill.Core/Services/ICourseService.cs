@@ -9,15 +9,22 @@ namespace Roadkill.Core.Services
 {
     public interface ICourseService
     {
-        CourseViewModel GetById(int id);
+        CourseViewModel GetByIdWithPages(int id);
 
-        List<PageViewModel> GetCoursePages(int id);
+        List<CoursePageViewModel> GetCoursePages(int id);
 
-        void AddCourse(CourseViewModel model, bool debug = false);
+        int AddCourse(string title, string createdBy);
 
         void UpdateCourse(CourseViewModel course);
 
         List<CourseViewModel> GetCourses();
+
+        // get the list of courses without included pages
+        IEnumerable<CourseViewModel> MyCourses(string userId);
+
+        // Get all pages of the user and tick the one selected in the course of the user
+        // used to slect pages to be included in the course
+        CourseViewModel GetByIdWithAllUserPages(int courseId, string username);
 
         //Course GetCourseByStatus(CourseViewModel.Statuses status);
 

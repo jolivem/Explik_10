@@ -12,7 +12,7 @@ namespace Roadkill.Core.Database.Repositories
         /// Create new Course
         /// </summary>
         /// <param name="Course"></param>
-        void AddCourse(Course Course);
+        int AddNewCourse(Course Course);
 
         /// <summary>
         /// Update the dates of the Course, or th state
@@ -43,6 +43,13 @@ namespace Roadkill.Core.Database.Repositories
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="courseId"></param>
+        /// <returns></returns>
+        IEnumerable<Page> GetPagesByCourseId(int courseId);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="tag"></param>
         /// <returns></returns>
         Course GetCourseByPage(string tag);
@@ -59,12 +66,5 @@ namespace Roadkill.Core.Database.Repositories
         /// </summary>
         /// <param name="id"></param>
         void DeleteCourse(int id);
-
-        /// <summary>
-        /// Add a page in a given Course
-        /// </summary>
-        /// <param name="courseId"></param>
-        /// <param name="page"></param>
-        //void ArchiveCoursePage(int courseId, Page page);
     }
 }

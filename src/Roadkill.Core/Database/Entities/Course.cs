@@ -16,5 +16,17 @@ namespace Roadkill.Core.Database
 
         public string CreatedBy{ get; set; }
 
+        public Course(string title, string createdBy)
+        {
+            Title = title;
+            CreatedBy = createdBy;
+        }
+
+        public Course()
+        {
+            Title = "";
+            CreatedBy = "";
+        }
+
     }
 }

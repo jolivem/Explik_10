@@ -720,6 +720,9 @@
     <Content Include="Views\Competitions\ListPagesForAdmin.cshtml" />
     <None Include="Properties\PublishProfiles\WebDeploy Ikoula.pubxml" />
     <Content Include="Views\Pages\QuickEdit.cshtml" />
+    <Content Include="Views\Courses\Edit.cshtml" />
+    <Content Include="Views\Courses\MyCourses.cshtml" />
+    <Content Include="Views\Courses\SelectPages.cshtml" />
     <None Include="Web.Mono.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

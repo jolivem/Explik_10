@@ -60,6 +60,16 @@ namespace Roadkill.Core.Database.LightSpeed
             get { return UnitOfWork.Query<CompetitionPageEntity>(); }
         }
 
+        internal IQueryable<CourseEntity> Courses
+        {
+            get { return UnitOfWork.Query<CourseEntity>(); }
+        }
+
+        internal IQueryable<CoursePageEntity> CoursePages
+        {
+            get { return UnitOfWork.Query<CoursePageEntity>(); }
+        }
+
         #endregion
 
         public virtual LightSpeedContext Context
@@ -353,9 +363,9 @@ namespace Roadkill.Core.Database.LightSpeed
             return FromEntity.ToPageList(entities);
         }
 
-        public IEnumerable<Page> MyPages(string id)
+        public IEnumerable<Page> MyPages(string createdBy)
         {
-            List<PageEntity> entities = Pages.Where(p => p.CreatedBy == id).ToList();
+            List<PageEntity> entities = Pages.Where(p => p.CreatedBy == createdBy).ToList();
             return FromEntity.ToPageList(entities);
         }
 
@@ -489,6 +499,15 @@ namespace Roadkill.Core.Database.LightSpeed
                 .Take(number)
                 .ToList();
             return FromEntity.ToPageList(entities);
+        }
+
+        public string GetPageTitle(int pageId)
+        {
+            PageEntity entity = Pages.FirstOrDefault(p => p.Id == pageId);
+            if (entity != null)
+                return entity.Title;
+            else
+                return "";
         }
 
         public IEnumerable<Page> FindPagesCreatedBy(string username)
@@ -1112,9 +1131,9 @@ namespace Roadkill.Core.Database.LightSpeed
             {
                 // for other users, hide Pause and Init statuses
                 entities = Competitions.Where(c => 
-                c.Status == (int)CompetitionViewModel.Statuses.Achieved ||
-                c.Status == (int)CompetitionViewModel.Statuses.PublicationOngoing ||
-                c.Status == (int)CompetitionViewModel.Statuses.RatingOngoing).ToList();
+                c.Status == (int)Statuses.Achieved ||
+                c.Status == (int)Statuses.PublicationOngoing ||
+                c.Status == (int)Statuses.RatingOngoing).ToList();
             }
 
             if (entities != null)
@@ -1253,6 +1272,82 @@ namespace Roadkill.Core.Database.LightSpeed
 
         #endregion
 
+        #region ICourseRepository
+        public Course GetCourseById(int id)
+        {
+            CourseEntity entity = Courses.SingleOrDefault(x => x.Id == id);
+            if (entity != null)
+            {
+                return FromEntity.ToCourse(entity);
+            }
+
+            return null;
+        }
+
+        public int AddNewCourse(Course course)
+        {
+            CourseEntity entity = new CourseEntity();
+            ToEntity.FromCourse(course, entity);
+
+            entity.Id = 0;
+            UnitOfWork.Add(entity);
+            UnitOfWork.SaveChanges();
+            return entity.Id;
+        }
+
+        public void UpdateCourse(Course Course)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateCoursePageId(int courseId, int pageId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Course> GetCoursesByUser(string createdBy)
+        {
+            List<CourseEntity> entities = Courses.Where(x => x.CreatedBy == createdBy).ToList();
+            if (entities != null)
+            {
+                return FromEntity.ToCourseList(entities);
+            }
+
+            return null;
+        }
+
+        public Course GetCourseByPage(string tag)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<CoursePage> GetCoursePages(int courseId)
+        {
+            var entities = CoursePages.Where(x => x.CourseId == courseId);
+            if (entities != null)
+            {
+                return FromEntity.ToCoursePageList(entities.ToList());
+            }
+            return null;
+        }
+
+        public IEnumerable<Page> GetPagesByCourseId(int courseId)
+        {
+            List<int> pageIds = CoursePages.Where(x => x.CourseId == courseId).Select(x => x.PageId).ToList();
+            List<PageEntity> entities = Pages.Where(x => pageIds.Contains (x.Id)).ToList();
+            if (entities != null)
+            {
+                return FromEntity.ToPageList(entities);
+            }
+            return null;
+        }
+
+        public void DeleteCourse(int id)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
 
         #region IDisposable
         public void Dispose()
@@ -1267,6 +1362,5 @@ namespace Roadkill.Core.Database.LightSpeed
 			if (_applicationSettings.Installed && string.IsNullOrEmpty(_applicationSettings.ConnectionString))
 				throw new DatabaseException("The connection string is empty in the web.config file (and the roadkill.config's installed=true).", null);
 		}
-
     }
 }

@@ -1,0 +1,88 @@
+﻿@model CourseViewModel
+@{
+    /**/
+
+    ViewBag.Title = SiteStrings.EditCourse_Title;
+    string myGuid = Guid.NewGuid().ToString();
+}
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        function MoveUp(pId) {
+            var confirmMessage = $("#confirm-unpublish-text").attr("value");
+        }
+        function MoveDown(pId) {
+            var confirmMessage = $("#confirm-unpublish-text").attr("value");
+        }
+    });
+</script>
+
+
+<div id="editcourse" class="row">
+    <div id="editpage-form-container">
+        @Html.BootstrapValidationSummary(SiteStrings.EditCourse_Error)
+
+        <form class="form-horizontal" role="form" method="post" id="editpage-form">
+            @(Html.HiddenFor<CourseViewModel, int>(p => p.Id))
+            @(Html.HiddenFor<CourseViewModel, string>(p => p.PreviousTitle))
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <label for="Title">@SiteStrings.EditCourse_Title_Label</label>
+                    @(Html.BootstrapTextBoxFor<CourseViewModel, string>(p => p.Title, SiteStrings.EditCourse_Title_Label, false, 1))
+                </div>
+            </div>
+
+            @* Add list of pages in the course *@
+            @if (Model.CoursePagesModels.Count() > 0)
+            {
+                <p>
+                    @SiteStrings.Courses_ChangeSelection   @Html.ActionLink(SiteStrings.Competition_BtnCreate, "SelectPages", new { id = Model.Id, title = Model.Title }, new { @class = "btn btn-primary btn-sm" })
+                </p>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>@SiteStrings.AllCourses_TitleColumnHeading</th>
+                            <th>@SiteStrings.MyCourses_Tags</th>
+                            <th>@SiteStrings.MyCourses_Status_Title</th>
+                            <th>@SiteStrings.MyCourses_Action_Title</th>
+                        </tr>
+                    </thead>
+                    @for (int item = 0; item < Model.CoursePagesModels.Count; item++)
+                    {
+                        <tr>
+                            <td class="pagename stretch">@Html.ActionLink(Model.CoursePagesModels[item].Page.Title, "Index", "Wiki", new { id = Model.CoursePagesModels[item].Page.Id, title = Model.CoursePagesModels[item].Page.EncodedTitle }, null)</td>
+                            <td class="pagename">@MvcHtmlString.Create(Model.CoursePagesModels[item].Page.RawTags)</td>
+                            <td class="pagename">@MvcHtmlString.Create(Model.CoursePagesModels[item].Page.Status)</td>
+                            <td class="pagename stretch">
+                                @Html.ActionLink(Model.CoursePagesModels[item].Page.Title, "Index", "Wiki", new { id = Model.CoursePagesModels[item].Page.Id, title = Model.CoursePagesModels[item].Page.EncodedTitle }, null)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                < p >
+                @SiteStrings.AllCourses_NoPages
+                </ p >
+                <p>
+                    @SiteStrings.Courses_SelectPages   @Html.ActionLink(SiteStrings.Competition_BtnCreate, "SelectPages", new { id = Model.Id, title = Model.Title }, new { @class = "btn btn-primary btn-sm" })
+                </p>
+
+                <p> </p>
+            }
+            <div>
+                <div id="coursepage-save-button" class="col-sm-11">
+                    <input type="submit" class="btn btn-primary saveButton" value="@SiteStrings.Button_Save" tabindex="6" />
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>

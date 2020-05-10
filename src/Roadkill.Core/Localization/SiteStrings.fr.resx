@@ -1526,4 +1526,49 @@
   <data name="Navigation_MyCourses" xml:space="preserve">
     <value>Mes cours</value>
   </data>
+  <data name="AllCourses_NoCourses" xml:space="preserve">
+    <value>Aucun cours n'a été créé</value>
+  </data>
+  <data name="AllCourses_TitleColumnHeading" xml:space="preserve">
+    <value>Titre</value>
+  </data>
+  <data name="AllMyCourses_Title" xml:space="preserve">
+    <value>Mes cours</value>
+  </data>
+  <data name="Courses_ChangeSelection" xml:space="preserve">
+    <value>Modifier la sélection ? </value>
+  </data>
+  <data name="Courses_CreateNew" xml:space="preserve">
+    <value>Ajouter un nouveau cours ?  </value>
+  </data>
+  <data name="Courses_SelectPages" xml:space="preserve">
+    <value>Sélectionner les pages de ce cours : </value>
+  </data>
+  <data name="Course_BtnCreate" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="Course_BtnSelect" xml:space="preserve">
+    <value>Sélectionner</value>
+  </data>
+  <data name="EditCourse_Error" xml:space="preserve">
+    <value>Impossible d'enregistrer le cours :</value>
+  </data>
+  <data name="EditCourse_Title" xml:space="preserve">
+    <value>Editer un cours</value>
+  </data>
+  <data name="EditCourse_Title_Label" xml:space="preserve">
+    <value>Titre</value>
+  </data>
+  <data name="MyCourses_Action_Title" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="MyCourses_NbPages_Title" xml:space="preserve">
+    <value>Nombre de pages</value>
+  </data>
+  <data name="MyCourses_Status_Title" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="MyCourses_Tags" xml:space="preserve">
+    <value>Catégories</value>
+  </data>
 </root>

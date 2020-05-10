@@ -1,0 +1,40 @@
+﻿@model List<CoursePageViewModel>
+@{
+    ViewBag.Title = SiteStrings.AllMyPages_Title;
+}
+
+<script type="text/javascript">
+    $(function () {
+        Roadkill.Web.Setup.bindConfirmDelete();
+    });
+</script>
+
+
+@if (Model.Count() > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@SiteStrings.AllPages_TitleColumnHeading</th>
+                <th>@SiteStrings.MyPages_Tags</th>
+                <th>@SiteStrings.MyPages_Status_Title</th>
+                <th>@SiteStrings.MyPages_Action_Title</th>
+            </tr>
+        </thead>
+        @for (var i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td class="pagename stretch">@Html.ActionLink(Model[i].Page.Title, "Index", "Wiki", new { id = Model[i].Page.Id, title = Model[i].Page.EncodedTitle }, null)</td>
+                <td class="pagename">@MvcHtmlString.Create(Model[i].Page.RawTags)</td>
+                <td class="pagename">@MvcHtmlString.Create(Model[i].Page.Status)</td>
+                <td class="checkbox">
+                    @Html.BootstrapCheckBoxFor(m => m[i].Selected, SiteStrings.SiteSettings_Configuration_AllowUserSignups_Help)
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>@SiteStrings.AllPages_NoPages</p>
+}

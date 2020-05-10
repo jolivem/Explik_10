@@ -17,16 +17,19 @@ namespace Roadkill.Core.Mvc.ViewModels
         public int Id { get; set; }
         public string Title { get; set; }
         public string CreatedBy { get; set; }
-
+        public string PreviousTitle { get; set; }
+        public List<CoursePageViewModel> CoursePagesModels { get; set; }
+       
         /// <summary>
         /// 
         /// </summary>
         public CourseViewModel()
         {
+            Id = -1;
             Title = "";
             CreatedBy = "";
+            CoursePagesModels = new List<CoursePageViewModel>();
         }
-
 
         /// <summary>
         /// 
@@ -37,7 +40,18 @@ namespace Roadkill.Core.Mvc.ViewModels
             Id = course.Id;
             Title = course.Title;
             CreatedBy = course.CreatedBy;
+            CoursePagesModels = new List<CoursePageViewModel>();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public string EncodedTitle
+        {
+            get
+            {
+                return PageViewModel.EncodePageTitle(Title);
+            }
+        }
     }
 }

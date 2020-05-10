@@ -13,10 +13,8 @@ public class CoursePageEntity : Entity<int>
     [Column("pageid")]
     private int _pageid;
 
-    [Column("nbrating")]
+    [Column("order")]
     private int _order;
-
-
 
     public int CourseId
     {

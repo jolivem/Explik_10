@@ -280,5 +280,28 @@ namespace Roadkill.Core.Database.LightSpeed
             return coursePage;
         }
 
+        public static IEnumerable<CoursePage> ToCoursePageList(List<CoursePageEntity> entities)
+        {
+            List<CoursePage> list = new List<CoursePage>();
+            foreach (CoursePageEntity entity in entities)
+            {
+                CoursePage course = ToCoursePage(entity);
+                list.Add(course);
+            }
+
+            return list;
+        }
+
+        public static IEnumerable<Course> ToCourseList(List<CourseEntity> entities)
+        {
+            List<Course> list = new List<Course>();
+            foreach (CourseEntity entity in entities)
+            {
+                Course course = ToCourse(entity);
+                list.Add(course);
+            }
+
+            return list;
+        }
     }
 }
