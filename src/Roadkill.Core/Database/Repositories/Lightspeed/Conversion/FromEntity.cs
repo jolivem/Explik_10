@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Roadkill.Core.Database.Repositories.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Roadkill.Core.Database.LightSpeed;
 
-namespace Roadkill.Core.Database.LightSpeed
+
+namespace Roadkill.Core.Database
 {
 	/// <summary>
 	/// Maps Lightspeed entity classes to the Roadkill domain objects.
@@ -12,7 +13,7 @@ namespace Roadkill.Core.Database.LightSpeed
 	/// <remarks>(AutoMapper was tried for this, but had problems with the Mindscape.LightSpeed.Entity class)</remarks>
 	public class FromEntity
 	{
-		public static Page ToPage(PageEntity entity)
+		public static Page ToPage(explik_pages entity)
 		{
 			if (entity == null)
 				return null;
@@ -28,34 +29,34 @@ namespace Roadkill.Core.Database.LightSpeed
             page.IsCopied = entity.IsCopied;
             page.IsVideo = entity.IsVideo;
             page.ControlledBy = entity.ControlledBy;
-			page.PublishedOn = entity.PublishedOn;
+			page.PublishedOn = (DateTime)entity.PublishedOn;
 			page.Tags = entity.Tags;
             page.Title = entity.Title;
             page.Summary = entity.Summary;
-            page.NbRating = entity.NbRating;
-            page.NbView = entity.NbView;
-            page.TotalRating = entity.TotalRating;
+            page.NbRating = (int)entity.NbRating;
+            page.NbView = (int)entity.NbView;
+            page.TotalRating = (int)entity.TotalRating;
             page.FilePath = entity.FilePath;
             page.VideoUrl = entity.VideoUrl;
             page.Pseudonym = entity.Pseudonym;
-            page.ControllerRating = entity.ControllerRating;
-            page.CompetitionId = entity.CompetitionId;
+            page.ControllerRating = (int)entity.ControllerRating;
+            page.CompetitionId = (int)entity.CompetitionId;
 
             return page;
 		}
 
-		public static PageContent ToPageContent(PageContentEntity entity)
+		public static PageContent ToPageContent(explik_pagecontent entity, explik_pages pagEntity)
 		{
 			if (entity == null)
 				return null;
 
 			PageContent pageContent = new PageContent();
-			pageContent.Id = entity.Id;
+			pageContent.Id = new Guid(entity.Id);
 			pageContent.EditedOn = entity.EditedOn;
 			pageContent.ControlledBy = entity.ControlledBy;
 			pageContent.Text = entity.Text;
 			pageContent.VersionNumber = entity.VersionNumber;
-			pageContent.Page = ToPage(entity.Page);
+			pageContent.Page = ToPage(pagEntity);
 
 			return pageContent;
 		}
@@ -63,19 +64,19 @@ namespace Roadkill.Core.Database.LightSpeed
 		/// <summary>
 		/// Intentionally doesn't populate the User.Password property (as this is only ever stored).
 		/// </summary>
-		public static User ToUser(UserEntity entity)
+		public static User ToUser(explik_users entity)
 		{
 			if (entity == null)
 				return null;
 
 			User user = new User();
-			user.Id = entity.Id;
+			user.Id = new Guid(entity.Id);
 			user.ActivationKey = entity.ActivationKey;
 			user.Email = entity.Email;
 			user.Firstname = entity.Firstname;
 			user.IsActivated = entity.IsActivated;
-            user.Contribution = entity.Contribution;
-            user.DisplayFlags = entity.DisplayFlags;
+            user.Contribution = (long)entity.Contribution;
+            user.DisplayFlags = (long)entity.DisplayFlags;
 			user.IsAdmin = entity.IsAdmin;
             user.IsEditor = entity.IsEditor;
             user.IsController = entity.IsController;
@@ -92,17 +93,17 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <summary>
         /// Intentionally doesn't populate the User.Password property (as this is only ever stored).
         /// </summary>
-        public static Comment ToComment(CommentEntity entity)
+        public static Comment ToComment(explik_comments entity)
         {
             if (entity == null)
                 return null;
 
             Comment comment = new Comment();
-            comment.Id = entity.Id;
+            comment.Id = new Guid(entity.Id);
             comment.CreatedBy = entity.CreatedBy;
             comment.CreatedOn = entity.CreatedOn;
-            comment.PageId = entity.PageId;
-            comment.Rating = entity.Rating;
+            comment.PageId = (int)entity.PageId;
+            comment.Rating = (int)entity.Rating;
             comment.ControlledBy = entity.ControlledBy;
             comment.IsControlled = entity.IsControlled;
             comment.IsRejected = entity.IsRejected;
@@ -114,15 +115,15 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <summary>
         /// Intentionally doesn't populate the User.Password property (as this is only ever stored).
         /// </summary>
-        public static Alert ToAlert(AlertEntity entity)
+        public static Alert ToAlert(explik_alerts entity)
         {
             if (entity == null)
                 return null;
 
             Alert alert = new Alert();
-            alert.Id = entity.Id;
-            alert.PageId = entity.PageId;
-            alert.CommentId = entity.CommentId;
+            alert.Id = new Guid(entity.Id);
+            alert.PageId = (int)entity.PageId;
+            alert.CommentId = new Guid(entity.CommentId);
             alert.CreatedBy = entity.CreatedBy;
             alert.CreatedOn = entity.CreatedOn;
             alert.Ilk = entity.Ilk;
@@ -135,7 +136,7 @@ namespace Roadkill.Core.Database.LightSpeed
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public static Competition ToCompetition(CompetitionEntity entity)
+        public static Competition ToCompetition(explik_competition entity)
         {
             if (entity == null)
                 return null;
@@ -153,7 +154,7 @@ namespace Roadkill.Core.Database.LightSpeed
             return competition;
         }
 
-        public static CompetitionPage ToCompetitionPage(CompetitionPageEntity entity)
+        public static CompetitionPage ToCompetitionPage(explik_competitionpage entity)
         {
             if (entity == null)
                 return null;
@@ -161,30 +162,30 @@ namespace Roadkill.Core.Database.LightSpeed
             CompetitionPage competitionPage = new CompetitionPage();
             competitionPage.Id = entity.Id;
             competitionPage.PageId = entity.PageId;
-            competitionPage.NbRating = entity.NbRating;
-            competitionPage.TotalRating = entity.TotalRating;
+            competitionPage.NbRating = (int)entity.NbRating;
+            competitionPage.TotalRating = (int)entity.TotalRating;
             competitionPage.UserName = entity.UserName;
-            competitionPage.Ranking = entity.Ranking;
+            competitionPage.Ranking = (int)entity.Ranking;
 
             return competitionPage;
         }
 
-        public static IEnumerable<PageContent> ToPageContentList(IEnumerable<PageContentEntity> entities)
+        public static IEnumerable<PageContent> ToPageContentList(IEnumerable<explik_pagecontent> entities, explik_pages pageEntity)
 		{
 			List<PageContent> list = new List<PageContent>();
-			foreach (PageContentEntity entity in entities)
+			foreach (explik_pagecontent entity in entities)
 			{
-				PageContent pageContent = ToPageContent(entity);
+				PageContent pageContent = ToPageContent(entity, pageEntity);
 				list.Add(pageContent);
 			}
 
 			return list;
 		}
 
-		public static IEnumerable<Page> ToPageList(IEnumerable<PageEntity> entities)
+		public static IEnumerable<Page> ToPageList(IEnumerable<explik_pages> entities)
 		{
 			List<Page> list = new List<Page>();
-			foreach (PageEntity entity in entities)
+			foreach (explik_pages entity in entities)
 			{
 				Page page = ToPage(entity);
 				list.Add(page);
@@ -193,10 +194,10 @@ namespace Roadkill.Core.Database.LightSpeed
 			return list;
 		}
 
-		public static IEnumerable<User> ToUserList(List<UserEntity> entities)
+		public static IEnumerable<User> ToUserList(List<explik_users> entities)
 		{
 			List<User> list = new List<User>();
-			foreach (UserEntity entity in entities)
+			foreach (explik_users entity in entities)
 			{
 				User user = ToUser(entity);
 				list.Add(user);
@@ -205,10 +206,10 @@ namespace Roadkill.Core.Database.LightSpeed
 			return list;
 		}
 
-        public static IEnumerable<Comment> ToCommentList(List<CommentEntity> entities)
+        public static IEnumerable<Comment> ToCommentList(List<explik_comments> entities)
         {
             List<Comment> list = new List<Comment>();
-            foreach (CommentEntity entity in entities)
+            foreach (explik_comments entity in entities)
             {
                 Comment comment = ToComment(entity);
                 list.Add(comment);
@@ -217,10 +218,10 @@ namespace Roadkill.Core.Database.LightSpeed
             return list;
         }
 
-        public static IEnumerable<Alert> ToAlertList(List<AlertEntity> entities)
+        public static IEnumerable<Alert> ToAlertList(List<explik_alerts> entities)
         {
             List<Alert> list = new List<Alert>();
-            foreach (AlertEntity entity in entities)
+            foreach (explik_alerts entity in entities)
             {
                 Alert alert = ToAlert(entity);
                 list.Add(alert);
@@ -229,10 +230,10 @@ namespace Roadkill.Core.Database.LightSpeed
             return list;
         }
 
-        public static IEnumerable<Competition> ToCompetitionList(List<CompetitionEntity> entities)
+        public static IEnumerable<Competition> ToCompetitionList(List<explik_competition> entities)
         {
             List<Competition> list = new List<Competition>();
-            foreach (CompetitionEntity entity in entities)
+            foreach (explik_competition entity in entities)
             {
                 Competition competition = ToCompetition(entity);
                 list.Add(competition);
@@ -241,10 +242,10 @@ namespace Roadkill.Core.Database.LightSpeed
             return list;
         }
 
-        public static IEnumerable<CompetitionPage> ToCompetitionPageList(List<CompetitionPageEntity> entities)
+        public static IEnumerable<CompetitionPage> ToCompetitionPageList(List<explik_competitionpage> entities)
         {
             List<CompetitionPage> list = new List<CompetitionPage>();
-            foreach (CompetitionPageEntity entity in entities)
+            foreach (explik_competitionpage entity in entities)
             {
                 CompetitionPage competition = ToCompetitionPage(entity);
                 list.Add(competition);
@@ -253,7 +254,7 @@ namespace Roadkill.Core.Database.LightSpeed
             return list;
         }
 
-        public static Course ToCourse(CourseEntity entity)
+        public static Course ToCourse(explik_course entity)
         {
             if (entity == null)
                 return null;
@@ -266,7 +267,7 @@ namespace Roadkill.Core.Database.LightSpeed
             return course;
         }
 
-        public static CoursePage ToCoursePage(CoursePageEntity entity)
+        public static CoursePage ToCoursePage(explik_coursepage entity)
         {
             if (entity == null)
                 return null;
@@ -275,15 +276,15 @@ namespace Roadkill.Core.Database.LightSpeed
             coursePage.Id = entity.Id;
             coursePage.PageId = entity.PageId;
             coursePage.CourseId = entity.CourseId;
-            coursePage.Order = entity.Order;
+            coursePage.Order = (int)entity.Order;
 
             return coursePage;
         }
 
-        public static IEnumerable<CoursePage> ToCoursePageList(List<CoursePageEntity> entities)
+        public static IEnumerable<CoursePage> ToCoursePageList(List<explik_coursepage> entities)
         {
             List<CoursePage> list = new List<CoursePage>();
-            foreach (CoursePageEntity entity in entities)
+            foreach (explik_coursepage entity in entities)
             {
                 CoursePage course = ToCoursePage(entity);
                 list.Add(course);
@@ -292,10 +293,10 @@ namespace Roadkill.Core.Database.LightSpeed
             return list;
         }
 
-        public static IEnumerable<Course> ToCourseList(List<CourseEntity> entities)
+        public static IEnumerable<Course> ToCourseList(List<explik_course> entities)
         {
             List<Course> list = new List<Course>();
-            foreach (CourseEntity entity in entities)
+            foreach (explik_course entity in entities)
             {
                 Course course = ToCourse(entity);
                 list.Add(course);

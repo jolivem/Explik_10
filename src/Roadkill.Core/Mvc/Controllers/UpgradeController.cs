@@ -42,7 +42,7 @@ namespace Roadkill.Core.Mvc.Controllers
 
 			try
 			{
-				_repository.Upgrade(ApplicationSettings);
+				//_repository.Upgrade(ApplicationSettings);
 				_configReaderWriter.UpdateCurrentVersion(ApplicationSettings.ProductVersion.ToString());
 
 				return RedirectToAction("Index", "Home");

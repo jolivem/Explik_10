@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,7 +11,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Roadkill.Core</RootNamespace>
     <AssemblyName>Roadkill.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>
     </SccProjectName>
@@ -22,6 +23,8 @@
     </SccProvider>
     <TargetFrameworkProfile />
     <WebGreaseLibPath>..\..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -216,6 +219,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\HtmlAgilityPack.1.4.6\lib\Net40\HtmlAgilityPack.dll</HintPath>
@@ -279,18 +288,6 @@
     <Reference Include="Microsoft.WindowsAzure.Configuration">
       <HintPath>..\..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.2.0\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Mindscape.LightSpeed">
-      <HintPath>..\..\lib\Lightspeed\Mindscape.LightSpeed.dll</HintPath>
-    </Reference>
-    <Reference Include="Mindscape.LightSpeed.Linq">
-      <HintPath>..\..\lib\Lightspeed\Mindscape.LightSpeed.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="Mindscape.LightSpeed.MetaData">
-      <HintPath>..\..\lib\Lightspeed\Mindscape.LightSpeed.MetaData.dll</HintPath>
-    </Reference>
-    <Reference Include="Mindscape.LightSpeed.Providers.SqlServerCe4">
-      <HintPath>..\..\lib\LightSpeed\Providers\Mindscape.LightSpeed.Providers.SqlServerCe4.dll</HintPath>
-    </Reference>
     <Reference Include="MongoDB.Bson, Version=1.8.3.9, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Bson.dll</HintPath>
@@ -302,9 +299,13 @@
     <Reference Include="Mono.Security">
       <HintPath>..\..\lib\LightSpeed\Providers\Mono.Security.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.7.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+    <Reference Include="MySql.Data, Version=6.10.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MySql.Data.6.7.4\lib\net40\MySql.Data.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector Net 6.10.8\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.10.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector Net 6.10.8\Assemblies\v4.5.2\MySql.Data.Entity.EF6.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -350,6 +351,7 @@
     </Reference>
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web">
       <Private>False</Private>
     </Reference>
@@ -412,23 +414,19 @@
     <Compile Include="Attachments\AttachmentPathUtil.cs" />
     <Compile Include="Attachments\IResponseWrapper.cs" />
     <Compile Include="Attachments\ResponseWrapper.cs" />
-    <Compile Include="Database\Entities\Alert.cs" />
-    <Compile Include="Database\Entities\Competition.cs" />
-    <Compile Include="Database\Entities\CompetitionPage.cs" />
-    <Compile Include="Database\Entities\Comment.cs" />
-    <Compile Include="Database\Entities\Course.cs" />
-    <Compile Include="Database\Entities\CoursePage.cs" />
+    <Compile Include="Database\Model\Alert.cs" />
+    <Compile Include="Database\Model\Competition.cs" />
+    <Compile Include="Database\Model\CompetitionPage.cs" />
+    <Compile Include="Database\Model\Comment.cs" />
+    <Compile Include="Database\Model\Course.cs" />
+    <Compile Include="Database\Model\CoursePage.cs" />
+    <Compile Include="Database\Repositories\BaseRepository.cs" />
     <Compile Include="Database\Repositories\IAlertRepository.cs" />
     <Compile Include="Database\Repositories\ICommentRepository.cs" />
     <Compile Include="Database\Repositories\ICompetitionRepository.cs" />
     <Compile Include="Database\Repositories\ICourseRepository.cs" />
     <Compile Include="Database\Repositories\ISettingsRepository.cs" />
-    <Compile Include="Database\Repositories\LightSpeed\AlertEntity.cs" />
-    <Compile Include="Database\Repositories\LightSpeed\CommentEntity.cs" />
-    <Compile Include="Database\Repositories\LightSpeed\CompetitionEntity.cs" />
-    <Compile Include="Database\Repositories\LightSpeed\CompetitionPageEntity.cs" />
-    <Compile Include="Database\Repositories\LightSpeed\CourseEntity.cs" />
-    <Compile Include="Database\Repositories\LightSpeed\CoursePageEntity.cs" />
+    <Compile Include="Database\Repositories\UnitOfWork.cs" />
     <Compile Include="Email\EmailClient.cs" />
     <Compile Include="Email\EmailTemplate.cs" />
     <Compile Include="Email\IEmailClient.cs" />
@@ -436,6 +434,51 @@
     <Compile Include="Email\PublishPageEmail.cs" />
     <Compile Include="Email\RejectPageEmail.cs" />
     <Compile Include="Email\PageEmailTemplate.cs" />
+    <Compile Include="Database\Repositories\Entities\EntityModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Repositories\Entities\EntityModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Repositories\Entities\EntityModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Repositories\Entities\explik_alerts.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Repositories\Entities\explik_comments.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Repositories\Entities\explik_competition.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Repositories\Entities\explik_competitionpage.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Repositories\Entities\explik_course.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Repositories\Entities\explik_coursepage.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Repositories\Entities\explik_pagecontent.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Repositories\Entities\explik_pages.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Repositories\Entities\explik_siteconfiguration.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Repositories\Entities\explik_users.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\BootstrapHtmlExtensions.cs" />
     <Compile Include="Configuration\UpgradeChecker.cs" />
     <Compile Include="Configuration\ConfigReaderWriter.cs" />
@@ -541,19 +584,13 @@
     <Compile Include="Database\Repositories\IUserRepository.cs" />
     <Compile Include="Database\Repositories\IPageRepository.cs" />
     <Compile Include="Database\DataStoreType.cs" />
-    <Compile Include="Database\Entities\IDataStoreEntity.cs" />
+    <Compile Include="Database\Model\IDataStoreEntity.cs" />
     <Compile Include="Database\Repositories\LightSpeed\Conversion\ToEntity.cs" />
     <Compile Include="Database\Repositories\LightSpeed\LightSpeedRepository.cs" />
     <Compile Include="Database\Repositories\LightSpeed\Conversion\FromEntity.cs" />
-    <Compile Include="Database\Repositories\LightSpeed\PageEntity.cs" />
-    <Compile Include="Database\Repositories\LightSpeed\PageContentEntity.cs" />
-    <Compile Include="Database\Repositories\LightSpeed\SiteConfigurationEntity.cs" />
-    <Compile Include="Database\Repositories\LightSpeed\UserEntity.cs" />
-    <Compile Include="Database\Entities\SiteConfigurationEntity.cs" />
+    <Compile Include="Database\Model\SiteConfiguration.cs" />
     <Compile Include="Database\Schema\MySql\MySqlSchema.cs" />
-    <Compile Include="Database\Schema\Postgres\PostgresSchema.cs" />
     <Compile Include="Database\Schema\SchemaBase.cs" />
-    <Compile Include="Database\Schema\Sqlite\SqliteSchema.cs" />
     <Compile Include="Services\CompetitionService.cs" />
     <Compile Include="Services\CourseService.cs" />
     <Compile Include="Services\ICompetitionService.cs" />
@@ -626,7 +663,7 @@
     <Compile Include="Security\FormsAuthUserService.cs" />
     <Compile Include="Security\UserServiceBase.cs" />
     <Compile Include="Services\SettingsService.cs" />
-    <Compile Include="Database\Entities\User.cs" />
+    <Compile Include="Database\Model\User.cs" />
     <Compile Include="Services\ServiceBase.cs" />
     <Compile Include="Plugins\Text\BuiltIn\ToC\StringTemplate.cs" />
     <Compile Include="Plugins\Text\BuiltIn\ToC\Item.cs" />
@@ -655,10 +692,10 @@
     <Compile Include="Mvc\Controllers\ControllerBase.cs" />
     <Compile Include="Mvc\Controllers\HomeController.cs" />
     <Compile Include="Mvc\Controllers\PagesController.cs" />
-    <Compile Include="Database\Entities\PageContent.cs" />
+    <Compile Include="Database\Model\PageContent.cs" />
     <Compile Include="Services\PageHistoryService.cs" />
     <Compile Include="Services\PageService.cs" />
-    <Compile Include="Database\Entities\Page.cs" />
+    <Compile Include="Database\Model\Page.cs" />
     <Compile Include="Mvc\ViewModels\PageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoadkillApplication.cs" />
@@ -666,6 +703,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EntityDeploy Include="Database\Repositories\Entities\EntityModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EntityModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Database\Repositories\Entities\EntityModel.edmx.diagram">
+      <DependentUpon>EntityModel.edmx</DependentUpon>
+    </None>
     <None Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="fonts\glyphicons-halflings-regular.ttf" />
     <None Include="fonts\glyphicons-halflings-regular.woff" />
@@ -674,15 +718,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Database\Schema\Postgres\Create.sql" />
-    <EmbeddedResource Include="Database\Schema\Postgres\Drop.sql" />
-    <EmbeddedResource Include="Database\Schema\Sqlite\Create.sql" />
-    <EmbeddedResource Include="Database\Schema\Sqlite\Drop.sql" />
     <EmbeddedResource Include="Database\Schema\MySql\Create.sql" />
     <EmbeddedResource Include="Database\Schema\MySql\Drop.sql" />
     <EmbeddedResource Include="Database\Schema\MySql\Upgrade.sql" />
-    <EmbeddedResource Include="Database\Schema\Postgres\Upgrade.sql" />
-    <EmbeddedResource Include="Database\Schema\Sqlite\Upgrade.sql" />
     <EmbeddedResource Include="Localization\InstallStrings.cs.resx" />
     <EmbeddedResource Include="Localization\InstallStrings.de.resx" />
     <EmbeddedResource Include="Localization\InstallStrings.es.resx">
@@ -726,15 +764,35 @@
     <EmbeddedResource Include="Localization\SiteStrings.sv.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Database\Repositories\Entities\EntityModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EntityModel.Context.cs</LastGenOutput>
+      <DependentUpon>EntityModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Database\Repositories\Entities\EntityModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EntityModel.edmx</DependentUpon>
+      <LastGenOutput>EntityModel.cs</LastGenOutput>
+    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Localization\readme.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Ce projet fait référence à des packages NuGet qui sont manquants sur cet ordinateur. Utilisez l'option de restauration des packages NuGet pour les télécharger. Pour plus d'informations, consultez http://go.microsoft.com/fwlink/?LinkID=322105. Le fichier manquant est : {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

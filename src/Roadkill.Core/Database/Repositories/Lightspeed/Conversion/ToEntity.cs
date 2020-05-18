@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Roadkill.Core.Database.LightSpeed;
 
-namespace Roadkill.Core.Database.LightSpeed
+using Roadkill.Core.Database;
+using Roadkill.Core.Database.Repositories.Entities;
+
+namespace Roadkill.Core.Database
 {
 	/// <summary>
 	/// Maps a Roadkill domain objects (or list of) to a Lightspeed entity classes to the.
@@ -13,14 +15,14 @@ namespace Roadkill.Core.Database.LightSpeed
 	/// </summary>
 	public class ToEntity
 	{
-		public static void FromUser(User user, UserEntity entity)
+		public static void FromUser(User user, explik_users entity)
 		{
 			entity.ActivationKey = user.ActivationKey;
 			entity.Email = user.Email;
 			entity.Firstname = user.Firstname;
 			entity.IsActivated = user.IsActivated;
-            entity.Contribution = user.Contribution;
-            entity.DisplayFlags = user.DisplayFlags;
+            entity.Contribution = (int)user.Contribution;
+            entity.DisplayFlags = (int)user.DisplayFlags;
 			entity.IsAdmin = user.IsAdmin;
             entity.IsEditor = user.IsEditor;
             entity.IsController = user.IsController;
@@ -32,11 +34,11 @@ namespace Roadkill.Core.Database.LightSpeed
 			entity.Username = user.Username;
 		}
 
-        public static void FromComment(Comment comment, CommentEntity entity)
+        public static void FromComment(Comment comment, explik_comments entity)
         {
             entity.CreatedBy = comment.CreatedBy;
             entity.CreatedOn = comment.CreatedOn;
-            entity.Id = comment.Id;
+            entity.Id = comment.Id.ToString();
             entity.PageId = comment.PageId;
             entity.Rating = comment.Rating;
             entity.ControlledBy = comment.ControlledBy;
@@ -45,17 +47,17 @@ namespace Roadkill.Core.Database.LightSpeed
             entity.Text = comment.Text;
         }
 
-        public static void FromAlert(Alert alert, AlertEntity entity)
+        public static void FromAlert(Alert alert, explik_alerts entity)
         {
-            entity.Id = alert.Id;
+            entity.Id = alert.Id.ToString();
             entity.PageId = alert.PageId;
-            entity.CommentId = alert.CommentId;
+            entity.CommentId = alert.CommentId.ToString();
             entity.CreatedBy = alert.CreatedBy;
             entity.CreatedOn = alert.CreatedOn;
             entity.Ilk = alert.Ilk;
         }
 
-        public static void FromCompetition(Competition competition, CompetitionEntity entity)
+        public static void FromCompetition(Competition competition, explik_competition entity)
         {
             //entity.Id = competition.Id;
             entity.PublicationStart = competition.PublicationStart;
@@ -67,22 +69,22 @@ namespace Roadkill.Core.Database.LightSpeed
             entity.PageId = competition.PageId;
         }
 
-        public static void FromCompetitionPage(CompetitionPage competitionpage, CompetitionPageEntity entity)
+        public static void FromCompetitionPage(CompetitionPage competitionpage, explik_competitionpage entity)
         {
             entity.Id = competitionpage.Id;
             entity.CompetitionId = competitionpage.CompetitionId;
             entity.PageId = competitionpage.PageId;
-            entity.NbRating = competitionpage.NbRating;
-            entity.TotalRating = competitionpage.TotalRating;
+            entity.NbRating = (int)competitionpage.NbRating;
+            entity.TotalRating = (int)competitionpage.TotalRating;
             entity.UserName = competitionpage.UserName;
             entity.Ranking = competitionpage.Ranking;
         }
 
-         public static void FromPage(Page page, PageEntity entity)
+         public static void FromPage(Page page, explik_pages entity)
 		{
-            entity.NbRating = page.NbRating;
-            entity.NbView = page.NbView;
-            entity.TotalRating = page.TotalRating;
+            entity.NbRating = (int)page.NbRating;
+            entity.NbView = (int)page.NbView;
+            entity.TotalRating = (int)page.TotalRating;
             entity.CreatedBy = page.CreatedBy;
             entity.CreatedOn = page.CreatedOn;
             entity.IsLocked = page.IsLocked;
@@ -99,11 +101,11 @@ namespace Roadkill.Core.Database.LightSpeed
             entity.FilePath = page.FilePath;
             entity.VideoUrl = page.VideoUrl;
             entity.Pseudonym = page.Pseudonym;
-            entity.ControllerRating = page.ControllerRating;
+            entity.ControllerRating = (int)page.ControllerRating;
             entity.CompetitionId = page.CompetitionId;
         }
 
-        public static void FromPageContent(PageContent pageContent, PageContentEntity entity)
+        public static void FromPageContent(PageContent pageContent, explik_pagecontent entity)
 		{
 			entity.EditedOn = pageContent.EditedOn;
 			entity.ControlledBy = pageContent.ControlledBy;
@@ -111,7 +113,7 @@ namespace Roadkill.Core.Database.LightSpeed
 			entity.VersionNumber = pageContent.VersionNumber;
 		}
 
-        public static void FromCourse(Course course, CourseEntity entity)
+        public static void FromCourse(Course course, explik_course entity)
         {
             //entity.Id = competition.Id;
             entity.Id = course.Id;
@@ -119,7 +121,7 @@ namespace Roadkill.Core.Database.LightSpeed
             entity.CreatedBy = course.CreatedBy;
         }
 
-        public static void FromCoursePage(CoursePage coursepage, CoursePageEntity entity)
+        public static void FromCoursePage(CoursePage coursepage, explik_coursepage entity)
         {
             entity.CourseId = coursepage.Id;
             entity.PageId = coursepage.PageId;

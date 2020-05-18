@@ -225,35 +225,35 @@ namespace Roadkill.Core.Mvc.Controllers
 		internal void FinalizeInstall(SettingsViewModel model)
 		{
 			// The name as a string is passed through each step, so parse it
-			DataStoreType dataStoreType = DataStoreType.ByName(model.DataStoreTypeName);
-			model.DataStoreTypeName = dataStoreType.Name;
+			//DataStoreType dataStoreType = DataStoreType.ByName(model.DataStoreTypeName);
+			//model.DataStoreTypeName = dataStoreType.Name;
 
-			// Update all repository references for the dependencies of this class
-			// (changing the For() in StructureMap won't do this as the references have already been created).
-			_repository = RepositoryManager.ChangeRepository(dataStoreType, model.ConnectionString, model.UseObjectCache);
-			UserService.UpdateRepository(_repository);
-			_settingsService.UpdateRepository(_repository);
-			_searchService.UpdateRepository(_repository);
+			//// Update all repository references for the dependencies of this class
+			//// (changing the For() in StructureMap won't do this as the references have already been created).
+			//_repository = RepositoryManager.ChangeRepository(dataStoreType, model.ConnectionString, model.UseObjectCache);
+			//UserService.UpdateRepository(_repository);
+			//_settingsService.UpdateRepository(_repository);
+			//_searchService.UpdateRepository(_repository);
 
-			// Default these two properties for installations
-			model.IgnoreSearchIndexErrors = true;
-			model.IsPublicSite = true;
+			//// Default these two properties for installations
+			//model.IgnoreSearchIndexErrors = true;
+			//model.IsPublicSite = true;
 
-			// Update the web.config first, so all connections can be referenced.
-			_configReaderWriter.Save(model);
+			//// Update the web.config first, so all connections can be referenced.
+			//_configReaderWriter.Save(model);
 
-			// Create the roadkill schema and save the configuration settings
-			_settingsService.CreateTables(model);
-			_settingsService.SaveSiteSettings(model);
+			//// Create the roadkill schema and save the configuration settings
+			//_settingsService.CreateTables(model);
+			//_settingsService.SaveSiteSettings(model);
 
-			// Add a user if we're not using AD.
-			if (!model.UseWindowsAuth)
-			{
-				UserService.AddUser(model.AdminEmail, "admin", model.AdminPassword, true, false);
-			}
+			//// Add a user if we're not using AD.
+			//if (!model.UseWindowsAuth)
+			//{
+			//	UserService.AddUser(model.AdminEmail, "admin", model.AdminPassword, true, false);
+			//}
 
-			// Create a blank search index
-			_searchService.CreateIndex();
+			//// Create a blank search index
+			//_searchService.CreateIndex();
 		}
 	}
 }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Roadkill.Core.Converters;
-using Roadkill.Core.Mvc.ViewModels;
 
 namespace Roadkill.Core.Database
 {

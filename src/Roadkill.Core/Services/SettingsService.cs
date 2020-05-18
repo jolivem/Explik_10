@@ -46,18 +46,18 @@ namespace Roadkill.Core.Services
 		/// </summary>
 		/// <param name="model">The settings data.</param>
 		/// <exception cref="DatabaseException">An datastore error occurred while creating the database tables.</exception>
-		public void CreateTables(SettingsViewModel model)
-		{
-			try
-			{
-				DataStoreType dataStoreType = DataStoreType.ByName(model.DataStoreTypeName);
-				Repository.Install(dataStoreType, model.ConnectionString, model.UseObjectCache);
-			}
-			catch (DatabaseException ex)
-			{
-				throw new DatabaseException(ex, "An exception occurred while creating the site schema tables.");
-			}
-		}
+		//public void CreateTables(SettingsViewModel model)
+		//{
+		//	try
+		//	{
+		//		DataStoreType dataStoreType = DataStoreType.ByName(model.DataStoreTypeName);
+		//		Repository.Install(dataStoreType, model.ConnectionString, model.UseObjectCache);
+		//	}
+		//	catch (DatabaseException ex)
+		//	{
+		//		throw new DatabaseException(ex, "An exception occurred while creating the site schema tables.");
+		//	}
+		//}
 
 		/// <summary>
 		/// Retrieves the current site settings.

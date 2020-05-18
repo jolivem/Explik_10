@@ -80,14 +80,14 @@ namespace Roadkill.Core.Mvc.Controllers
 		/// This action is for JSON calls only. Attempts a database connection using the provided connection string.
 		/// </summary>
 		/// <returns>Returns a <see cref="TestResult"/> containing information about any errors.</returns>
-		public ActionResult TestDatabaseConnection(string connectionString, string databaseType)
-		{
-			if (InstalledAndUserIsNotAdmin())
-				return Content("");
+		//public ActionResult TestDatabaseConnection(string connectionString, string databaseType)
+		//{
+		//	if (InstalledAndUserIsNotAdmin())
+		//		return Content("");
 
-			string errors = RepositoryManager.TestDbConnection(connectionString, databaseType);
-			return Json(new TestResult(errors), JsonRequestBehavior.AllowGet);
-		}
+		//	string errors = RepositoryManager.TestDbConnection(connectionString, databaseType);
+		//	return Json(new TestResult(errors), JsonRequestBehavior.AllowGet);
+		//}
 
 		/// <summary>
 		/// Attempts to copy the correct SQL binaries to the bin folder for the architecture the app pool is running under.

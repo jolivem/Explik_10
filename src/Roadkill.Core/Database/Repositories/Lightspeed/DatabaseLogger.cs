@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Mindscape.LightSpeed.Logging;
 using Roadkill.Core.Logging;
 
 namespace Roadkill.Core.Database.LightSpeed
 {
-	public class DatabaseLogger : ILogger
+	public class DatabaseLogger
 	{
 		public void LogDebug(object text)
 		{

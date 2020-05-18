@@ -10,7 +10,7 @@ namespace Roadkill.Core.Database
 	/// Represents settings that are stored as JSON in the database. This is used by the <see cref="SiteSettings"/> 
 	/// class and by plugin settings.
 	/// </summary>
-	public class SiteConfigurationEntity : IDataStoreEntity
+	public class SiteConfiguration : IDataStoreEntity
 	{
 		/// <summary>
 		/// Gets or sets the unique ID for the settings.

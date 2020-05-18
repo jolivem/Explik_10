@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Mindscape.LightSpeed;
 using Roadkill.Core.Database.Schema;
 using Roadkill.Core.Logging;
 
@@ -9,17 +8,17 @@ namespace Roadkill.Core.Database
 {
 	public class DataStoreType
 	{
-		public static readonly DataStoreType MySQL = new DataStoreType("MySQL", "A MySQL database.", DataProvider.MySql5, new MySqlSchema());
-		public static readonly DataStoreType Postgres = new DataStoreType("Postgres", "A Postgres database.", DataProvider.PostgreSql9, new PostgresSchema());
+		public static readonly DataStoreType MySQL = new DataStoreType("MySQL", "A MySQL database.", new MySqlSchema());
+		//public static readonly DataStoreType Postgres = new DataStoreType("Postgres", "A Postgres database.", DataProvider.PostgreSql9, new PostgresSchema());
 		//public static readonly DataStoreType MongoDB = new DataStoreType("MongoDB", "A MongoDB server, using the official MongoDB driver.", typeof(MongoDBRepository).FullName);
 
-		public static readonly DataStoreType Sqlite = new DataStoreType("Sqlite", "A Sqlite database.", DataProvider.SQLite3, new SqliteSchema());
+		//public static readonly DataStoreType Sqlite = new DataStoreType("Sqlite", "A Sqlite database.", DataProvider.SQLite3, new SqliteSchema());
 
 		public string Name { get; private set; }
 		public string Description { get; private set; }
 		public bool RequiresCustomRepository { get; private set; }
 		public string CustomRepositoryType { get; internal set; }
-		public DataProvider LightSpeedDbType { get; private set; }
+		//public DataProvider LightSpeedDbType { get; private set; }
 		public SchemaBase Schema { get; private set; }
 
 		public static IEnumerable<DataStoreType> AllTypes { get; internal set; }
@@ -31,15 +30,12 @@ namespace Roadkill.Core.Database
 			{
 				//MongoDB, 
 				MySQL, 
-				Postgres, 
-				Sqlite, 
 			};
 
 			AllMonoTypes = new List<DataStoreType>()
 			{
 				//MongoDB, 
 				MySQL, 
-				Postgres
 			};
 		}
 
@@ -49,16 +45,16 @@ namespace Roadkill.Core.Database
 			Description = description;
 			RequiresCustomRepository = true;
 			CustomRepositoryType = customRepositoryType;
-			LightSpeedDbType = DataProvider.Custom;
+			//LightSpeedDbType = DataProvider.Custom;
 		}
 
-		public DataStoreType(string name, string description, DataProvider lightSpeedDbType, SchemaBase schema)
+		public DataStoreType(string name, string description, SchemaBase schema)
 		{
 			Name = name;
 			Description = description;
 			RequiresCustomRepository = false;
 			CustomRepositoryType = "";
-			LightSpeedDbType = lightSpeedDbType;
+			//LightSpeedDbType = lightSpeedDbType;
 			Schema = schema;
 		}
 
