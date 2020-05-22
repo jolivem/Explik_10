@@ -23,7 +23,7 @@ namespace Roadkill.Core.Database.Repositories
 
         public virtual IQueryable<TEntity> GetAll()
         {
-            return dbSet; ;
+            return dbSet; 
         }
 
         public virtual IEnumerable<TEntity> Get(
@@ -77,7 +77,7 @@ namespace Roadkill.Core.Database.Repositories
 
         public virtual void DeleteAll()
         {
-            Delete(dbSet);
+            dbSet.RemoveRange(dbSet);
         }
 
         public virtual void Delete(TEntity entityToDelete)

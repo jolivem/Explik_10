@@ -26,28 +26,28 @@ namespace Roadkill.Core.DI
 			}
 		}
 
-		public static IRepository ChangeRepository(DataStoreType dataStoreType, string connectionString, bool enableCache)
-		{
-			if (dataStoreType.RequiresCustomRepository)
-			{
-				IRepository customRepository = LoadRepositoryFromType(dataStoreType.CustomRepositoryType);
-				ObjectFactory.Configure(x =>
-				{
-					x.For<IRepository>().HybridHttpOrThreadLocalScoped().Use(customRepository);
-				});
-			}
-			else
-			{
-				ObjectFactory.Configure(x =>
-				{
-					x.For<IRepository>().HybridHttpOrThreadLocalScoped().Use<LightSpeedRepository>();
-				});
-			}
+		//public static IRepository ChangeRepository(DataStoreType dataStoreType, string connectionString, bool enableCache)
+		//{
+		//	if (dataStoreType.RequiresCustomRepository)
+		//	{
+		//		IRepository customRepository = LoadRepositoryFromType(dataStoreType.CustomRepositoryType);
+		//		ObjectFactory.Configure(x =>
+		//		{
+		//			x.For<IRepository>().HybridHttpOrThreadLocalScoped().Use(customRepository);
+		//		});
+		//	}
+		//	else
+		//	{
+		//		ObjectFactory.Configure(x =>
+		//		{
+		//			x.For<IRepository>().HybridHttpOrThreadLocalScoped().Use<LightSpeedRepository>();
+		//		});
+		//	}
 
-			IRepository repository = ObjectFactory.GetInstance<IRepository>();
-			repository.Startup(dataStoreType, connectionString, enableCache);
-			return repository;
-		}
+		//	IRepository repository = ObjectFactory.GetInstance<IRepository>();
+		//	repository.Startup(dataStoreType, connectionString, enableCache);
+		//	return repository;
+		//}
 
 		public static void DisposeRepository()
 		{
@@ -71,28 +71,28 @@ namespace Roadkill.Core.DI
 		/// </summary>
 		/// <param name="connectionString">The connection string.</param>
 		/// <returns>Any error messages or an empty string if no errors occurred.</returns>
-		public static string TestDbConnection(string connectionString, string databaseType)
-		{
-			try
-			{
-				DataStoreType dataStoreType = DataStoreType.ByName(databaseType);
-				if (dataStoreType == null)
-					dataStoreType = DataStoreType.ByName("SQLServer2005");
+		//public static string TestDbConnection(string connectionString, string databaseType)
+		//{
+		//	try
+		//	{
+		//		DataStoreType dataStoreType = DataStoreType.ByName(databaseType);
+		//		if (dataStoreType == null)
+		//			dataStoreType = DataStoreType.ByName("SQLServer2005");
 
-				IRepository repository = ChangeRepository(dataStoreType, connectionString, false);
-				repository.TestConnection(dataStoreType, connectionString);
-				return "";
-			}
-			catch (Exception e)
-			{
-				return e.ToString();
-			}
-			finally
-			{
-				// Restore to their previous state
-				ApplicationSettings appSettings = ObjectFactory.GetInstance<ApplicationSettings>();
-				IRepository repository = ChangeRepository(appSettings.DataStoreType, appSettings.ConnectionString, false);
-			}
-		}
+		//		IRepository repository = ChangeRepository(dataStoreType, connectionString, false);
+		//		//repository.TestConnection(dataStoreType, connectionString);
+		//		return "";
+		//	}
+		//	catch (Exception e)
+		//	{
+		//		return e.ToString();
+		//	}
+		//	finally
+		//	{
+		//		// Restore to their previous state
+		//		ApplicationSettings appSettings = ObjectFactory.GetInstance<ApplicationSettings>();
+		//		IRepository repository = ChangeRepository(appSettings.DataStoreType, appSettings.ConnectionString, false);
+		//	}
+		//}
 	}
 }

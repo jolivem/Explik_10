@@ -10,7 +10,7 @@ namespace Roadkill.Core.Database
 	/// </summary>
 	public interface IRepository : IPageRepository, IUserRepository, ICommentRepository, ISettingsRepository, IAlertRepository, ICompetitionRepository, ICourseRepository, IDisposable
 	{
-		//void Startup(DataStoreType dataStoreType, string connectionString, bool enableCache);
-		//void TestConnection(DataStoreType dataStoreType, string connectionString);
+		void Startup(string connectionString);
+		bool TestConnection(string connectionString);
     }
 }

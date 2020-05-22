@@ -17,54 +17,12 @@ namespace Roadkill.Core.Database.LightSpeed
 {
     public class LightSpeedRepository : IRepository
     {
+        //using PageContes = uow.PageContentRepository;
         private ApplicationSettings _applicationSettings;
+        private string connectionString;
 
         #region IQueryable
 
-        internal IQueryable<explik_pages> Pages
-        {
-            get { return UnitOfWork.PagesRepository.GetAll(); }
-        }
-
-        internal IQueryable<explik_pagecontent> PageContents
-        {
-            get { return UnitOfWork.PageContentRepository.GetAll(); }
-        }
-
-        internal IQueryable<explik_users> Users
-        {
-            get { return UnitOfWork.UsersRepository.GetAll(); }
-        }
-
-        internal IQueryable<explik_comments> Comments
-        {
-            get { return UnitOfWork.CommentsRepository.GetAll(); }
-        }
-
-        internal IQueryable<explik_alerts> Alerts
-        {
-            get { return UnitOfWork.AlertsRepository.GetAll(); }
-        }
-
-        internal IQueryable<explik_competition> Competitions
-        {
-            get { return UnitOfWork.CompetitionRepository.GetAll(); }
-        }
-
-        internal IQueryable<explik_competitionpage> CompetitionPages
-        {
-            get { return UnitOfWork.CompetitionPagesRepository.GetAll(); }
-        }
-
-        internal IQueryable<explik_course> Courses
-        {
-            get { return UnitOfWork.CourseRepository.GetAll(); }
-        }
-
-        internal IQueryable<explik_coursepage> CoursePages
-        {
-            get { return UnitOfWork.CoursePageRepository.GetAll(); }
-        }
 
         #endregion
 
@@ -72,7 +30,7 @@ namespace Roadkill.Core.Database.LightSpeed
         //{
         //    get
         //    {
-        //        return UnitOfWork.Co²
+        //        return uow.Co²
         //        LightSpeedContext context = ObjectFactory.GetInstance<LightSpeedContext>();
         //        if (context == null)
         //            throw new DatabaseException("The context for Lightspeed is null - has Startup() been called?", null);
@@ -80,7 +38,7 @@ namespace Roadkill.Core.Database.LightSpeed
         //        return context;
         //    }
         //}
-        public UnitOfWork UnitOfWork;
+        //public UnitOfWork UnitOfWork;
 
         //public virtual UnitOfWork UnitOfWork
         //{
@@ -99,61 +57,46 @@ namespace Roadkill.Core.Database.LightSpeed
         public LightSpeedRepository(ApplicationSettings settings)
         {
             _applicationSettings = settings;
+            connectionString = _applicationSettings.ConnectionString;
         }
 
         #region IRepository
 
-        //public void Startup(DataStoreType dataStoreType, string connectionString, bool enableCache)
-        //{
-        //    if (!string.IsNullOrEmpty(connectionString))
-        //    {
-        //        LightSpeedContext context = new LightSpeedContext();
-        //        context.ConnectionString = connectionString;
-        //        context.DataProvider = dataStoreType.LightSpeedDbType;
-        //        context.IdentityMethod = IdentityMethod.GuidComb;
-        //        context.CascadeDeletes = true;
-        //        context.VerboseLogging = true;
-        //        context.Logger = new DatabaseLogger();
+        public void Startup( string connectionString_)
+        {
+            if (!string.IsNullOrEmpty(connectionString_))
+            {
+                connectionString = connectionString_;
+            }
+            else
+            {
+                Log.Warn("LightSpeedRepository.Startup skipped as no connection string was provided");
+            }
+        }
 
-        //        if (enableCache)
-        //            context.Cache = new CacheBroker(new DefaultCache());
-
-        //        ObjectFactory.Configure(x =>
-        //        {
-        //            x.For<LightSpeedContext>().Singleton().Use(context);
-        //            x.For<IUnitOfWork>().HybridHttpOrThreadLocalScoped()
-        //                .Use(ctx => ctx.GetInstance<LightSpeedContext>().CreateUnitOfWork());
-        //        });
-        //    }
-        //    else
-        //    {
-        //        Log.Warn("LightSpeedRepository.Startup skipped as no connection string was provided");
-        //    }
-        //}
-
-        //public void TestConnection(DataStoreType dataStoreType, string connectionString)
-        //{
-        //    LightSpeedContext context = ObjectFactory.GetInstance<LightSpeedContext>();
-        //    if (context == null)
-        //        throw new InvalidOperationException("Repository.Test failed - LightSpeedContext was null from the ObjectFactory");
-
-        //    using (IDbConnection connection = context.DataProviderObjectFactory.CreateConnection())
-        //    {
-        //        connection.ConnectionString = connectionString;
-        //        connection.Open();
-        //    }
-        //}
+        public bool TestConnection( string connectionString)
+        {
+            try
+            {
+                var uow = new UnitOfWork(connectionString);
+                return uow.ConnectionSuccessful();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
         #endregion
 
         #region ISettingsRepository
 
-
-
         public SiteSettings GetSiteSettings()
         {
+            var uow = new UnitOfWork(connectionString);
             SiteSettings siteSettings = new SiteSettings();
-            explik_siteconfiguration entity = UnitOfWork.SiteConfigurationRepository.FirstOrDefault(x => x.Id == SiteSettings.SiteSettingsId.ToString());
+            
+            explik_siteconfiguration entity = uow.SiteConfigurationRepository.FirstOrDefault(x => x.Id == SiteSettings.SiteSettingsId.ToString());
 
             if (entity != null)
             {
@@ -169,8 +112,9 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public PluginSettings GetTextPluginSettings(Guid databaseId)
         {
+            var uow = new UnitOfWork(connectionString);
             PluginSettings pluginSettings = null;
-            explik_siteconfiguration entity = UnitOfWork.SiteConfigurationRepository.FirstOrDefault(x => x.Id == databaseId.ToString());
+            explik_siteconfiguration entity = uow.SiteConfigurationRepository.FirstOrDefault(x => x.Id == databaseId.ToString());
 
             if (entity != null)
             {
@@ -182,7 +126,8 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public void SaveSiteSettings(SiteSettings siteSettings)
         {
-            explik_siteconfiguration entity = UnitOfWork.SiteConfigurationRepository.FirstOrDefault(x => x.Id == SiteSettings.SiteSettingsId.ToString());
+            var uow = new UnitOfWork(connectionString);
+            explik_siteconfiguration entity = uow.SiteConfigurationRepository.FirstOrDefault(x => x.Id == SiteSettings.SiteSettingsId.ToString());
 
             if (entity == null || entity.Id == Guid.Empty.ToString())
             {
@@ -190,7 +135,7 @@ namespace Roadkill.Core.Database.LightSpeed
                 entity.Id = SiteSettings.SiteSettingsId.ToString();
                 entity.Version = ApplicationSettings.ProductVersion.ToString();
                 entity.Content = siteSettings.GetJson();
-                UnitOfWork.SiteConfigurationRepository.Insert(entity);
+                uow.SiteConfigurationRepository.Insert(entity);
             }
             else
             {
@@ -198,7 +143,7 @@ namespace Roadkill.Core.Database.LightSpeed
                 entity.Content = siteSettings.GetJson();
             }
 
-            UnitOfWork.Save();
+            uow.Save();
         }
 
         public void SaveTextPluginSettings(TextPlugin plugin)
@@ -207,7 +152,8 @@ namespace Roadkill.Core.Database.LightSpeed
             if (string.IsNullOrEmpty(version))
                 version = "1.0.0";
 
-            explik_siteconfiguration entity = UnitOfWork.SiteConfigurationRepository.FirstOrDefault(x => x.Id == plugin.DatabaseId.ToString());
+            var uow = new UnitOfWork(connectionString);
+            explik_siteconfiguration entity = uow.SiteConfigurationRepository.FirstOrDefault(x => x.Id == plugin.DatabaseId.ToString());
 
             if (entity == null || entity.Id == Guid.Empty.ToString())
             {
@@ -215,7 +161,7 @@ namespace Roadkill.Core.Database.LightSpeed
                 entity.Id = plugin.DatabaseId.ToString();
                 entity.Version = version;
                 entity.Content = plugin.Settings.GetJson();
-                UnitOfWork.SiteConfigurationRepository.Add(entity);
+                uow.SiteConfigurationRepository.Add(entity);
             }
             else
             {
@@ -223,7 +169,7 @@ namespace Roadkill.Core.Database.LightSpeed
                 entity.Content = plugin.Settings.GetJson();
             }
 
-            UnitOfWork.Save();
+            uow.Save();
         }
 
         #endregion
@@ -232,15 +178,16 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public PageContent AddNewPage(Page page, string text, string editedBy, DateTime editedOn)
         {
+            var uow = new UnitOfWork(connectionString);
             explik_pages pageEntity = new explik_pages();
             ToEntity.FromPage(page, pageEntity);
             pageEntity.Id = 0;
-            UnitOfWork.PagesRepository.Add(pageEntity);
-            UnitOfWork.Save();
+            uow.PagesRepository.Add(pageEntity);
+            uow.Save();
 
             explik_pagecontent pageContentEntity = new explik_pagecontent()
             {
-                Id = Guid.NewGuid().ToString(),
+                //Id = Guid.NewGuid().ToString(),
                 PageId = pageEntity.Id,
                 Text = text,
                 ControlledBy = "",
@@ -248,8 +195,8 @@ namespace Roadkill.Core.Database.LightSpeed
                 VersionNumber = 1,
             };
 
-            UnitOfWork.PageContentRepository.Add(pageContentEntity);
-            UnitOfWork.Save();
+            uow.PageContentRepository.Add(pageContentEntity);
+            uow.Save();
 
             PageContent pageContent = FromEntity.ToPageContent(pageContentEntity, pageEntity);
             pageContent.Page = FromEntity.ToPage(pageEntity);
@@ -260,14 +207,14 @@ namespace Roadkill.Core.Database.LightSpeed
         {
             if (version < 1)
                 version = 1;
-
-            explik_pages pageEntity = UnitOfWork.PagesRepository.GetById(page.Id);
+            var uow = new UnitOfWork(connectionString);
+            explik_pages pageEntity = uow.PagesRepository.GetById(page.Id);
             if (pageEntity != null)
             {
                 // Update the content
                 explik_pagecontent pageContentEntity = new explik_pagecontent()
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    //Id = Guid.NewGuid().ToString(),
                     PageId = page.Id,
                     Text = text,
                     ControlledBy = "",
@@ -275,13 +222,13 @@ namespace Roadkill.Core.Database.LightSpeed
                     VersionNumber = version,
                 };
 
-                UnitOfWork.PageContentRepository.Add(pageContentEntity);
-                UnitOfWork.Save();
+                uow.PageContentRepository.Add(pageContentEntity);
+                uow.Save();
 
                 // The page modified fields
                 pageEntity.PublishedOn = editedOn;
                 pageEntity.ControlledBy = "";
-                UnitOfWork.Save();
+                uow.Save();
 
                 // Turn the content database entity back into a domain object
                 PageContent pageContent = FromEntity.ToPageContent(pageContentEntity, pageEntity);
@@ -296,36 +243,41 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public IEnumerable<Page> AllPages()
         {
-            List<explik_pages> entities = Pages.ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_pages> entities = uow.Pages.ToList();
             return FromEntity.ToPageList(entities);
         }
 
         public IEnumerable<Page> AllNewPages()
         {
-            List<explik_pages> entities = Pages.Where(p =>
+            var uow = new UnitOfWork(connectionString);
+            List<explik_pages> entities = uow.Pages.Where(p =>
                 p.IsRejected == false && p.IsSubmitted == true && p.IsControlled == false && p.IsCopied == false).ToList();
             return FromEntity.ToPageList(entities);
         }
 
         public IEnumerable<Page> MyPages(string createdBy)
         {
-            List<explik_pages> entities = Pages.Where(p => p.CreatedBy == createdBy).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_pages> entities = uow.Pages.Where(p => p.CreatedBy == createdBy).ToList();
             return FromEntity.ToPageList(entities);
         }
 
         public IEnumerable<PageContent> AllPageContents()
         {
-            List<explik_pagecontent> entities = PageContents.ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_pagecontent> entities = uow.PageContents.ToList();
             return FromEntity.ToPageContentList(entities, null);
         }
 
         //public IEnumerable<string> AllTags()
         //{
-        //    return new List<string>(Pages.Select(p => p.Tags));
+        //    return new List<string>(uow.Pages.Select(p => p.Tags));
         //}
 
         public IEnumerable<string> AllControlledTags(bool checkCompetition = false)
         {
+            var uow = new UnitOfWork(connectionString);
             int competitionId = -1;
             if (checkCompetition == true)
             {
@@ -334,49 +286,53 @@ namespace Roadkill.Core.Database.LightSpeed
                 if (competitionId != -1)
                 {
                     // page tags out of competition
-                    return new List<string>(Pages.Where(p => p.IsControlled && p.CompetitionId != competitionId).Select(p => p.Tags));
+                    return new List<string>(uow.Pages.Where(p => p.IsControlled && p.CompetitionId != competitionId).Select(p => p.Tags));
                 }
 
             }
 
             // all tags
-            return new List<string>(Pages.Where(p => p.IsControlled).Select(p => p.Tags));
+            return new List<string>(uow.Pages.Where(p => p.IsControlled).Select(p => p.Tags));
 
 
         }
 
         public void DeleteAllPages()
         {
-            UnitOfWork.PagesRepository.DeleteAll();
-            UnitOfWork.Save();
+            var uow = new UnitOfWork(connectionString);
+            uow.PagesRepository.DeleteAll();
+            uow.Save();
 
-            UnitOfWork.PageContentRepository.DeleteAll();
-            UnitOfWork.Save();
+            uow.PageContentRepository.DeleteAll();
+            uow.Save();
         }
 
         public void DeletePage(int pageId)
         {
-            explik_pages entity = UnitOfWork.PagesRepository.GetById(pageId);
-            UnitOfWork.PagesRepository.Delete(entity);
-            UnitOfWork.Save();
+            var uow = new UnitOfWork(connectionString);
+            explik_pages entity = uow.PagesRepository.GetById(pageId);
+            uow.PagesRepository.Delete(entity);
+            uow.Save();
         }
 
         public void SetDraft(int pageId)
         {
-            explik_pages entity = UnitOfWork.PagesRepository.GetById(pageId);
+            var uow = new UnitOfWork(connectionString);
+            explik_pages entity = uow.PagesRepository.GetById(pageId);
             entity.IsControlled = false;
             entity.IsSubmitted = false;
             entity.IsRejected = false;
-            UnitOfWork.Save();
+            uow.Save();
         }
 
         public void SubmitPage(int pageId)
         {
-            explik_pages entity = UnitOfWork.PagesRepository.GetById(pageId);
+            var uow = new UnitOfWork(connectionString);
+            explik_pages entity = uow.PagesRepository.GetById(pageId);
             entity.IsControlled = false;
             entity.IsRejected = false;
             entity.IsSubmitted = true;
-            UnitOfWork.Save();
+            uow.Save();
         }
 
         /// <summary>
@@ -385,28 +341,31 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <param name="pageId"></param>
         public void RejectPage(int pageId)
         {
-            explik_pages entity = UnitOfWork.PagesRepository.GetById(pageId);
+            var uow = new UnitOfWork(connectionString);
+            explik_pages entity = uow.PagesRepository.GetById(pageId);
             entity.IsControlled = false;
             entity.IsRejected = true;
             entity.IsSubmitted = false;
-            UnitOfWork.Save();
+            uow.Save();
         }
 
 
         public void DeletePageContent(PageContent pageContent)
         {
-            explik_pagecontent entity = UnitOfWork.PageContentRepository.GetById(pageContent.Id);
-            UnitOfWork.PageContentRepository.Delete(entity);
-            UnitOfWork.Save();
+            var uow = new UnitOfWork(connectionString);
+            explik_pagecontent entity = uow.PageContentRepository.GetById(pageContent.Id.ToString());
+            uow.PageContentRepository.Delete(entity);
+            uow.Save();
         }
 
         public IEnumerable<Page> FindMostRecentPages(int number)
         {
+            var uow = new UnitOfWork(connectionString);
             // ignore all pages that are in the ongoing competition
             int id = GetOnGoingCompetitionId();
             if (id != -1)
             {
-                List<explik_pages> entities = Pages
+                List<explik_pages> entities = uow.Pages
                     .Where(p => p.IsControlled && !p.IsLocked && p.CompetitionId != id)
                     .OrderByDescending(p => p.PublishedOn)
                     .Take(number)
@@ -415,7 +374,7 @@ namespace Roadkill.Core.Database.LightSpeed
             }
             else
             {
-                List<explik_pages> entities = Pages
+                List<explik_pages> entities = uow.Pages
                     .Where(p => p.IsControlled && !p.IsLocked)
                     .OrderByDescending(p => p.PublishedOn)
                     .Take(number)
@@ -427,7 +386,8 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public IEnumerable<Page> FindPagesBestRated(int number)
         {
-            List<explik_pages> entities = Pages
+            var uow = new UnitOfWork(connectionString);
+            List<explik_pages> entities = uow.Pages
                 .Where(p => p.IsControlled && !p.IsLocked)
                 .OrderByDescending(p => p.NbRating == 0 ? 0 : (float)p.TotalRating / (float)p.NbRating) //TODO : use also explikRating
                 .Take(number)
@@ -437,7 +397,8 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public IEnumerable<Page> FindPagesMostViewed(int number)
         {
-            List<explik_pages> entities = Pages
+            var uow = new UnitOfWork(connectionString);
+            List<explik_pages> entities = uow.Pages
                 .Where(p => p.IsControlled && !p.IsLocked)
                 .OrderByDescending(p => p.NbView)
                 .Take(number)
@@ -447,7 +408,8 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public string GetPageTitle(int pageId)
         {
-            explik_pages entity = Pages.FirstOrDefault(p => p.Id == pageId);
+            var uow = new UnitOfWork(connectionString);
+            explik_pages entity = uow.Pages.FirstOrDefault(p => p.Id == pageId);
             if (entity != null)
                 return entity.Title;
             else
@@ -456,62 +418,71 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public IEnumerable<Page> FindPagesCreatedBy(string username)
         {
-            List<explik_pages> entities = Pages.Where(p => p.CreatedBy == username).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_pages> entities = uow.Pages.Where(p => p.CreatedBy == username).ToList();
             return FromEntity.ToPageList(entities);
         }
 
         public IEnumerable<Page> FindControlledPagesByCompetitionId(int competitionId)
         {
-            List<explik_pages> entities = Pages.Where(p => p.CompetitionId == competitionId && p.IsControlled == true).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_pages> entities = uow.Pages.Where(p => p.CompetitionId == competitionId && p.IsControlled == true).ToList();
             return FromEntity.ToPageList(entities);
         }
 
         public IEnumerable<Page> FindPagesByCompetitionId(int competitionId)
         {
-            List<explik_pages> entities = Pages.Where(p => p.CompetitionId == competitionId).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_pages> entities = uow.Pages.Where(p => p.CompetitionId == competitionId).ToList();
             return FromEntity.ToPageList(entities);
         }
 
         public void DeletCompetitionPages(int competitionId)
         {
-            List<explik_competitionpage> entities = CompetitionPages.Where(x => x.CompetitionId == competitionId).ToList();
+
+            var uow = new UnitOfWork(connectionString);
+            List<explik_competitionpage> entities = uow.CompetitionPages.Where(x => x.CompetitionId == competitionId).ToList();
             foreach (var entity in entities)
             {
-                UnitOfWork.CompetitionPagesRepository.Delete(entity);
+                uow.CompetitionPagesRepository.Delete(entity);
             }
 
-            UnitOfWork.Save();
+            uow.Save();
         }
 
         public void DeletCompetitionPage(int pageId)
         {
-            List<explik_competitionpage> entities = CompetitionPages.Where(x => x.PageId == pageId).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_competitionpage> entities = uow.CompetitionPages.Where(x => x.PageId == pageId).ToList();
             foreach (var entity in entities)
             {
-                UnitOfWork.CompetitionPagesRepository.Delete(entity);
+                uow.CompetitionPagesRepository.Delete(entity);
             }
 
-            UnitOfWork.Save();
+            uow.Save();
         }
 
         public IEnumerable<Page> FindPagesControlledBy(string username)
         {
-            List<explik_pages> entities = Pages.Where(p => p.ControlledBy == username).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_pages> entities = uow.Pages.Where(p => p.ControlledBy == username).ToList();
             return FromEntity.ToPageList(entities);
         }
 
         public IEnumerable<Page> FindPagesContainingTag(string tag)
         {
+            var uow = new UnitOfWork(connectionString);
             IEnumerable<explik_pages>
-                entities = Pages.Where(p =>
+                entities = uow.Pages.Where(p =>
                     p.Tags.ToLower().Contains(tag.ToLower())); // Lightspeed doesn't support ToLowerInvariant
             return FromEntity.ToPageList(entities);
         }
 
         public IEnumerable<Page> FindControlledPagesByTag(string tag)
         {
+            var uow = new UnitOfWork(connectionString);
             IEnumerable<explik_pages>
-                entities = Pages.Where(p =>
+                entities = uow.Pages.Where(p =>
                     p.Tags.ToLower().Contains(tag.ToLower())// Lightspeed doesn't support ToLowerInvariant
                     && p.CompetitionId == -1 // ignore if in competition
                     && p.IsControlled == true);
@@ -520,17 +491,19 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public IEnumerable<Page> FindPagesWithAlerts()
         {
-            List<int> pageIds = Alerts.GroupBy(a => (int)a.PageId).Select(a => a.First()).Select(a => (int)a.PageId).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<int> pageIds = uow.Alerts.GroupBy(a => (int)a.PageId).Select(a => a.First()).Select(a => (int)a.PageId).ToList();
             IEnumerable<explik_pages>
-                entities = Pages.Where(p => pageIds.Contains(p.Id)); // Lightspeed doesn't support ToLowerInvariant
+                entities = uow.Pages.Where(p => pageIds.Contains(p.Id)); // Lightspeed doesn't support ToLowerInvariant
             return FromEntity.ToPageList(entities);
 
         }
 
         public IEnumerable<PageContent> FindPageContentsByPageId(int pageId)
         {
-            List<explik_pagecontent> entities = PageContents.Where(p => p.PageId == pageId).ToList();
-            explik_pages pageEntity = UnitOfWork.PagesRepository.GetById(pageId);
+            var uow = new UnitOfWork(connectionString);
+            List<explik_pagecontent> entities = uow.PageContents.Where(p => p.PageId == pageId).ToList();
+            explik_pages pageEntity = uow.PagesRepository.GetById(pageId);
             return FromEntity.ToPageContentList(entities, pageEntity);
         }
 
@@ -542,35 +515,40 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public Page GetPageById(int id)
         {
-            explik_pages entity = Pages.FirstOrDefault(p => p.Id == id);
+            var uow = new UnitOfWork(connectionString);
+            explik_pages entity = uow.Pages.FirstOrDefault(p => p.Id == id);
             return FromEntity.ToPage(entity);
         }
 
         public Page GetPageByTitle(string title)
         {
-            explik_pages entity = Pages.FirstOrDefault(p => p.Title.ToLower() == title.ToLower());
+            var uow = new UnitOfWork(connectionString);
+            explik_pages entity = uow.Pages.FirstOrDefault(p => p.Title.ToLower() == title.ToLower());
             return FromEntity.ToPage(entity);
         }
 
         public PageContent GetLatestPageContent(int pageId)
         {
-            explik_pagecontent entity = PageContents.Where(x => x.PageId == pageId).OrderByDescending(x => x.EditedOn)
+            var uow = new UnitOfWork(connectionString);
+            explik_pagecontent entity = uow.PageContents.Where(x => x.PageId == pageId).OrderByDescending(x => x.EditedOn)
                 .FirstOrDefault();
-            explik_pages pageEntity = UnitOfWork.PagesRepository.GetById(pageId);
+            explik_pages pageEntity = uow.PagesRepository.GetById(pageId);
             return FromEntity.ToPageContent(entity, pageEntity);
         }
 
         public PageContent GetPageContentById(Guid id)
         {
-            explik_pagecontent entity = PageContents.FirstOrDefault(p => p.Id == id.ToString());
-            explik_pages pageEntity = UnitOfWork.PagesRepository.GetById(entity.PageId);
+            var uow = new UnitOfWork(connectionString);
+            explik_pagecontent entity = uow.PageContents.FirstOrDefault(p => p.Id == id.ToString());
+            explik_pages pageEntity = uow.PagesRepository.GetById(entity.PageId);
             return FromEntity.ToPageContent(entity, pageEntity);
         }
 
         public PageContent GetPageContentByPageIdAndVersionNumber(int id, int versionNumber)
         {
-            explik_pagecontent entity = PageContents.FirstOrDefault(p => p.PageId == id && p.VersionNumber == versionNumber);
-            explik_pages pageEntity = UnitOfWork.PagesRepository.GetById(entity.PageId);
+            var uow = new UnitOfWork(connectionString);
+            explik_pagecontent entity = uow.PageContents.FirstOrDefault(p => p.PageId == id && p.VersionNumber == versionNumber);
+            explik_pages pageEntity = uow.PagesRepository.GetById(entity.PageId);
             return FromEntity.ToPageContent(entity, pageEntity);
         }
 
@@ -582,19 +560,20 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public Page SaveOrUpdatePage(Page page)
         {
-            explik_pages entity = UnitOfWork.PagesRepository.GetById(page.Id);
+            var uow = new UnitOfWork(connectionString);
+            explik_pages entity = uow.PagesRepository.GetById(page.Id);
             if (entity == null)
             {
                 entity = new explik_pages();
                 ToEntity.FromPage(page, entity);
-                UnitOfWork.PagesRepository.Add(entity);
-                UnitOfWork.Save();
+                uow.PagesRepository.Add(entity);
+                uow.Save();
                 page = FromEntity.ToPage(entity);
             }
             else
             {
                 ToEntity.FromPage(page, entity);
-                UnitOfWork.Save();
+                uow.Save();
                 page = FromEntity.ToPage(entity);
             }
 
@@ -608,70 +587,77 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <param name="content"></param>
         public void UpdatePageContent(PageContent content)
         {
-            explik_pagecontent entity = UnitOfWork.PageContentRepository.GetById(content.Id);
+            var uow = new UnitOfWork(connectionString);
+            explik_pagecontent entity = uow.PageContentRepository.GetById(content.Id.ToString());
             if (entity != null)
             {
                 ToEntity.FromPageContent(content, entity);
-                UnitOfWork.Save();
-                explik_pages pageEntity = UnitOfWork.PagesRepository.GetById(entity.PageId);
+                uow.Save();
+                explik_pages pageEntity = uow.PagesRepository.GetById(entity.PageId);
                 content = FromEntity.ToPageContent(entity, pageEntity);
             }
         }
 
         public void IncrementNbView(int pageId)
         {
-            explik_pages entity = UnitOfWork.PagesRepository.GetById(pageId);
+            var uow = new UnitOfWork(connectionString);
+            explik_pages entity = uow.PagesRepository.GetById(pageId);
             if (entity != null)
             {
                 entity.NbView++;
-                UnitOfWork.Save();
+                uow.Save();
             }
         }
 
         public void SetNbView(int pageId, int nbView)
         {
-            explik_pages entity = UnitOfWork.PagesRepository.GetById(pageId);
+            var uow = new UnitOfWork(connectionString);
+            explik_pages entity = uow.PagesRepository.GetById(pageId);
             if (entity != null)
             {
                 entity.NbView = nbView;
-                UnitOfWork.Save();
+                uow.Save();
             }
         }
 
         public void SetCompetitionId(int pageId, int competitionId)
         {
-            explik_pages entity = UnitOfWork.PagesRepository.GetById(pageId);
+            var uow = new UnitOfWork(connectionString);
+            explik_pages entity = uow.PagesRepository.GetById(pageId);
             if (entity != null)
             {
                 entity.CompetitionId = competitionId;
-                UnitOfWork.Save();
+                uow.Save();
             }
         }
         public void SetRating(int pageId, int nbRating, int totalRating)
         {
-            explik_pages entity = UnitOfWork.PagesRepository.GetById(pageId);
+            var uow = new UnitOfWork(connectionString);
+            explik_pages entity = uow.PagesRepository.GetById(pageId);
             if (entity != null)
             {
                 entity.TotalRating = totalRating;
                 entity.NbRating = nbRating;
-                UnitOfWork.Save();
+                uow.Save();
             }
         }
 
         public void AddPageRating(int pageId, int rating)
         {
-            explik_pages entity = UnitOfWork.PagesRepository.GetById(pageId);
+            var uow = new UnitOfWork(connectionString);
+            explik_pages entity = uow.PagesRepository.GetById(pageId);
             if (entity != null)
             {
                 entity.TotalRating += rating;
                 entity.NbRating++;
-                UnitOfWork.Save();
+                uow.Save();
             }
         }
 
         public void RemovePageRating(int pageId, int rating)
         {
-            explik_pages entity = UnitOfWork.PagesRepository.GetById(pageId);
+            var uow = new UnitOfWork(connectionString);
+            explik_pages entity = uow.PagesRepository.GetById(pageId);
             if (entity != null)
             {
                 entity.TotalRating -= rating;
@@ -682,7 +668,7 @@ namespace Roadkill.Core.Database.LightSpeed
                     entity.TotalRating = 0;
                     entity.NbRating=0;
                 }
-                UnitOfWork.Save();
+                uow.Save();
             }
         }
 
@@ -692,13 +678,14 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <param name="competitionId"></param>
         public void CleanPagesForCompetitionId(int competitionId)
         {
-            List<explik_pages> entities = Pages.Where(x => x.CompetitionId == competitionId && !x.IsControlled).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_pages> entities = uow.Pages.Where(x => x.CompetitionId == competitionId && !x.IsControlled).ToList();
             foreach (var entity in entities)
             {
                 entity.CompetitionId = -1;
             }
 
-            UnitOfWork.Save();
+            uow.Save();
         }
 
 
@@ -708,118 +695,133 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public void DeleteUser(User user)
         {
-            explik_users entity = UnitOfWork.UsersRepository.GetById(user.Id);
-            UnitOfWork.UsersRepository.Delete(entity);
-            UnitOfWork.Save();
+            var uow = new UnitOfWork(connectionString);
+            explik_users entity = uow.UsersRepository.GetById(user.Id.ToString());
+            uow.UsersRepository.Delete(entity);
+            uow.Save();
         }
 
         public void DeleteAllUsers()
         {
-            UnitOfWork.UsersRepository.DeleteAll();
-            UnitOfWork.Save();
+            var uow = new UnitOfWork(connectionString);
+            uow.UsersRepository.DeleteAll();
+            uow.Save();
         }
 
         public User GetAdminById(Guid id)
         {
-            explik_users entity = Users.FirstOrDefault(x => x.Id == id.ToString() && x.IsAdmin);
+            var uow = new UnitOfWork(connectionString);
+            explik_users entity = uow.Users.FirstOrDefault(x => x.Id == id.ToString() && x.IsAdmin);
             return FromEntity.ToUser(entity);
         }
 
         public User GetUserByActivationKey(string key)
         {
-            explik_users entity = Users.FirstOrDefault(x => x.ActivationKey == key && x.IsActivated == false);
+            var uow = new UnitOfWork(connectionString);
+            explik_users entity = uow.Users.FirstOrDefault(x => x.ActivationKey == key && x.IsActivated == false);
             return FromEntity.ToUser(entity);
         }
 
         public User GetEditorById(Guid id)
         {
-            explik_users entity = Users.FirstOrDefault(x => x.Id == id.ToString() && x.IsEditor);
+            var uow = new UnitOfWork(connectionString);
+            explik_users entity = uow.Users.FirstOrDefault(x => x.Id == id.ToString() && x.IsEditor);
             return FromEntity.ToUser(entity);
         }
 
         public User GetControllerById(Guid id)
         {
-            explik_users entity = Users.FirstOrDefault(x => x.Id == id.ToString() && x.IsController);
+            var uow = new UnitOfWork(connectionString);
+            explik_users entity = uow.Users.FirstOrDefault(x => x.Id == id.ToString() && x.IsController);
             return FromEntity.ToUser(entity);
         }
 
         public User GetUserByEmail(string email, bool? isActivated = null)
         {
+            var uow = new UnitOfWork(connectionString);
             explik_users entity;
 
             if (isActivated.HasValue)
-                entity = Users.FirstOrDefault(x => x.Email == email && x.IsActivated == isActivated);
+                entity = uow.Users.FirstOrDefault(x => x.Email == email && x.IsActivated == isActivated);
             else
-                entity = Users.FirstOrDefault(x => x.Email == email);
+                entity = uow.Users.FirstOrDefault(x => x.Email == email);
 
             return FromEntity.ToUser(entity);
         }
 
         public User GetUserById(Guid id, bool? isActivated = null)
         {
+            var uow = new UnitOfWork(connectionString);
             explik_users entity;
 
             if (isActivated.HasValue)
-                entity = Users.FirstOrDefault(x => x.Id == id.ToString() && x.IsActivated == isActivated);
+                entity = uow.Users.FirstOrDefault(x => x.Id == id.ToString() && x.IsActivated == isActivated);
             else
-                entity = Users.FirstOrDefault(x => x.Id == id.ToString());
+                entity = uow.Users.FirstOrDefault(x => x.Id == id.ToString());
 
             return FromEntity.ToUser(entity);
         }
 
         public User GetUserByPasswordResetKey(string key)
         {
-            explik_users entity = Users.FirstOrDefault(x => x.PasswordResetKey == key);
+            var uow = new UnitOfWork(connectionString);
+            explik_users entity = uow.Users.FirstOrDefault(x => x.PasswordResetKey == key);
             return FromEntity.ToUser(entity);
         }
 
         public User GetUserByUsername(string username)
         {
-            explik_users entity = Users.FirstOrDefault(x => x.Username == username);
+            var uow = new UnitOfWork(connectionString);
+            explik_users entity = uow.Users.FirstOrDefault(x => x.Username == username);
             return FromEntity.ToUser(entity);
         }
 
         public User GetUserByUsernameOrEmail(string username, string email)
         {
-            explik_users entity = Users.FirstOrDefault(x => x.Username == username || x.Email == email);
+            var uow = new UnitOfWork(connectionString);
+            explik_users entity = uow.Users.FirstOrDefault(x => x.Username == username || x.Email == email);
             return FromEntity.ToUser(entity);
         }
 
         public IEnumerable<User> FindAllEditors()
         {
-            List<explik_users> entities = Users.Where(x => x.IsEditor).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_users> entities = uow.Users.Where(x => x.IsEditor).ToList();
             return FromEntity.ToUserList(entities);
         }
 
         public IEnumerable<User> FindAllControllers()
         {
-            List<explik_users> entities = Users.Where(x => x.IsController).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_users> entities = uow.Users.Where(x => x.IsController).ToList();
             return FromEntity.ToUserList(entities);
         }
 
         public IEnumerable<User> FindAllAdmins()
         {
-            List<explik_users> entities = Users.Where(x => x.IsAdmin).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_users> entities = uow.Users.Where(x => x.IsAdmin).ToList();
             return FromEntity.ToUserList(entities);
         }
 
         public User SaveOrUpdateUser(User user)
         {
-            explik_users entity = UnitOfWork.UsersRepository.GetById(user.Id);
+            var uow = new UnitOfWork(connectionString);
+            explik_users entity = uow.UsersRepository.GetById(user.Id.ToString());
             if (entity == null)
             {
                 // Turn the domain object into a database entity
                 entity = new explik_users();
                 ToEntity.FromUser(user, entity);
-                UnitOfWork.UsersRepository.Add(entity);
-                UnitOfWork.Save();
+                uow.UsersRepository.Add(entity);
+                uow.Save();
 
                 user = FromEntity.ToUser(entity);
             }
             else
             {
                 ToEntity.FromUser(user, entity);
-                UnitOfWork.Save();
+                uow.Save();
             }
 
             return user;
@@ -831,9 +833,10 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public void DeleteComment(Guid commentId)
         {
-            explik_comments entity = Comments.Where(x => x.Id == commentId.ToString()).Single();
-            UnitOfWork.CommentsRepository.Delete(entity);
-            UnitOfWork.Save();
+            var uow = new UnitOfWork(connectionString);
+            explik_comments entity = uow.Comments.Where(x => x.Id == commentId.ToString()).Single();
+            uow.CommentsRepository.Delete(entity);
+            uow.Save();
         }
 
         /// <summary>
@@ -843,9 +846,10 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <param name="rating"></param>
         public void UpdateCommentRating(Guid commentId, int rating)
         {
-            explik_comments entity = Comments.Where(x => x.Id == commentId.ToString()).Single();
+            var uow = new UnitOfWork(connectionString);
+            explik_comments entity = uow.Comments.Where(x => x.Id == commentId.ToString()).Single();
             entity.Rating = rating;
-            UnitOfWork.Save();
+            uow.Save();
         }
 
         /// <summary>
@@ -855,11 +859,12 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <param name="text"></param>
         public void UpdateComment(Guid commentId, string text)
         {
-            explik_comments entity = Comments.Where(x => x.Id == commentId.ToString()).Single();
+            var uow = new UnitOfWork(connectionString);
+            explik_comments entity = uow.Comments.Where(x => x.Id == commentId.ToString()).Single();
             entity.Text = text;
             entity.IsControlled = false;
             entity.IsRejected = false;
-            UnitOfWork.Save();
+            uow.Save();
         }
 
         /// <summary>
@@ -868,10 +873,11 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <param name="commentId"></param>
         public void ValidateComment(Guid commentId)
         {
-            explik_comments entity = Comments.Where(x => x.Id == commentId.ToString()).Single();
+            var uow = new UnitOfWork(connectionString);
+            explik_comments entity = uow.Comments.Where(x => x.Id == commentId.ToString()).Single();
             entity.IsControlled = true;
             entity.IsRejected = false;
-            UnitOfWork.Save();
+            uow.Save();
         }
 
         /// <summary>
@@ -880,10 +886,11 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <param name="commentId"></param>
         public void RejectComment(Guid commentId)
         {
-            explik_comments entity = Comments.Where(x => x.Id == commentId.ToString()).Single();
+            var uow = new UnitOfWork(connectionString);
+            explik_comments entity = uow.Comments.Where(x => x.Id == commentId.ToString()).Single();
             entity.IsControlled = true;
             entity.IsRejected = true;
-            UnitOfWork.Save();
+            uow.Save();
         }
 
         /// <summary>
@@ -893,7 +900,8 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <returns></returns>
         public IEnumerable<Comment> FindCommentsByPage(int pageId)
         {
-            List<explik_comments> entities = Comments.Where(x => x.PageId == pageId &&
+            var uow = new UnitOfWork(connectionString);
+            List<explik_comments> entities = uow.Comments.Where(x => x.PageId == pageId &&
                                                                x.Text != "" &&
                                                                x.IsControlled == true &&
                                                                x.IsRejected == false).ToList();
@@ -908,7 +916,8 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <returns></returns>
         public int GetRatingByPageAndUser(int pageId, string username)
         {
-            explik_comments comment = Comments.Where(x => x.CreatedBy == username && x.PageId == pageId).SingleOrDefault();
+            var uow = new UnitOfWork(connectionString);
+            explik_comments comment = uow.Comments.Where(x => x.CreatedBy == username && x.PageId == pageId).SingleOrDefault();
             if (comment != null)
             {
                 return (int)comment.Rating;
@@ -923,7 +932,8 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <returns></returns>
         public IEnumerable<Comment> FindCommentsToControl()
         {
-            List<explik_comments> entities = Comments.Where(x => x.IsControlled == false && x.IsRejected == false && x.Text != null && x.Text != "").ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_comments> entities = uow.Comments.Where(x => x.IsControlled == false && x.IsRejected == false && x.Text != null && x.Text != "").ToList();
             return FromEntity.ToCommentList(entities);
         }
 
@@ -933,10 +943,11 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <param name="comment"></param>
         public void AddComment(Comment comment)
         {
+            var uow = new UnitOfWork(connectionString);
             explik_comments entity = new explik_comments();
             ToEntity.FromComment(comment, entity);
-            UnitOfWork.CommentsRepository.Add(entity);
-            UnitOfWork.Save();
+            uow.CommentsRepository.Add(entity);
+            uow.Save();
         }
 
         /// <summary>
@@ -947,7 +958,8 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <returns></returns>
         public Comment FindCommentByPageAndUser(int pageId, string username)
         {
-            List<explik_comments> entities = Comments.Where(x => x.PageId == pageId && x.CreatedBy == username).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_comments> entities = uow.Comments.Where(x => x.PageId == pageId && x.CreatedBy == username).ToList();
             if (entities.Count > 0)
             {
                 return FromEntity.ToComment(entities[0]);
@@ -962,13 +974,14 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <param name="pageId"></param>
         public void DeleteComments(int pageId)
         {
-            var entities = Comments.Where(x => x.PageId == pageId).ToList();
+            var uow = new UnitOfWork(connectionString);
+            var entities = uow.Comments.Where(x => x.PageId == pageId).ToList();
             foreach (explik_comments entity in entities)
             {
-                UnitOfWork.CommentsRepository.Delete(entity);
+                uow.CommentsRepository.Delete(entity);
             }
 
-            UnitOfWork.Save();
+            uow.Save();
         }
 
         #endregion
@@ -977,20 +990,23 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public void DeleteAlert(Guid alertId)
         {
-            explik_alerts entity = Alerts.Where(x => x.Id == alertId.ToString()).Single();
-            UnitOfWork.AlertsRepository.Delete(entity);
-            UnitOfWork.Save();
+            var uow = new UnitOfWork(connectionString);
+            explik_alerts entity = uow.Alerts.Where(x => x.Id == alertId.ToString()).Single();
+            uow.AlertsRepository.Delete(entity);
+            uow.Save();
         }
 
         public IEnumerable<Alert> FindAlertsByPage(int pageId)
         {
-            List<explik_alerts> entities = Alerts.Where(x => x.PageId == pageId).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_alerts> entities = uow.Alerts.Where(x => x.PageId == pageId).ToList();
             return FromEntity.ToAlertList(entities);
         }
 
         public Alert FindAlertByPageAndUser(int pageId, string username)
         {
-            explik_alerts entitie = Alerts.Where(x => x.PageId == pageId && x.CreatedBy == username).FirstOrDefault();
+            var uow = new UnitOfWork(connectionString);
+            explik_alerts entitie = uow.Alerts.Where(x => x.PageId == pageId && x.CreatedBy == username).FirstOrDefault();
             if (entitie != null)
             {
                 return FromEntity.ToAlert(entitie);
@@ -1001,7 +1017,8 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public IEnumerable<Alert> GetAlerts()
         {
-            List<explik_alerts> entities = Alerts.ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_alerts> entities = uow.Alerts.ToList();
             if (entities != null)
             {
                 return FromEntity.ToAlertList(entities);
@@ -1012,49 +1029,54 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public IEnumerable<Alert> FindAlertsByComment(Guid commentGuid)
         {
-            List<explik_alerts> entities = Alerts.Where(x => x.CommentId == commentGuid.ToString()).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_alerts> entities = uow.Alerts.Where(x => x.CommentId == commentGuid.ToString()).ToList();
             return FromEntity.ToAlertList(entities);
         }
 
         public void AddAlert(Alert alert)
         {
+            var uow = new UnitOfWork(connectionString);
             explik_alerts entity = new explik_alerts();
             ToEntity.FromAlert(alert, entity);
-            UnitOfWork.AlertsRepository.Add(entity);
-            UnitOfWork.Save();
+            uow.AlertsRepository.Add(entity);
+            uow.Save();
         }
 
         public void DeletePageAlerts(int pageId)
         {
-            List<explik_alerts> entities = Alerts.Where(x => x.PageId == pageId).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_alerts> entities = uow.Alerts.Where(x => x.PageId == pageId).ToList();
             foreach (var entity in entities)
             {
-                UnitOfWork.AlertsRepository.Delete(entity);
+                uow.AlertsRepository.Delete(entity);
             }
 
-            UnitOfWork.Save();
+            uow.Save();
         }
 
         public void DeletPageAlertsByUser(int pageId, string username)
         {
-            List<explik_alerts> entities = Alerts.Where(x => x.PageId == pageId && x.CreatedBy == username).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_alerts> entities = uow.Alerts.Where(x => x.PageId == pageId && x.CreatedBy == username).ToList();
             foreach (var entity in entities)
             {
-                UnitOfWork.AlertsRepository.Delete(entity);
+                uow.AlertsRepository.Delete(entity);
             }
 
-            UnitOfWork.Save();
+            uow.Save();
         }
 
         public void DeleteCommentAlerts(Guid commentId)
         {
-            List<explik_alerts> entities = Alerts.Where(x => x.CommentId == commentId.ToString()).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_alerts> entities = uow.Alerts.Where(x => x.CommentId == commentId.ToString()).ToList();
             foreach (var entity in entities)
             {
-                UnitOfWork.AlertsRepository.Delete(entity);
+                uow.AlertsRepository.Delete(entity);
             }
 
-            UnitOfWork.Save();
+            uow.Save();
         }
 
         #endregion
@@ -1063,23 +1085,25 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public void DeleteCompetition(int id)
         {
-            explik_competition entity = Competitions.Where(x => x.Id == id).Single();
-            UnitOfWork.CompetitionRepository.Delete(entity);
-            UnitOfWork.Save();
+            var uow = new UnitOfWork(connectionString);
+            explik_competition entity = uow.Competitions.Where(x => x.Id == id).Single();
+            uow.CompetitionRepository.Delete(entity);
+            uow.Save();
         }
 
         public IEnumerable<Competition> GetCompetitions(bool forAdmin = false)
         {
+            var uow = new UnitOfWork(connectionString);
             List<explik_competition> entities;
             if (forAdmin)
             {
                 // for admin, get all competitions
-                entities = Competitions.ToList();
+                entities = uow.Competitions.ToList();
             }
             else
             {
                 // for other users, hide Pause and Init statuses
-                entities = Competitions.Where(c => 
+                entities = uow.Competitions.Where(c => 
                 c.Status == (int)Statuses.Achieved ||
                 c.Status == (int)Statuses.PublicationOngoing ||
                 c.Status == (int)Statuses.RatingOngoing).ToList();
@@ -1094,7 +1118,8 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public Competition GetCompetitionByPageTag(string tag)
         {
-            explik_competition entity = Competitions.SingleOrDefault(x => x.PageTag == tag);
+            var uow = new UnitOfWork(connectionString);
+            explik_competition entity = uow.Competitions.SingleOrDefault(x => x.PageTag == tag);
             if (entity != null)
             {
                 return FromEntity.ToCompetition(entity);
@@ -1104,7 +1129,8 @@ namespace Roadkill.Core.Database.LightSpeed
         }
         public Competition GetCompetitionById(int id)
         {
-            explik_competition entity = Competitions.SingleOrDefault(x => x.Id == id);
+            var uow = new UnitOfWork(connectionString);
+            explik_competition entity = uow.Competitions.SingleOrDefault(x => x.Id == id);
             if (entity != null)
             {
                 return FromEntity.ToCompetition(entity);
@@ -1115,7 +1141,8 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public Competition GetCompetitionByStatus(int status)
         {
-            explik_competition entity = Competitions.SingleOrDefault(x => x.Status == status);
+            var uow = new UnitOfWork(connectionString);
+            explik_competition entity = uow.Competitions.SingleOrDefault(x => x.Status == status);
             if (entity != null)
             {
                 return FromEntity.ToCompetition(entity);
@@ -1126,7 +1153,8 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public int GetOnGoingCompetitionId()
         {
-            explik_competition entity = Competitions.SingleOrDefault(x =>
+            var uow = new UnitOfWork(connectionString);
+            explik_competition entity = uow.Competitions.SingleOrDefault(x =>
               x.Status == (int)Statuses.PublicationOngoing ||
               x.Status == (int)Statuses.PauseBeforeRating ||
               x.Status == (int)Statuses.RatingOngoing ||
@@ -1142,22 +1170,25 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public void AddCompetition(Competition competition)
         {
+            var uow = new UnitOfWork(connectionString);
             explik_competition entity = new explik_competition();
             ToEntity.FromCompetition(competition, entity);
-            UnitOfWork.CompetitionRepository.Add(entity);
-            UnitOfWork.Save();
+            uow.CompetitionRepository.Add(entity);
+            uow.Save();
         }
 
         public void UpdateCompetition(Competition competition)
         {
-            explik_competition entity = Competitions.SingleOrDefault(x => x.Id == competition.Id);
+            var uow = new UnitOfWork(connectionString);
+            explik_competition entity = uow.Competitions.SingleOrDefault(x => x.Id == competition.Id);
             ToEntity.FromCompetition(competition, entity);
-            UnitOfWork.Save();
+            uow.Save();
         }
 
         public IEnumerable<CompetitionPage> GetCompetitionPages(int competitionId)
         {
-            List<explik_competitionpage> entities = CompetitionPages.Where(x => x.CompetitionId == competitionId).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_competitionpage> entities = uow.CompetitionPages.Where(x => x.CompetitionId == competitionId).ToList();
             if (entities != null)
             {
                 return FromEntity.ToCompetitionPageList(entities);
@@ -1168,9 +1199,10 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public void UpdateCompetitionPageRanking(int competitionId, int pageId, int ranking)
         {
-            var entity = CompetitionPages.SingleOrDefault(x => x.CompetitionId == competitionId && x.PageId == pageId);
+            var uow = new UnitOfWork(connectionString);
+            var entity = uow.CompetitionPages.SingleOrDefault(x => x.CompetitionId == competitionId && x.PageId == pageId);
             entity.Ranking = ranking;
-            UnitOfWork.Save();
+            uow.Save();
         }
 
         /// <summary>
@@ -1180,7 +1212,8 @@ namespace Roadkill.Core.Database.LightSpeed
         /// <returns></returns>
         public int GetPageRanking(int pageId)
         {
-            var entity = CompetitionPages.SingleOrDefault(x => x.PageId == pageId);
+            var uow = new UnitOfWork(connectionString);
+            var entity = uow.CompetitionPages.SingleOrDefault(x => x.PageId == pageId);
             if (entity != null)
             {
                 return (int)entity.Ranking;
@@ -1191,23 +1224,26 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public void UpdateCompetitionPageId(int competitionId, int pageId)
         {
-            explik_competition entity = Competitions.SingleOrDefault(x => x.Id == competitionId);
+            var uow = new UnitOfWork(connectionString);
+            explik_competition entity = uow.Competitions.SingleOrDefault(x => x.Id == competitionId);
             entity.PageId = pageId;
-            UnitOfWork.Save();
+            uow.Save();
         }
 
         public int[] GetUserHits(string username)
         {
+            var uow = new UnitOfWork(connectionString);
             int[] hits = new int[] { 0, 0, 0 };
 
-            hits[0] = CompetitionPages.Count(x => x.UserName == username && x.Ranking == 1);
-            hits[1] = CompetitionPages.Count(x => x.UserName == username && x.Ranking == 2);
-            hits[2] = CompetitionPages.Count(x => x.UserName == username && x.Ranking == 3);
+            hits[0] = uow.CompetitionPages.Count(x => x.UserName == username && x.Ranking == 1);
+            hits[1] = uow.CompetitionPages.Count(x => x.UserName == username && x.Ranking == 2);
+            hits[2] = uow.CompetitionPages.Count(x => x.UserName == username && x.Ranking == 3);
             return hits;
         }
 
         public void ArchiveCompetitionPage(int competitionId, Page page)
         {
+            var uow = new UnitOfWork(connectionString);
             explik_competitionpage entity = new explik_competitionpage();
             //ToEntity.FromCompetitionPage(competition, entity);
             entity.CompetitionId = competitionId;
@@ -1215,8 +1251,8 @@ namespace Roadkill.Core.Database.LightSpeed
             entity.NbRating = (int)page.NbRating;
             entity.TotalRating = (int)page.TotalRating;
             entity.UserName = page.CreatedBy;
-            UnitOfWork.CompetitionPagesRepository.Add(entity);
-            UnitOfWork.Save();
+            uow.CompetitionPagesRepository.Add(entity);
+            uow.Save();
         }
 
         #endregion
@@ -1224,7 +1260,8 @@ namespace Roadkill.Core.Database.LightSpeed
         #region ICourseRepository
         public Course GetCourseById(int id)
         {
-            explik_course entity = Courses.SingleOrDefault(x => x.Id == id);
+            var uow = new UnitOfWork(connectionString);
+            explik_course entity = uow.Courses.SingleOrDefault(x => x.Id == id);
             if (entity != null)
             {
                 return FromEntity.ToCourse(entity);
@@ -1235,12 +1272,13 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public int AddNewCourse(Course course)
         {
+            var uow = new UnitOfWork(connectionString);
             explik_course entity = new explik_course();
             ToEntity.FromCourse(course, entity);
 
             entity.Id = 0;
-            UnitOfWork.CourseRepository.Add(entity);
-            UnitOfWork.Save();
+            uow.CourseRepository.Add(entity);
+            uow.Save();
             return entity.Id;
         }
 
@@ -1256,7 +1294,8 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public IEnumerable<Course> GetCoursesByUser(string createdBy)
         {
-            List<explik_course> entities = Courses.Where(x => x.CreatedBy == createdBy).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<explik_course> entities = uow.Courses.Where(x => x.CreatedBy == createdBy).ToList();
             if (entities != null)
             {
                 return FromEntity.ToCourseList(entities);
@@ -1272,7 +1311,8 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public IEnumerable<CoursePage> GetCoursePages(int courseId)
         {
-            var entities = CoursePages.Where(x => x.CourseId == courseId);
+            var uow = new UnitOfWork(connectionString);
+            var entities = uow.CoursePages.Where(x => x.CourseId == courseId);
             if (entities != null)
             {
                 return FromEntity.ToCoursePageList(entities.ToList());
@@ -1282,8 +1322,9 @@ namespace Roadkill.Core.Database.LightSpeed
 
         public IEnumerable<Page> GetPagesByCourseId(int courseId)
         {
-            List<int> pageIds = CoursePages.Where(x => x.CourseId == courseId).Select(x => x.PageId).ToList();
-            List<explik_pages> entities = Pages.Where(x => pageIds.Contains (x.Id)).ToList();
+            var uow = new UnitOfWork(connectionString);
+            List<int> pageIds = uow.CoursePages.Where(x => x.CourseId == courseId).Select(x => x.PageId).ToList();
+            List<explik_pages> entities = uow.Pages.Where(x => pageIds.Contains (x.Id)).ToList();
             if (entities != null)
             {
                 return FromEntity.ToPageList(entities);
@@ -1301,8 +1342,8 @@ namespace Roadkill.Core.Database.LightSpeed
         #region IDisposable
         public void Dispose()
 		{
-			UnitOfWork.Save();
-			UnitOfWork.Dispose();
+			//uow.Save();
+			//uow.Dispose();
 		}
 		#endregion
 

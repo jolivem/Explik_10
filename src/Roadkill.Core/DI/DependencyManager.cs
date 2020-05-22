@@ -93,9 +93,7 @@ namespace Roadkill.Core.DI
 			_repository = ObjectFactory.GetInstance<IRepository>();
 
 			// Tell the current repository to do its thing
-			_repository.Startup(_applicationSettings.DataStoreType,
-								_applicationSettings.ConnectionString,
-								_applicationSettings.UseObjectCache);
+			_repository.Startup(_applicationSettings.ConnectionString);
 
 			_hasRunInitialization = true;
 		}

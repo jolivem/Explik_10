@@ -1,6 +1,8 @@
 ﻿using Roadkill.Core.Database.Repositories.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.EntityClient;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +11,8 @@ namespace Roadkill.Core.Database.Repositories
 {
     public class UnitOfWork : IDisposable
     {
-        private Entities.Entities context = new Entities.Entities();
+
+        private readonly Entities.Entities context;
         private BaseRepository<explik_alerts> alertsRepository;
         private BaseRepository<explik_comments> commentsRepository;
         private BaseRepository<explik_competition> competitionRepository;
@@ -20,10 +23,8 @@ namespace Roadkill.Core.Database.Repositories
         private BaseRepository<explik_pages> pagesRepository;
         private BaseRepository<explik_siteconfiguration> siteConfigurationRepository;
         private BaseRepository<explik_users> usersRepository;
-        //public void Add<TEntity>( TEntity entity) where TEntity : class
-        //{
 
-        //}
+        #region repositories
 
         public BaseRepository<explik_alerts> AlertsRepository
         {
@@ -155,9 +156,94 @@ namespace Roadkill.Core.Database.Repositories
             }
         }
 
+        #endregion
+
+        internal IQueryable<explik_pages> Pages
+        {
+            get { return PagesRepository.GetAll(); }
+        }
+        internal IQueryable<explik_pagecontent> PageContents
+        {
+            get { return PageContentRepository.GetAll(); }
+        }
+
+        internal IQueryable<explik_users> Users
+        {
+            get { return UsersRepository.GetAll(); }
+        }
+
+        internal IQueryable<explik_comments> Comments
+        {
+            get { return CommentsRepository.GetAll(); }
+        }
+
+        internal IQueryable<explik_alerts> Alerts
+        {
+            get { return AlertsRepository.GetAll(); }
+        }
+
+        internal IQueryable<explik_competition> Competitions
+        {
+            get { return CompetitionRepository.GetAll(); }
+        }
+
+        internal IQueryable<explik_competitionpage> CompetitionPages
+        {
+            get { return CompetitionPagesRepository.GetAll(); }
+        }
+
+        internal IQueryable<explik_course> Courses
+        {
+            get { return CourseRepository.GetAll(); }
+        }
+
+        internal IQueryable<explik_coursepage> CoursePages
+        {
+            get { return CoursePageRepository.GetAll(); }
+        }
+
+
+        public UnitOfWork(string connectionString)
+        {
+            var entityBuilder = new EntityConnectionStringBuilder();
+            entityBuilder.Provider = @"MySql.Data.MySqlClient";
+            // use your ADO.NET connection string
+            //entityBuilder.ProviderConnectionString = @"server=localhost;user id=Admin;password=Admin;persistsecurityinfo=True;database=explik";
+            entityBuilder.ProviderConnectionString = "persistsecurityinfo=True;"+connectionString;
+
+
+            // Set the Metadata location.
+            entityBuilder.Metadata = @"res://*/Database.Repositories.Entities.EntityModel.csdl|res://*/Database.Repositories.Entities.EntityModel.ssdl|res://*/Database.Repositories.Entities.EntityModel.msl";
+            //var dbContext = new DbContext(entityBuilder);
+            context = new Entities.Entities(entityBuilder.ConnectionString);
+        }
+
+        public bool ConnectionSuccessful()
+        {
+            return context.Database.Exists();
+        }
+
         public void Save()
         {
-            context.SaveChanges();
+            try
+            {
+
+                context.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
         }
 
         private bool disposed = false;

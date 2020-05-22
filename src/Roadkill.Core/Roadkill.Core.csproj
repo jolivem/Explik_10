@@ -421,6 +421,7 @@
     <Compile Include="Database\Model\Course.cs" />
     <Compile Include="Database\Model\CoursePage.cs" />
     <Compile Include="Database\Repositories\BaseRepository.cs" />
+    <Compile Include="Database\Repositories\Entities\Extensions.cs" />
     <Compile Include="Database\Repositories\IAlertRepository.cs" />
     <Compile Include="Database\Repositories\ICommentRepository.cs" />
     <Compile Include="Database\Repositories\ICompetitionRepository.cs" />
