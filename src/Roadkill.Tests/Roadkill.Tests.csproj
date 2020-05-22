@@ -332,9 +332,6 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Integration\Configuration\ApplicationSettingsTests.cs" />
-    <Compile Include="Integration\Repository\LightSpeed\LightSpeedPageRepositoryTests.cs" />
-    <Compile Include="Integration\Repository\LightSpeed\LightSpeedSettingsRepositoryTests.cs" />
     <Compile Include="Setup\ConfigFileManager.cs" />
     <Compile Include="Setup\IISExpress.cs" />
     <Compile Include="Setup\SqlExpressSetup.cs" />
@@ -342,8 +339,6 @@
     <Compile Include="Integration\Repository\SettingsRepositoryTests.cs" />
     <Compile Include="Integration\Repository\UserRepositoryTests.cs" />
     <Compile Include="Integration\Repository\RepositoryTests.cs" />
-    <Compile Include="Integration\Repository\LightSpeed\LightSpeedUserRepositoryTests.cs" />
-    <Compile Include="Integration\Import\ScrewturnImporterTests.cs" />
     <Compile Include="Setup\SqlCeSetup.cs" />
     <Compile Include="Setup\SqliteSetup.cs" />
     <Compile Include="Unit\Attachments\AttachmentPathUtilTests.cs" />
@@ -446,7 +441,6 @@
     <Compile Include="Unit\Plugins\TocParserTests.cs" />
     <Compile Include="Unit\Text\MarkupSanitizerTests.cs" />
     <Compile Include="Unit\Text\MarkdownTests.cs" />
-    <Compile Include="Integration\Configuration\FullTrustConfigReaderWriterTests.cs" />
     <Compile Include="Setup\Settings.cs" />
     <Compile Include="Unit\Services\PageServiceTests.cs" />
     <Compile Include="Unit\Services\ActiveDirectoryUserManagerTests.cs" />
@@ -455,9 +449,6 @@
     <Compile Include="Unit\Text\CustomTokenParserTests.cs" />
     <Content Include="chromedriver.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Integration\Import\screwturn3.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <TypeScriptCompile Include="Javascript\editpage-tests.ts" />
     <Content Include="Integration\windows-auth-testing.txt" />
@@ -474,31 +465,6 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Integration\Configuration\TestConfigs\test.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Integration\Configuration\TestConfigs\test-optional-values.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Integration\Configuration\TestConfigs\test-missing-values.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Integration\Configuration\TestConfigs\test-legacy-values.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Integration\Configuration\TestConfigs\test-no-roadkillsection.config">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Integration\Configuration\TestConfigs\test-empty.config">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Integration\Configuration\TestConfigs\test-empty-defaults.config">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
