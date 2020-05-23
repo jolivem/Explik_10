@@ -62,6 +62,9 @@
     <Reference Include="System.Runtime.Caching" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repository\UTConversion.cs" />
+    <Compile Include="Repository\UTCourseRepository.cs" />
+    <Compile Include="Repository\UTCourseService.cs" />
     <Compile Include="Repository\UTPageRepository.cs" />
     <Compile Include="Repository\UTRepository.cs" />
     <Compile Include="Repository\UTUserRepository.cs" />

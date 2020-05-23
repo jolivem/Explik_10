@@ -26,7 +26,7 @@ namespace Roadkill.Core.Services
         public int AddCourse(string title, string createdBy)
         {
             var course = new Course(title, createdBy);
-            return Repository.AddNewCourse(course);
+            return Repository.AddCourse(course);
             
         }
 

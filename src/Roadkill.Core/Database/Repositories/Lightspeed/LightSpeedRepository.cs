@@ -540,6 +540,10 @@ namespace Roadkill.Core.Database.LightSpeed
         {
             var uow = new UnitOfWork(connectionString);
             explik_pagecontent entity = uow.PageContents.FirstOrDefault(p => p.Id == id.ToString());
+            if (entity == null)
+            {
+                return null;
+            }
             explik_pages pageEntity = uow.PagesRepository.GetById(entity.PageId);
             return FromEntity.ToPageContent(entity, pageEntity);
         }
@@ -1258,6 +1262,7 @@ namespace Roadkill.Core.Database.LightSpeed
         #endregion
 
         #region ICourseRepository
+
         public Course GetCourseById(int id)
         {
             var uow = new UnitOfWork(connectionString);
@@ -1270,7 +1275,7 @@ namespace Roadkill.Core.Database.LightSpeed
             return null;
         }
 
-        public int AddNewCourse(Course course)
+        public int AddCourse(Course course)
         {
             var uow = new UnitOfWork(connectionString);
             explik_course entity = new explik_course();
@@ -1279,17 +1284,55 @@ namespace Roadkill.Core.Database.LightSpeed
             entity.Id = 0;
             uow.CourseRepository.Add(entity);
             uow.Save();
+            course.Id = entity.Id;
             return entity.Id;
         }
 
-        public void UpdateCourse(Course Course)
+        public void UpdateCourse(Course course)
         {
-            throw new NotImplementedException();
+            var uow = new UnitOfWork(connectionString);
+            explik_course entity = uow.Courses.SingleOrDefault(x => x.Id == course.Id);
+            if (entity != null)
+            {
+                ToEntity.FromCourse(course, entity);
+                uow.Save();
+            }
         }
 
-        public void UpdateCoursePageId(int courseId, int pageId)
+        public CoursePage GetCoursePageById(int id)
         {
-            throw new NotImplementedException();
+            var uow = new UnitOfWork(connectionString);
+            explik_coursepage entity = uow.CoursePages.SingleOrDefault(x => x.Id == id);
+            if (entity != null)
+            {
+                return FromEntity.ToCoursePage(entity);
+            }
+
+            return null;
+        }
+
+        public int AddCoursePage(CoursePage coursePage)
+        {
+            var uow = new UnitOfWork(connectionString);
+            explik_coursepage entity = new explik_coursepage();
+            ToEntity.FromCoursePage(coursePage, entity);
+
+            entity.Id = 0;
+            uow.CoursePageRepository.Add(entity);
+            uow.Save();
+            coursePage.Id = entity.Id;
+            return entity.Id;
+
+        }
+        public void UpdateCoursePageOrder(int coursePageId, int order)
+        {
+            var uow = new UnitOfWork(connectionString);
+            explik_coursepage entity = uow.CoursePages.SingleOrDefault(x => x.Id == coursePageId);
+            if (entity != null)
+            {
+                entity.Order = order;
+                uow.Save();
+            }
         }
 
         public IEnumerable<Course> GetCoursesByUser(string createdBy)
@@ -1304,10 +1347,10 @@ namespace Roadkill.Core.Database.LightSpeed
             return null;
         }
 
-        public Course GetCourseByPage(string tag)
-        {
-            throw new NotImplementedException();
-        }
+        //public Course GetCourseByPage(string tag)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public IEnumerable<CoursePage> GetCoursePages(int courseId)
         {
@@ -1332,10 +1375,41 @@ namespace Roadkill.Core.Database.LightSpeed
             return null;
         }
 
+        // Delete a course and its course pages
         public void DeleteCourse(int id)
         {
-            throw new NotImplementedException();
+            var uow = new UnitOfWork(connectionString);
+            explik_course entity = uow.CourseRepository.GetById(id);
+            uow.CourseRepository.Delete(entity);
+
+            List<explik_coursepage> entities = uow.CoursePages.Where(x => x.CourseId == id).ToList();
+            foreach ( var pageEntity in entities)
+            {
+                uow.CoursePageRepository.Delete(pageEntity);
+            }
+
+            uow.Save();
         }
+
+        public void DeleteCoursePage(int pageId)
+        {
+            var uow = new UnitOfWork(connectionString);
+            explik_coursepage entity = uow.CoursePageRepository.GetById(pageId);
+            uow.CoursePageRepository.Delete(entity);
+
+            uow.Save();
+        }
+
+        public void DeleteCourses()
+        {
+            var uow = new UnitOfWork(connectionString);
+            uow.CourseRepository.DeleteAll();
+            uow.Save();
+
+            uow.CoursePageRepository.DeleteAll();
+            uow.Save();
+        }
+
         #endregion
 
 

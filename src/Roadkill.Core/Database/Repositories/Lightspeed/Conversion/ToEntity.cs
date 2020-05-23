@@ -123,7 +123,8 @@ namespace Roadkill.Core.Database
 
         public static void FromCoursePage(CoursePage coursepage, explik_coursepage entity)
         {
-            entity.CourseId = coursepage.Id;
+            entity.Id = coursepage.Id;
+            entity.CourseId = coursepage.CourseId;
             entity.PageId = coursepage.PageId;
             entity.Order = coursepage.Order;
         }

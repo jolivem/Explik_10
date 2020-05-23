@@ -18,6 +18,7 @@ namespace Roadkill.UT.Repository
 		private DateTime _editedDate;
         protected IRepository Repository;
         protected ApplicationSettings ApplicationSettings;
+        private string connectionString = @"server=localhost;user id=Admin;password=Admin;database=explik;";
 
         protected string ConnectionString { get; set; }
         protected virtual DataStoreType DataStoreType { get { return null; } }
@@ -26,7 +27,7 @@ namespace Roadkill.UT.Repository
 		public void SetUp()
 		{
             ConnectionString = "tuti";
-            ApplicationSettings = new ApplicationSettings() { ConnectionString = ConnectionString, DataStoreType = DataStoreType };
+            ApplicationSettings = new ApplicationSettings() { ConnectionString = connectionString, DataStoreType = DataStoreType };
 
             Repository = new LightSpeedRepository(ApplicationSettings);
 

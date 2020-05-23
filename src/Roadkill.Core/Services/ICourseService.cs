@@ -26,8 +26,5 @@ namespace Roadkill.Core.Services
         // used to slect pages to be included in the course
         CourseViewModel GetByIdWithAllUserPages(int courseId, string username);
 
-        //Course GetCourseByStatus(CourseViewModel.Statuses status);
-
-        //void Achieve(int courseId);
     }
 }

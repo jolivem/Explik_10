@@ -19,6 +19,6 @@ namespace Roadkill.Core.DI
 		IUserContext Context { get; set; }
 		UserServiceBase UserService { get; set; }
         IPageService PageService { get; set; }
-		SettingsService SettingsService { get; set; }
+        SettingsService SettingsService { get; set; }
 	}
 }

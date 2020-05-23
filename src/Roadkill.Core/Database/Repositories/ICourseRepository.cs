@@ -12,7 +12,7 @@ namespace Roadkill.Core.Database.Repositories
         /// Create new Course
         /// </summary>
         /// <param name="Course"></param>
-        int AddNewCourse(Course Course);
+        int AddCourse(Course Course);
 
         /// <summary>
         /// Update the dates of the Course, or th state
@@ -21,11 +21,17 @@ namespace Roadkill.Core.Database.Repositories
         void UpdateCourse(Course Course);
 
         /// <summary>
+        /// Create new Course page
+        /// </summary>
+        /// <param name="Course"></param>
+        int AddCoursePage(CoursePage coursePage);
+
+        /// <summary>
         /// Update the pageId of the page tag of the Course
         /// </summary>
         /// <param name="courseId"></param>
         /// <param name="pageId"></param>
-        void UpdateCoursePageId(int courseId, int pageId);
+        void UpdateCoursePageOrder(int coursePageId, int order);
 
         /// <summary>
         /// Get all compeitions for display
@@ -52,7 +58,7 @@ namespace Roadkill.Core.Database.Repositories
         /// </summary>
         /// <param name="tag"></param>
         /// <returns></returns>
-        Course GetCourseByPage(string tag);
+        //Course GetCourseByPage(string tag);
 
         /// <summary>
         /// Get all pages registered for a given Course
@@ -62,9 +68,26 @@ namespace Roadkill.Core.Database.Repositories
         IEnumerable<CoursePage> GetCoursePages(int courseId);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">id of the course page</param>
+        /// <returns></returns>
+        CoursePage GetCoursePageById(int id);
+
+        /// <summary>
         /// Delete a given Course
         /// </summary>
         /// <param name="id"></param>
         void DeleteCourse(int id);
+
+        /// <summary>
+        /// Delete a given Course page
+        /// </summary>
+        /// <param name="id"></param>
+        void DeleteCoursePage(int id);
+
+        /// Delete all courses and course pages
+        /// </summary>
+        void DeleteCourses();
     }
 }

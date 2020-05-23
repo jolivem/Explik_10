@@ -20,14 +20,13 @@ namespace Roadkill.UT.Repository
         protected IRepository Repository;
         protected ApplicationSettings ApplicationSettings;
 
-        protected string ConnectionString { get; set; }
+        private string connectionString = @"server=localhost;user id=Admin;password=Admin;database=explik;";
         protected virtual DataStoreType DataStoreType { get { return null; } }
 
         [TestInitialize]
 		public void SetUp()
 		{
-            ConnectionString = "tuti";
-            ApplicationSettings = new ApplicationSettings() { ConnectionString = ConnectionString, DataStoreType = DataStoreType };
+            ApplicationSettings = new ApplicationSettings() { ConnectionString = connectionString, DataStoreType = DataStoreType };
 
             Repository = new LightSpeedRepository(ApplicationSettings);
 
