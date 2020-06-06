@@ -1,0 +1,30 @@
+﻿@model CourseViewModel
+@{
+    ViewBag.Title = SiteStrings.NewCourse_Title;
+}
+<div class="row">
+    <div class="col-sm-9">
+        <h2>@SiteStrings.NewCourse_CreateTitle</h2>
+    </div>
+</div>
+
+<form class="form-horizontal" role="form" method="post" id="editpage-form">
+    @(Html.HiddenFor<CourseViewModel, int>(p => p.CourseId))
+    @(Html.HiddenFor<CourseViewModel, string>(p => p.PreviousTitle))
+
+    <div class="row">
+        @Html.BootstrapValidationSummary(SiteStrings.EditCourse_Error)
+
+        <div class="form-group col-sm-11">
+            <div class="col-sm-11">
+                <label for="Title">@SiteStrings.NewCourse_Title_Label</label>
+                @(Html.BootstrapTextBoxFor<CourseViewModel, string>(p => p.Title, SiteStrings.NewCourse_Title_Label, false, 1))
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-11">
+            <input type="submit" class="btn btn-primary saveButton" value="@SiteStrings.Button_Save" tabindex="6" />
+        </div>
+    </div>
+</form>

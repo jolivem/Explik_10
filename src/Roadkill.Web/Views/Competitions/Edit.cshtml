@@ -22,8 +22,6 @@
                 <div class="col-sm-12">
                     <label for="PageTag">@SiteStrings.EditCompetition_PageTagLabel</label>
                     @(Html.BootstrapTextBoxFor<CompetitionViewModel, string>(c => c.PageTag, SiteStrings.EditCompetition_PageTagLabel, false, 1))
-                    @*<label for="PageTag">@SiteStrings.EditCompetition_PageTagLabel</label>
-                @(Html.BootstrapTextBoxFor<CompetitionViewModel, string>(c => c.PageTag, SiteStrings.EditCompetition_PageTagLabel, false, 1))*@
                     @if (Model.PageId == -1)
                     {
                         <p style="color: red">@SiteStrings.EditCompetition_RemeberCreatePage</p>

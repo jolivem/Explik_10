@@ -727,6 +727,9 @@
     <Content Include="Views\Courses\Edit.cshtml" />
     <Content Include="Views\Courses\MyCourses.cshtml" />
     <Content Include="Views\Courses\SelectPages.cshtml" />
+    <Content Include="Views\Courses\New.cshtml" />
+    <Content Include="Views\Courses\Index.cshtml" />
+    <Content Include="Views\Courses\MyCourse.cshtml" />
     <None Include="Web.Mono.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

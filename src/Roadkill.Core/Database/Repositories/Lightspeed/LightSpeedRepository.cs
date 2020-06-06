@@ -1299,6 +1299,17 @@ namespace Roadkill.Core.Database.LightSpeed
             }
         }
 
+        public void UpdateCourseTitle(int id, string title)
+        {
+            var uow = new UnitOfWork(connectionString);
+            explik_course entity = uow.Courses.SingleOrDefault(x => x.Id == id);
+            if (entity != null)
+            {
+                entity.Title = title;
+                uow.Save();
+            }
+        }
+
         public CoursePage GetCoursePageById(int id)
         {
             var uow = new UnitOfWork(connectionString);
@@ -1382,12 +1393,6 @@ namespace Roadkill.Core.Database.LightSpeed
             explik_course entity = uow.CourseRepository.GetById(id);
             uow.CourseRepository.Delete(entity);
 
-            List<explik_coursepage> entities = uow.CoursePages.Where(x => x.CourseId == id).ToList();
-            foreach ( var pageEntity in entities)
-            {
-                uow.CoursePageRepository.Delete(pageEntity);
-            }
-
             uow.Save();
         }
 
@@ -1400,6 +1405,18 @@ namespace Roadkill.Core.Database.LightSpeed
             uow.Save();
         }
 
+        public void DeleteCoursePages(int courseId)
+        {
+            var uow = new UnitOfWork(connectionString);
+            List<explik_coursepage> entities = uow.CoursePages.Where(x => x.CourseId == courseId).ToList();
+            foreach (var pageEntity in entities)
+            {
+                uow.CoursePageRepository.Delete(pageEntity);
+            }
+
+            uow.Save();
+        }
+
         public void DeleteCourses()
         {
             var uow = new UnitOfWork(connectionString);
@@ -1407,6 +1424,18 @@ namespace Roadkill.Core.Database.LightSpeed
             uow.Save();
 
             uow.CoursePageRepository.DeleteAll();
+            uow.Save();
+        }
+
+        public void DeleteCoursePagesforPageId(int pageId)
+        {
+            var uow = new UnitOfWork(connectionString);
+            List<explik_coursepage> entities = uow.CoursePages.Where(x => x.PageId == pageId).ToList();
+            foreach (var entity in entities)
+            {
+                uow.CoursePageRepository.Delete(entity);
+            }
+
             uow.Save();
         }
 

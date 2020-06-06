@@ -8,9 +8,6 @@
         $(function () {
             Roadkill.Web.Setup.bindConfirmDelete();
         });
-        //$(function () {
-        //    Roadkill.Web.Setup.bindConfirmDelete();
-        //});
     </script>
 }
 
@@ -38,7 +35,7 @@
                 <td class="pagename stretch">@Html.ActionLink(pageModel.Title, "Index", "Wiki", new { id = pageModel.Id, title = pageModel.EncodedTitle }, null)</td>
                 @if (RoadkillContext.IsLoggedIn)
                 {
-                        <td class="edit">@Html.ActionLink(@SiteStrings.Shared_Control_Link, "ControlPage", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
+                    <td class="edit">@Html.ActionLink(@SiteStrings.Shared_Control_Link, "ControlPage", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>
                     if (RoadkillContext.IsAdmin)
                     {
                         <td class="delete">@Html.ActionLink(@SiteStrings.Shared_RejectLink, "Reject", new { id = pageModel.Id }, new { @class = "btn btn-mini btn-primary confirm" })</td>

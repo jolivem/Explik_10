@@ -27,7 +27,6 @@ namespace Roadkill.Core.Services
         {
             var course = new Course(title, createdBy);
             return Repository.AddCourse(course);
-            
         }
 
         /// <summary>
@@ -54,6 +53,11 @@ namespace Roadkill.Core.Services
                                          select new CoursePageViewModel(coursePage, 
                                          Repository.GetPageById(coursePage.PageId))).ToList();
 
+                // sort by order
+                if (model != null && model.CoursePagesModels != null)
+                {
+                    model.CoursePagesModels.Sort( new ComparerByOrder());
+                }
 
                 return model;
             }
@@ -81,7 +85,12 @@ namespace Roadkill.Core.Services
                 }
 
                 // Course -> CourseViewModel
-                CourseViewModel model = new CourseViewModel(course);
+                CourseViewModel model = new CourseViewModel()
+                {
+                    CourseId = courseId,
+                    CreatedBy = course.CreatedBy,
+                    Title = course.Title,
+                };
 
                 // Get coursePages of the course
                 IEnumerable<CoursePage> coursePages = Repository.GetCoursePages(courseId).ToList();
@@ -92,11 +101,11 @@ namespace Roadkill.Core.Services
                                             select new PageViewModel(page);
 
                 // Add information from coursePage and from page
-                foreach( Page page in pages)
+                foreach (Page page in pages)
                 {
                     CoursePage coursePage = coursePages.SingleOrDefault(x => x.PageId == page.Id);
-                        model.CoursePagesModels.Add(
-                            new CoursePageViewModel(coursePage, page));
+                    model.CoursePagesModels.Add(
+                        new CoursePageViewModel(coursePage, page));
                 }
 
                 return model;
@@ -106,6 +115,45 @@ namespace Roadkill.Core.Services
                 throw new DatabaseException(ex, $"An exception occurred while getting competitions id = {courseId}");
             }
         }
+
+        //public CourseViewModel GetByIdWithAllUserPages(int courseId, string username)
+        //{
+        //    try
+        //    {
+        //        // Get the course
+        //        Course course = Repository.GetCourseById(courseId);
+        //        if (course == null)
+        //        {
+        //            return null;
+        //        }
+
+        //        // Course -> CourseViewModel
+        //        CourseViewModel model = new CourseViewModel(course);
+
+        //        // Get coursePages of the course
+        //        IEnumerable<CoursePage> coursePages = Repository.GetCoursePages(courseId).ToList();
+
+        //        // get all the user pages
+        //        IEnumerable<Page> pages = Repository.MyPages(username);
+        //        IEnumerable<PageViewModel> pageModels = from page in pages
+        //                                                select new PageViewModel(page);
+
+        //        // Add information from coursePage and from page
+        //        foreach (Page page in pages)
+        //        {
+        //            CoursePage coursePage = coursePages.SingleOrDefault(x => x.PageId == page.Id);
+        //            model.CoursePagesModels.Add(
+        //                new CoursePageViewModel(coursePage, page));
+        //        }
+
+        //        return model;
+        //    }
+        //    catch (DatabaseException ex)
+        //    {
+        //        throw new DatabaseException(ex, $"An exception occurred while getting competitions id = {courseId}");
+        //    }
+        //}
+
         /// <summary>
         /// Retrieves a list of all the user courses.
         /// </summary>
@@ -146,11 +194,75 @@ namespace Roadkill.Core.Services
             throw new NotImplementedException();
         }
 
-        public void UpdateCourse(CourseViewModel course)
+        public void UpdateCourseSelection(CourseViewModel model)
         {
-            throw new NotImplementedException();
+            if (model != null)
+            {
+                // remove all coursepages from course
+                Repository.DeleteCoursePages(model.CourseId);
+
+                // add selected course pages in the course
+                foreach( CoursePageViewModel coursePageModel in model.CoursePagesModels)
+                {
+                    if (coursePageModel.Selected)
+                    {
+                        CoursePage coursePage = new CoursePage()
+                        {
+                            CourseId = model.CourseId,
+                            PageId = coursePageModel.Page.Id,
+                            Order = 0, // not ordered yet
+                        };
+                        Repository.AddCoursePage(coursePage);
+                    }
+                }
+            }
         }
 
+        public void UpdateCourseOrder(CourseViewModel model)
+        {
+            if (model != null)
+            {
+                if (model.Title != model.PreviousTitle)
+                {
+                    Repository.UpdateCourseTitle(model.CourseId, model.Title);
+                }
 
+                foreach (CoursePageViewModel coursePageModel in model.CoursePagesModels)
+                {
+                    Repository.UpdateCoursePageOrder(coursePageModel.Id, coursePageModel.Order);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteCourse(int id)
+        {
+            // delete pages of the course
+            Repository.DeleteCoursePages(id);
+
+            // delete the course
+            Repository.DeleteCourse(id);
+        }
+
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    internal class ComparerByOrder : IComparer<CoursePageViewModel>
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns>0 if equal ; 1 if x > y ; -1 if y > x</returns>
+        public int Compare(CoursePageViewModel x, CoursePageViewModel y)
+        {
+            return x.Order.CompareTo(y.Order);
+        }
     }
 }

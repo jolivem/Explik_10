@@ -68,6 +68,7 @@
     <Compile Include="Repository\UTPageRepository.cs" />
     <Compile Include="Repository\UTRepository.cs" />
     <Compile Include="Repository\UTUserRepository.cs" />
+    <Compile Include="Services\UTPageService.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

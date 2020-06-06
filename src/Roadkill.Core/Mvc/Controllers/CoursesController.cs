@@ -50,11 +50,60 @@ namespace Roadkill.Core.Mvc.Controllers
                 CourseViewModel model = _courseService.GetByIdWithPages((int)id);
                 if (model != null)
                 {
+                    model.PreviousTitle = model.Title; // in order to see if it has changed
                     return View("Edit", model);
                 }
             }
 
             return RedirectToAction("New");
+        }
+
+        /// <summary>
+        /// Delete a course
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [EditorRequired]
+        public ActionResult DeleteCourse(int id)
+        {
+            _courseService.DeleteCourse(id);
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// Edit a course for modifications
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [EditorRequired]
+        public ActionResult Index(int id)
+        {
+                CourseViewModel model = _courseService.GetByIdWithPages((int)id);
+                if (model != null)
+                {
+                    model.PreviousTitle = model.Title; // in order to see if it has changed
+                    return View(model);
+                }
+            return RedirectToAction("Index", "Home");
+        }
+
+        /// <summary>
+        /// View my course
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [EditorRequired]
+        public ActionResult MyCourse(int id)
+        {
+            CourseViewModel model = _courseService.GetByIdWithPages((int)id);
+            if (model != null)
+            {
+                model.PreviousTitle = model.Title; // in order to see if it has changed
+                return View(model);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         /// <summary>
@@ -66,7 +115,7 @@ namespace Roadkill.Core.Mvc.Controllers
         {
             CourseViewModel model = new CourseViewModel();
 
-            return View("Edit", model);
+            return View(model);
         }
 
 
@@ -117,13 +166,12 @@ namespace Roadkill.Core.Mvc.Controllers
         {
             if (id == -1)
             {
-                // it is a new course, create
-                id = _courseService.AddCourse(title, Context.CurrentUsername);
+                return null;
             }
-            
-            CourseViewModel models;
-            models = _courseService.GetByIdWithAllUserPages(id, Context.CurrentUsername);
-            return View(models);
+
+            CourseViewModel model;
+            model = _courseService.GetByIdWithAllUserPages(id, Context.CurrentUsername);
+            return View(model);
         }
 
         #region HttpPost
@@ -132,11 +180,16 @@ namespace Roadkill.Core.Mvc.Controllers
         [EditorRequired]
         public ActionResult Edit(CourseViewModel model)
         {
-            //model.Status = CourseViewModel.StatusStringToEnum(model.StatusString);
+            _courseService.UpdateCourseOrder(model);
+            return RedirectToAction("MyCourses");
+        }
 
-            _courseService.UpdateCourse(model);
-
-            return RedirectToAction("List");
+        [HttpPost]
+        [EditorRequired]
+        public ActionResult SelectPages(CourseViewModel model)
+        {
+            _courseService.UpdateCourseSelection(model);
+            return RedirectToAction("edit", "courses", new { id = model.CourseId });
         }
 
         /// <summary>
@@ -144,18 +197,19 @@ namespace Roadkill.Core.Mvc.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        //[ValidateInput(false)]
-        //[EditorRequired]
-        //[HttpPost]
-        //public ActionResult New(CourseViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return View("Edit", model);
+        [ValidateInput(false)]
+        [EditorRequired]
+        [HttpPost]
+        public ActionResult New(CourseViewModel model)
+        {
+            //TODO check if title is empty
+            if (!ModelState.IsValid)
+                return View("New", model);
 
-        //    _courseService.AddCourse(model);
+            int id = _courseService.AddCourse(model.Title, Context.CurrentUsername);
 
-        //    return RedirectToAction("List");
-        //}
+            return RedirectToAction("MyCourses", new { id = model.CourseId });
+        }
 
         #endregion
     }

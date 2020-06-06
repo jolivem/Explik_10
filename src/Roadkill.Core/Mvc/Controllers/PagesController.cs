@@ -9,6 +9,7 @@ using Roadkill.Core.Converters;
 using Roadkill.Core.Configuration;
 using Roadkill.Core.Services;
 using Roadkill.Core.Security;
+using Roadkill.Core.Security;
 using Roadkill.Core.Mvc.Attributes;
 using Roadkill.Core.Mvc.ViewModels;
 using System.Web;

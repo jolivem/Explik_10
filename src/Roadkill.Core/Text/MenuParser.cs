@@ -59,14 +59,15 @@ namespace Roadkill.Core.Text
 			{
 				html = _siteCache.GetMenu();
 			}
-
-			// If the cache is empty, populate the right menu option
-			if (string.IsNullOrEmpty(html))
+            
+            // If the cache is empty, populate the right menu option
+            if (string.IsNullOrEmpty(html))
 			{
 				SiteSettings siteSettings = _repository.GetSiteSettings();
 				html = siteSettings.MenuMarkup;
-
-				html = _markupConverter.ParseMenuMarkup(html);
+                //html = "* %mainpage%\\r\\n* %allpages%\\r\\n* %allnewpages%\\r\\n* %allnewcomments%\\r\\n* %mypages%\\r\\n* %mycourses%\\r\\n* %alerts%\\r\\n* %newpage%\\r\\n* %mycourses%\\r\\n* %competitions%\\r\\n* %categories%\\r\\n* %sitesettings%\\r\\n\\r\\n";
+        
+                html = _markupConverter.ParseMenuMarkup(html);
 				html = ReplaceKnownTokens(html);
 
 				if (_userContext.IsLoggedIn)

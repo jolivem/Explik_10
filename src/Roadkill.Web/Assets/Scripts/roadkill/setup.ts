@@ -82,9 +82,6 @@ module Roadkill.Web
             });
         }
 
-        //public static bindRateLink() {
-        //    Dialogs.openModal("#pagecomment");
-        //}
 
 		/**
 		Sets all links with the .confirm class so they have to click confirm to 

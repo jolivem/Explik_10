@@ -1,0 +1,5 @@
+﻿. remove page when in a course -> remove from the course
+. suppression d'une alerte ne fonctionne pas
+. Affichage d'un cours vide !! on va chercher la page[0]
+. Repository.DeleteCoursePagesforPageId
+. Revoir la présentation, les strings, les tables

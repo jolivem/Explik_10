@@ -1,4 +1,4 @@
-﻿@model List<CoursePageViewModel>
+﻿@model CourseViewModel
 @{
     ViewBag.Title = SiteStrings.AllMyPages_Title;
 }
@@ -10,29 +10,44 @@
 </script>
 
 
-@if (Model.Count() > 0)
+@if (Model.CoursePagesModels.Count > 0)
 {
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>@SiteStrings.AllPages_TitleColumnHeading</th>
-                <th>@SiteStrings.MyPages_Tags</th>
-                <th>@SiteStrings.MyPages_Status_Title</th>
-                <th>@SiteStrings.MyPages_Action_Title</th>
-            </tr>
-        </thead>
-        @for (var i = 0; i < Model.Count; i++)
-        {
-            <tr>
-                <td class="pagename stretch">@Html.ActionLink(Model[i].Page.Title, "Index", "Wiki", new { id = Model[i].Page.Id, title = Model[i].Page.EncodedTitle }, null)</td>
-                <td class="pagename">@MvcHtmlString.Create(Model[i].Page.RawTags)</td>
-                <td class="pagename">@MvcHtmlString.Create(Model[i].Page.Status)</td>
-                <td class="checkbox">
-                    @Html.BootstrapCheckBoxFor(m => m[i].Selected, SiteStrings.SiteSettings_Configuration_AllowUserSignups_Help)
-                </td>
-            </tr>
-        }
-    </table>
+    <form class="form-horizontal" role="form" method="post" id="selectpage-form">
+        @Html.HiddenFor(m => m.CourseId)
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@SiteStrings.MyPages_Action_Title</th>
+                    <th>@SiteStrings.AllPages_TitleColumnHeading</th>
+                    <th>@SiteStrings.MyPages_Tags</th>
+                    <th>@SiteStrings.MyPages_Status_Title</th>
+                </tr>
+            </thead>
+            @for (var idx = 0; idx < Model.CoursePagesModels.Count; idx++)
+            {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(m => m.CoursePagesModels[idx].Page.Title)
+                        @Html.HiddenFor(m => m.CoursePagesModels[idx].Page.Id)
+                        @Html.HiddenFor(m => m.CoursePagesModels[idx].Page.Title)
+                        @Html.CheckBoxFor(m => m.CoursePagesModels[idx].Selected)
+                    </td>
+                    <td class="pagename stretch">@Html.ActionLink(Model.CoursePagesModels[idx].Page.Title, "Index", "Wiki", new { id = Model.CoursePagesModels[idx].Page.Id, title = Model.CoursePagesModels[idx].Page.EncodedTitle }, null)</td>
+                    <td class="pagename">@MvcHtmlString.Create(Model.CoursePagesModels[idx].Page.RawTags)</td>
+                    <td class="pagename">@MvcHtmlString.Create(Model.CoursePagesModels[idx].Page.Status)</td>
+                </tr>
+            }
+        </table>
+        <div class="row">
+            <div class="col-sm-10">
+                <h6><a href="javascript:history.back()">< @SiteStrings.Shared_Back_Link</a></h6>
+            </div>
+            <div class="col-sm-2">
+                <input type="submit" class="btn btn-primary saveButton" value="@SiteStrings.Button_Save" tabindex="6" />
+            </div>
+        </div>
+    </form>
 }
 else
 {

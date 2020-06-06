@@ -15,7 +15,9 @@ namespace Roadkill.Core.Services
 
         int AddCourse(string title, string createdBy);
 
-        void UpdateCourse(CourseViewModel course);
+        void UpdateCourseSelection(CourseViewModel course);
+
+        void UpdateCourseOrder(CourseViewModel course);
 
         List<CourseViewModel> GetCourses();
 
@@ -26,5 +28,7 @@ namespace Roadkill.Core.Services
         // used to slect pages to be included in the course
         CourseViewModel GetByIdWithAllUserPages(int courseId, string username);
 
+
+        void DeleteCourse(int id);
     }
 }

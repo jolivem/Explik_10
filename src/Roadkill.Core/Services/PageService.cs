@@ -581,6 +581,9 @@ namespace Roadkill.Core.Services
                 // Remove  alerts
                 Repository.DeletePageAlerts(pageId);
 
+                // Remove from courses
+                Repository.DeleteCoursePagesforPageId(pageId);
+
             }
             catch (DatabaseException ex)
             {

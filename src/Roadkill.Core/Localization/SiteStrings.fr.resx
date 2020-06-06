@@ -133,10 +133,10 @@
     <value>Catégories</value>
   </data>
   <data name="Navigation_AllPages" xml:space="preserve">
-    <value>Toutes les pages</value>
+    <value>Toutes les explications</value>
   </data>
   <data name="Navigation_NewPage" xml:space="preserve">
-    <value>Créer une page</value>
+    <value>Expliquer</value>
   </data>
   <data name="Navigation_SiteSettings" xml:space="preserve">
     <value>Configuration</value>
@@ -364,10 +364,10 @@
     <value>Aucune page trouvée pour '{0}'</value>
   </data>
   <data name="AllPages_Title" xml:space="preserve">
-    <value>Toutes les pages</value>
+    <value>Toutes les explications</value>
   </data>
   <data name="AllPages_NoPages" xml:space="preserve">
-    <value>Aucune page trouvée</value>
+    <value>Aucune explication trouvée</value>
   </data>
   <data name="AllTags_Title" xml:space="preserve">
     <value>Toutes les catégories</value>
@@ -379,16 +379,16 @@
     <value>Titre</value>
   </data>
   <data name="Pages_ForUser" xml:space="preserve">
-    <value>Toutes les pages de {0}</value>
+    <value>Toutes les explications de {0}</value>
   </data>
   <data name="Pages_ForUser_NoPages" xml:space="preserve">
-    <value>{0} n'a pas encore créé de pages.</value>
+    <value>{0} n'a pas encore créé de d'explications.</value>
   </data>
   <data name="Pages_ForTag" xml:space="preserve">
-    <value>Toutes les pages de la catégorie {0}</value>
+    <value>Toutes les explications de la catégorie {0}</value>
   </data>
   <data name="Pages_ForTag_NoPages" xml:space="preserve">
-    <value>Aucune page trouvée pour {0}</value>
+    <value>Aucune explication trouvée pour {0}</value>
   </data>
   <data name="History_Title" xml:space="preserve">
     <value>Historique de la page</value>
@@ -427,10 +427,10 @@
     <value>Le titre est obligatoire.</value>
   </data>
   <data name="EditPage_Title" xml:space="preserve">
-    <value>Ajouter / éditer une page</value>
+    <value>Ajouter / modifier une explication</value>
   </data>
   <data name="EditPage_Title_Label" xml:space="preserve">
-    <value>Titre / Objectif de la page</value>
+    <value>Titre / Objectif de l'explication</value>
   </data>
   <data name="EditPage_Tags_Label" xml:space="preserve">
     <value>Catégorie</value>
@@ -451,7 +451,7 @@
     <value>Titre de l'image</value>
   </data>
   <data name="EditPage_Error" xml:space="preserve">
-    <value>Impossible d'enregistrer la page :</value>
+    <value>Impossible d'enregistrer l'explication :</value>
   </data>
   <data name="EditPage_Toolbar_Bold" xml:space="preserve">
     <value>Gras</value>
@@ -1009,7 +1009,7 @@
     <value>Nombre de notes :</value>
   </data>
   <data name="Navigation_AllNewPages" xml:space="preserve">
-    <value>Pages à controller</value>
+    <value>Controller</value>
     <comment>for pages to be controlled</comment>
   </data>
   <data name="Shared_RejectLink" xml:space="preserve">
@@ -1019,16 +1019,16 @@
     <value>Valider</value>
   </data>
   <data name="AllMyPages_Title" xml:space="preserve">
-    <value>Mes pages</value>
+    <value>Mes explications</value>
   </data>
   <data name="Alerts_Title" xml:space="preserve">
-    <value>Alertes de pages</value>
+    <value>Alertes</value>
   </data>
   <data name="AllNewPages_Title" xml:space="preserve">
-    <value>Pages à controller</value>
+    <value>Explications à controller</value>
   </data>
   <data name="Navigation_MyPages" xml:space="preserve">
-    <value>Mes pages</value>
+    <value>Mes explications</value>
   </data>
   <data name="Navigation_Alerts" xml:space="preserve">
     <value>Alertes</value>
@@ -1061,13 +1061,13 @@
     <value>Valider</value>
   </data>
   <data name="ControlPage_Title" xml:space="preserve">
-    <value>Contrôler la page</value>
+    <value>Contrôler l'explication</value>
   </data>
   <data name="Button_Reject" xml:space="preserve">
     <value>Rejeter</value>
   </data>
   <data name="EditPage_IsVideo_Label" xml:space="preserve">
-    <value>Cette page est une vidéo</value>
+    <value>Cette explication contient une vidéo</value>
   </data>
   <data name="EditPage_VideoUrl_Label" xml:space="preserve">
     <value>Lien vers la vidéo</value>
@@ -1310,19 +1310,19 @@
     <value>Français incorrect</value>
   </data>
   <data name="Reject_Reason" xml:space="preserve">
-    <value>Le contenu de la page ne respecte pas la charte du site.</value>
+    <value>Le contenu de lexplication ne respecte pas la charte du site.</value>
   </data>
   <data name="Reject_Reason_Publicity" xml:space="preserve">
     <value>Contenu publicitaire</value>
   </data>
   <data name="MyPages_Confirm_Unpublish" xml:space="preserve">
-    <value>Suite à la reprise, la page ne sera plus visible par les internautes. Après modification, il faudra à nouveau la soumettre.&lt;br /&gt;Voulez-vous reprendre la page ?</value>
+    <value>Suite à la reprise, l'explication ne sera plus visible par les internautes. Après modification, il faudra à nouveau la soumettre.&lt;br /&gt;Voulez-vous reprendre l'explication ?</value>
   </data>
   <data name="Shared_UnpublishLink" xml:space="preserve">
     <value>Reprendre</value>
   </data>
   <data name="EditPage_Help_First_Page" xml:space="preserve">
-    <value>Première page ?</value>
+    <value>Première explication ?</value>
   </data>
   <data name="Shared_ClickHere" xml:space="preserve">
     <value>Cliquez ici.</value>
@@ -1331,7 +1331,7 @@
     <value>Si vous postez une vidéo, ajoutez une description avec les principaux mots clés afin qu'elle soit indexée par le moteur de recherche. </value>
   </data>
   <data name="NewPage_ConnectionRequired" xml:space="preserve">
-    <value>Veuillez-vous connecter pour créer une page.</value>
+    <value>Veuillez-vous connecter pour créer une explication.</value>
   </data>
   <data name="Navigation_Partners" xml:space="preserve">
     <value>Sites partenaires</value>
@@ -1428,7 +1428,7 @@
     <comment>Not used</comment>
   </data>
   <data name="ParticipateCompetition_Note2" xml:space="preserve">
-    <value>Pour participer, il suffit de cliquer sur la coche de participation lors de la création d'une page.</value>
+    <value>Pour participer, il suffit de cliquer sur la coche de participation lors de la création d'une explication.</value>
   </data>
   <data name="ParticipateCompetition_Title" xml:space="preserve">
     <value>Participer au concours</value>
@@ -1443,10 +1443,10 @@
     <value>Noter maintenant</value>
   </data>
   <data name="Competition_RatingIntro" xml:space="preserve">
-    <value>Voici la liste des pages en compétition, cliquez sur les liens pour les évaluer.</value>
+    <value>Voici la liste des explications en compétition, cliquez sur les liens pour les évaluer.</value>
   </data>
   <data name="Competition_RatingTitle" xml:space="preserve">
-    <value>Evaluation des pages de la compétition</value>
+    <value>Evaluation des explications de la compétition</value>
   </data>
   <data name="Competition_NoResult" xml:space="preserve">
     <value>Aucun résultat</value>
@@ -1461,25 +1461,22 @@
     <value>Participe au concours</value>
   </data>
   <data name="MyPage_Confirm_Delete" xml:space="preserve">
-    <value>La suppression est définitive. Voulez-vous vraiment supprimer cette page ?</value>
+    <value>La suppression est définitive. Voulez-vous vraiment supprimer cette explication ?</value>
   </data>
   <data name="MyPage_IsInCompetitionPublicationOngoing" xml:space="preserve">
-    <value>Cette page est inscrite au concours. Veuillez la soumettre pour finaliser la candidature.</value>
+    <value>Cette explication est inscrite au concours. Veuillez la soumettre pour finaliser la candidature.</value>
   </data>
   <data name="MyPage_IsInPastCompetition" xml:space="preserve">
-    <value>Cette page a participé à un précédent concours. Elle ne peut pas être modifiée.</value>
+    <value>Cette explication a participé à un précédent concours. Elle ne peut pas être modifiée.</value>
   </data>
   <data name="Competition_StatusPauseBeforeRating" xml:space="preserve">
     <value>Suspendue avant la notation</value>
   </data>
   <data name="MyPage_DeleteSuccess" xml:space="preserve">
-    <value>La page est supprimée</value>
+    <value>L'explication est supprimée</value>
   </data>
   <data name="MyPage_IsInCompetitionRatingOngoing" xml:space="preserve">
-    <value>Cette page est inscrite au concours en phase de notation. Elle ne peut pas être modifiée.</value>
-  </data>
-  <data name="String1" xml:space="preserve">
-    <value> </value>
+    <value>Cette explication est inscrite au concours en phase de notation. Elle ne peut pas être modifiée.</value>
   </data>
   <data name="MyPages_CompetitionAchieved" xml:space="preserve">
     <value>Concours terminé</value>
@@ -1512,7 +1509,7 @@
     <value>Pages</value>
   </data>
   <data name="Competition_ListPagesTitle" xml:space="preserve">
-    <value>Liste des pages en compétition</value>
+    <value>Liste des explications en compétition</value>
   </data>
   <data name="Google_Title" xml:space="preserve">
     <value>Explik, aide scolaire en ligne</value>
@@ -1524,37 +1521,37 @@
     <value>Catégories</value>
   </data>
   <data name="Navigation_MyCourses" xml:space="preserve">
-    <value>Mes cours</value>
+    <value>Mes séries</value>
   </data>
   <data name="AllCourses_NoCourses" xml:space="preserve">
-    <value>Aucun cours n'a été créé</value>
+    <value>Aucune série n'a été créée</value>
   </data>
   <data name="AllCourses_TitleColumnHeading" xml:space="preserve">
     <value>Titre</value>
   </data>
   <data name="AllMyCourses_Title" xml:space="preserve">
-    <value>Mes cours</value>
+    <value>Mes séries</value>
   </data>
   <data name="Courses_ChangeSelection" xml:space="preserve">
     <value>Modifier la sélection ? </value>
   </data>
   <data name="Courses_CreateNew" xml:space="preserve">
-    <value>Ajouter un nouveau cours ?  </value>
+    <value>Créer une série ?  </value>
   </data>
   <data name="Courses_SelectPages" xml:space="preserve">
-    <value>Sélectionner les pages de ce cours : </value>
+    <value>Sélectionner les explications de cette série : </value>
   </data>
   <data name="Course_BtnCreate" xml:space="preserve">
-    <value>Ajouter</value>
+    <value>Créer</value>
   </data>
   <data name="Course_BtnSelect" xml:space="preserve">
     <value>Sélectionner</value>
   </data>
   <data name="EditCourse_Error" xml:space="preserve">
-    <value>Impossible d'enregistrer le cours :</value>
+    <value>Impossible d'enregistrer la série :</value>
   </data>
   <data name="EditCourse_Title" xml:space="preserve">
-    <value>Editer un cours</value>
+    <value>Modifier une série</value>
   </data>
   <data name="EditCourse_Title_Label" xml:space="preserve">
     <value>Titre</value>
@@ -1563,12 +1560,39 @@
     <value>Modifier</value>
   </data>
   <data name="MyCourses_NbPages_Title" xml:space="preserve">
-    <value>Nombre de pages</value>
+    <value>Nombre d'explications</value>
   </data>
   <data name="MyCourses_Status_Title" xml:space="preserve">
     <value>Status</value>
   </data>
   <data name="MyCourses_Tags" xml:space="preserve">
     <value>Catégories</value>
+  </data>
+  <data name="Course_BtnChange" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="Courses_InfoSort" xml:space="preserve">
+    <value>Pour mettre la série dans l'ordre, utiliser les flèches dans la colonne de droite.</value>
+  </data>
+  <data name="MyCourses_Sort_Title" xml:space="preserve">
+    <value>Ordonner</value>
+  </data>
+  <data name="MyCourse_Confirm_Delete" xml:space="preserve">
+    <value>La suppression est définitive. Voulez-vous supprimer cette série ?</value>
+  </data>
+  <data name="MyCourse_DeleteSuccess" xml:space="preserve">
+    <value>La série est supprimée</value>
+  </data>
+  <data name="NewCourse_CreateTitle" xml:space="preserve">
+    <value>Créer une série</value>
+  </data>
+  <data name="NewCourse_Title" xml:space="preserve">
+    <value>Nouvelle série</value>
+  </data>
+  <data name="NewCourse_Title_Label" xml:space="preserve">
+    <value>Donner un titre à la série</value>
+  </data>
+  <data name="ViewMyCourse_Title" xml:space="preserve">
+    <value>Ma série</value>
   </data>
 </root>

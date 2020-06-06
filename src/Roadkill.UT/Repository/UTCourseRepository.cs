@@ -221,6 +221,5 @@ namespace Roadkill.UT.Repository
             CoursePage course2 = Repository.GetCoursePageById(id1);
             Assert.IsTrue(course2 == null);
         }
-
     }
 }

@@ -1,0 +1,79 @@
+﻿@model CourseViewModel
+@{
+    ViewBag.Title = SiteStrings.ViewMyCourse_Title;
+}
+
+<script type="text/javascript">
+    function ConfirmDeleteCourse(cId) {
+        var confirmMessage = $("#confirm-delete-text").attr("value");
+        var successMessage = $("#delete-success").attr("value");
+        Roadkill.Web.Dialogs.confirm(confirmMessage, function (result) {
+
+            if (!result)
+                return;
+            // Ajax request
+            $.ajax({
+                type: "POST",
+                url: "/Courses/DeleteCourse",
+                data: { id: cId },
+                success: function (response) {
+                    toastr.success(successMessage);
+                    setTimeout(
+                        function () {
+                            window.location.href = "/Courses/MyCourses";
+                        }, 1000);
+                },
+                failure: function (response) {
+                    alert("failure");
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    }
+</script>
+
+@Html.Hidden("confirm-delete-text", @SiteStrings.MyCourse_Confirm_Delete)
+@Html.Hidden("delete-success", @SiteStrings.MyCourse_DeleteSuccess)
+
+<div class="row">
+    <div class="col-sm-9">
+        <h2>@Model.Title</h2>
+    </div>
+</div>
+
+<div class="row">
+    @if (Model.CoursePagesModels.Count() > 0)
+    {
+
+        <table id="table-page" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@SiteStrings.AllCourses_TitleColumnHeading</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int item = 0; item < Model.CoursePagesModels.Count; item++)
+                {
+                    <tr>
+                        <td>@Html.ActionLink(Model.CoursePagesModels[item].Page.Title, "Index", "Wiki", new { id = Model.CoursePagesModels[item].Page.Id, title = Model.CoursePagesModels[item].Page.EncodedTitle }, null)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>@SiteStrings.AllCourses_NoPages</p>
+    }
+    <div class="row">
+        <div class="col-sm-8">
+            <h5><a href="javascript:history.back()">< @SiteStrings.Shared_Back_Link</a></h5>
+        </div>
+        <div class="col-sm-4">
+            @Html.ActionLink(SiteStrings.Course_BtnChange, "Edit", new { id = Model.CourseId }, new { @class = "btn btn-primary confirm" })
+            <a href="#" onclick="ConfirmDeleteCourse('@Model.CourseId')" style="margin-left:20px;">@SiteStrings.Shared_DeleteLink</a>
+        </div>
+    </div>
+</div>

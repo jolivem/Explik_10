@@ -17,7 +17,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         public int CourseId { get; set; }
         public PageViewModel Page { get; set; }      
         public int Order { get; set; }
-        public bool Selected; // used only in order to select the pages 
+        public bool Selected { get; set; } // used only in order to select the pages 
 
         /// <summary>
         /// 
@@ -47,7 +47,8 @@ namespace Roadkill.Core.Mvc.ViewModels
             {
                 Order = coursePage.Order;
                 Selected = true;
-                CourseId = coursePage.Id;
+                Id = coursePage.Id;
+                CourseId = coursePage.CourseId;
             }
             Page = new PageViewModel(page);
         }

@@ -21,6 +21,13 @@ namespace Roadkill.Core.Database.Repositories
         void UpdateCourse(Course Course);
 
         /// <summary>
+        /// Update the title of a given course
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="title"></param>
+        void UpdateCourseTitle(int id, string title);
+
+        /// <summary>
         /// Create new Course page
         /// </summary>
         /// <param name="Course"></param>
@@ -84,10 +91,22 @@ namespace Roadkill.Core.Database.Repositories
         /// Delete a given Course page
         /// </summary>
         /// <param name="id"></param>
-        void DeleteCoursePage(int id);
+        void DeleteCoursePage(int coursePageId);
+
+        /// <summary>
+        /// Delet all coursePages of a course
+        /// </summary>
+        /// <param name="courseId"></param>
+        void DeleteCoursePages(int courseId);
 
         /// Delete all courses and course pages
         /// </summary>
         void DeleteCourses();
+
+        /// <summary>
+        /// Delete the course pages associated to a given page id
+        /// </summary>
+        /// <param name="pageId"></param>
+        void DeleteCoursePagesforPageId(int pageId);
     }
 }

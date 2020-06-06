@@ -1,9 +1,6 @@
 ﻿@model CourseViewModel
 @{
-    /**/
-
     ViewBag.Title = SiteStrings.EditCourse_Title;
-    string myGuid = Guid.NewGuid().ToString();
 }
 
 
@@ -11,12 +8,54 @@
 
     $(document).ready(function () {
 
-        function MoveUp(pId) {
-            var confirmMessage = $("#confirm-unpublish-text").attr("value");
+        function show_hide_arrows() {
+
+           var lastRow = @Model.CoursePagesModels.Count - 1;
+            $('tr.trtable').each(function(index, r) {
+
+                var updown = $(this).find(".updown");
+                updown.find(".up").show()
+                updown.find(".down").show()
+                if (index == lastRow) {
+                    updown.find(".down").hide();
+                }
+                if (index == 0) {
+                    updown.find(".up").hide();
+                }
+            });
         }
-        function MoveDown(pId) {
-            var confirmMessage = $("#confirm-unpublish-text").attr("value");
+
+        function update_model_order() {
+
+            $('tr.trtable').each(function (index, r) {
+                var modelitem = $(this).find(".model-item");
+                var rrr = modelitem.attr("value");
+                var ident = "#CoursePagesModels_" + rrr + "__Order";
+                var val1 = $(ident).attr("value");
+                $(ident).attr("value", index);
+                var val2 = $(ident).attr("value");
+            });
         }
+
+        $('.up,.down').click(function () {
+
+            var row = $(this).parents('tr:first');
+            if ($(this).is('.up')) {
+                row.insertBefore(row.prev());
+            }
+            else {
+                row.insertAfter(row.next());
+            }
+
+            show_hide_arrows();
+
+            // update model
+            update_model_order();
+        });
+
+        // do it at the beginning
+        show_hide_arrows();
+
     });
 </script>
 
@@ -26,8 +65,6 @@
         @Html.BootstrapValidationSummary(SiteStrings.EditCourse_Error)
 
         <form class="form-horizontal" role="form" method="post" id="editpage-form">
-            @(Html.HiddenFor<CourseViewModel, int>(p => p.Id))
-            @(Html.HiddenFor<CourseViewModel, string>(p => p.PreviousTitle))
 
             <div class="form-group">
                 <div class="col-sm-12">
@@ -36,52 +73,71 @@
                 </div>
             </div>
 
+            @(Html.HiddenFor<CourseViewModel, int>(p => p.CourseId))
+            @(Html.HiddenFor<CourseViewModel, string>(p => p.PreviousTitle))
+
             @* Add list of pages in the course *@
             @if (Model.CoursePagesModels.Count() > 0)
             {
+                for (int item = 0; item < Model.CoursePagesModels.Count; item++)
+                {
+                    // hide useful values for POST
+                    @Html.HiddenFor(m => m.CoursePagesModels[item].Order)
+                    @Html.HiddenFor(m => m.CoursePagesModels[item].Id)
+                    @Html.HiddenFor(m => m.CoursePagesModels[item].Page.Id)
+                }
+
                 <p>
-                    @SiteStrings.Courses_ChangeSelection   @Html.ActionLink(SiteStrings.Competition_BtnCreate, "SelectPages", new { id = Model.Id, title = Model.Title }, new { @class = "btn btn-primary btn-sm" })
+                    @SiteStrings.Courses_ChangeSelection   @Html.ActionLink(SiteStrings.Course_BtnSelect, "SelectPages", new { id = Model.CourseId, title = Model.Title }, new { @class = "btn btn-primary btn-sm" })
+                </p>
+                <p>
+                    @SiteStrings.Courses_InfoSort
                 </p>
 
-                <table class="table table-striped">
+                <table id="table-page" class="table table-striped">
                     <thead>
                         <tr>
                             <th>@SiteStrings.AllCourses_TitleColumnHeading</th>
                             <th>@SiteStrings.MyCourses_Tags</th>
                             <th>@SiteStrings.MyCourses_Status_Title</th>
-                            <th>@SiteStrings.MyCourses_Action_Title</th>
+                            <th>@SiteStrings.MyCourses_Sort_Title</th>
+                            <th type="hidden"></th>
                         </tr>
                     </thead>
-                    @for (int item = 0; item < Model.CoursePagesModels.Count; item++)
-                    {
-                        <tr>
-                            <td class="pagename stretch">@Html.ActionLink(Model.CoursePagesModels[item].Page.Title, "Index", "Wiki", new { id = Model.CoursePagesModels[item].Page.Id, title = Model.CoursePagesModels[item].Page.EncodedTitle }, null)</td>
-                            <td class="pagename">@MvcHtmlString.Create(Model.CoursePagesModels[item].Page.RawTags)</td>
-                            <td class="pagename">@MvcHtmlString.Create(Model.CoursePagesModels[item].Page.Status)</td>
-                            <td class="pagename stretch">
-                                @Html.ActionLink(Model.CoursePagesModels[item].Page.Title, "Index", "Wiki", new { id = Model.CoursePagesModels[item].Page.Id, title = Model.CoursePagesModels[item].Page.EncodedTitle }, null)
-                            </td>
-                        </tr>
-                    }
+                    <tbody>
+                        @for (int item = 0; item < Model.CoursePagesModels.Count; item++)
+                        {
+                            <tr class="trtable">
+                                <td>@Html.ActionLink(Model.CoursePagesModels[item].Page.Title, "Index", "Wiki", new { id = Model.CoursePagesModels[item].Page.Id, title = Model.CoursePagesModels[item].Page.EncodedTitle }, null)</td>
+                                <td>@MvcHtmlString.Create(Model.CoursePagesModels[item].Page.RawTags)</td>
+                                <td>@MvcHtmlString.Create(Model.CoursePagesModels[item].Page.Status)</td>
+                                <td class="updown">
+                                    <a class="down glyphicon glyphicon-arrow-down" href="#"></a>
+                                    <a class="up glyphicon glyphicon-arrow-up" href="#"></a>
+                                </td>
+                                <td class="model-item" type="hidden" value="@item"></td>
+                            </tr>
+                        }
+                    </tbody>
                 </table>
             }
             else
             {
-                < p >
-                @SiteStrings.AllCourses_NoPages
-                </ p >
+                <p>@SiteStrings.AllCourses_NoPages</p>
                 <p>
-                    @SiteStrings.Courses_SelectPages   @Html.ActionLink(SiteStrings.Competition_BtnCreate, "SelectPages", new { id = Model.Id, title = Model.Title }, new { @class = "btn btn-primary btn-sm" })
+                    @SiteStrings.Courses_SelectPages   @Html.ActionLink(SiteStrings.Course_BtnSelect, "SelectPages", new { id = Model.CourseId, title = Model.Title }, new { @class = "btn btn-primary btn-sm" })
                 </p>
 
                 <p> </p>
             }
-            <div>
-                <div id="coursepage-save-button" class="col-sm-11">
+            <div class="row">
+                <div class="col-sm-10">
+                    <h6><a href="javascript:history.back()">< @SiteStrings.Shared_Back_Link</a></h6>
+                </div>
+                <div class="col-sm-2">
                     <input type="submit" class="btn btn-primary saveButton" value="@SiteStrings.Button_Save" tabindex="6" />
                 </div>
             </div>
-
         </form>
     </div>
 

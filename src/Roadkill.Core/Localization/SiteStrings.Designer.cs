@@ -223,7 +223,7 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Aucun cours n&apos;a été créé.
+        ///   Recherche une chaîne localisée semblable à Aucune série n&apos;a été créée.
         /// </summary>
         public static string AllCourses_NoCourses {
             get {
@@ -232,7 +232,7 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Aucune page n&apos;est présente dans ce cours..
+        ///   Recherche une chaîne localisée semblable à La série est vide..
         /// </summary>
         public static string AllCourses_NoPages {
             get {
@@ -916,6 +916,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Change.
+        /// </summary>
+        public static string Course_BtnChange {
+            get {
+                return ResourceManager.GetString("Course_BtnChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Create.
         /// </summary>
         public static string Course_BtnCreate {
@@ -948,6 +957,15 @@ namespace Roadkill.Core.Localization {
         public static string Courses_CreateNew {
             get {
                 return ResourceManager.GetString("Courses_CreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Pour mettre la liste dans l&apos;ordre, utiliser les flèches dans la colonne de droite..
+        /// </summary>
+        public static string Courses_InfoSort {
+            get {
+                return ResourceManager.GetString("Courses_InfoSort", resourceCulture);
             }
         }
         
@@ -1726,6 +1744,24 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à La suppression est définitive. Voulez-vous supprimer cette série ?.
+        /// </summary>
+        public static string MyCourse_Confirm_Delete {
+            get {
+                return ResourceManager.GetString("MyCourse_Confirm_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à La série est supprimée.
+        /// </summary>
+        public static string MyCourse_DeleteSuccess {
+            get {
+                return ResourceManager.GetString("MyCourse_DeleteSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Edit.
         /// </summary>
         public static string MyCourses_Action_Title {
@@ -1740,6 +1776,15 @@ namespace Roadkill.Core.Localization {
         public static string MyCourses_NbPages_Title {
             get {
                 return ResourceManager.GetString("MyCourses_NbPages_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Sort.
+        /// </summary>
+        public static string MyCourses_Sort_Title {
+            get {
+                return ResourceManager.GetString("MyCourses_Sort_Title", resourceCulture);
             }
         }
         
@@ -2109,6 +2154,33 @@ namespace Roadkill.Core.Localization {
         public static string Navigation_ViewHistory {
             get {
                 return ResourceManager.GetString("Navigation_ViewHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Créer une série.
+        /// </summary>
+        public static string NewCourse_CreateTitle {
+            get {
+                return ResourceManager.GetString("NewCourse_CreateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à New course.
+        /// </summary>
+        public static string NewCourse_Title {
+            get {
+                return ResourceManager.GetString("NewCourse_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Donner un titre à la série.
+        /// </summary>
+        public static string NewCourse_Title_Label {
+            get {
+                return ResourceManager.GetString("NewCourse_Title_Label", resourceCulture);
             }
         }
         
@@ -4336,15 +4408,6 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à .
-        /// </summary>
-        public static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à The email field is required..
         /// </summary>
         public static string User_Validation_Email {
@@ -4431,6 +4494,15 @@ namespace Roadkill.Core.Localization {
         public static string Version_Title {
             get {
                 return ResourceManager.GetString("Version_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ma série.
+        /// </summary>
+        public static string ViewMyCourse_Title {
+            get {
+                return ResourceManager.GetString("ViewMyCourse_Title", resourceCulture);
             }
         }
     }
