@@ -108,5 +108,12 @@ namespace Roadkill.Core.Database.Repositories
         /// </summary>
         /// <param name="pageId"></param>
         void DeleteCoursePagesforPageId(int pageId);
+
+        /// <summary>
+        /// Find a course containing the page
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <returns></returns>
+        Course FindCourseByPageId(int pageId);
     }
 }

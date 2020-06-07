@@ -48,6 +48,7 @@
         <div id="viewSection"></div>
         <textarea id="Content" style="visibility:hidden;">@Model.Content</textarea>
 
+
         <div id="alert" pageid="@Model.Id">
             @if (@ViewBag.useralert == "")
             {
@@ -77,6 +78,17 @@
         @MvcHtmlString.Create(PageViewModel.EncodeUserHits(Model.UserHits))
     </div>
 </div>
+@if (ViewBag.CourseId != -1)
+{
+<div class="row">
+    <div class="col-sm-9">
+        @SiteStrings.Page_Info_Course&nbsp;
+        <a href="@Url.Action("Index", "Courses", new { id = ViewBag.CourseId, title = ViewBag.CourseTitle })">@ViewBag.CourseTitle</a>
+        @*@Html.ActionLink("titit", "Index", "Courses", new { id = 2, title = "" }, null)
+        @Html.ActionLink(ViewBag.CourseTitle, "Index", "Courses", new { id = ViewBag.CourseId, title = ViewBag.CourseTitle }, null)*@
+    </div>
+</div>
+}
 <!-- Rating actions -->
 <div class="row">
     <div class="col-sm-9">
@@ -158,28 +170,9 @@
 
 <!-- list of comments -->
 @MvcHtmlString.Create(@Model.EncodeCommentsHtml())
-@section PageComments
-{
-    <!-- all about comments -->
-}
 
 @section PluginHead
 {
     <!-- Plugins -->
     @Html.Raw(Model.PluginHeadHtml)<!-- End plugins head -->
-}
-
-@section PluginPreContainer
-{
-    @MvcHtmlString.Create(Model.PluginPreContainer)
-}
-
-@section PluginPostContainer
-{
-    @MvcHtmlString.Create(Model.PluginPostContainer)
-}
-
-@section PluginFooter
-{
-    @MvcHtmlString.Create(Model.PluginFooterHtml)
 }

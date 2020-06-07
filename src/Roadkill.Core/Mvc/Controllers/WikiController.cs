@@ -83,7 +83,20 @@ namespace Roadkill.Core.Mvc.Controllers
             ViewBag.currentuser = Context.CurrentUsername;
             string ip = _pageService.GetUserIp();
             ViewBag.useralert = _pageService.GetPageAlertFromUser(model.Id, ip);
-            //model.CurrentUserComment = PageService.GetPageCommentFromUser(model.Id,  Context.CurrentUsername); // TODO remove
+
+            ViewBag.CourseId = _pageService.FindCourseByPage(model.Id);
+
+            // handle courses
+            CourseViewModel course = _pageService.FindCourseByPage(model.Id);
+            if (course != null)
+            {
+                ViewBag.CourseTitle = course.EncodedTitle;
+                ViewBag.CourseId = course.CourseId;
+            }
+            else
+            {
+                ViewBag.CourseId = -1;
+            }
 
             _pageService.IncrementNbView(model.Id);
 

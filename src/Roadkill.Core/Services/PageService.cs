@@ -1608,5 +1608,31 @@ namespace Roadkill.Core.Services
                 throw new DatabaseException(ex, "An error occurred while retrieving all new pages from the database");
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <param name="course"></param>
+        /// <returns></returns>
+        public CourseViewModel FindCourseByPage(int pageId)
+        {
+            try
+            {
+                Course course = Repository.FindCourseByPageId(pageId);
+                if ( course != null)
+                {
+                    return new CourseViewModel(course);
+                }
+                return null;
+            }
+            catch (DatabaseException ex)
+            {
+                // TODO add log
+                //throw new DatabaseException(ex, "An error occurred while retrieving all new pages from the database");
+                return null;
+            }
+            
+        }
     }
 }

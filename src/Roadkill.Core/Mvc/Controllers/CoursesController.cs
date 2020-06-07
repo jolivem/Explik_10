@@ -77,15 +77,14 @@ namespace Roadkill.Core.Mvc.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [EditorRequired]
-        public ActionResult Index(int id)
+        public ActionResult Index(int id, string title)
         {
-                CourseViewModel model = _courseService.GetByIdWithPages((int)id);
-                if (model != null)
-                {
-                    model.PreviousTitle = model.Title; // in order to see if it has changed
-                    return View(model);
-                }
+            CourseViewModel model = _courseService.GetByIdWithPages((int)id);
+            if (model != null)
+            {
+                model.PreviousTitle = model.Title; // in order to see if it has changed
+                return View(model);
+            }
             return RedirectToAction("Index", "Home");
         }
 

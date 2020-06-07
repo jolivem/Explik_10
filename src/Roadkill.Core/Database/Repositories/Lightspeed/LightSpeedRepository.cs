@@ -1439,6 +1439,22 @@ namespace Roadkill.Core.Database.LightSpeed
             uow.Save();
         }
 
+        public Course FindCourseByPageId(int pageId)
+        {
+            var uow = new UnitOfWork(connectionString);
+            explik_coursepage entitiy = uow.CoursePages.FirstOrDefault(x => x.PageId == pageId);
+            if (entitiy != null)
+            {
+                explik_course entity = uow.Courses.SingleOrDefault(x => x.Id == entitiy.CourseId);
+                if (entity != null)
+                {
+                    return FromEntity.ToCourse(entity);
+                }
+            }
+ 
+            return null;
+        }
+
         #endregion
 
 
