@@ -152,7 +152,7 @@ namespace Roadkill.Core.Text
             }
             else if (_userContext.IsAdmin)
             {
-                categories = "";
+                //categories = "";
                 allPages = "";
                 allNewPages = "";
                 allNewComments = "";
@@ -160,7 +160,7 @@ namespace Roadkill.Core.Text
             }
             else if (_userContext.IsLoggedIn) // logged but no specific right
             {
-                //categories = "";
+                categories = "";
                 allPages = "";
                 allNewPages = "";
                 allNewComments = "";
@@ -171,7 +171,7 @@ namespace Roadkill.Core.Text
 
             else // simple visitor
             {
-                //categories = ""; 
+                categories = ""; 
                 allPages = "";
                 allNewPages = "";
                 allNewComments = "";

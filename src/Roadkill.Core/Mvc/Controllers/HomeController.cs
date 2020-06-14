@@ -43,9 +43,20 @@ namespace Roadkill.Core.Mvc.Controllers
 		    _applicationSettings = settings;
 		}
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [BrowserCache]
         public ActionResult Index()
+        {
+            PageViewModel model = null;
+            model = _pageService.FindPageWithTag("__home");
+            return View(model);
+        }
+
+        [BrowserCache]
+        public ActionResult LastPublications()
         {
             GalleryViewModel galleryModel = new GalleryViewModel(_markupConverter);
 
@@ -53,7 +64,7 @@ namespace Roadkill.Core.Mvc.Controllers
 
             galleryModel.Title = SiteStrings.Google_Title;
 
-            // find Explik introduction
+            //find Explik introduction
             ViewBag.ExplikIntroduction = "";
             PageViewModel page = _pageService.FindPageWithTag("___intro");
             if (page != null)
@@ -61,13 +72,13 @@ namespace Roadkill.Core.Mvc.Controllers
                 ViewBag.ExplikIntroduction = page.ContentAsHtml;
             }
 
-            return View("Index", galleryModel);
-		}
+            return View( galleryModel);
+        }
 
-		/// <summary>
-		/// Searches the lucene index using the search string provided.
-		/// </summary>
-		public ActionResult Search(string q)
+        /// <summary>
+        /// Searches the lucene index using the search string provided.
+        /// </summary>
+        public ActionResult Search(string q)
 		{
 			ViewData["search"] = q;
 
