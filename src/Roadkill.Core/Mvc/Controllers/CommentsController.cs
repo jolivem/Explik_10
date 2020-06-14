@@ -8,7 +8,6 @@ using Roadkill.Core.Mvc.Attributes;
 using Roadkill.Core.Mvc.ViewModels;
 using Roadkill.Core.Database;
 
-using Roadkill.Core.Attachments;
 
 namespace Roadkill.Core.Mvc.Controllers
 {
@@ -46,24 +45,15 @@ namespace Roadkill.Core.Mvc.Controllers
             return View(commentsModel);
         }
 
-        public ActionResult Validate(string id)
+        public ActionResult Validate(int id)
         {
-            Guid guid;
-            if (Guid.TryParse(id, out guid))
-            {
-                _repository.ValidateComment(guid);
-            }
+            _repository.ValidateComment(id);
             return RedirectToAction("AllNewComments", "Comments");
         }
 
-        public ActionResult Reject(string id)
+        public ActionResult Reject(int id)
         {
-            Guid guid;
-            if (Guid.TryParse(id, out guid))
-            {
-                _repository.RejectComment(guid);
-            }
-
+            _repository.RejectComment(id);
             return RedirectToAction("AllNewComments", "Comments");
         }
     }

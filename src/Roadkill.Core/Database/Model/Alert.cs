@@ -5,15 +5,17 @@ namespace Roadkill.Core.Database
     /// <summary>
     /// A comment object for use with the data store, whatever that might be (e.g. an RDMS or MongoDB)
     /// </summary>
-    public class Alert : IDataStoreEntity
+    public class Alert
     {
+        private Guid _objectId;
+
         /// <summary>
         /// Gets or sets the  uncomment unique ID.
         /// </summary>
         /// <value>
         /// The comment unique id.
         /// </value>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the activation key for the user.
@@ -27,18 +29,9 @@ namespace Roadkill.Core.Database
         public Guid CommentId { get; set; }
         public string Ilk { get; set; }
 
-        /// <summary>
-        /// The unique id for this object, this is the same as the <see cref="Id"/> property.
-        /// </summary>
-        public Guid ObjectId
-        {
-            get { return Id; }
-            set { Id = value; }
-        }
 
         public Alert()
         {
-            Id = new Guid();
             PageId = 0;
             CreatedBy = "";
             CreatedOn = DateTime.Now;
@@ -53,7 +46,6 @@ namespace Roadkill.Core.Database
         /// <param name="createdBy"></param>
         public Alert(int pageId, string createdBy, string type)
         {
-            Id = new Guid();
             PageId = pageId;
             CommentId = Guid.Empty;
             CreatedBy = createdBy;
@@ -67,7 +59,6 @@ namespace Roadkill.Core.Database
         /// <param name="createdBy"></param>
         public Alert(Guid commentId, string createdBy, string type)
         {
-            Id = new Guid();
             PageId = 0;
             CommentId = commentId;
             CreatedBy = createdBy;

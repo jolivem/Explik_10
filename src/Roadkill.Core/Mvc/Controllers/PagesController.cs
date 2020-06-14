@@ -709,7 +709,7 @@ namespace Roadkill.Core.Mvc.Controllers
             galleryModel.Title = string.Format(SiteStrings.Pages_ForTag, HttpUtility.UrlDecode(id));
             //SiteStrings.Gallery_Last_Publications;
 
-            return View("../Home/Index", galleryModel);
+            return View("../Home/Gallery", galleryModel);
 
    //         id = HttpUtility.UrlDecode(id);
 			//ViewData["Tagname"] = id;

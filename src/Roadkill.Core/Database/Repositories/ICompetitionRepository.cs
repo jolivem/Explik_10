@@ -83,7 +83,12 @@ namespace Roadkill.Core.Database
         /// <param name="page"></param>
         void ArchiveCompetitionPage(int competitionId, Page page);
 
- 
+        /// <summary>
+        /// Get the ongoing competition
+        /// </summary>
+        /// <returns>-1 if no competition ongoing, else >=0</returns>
+        int GetOnGoingCompetitionId();
+
         int[] GetUserHits(string username);
 
     }

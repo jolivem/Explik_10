@@ -211,9 +211,13 @@ namespace Roadkill.Core.Services
 				MyFrenchAnalyzer analyzer = new MyFrenchAnalyzer(LUCENEVERSION);
 				using (IndexWriter writer = new IndexWriter(FSDirectory.Open(new DirectoryInfo(IndexPath)), analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED))
 				{
-					foreach (Page page in Repository.AllPages().ToList())
+                    int competitionId = Repository.GetOnGoingCompetitionId();
+ 
+                    foreach (Page page in Repository.AllPages().ToList())
 					{
-                        if (!page.IsLocked) // do not index admin pages
+                        // do not index admin, controlled and competitioning pages
+                        if (!page.IsLocked && page.IsControlled &&
+                            (competitionId == -1 || page.CompetitionId != competitionId)) 
                         {
                             PageViewModel pageModel = new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
 
@@ -242,9 +246,9 @@ namespace Roadkill.Core.Services
 			{
 				throw new SearchException(ex, "An error occured while creating the search index");
 			}
-		}
+        }
 
-		private void EnsureDirectoryExists()
+        private void EnsureDirectoryExists()
 		{
 			try
 			{

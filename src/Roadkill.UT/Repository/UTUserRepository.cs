@@ -62,6 +62,14 @@ namespace Roadkill.UT.Repository
 
 		}
 
+
+        [TestMethod]
+        public void AddUser()
+        {
+            var user = NewUser("uusseerr@localhost", "uusseerr", false, true);
+            Repository.SaveOrUpdateUser(user);
+        }
+
 		[TestMethod]
 		public void GetAdminById()
 		{

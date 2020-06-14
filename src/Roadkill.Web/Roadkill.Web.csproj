@@ -730,7 +730,7 @@
     <Content Include="Views\Courses\New.cshtml" />
     <Content Include="Views\Courses\Index.cshtml" />
     <Content Include="Views\Courses\MyCourse.cshtml" />
-    <Content Include="Views\Home\LastPublications.cshtml" />
+    <Content Include="Views\Home\Gallery.cshtml" />
     <None Include="Web.Mono.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

@@ -36,9 +36,9 @@ namespace Roadkill.Core.Database
 
         public static void FromComment(Comment comment, explik_comments entity)
         {
+            //entity.Id = comment.Id.ToString();
             entity.CreatedBy = comment.CreatedBy;
             entity.CreatedOn = comment.CreatedOn;
-            entity.Id = comment.Id.ToString();
             entity.PageId = comment.PageId;
             entity.Rating = comment.Rating;
             entity.ControlledBy = comment.ControlledBy;
@@ -49,9 +49,8 @@ namespace Roadkill.Core.Database
 
         public static void FromAlert(Alert alert, explik_alerts entity)
         {
-            entity.Id = alert.Id.ToString();
+            entity.Id = alert.Id;
             entity.PageId = alert.PageId;
-            entity.CommentId = alert.CommentId.ToString();
             entity.CreatedBy = alert.CreatedBy;
             entity.CreatedOn = alert.CreatedOn;
             entity.Ilk = alert.Ilk;
@@ -59,7 +58,7 @@ namespace Roadkill.Core.Database
 
         public static void FromCompetition(Competition competition, explik_competition entity)
         {
-            //entity.Id = competition.Id;
+            entity.Id = competition.Id;
             entity.PublicationStart = competition.PublicationStart;
             entity.PublicationStop = competition.PublicationStop;
             entity.RatingStart = competition.RatingStart;
@@ -115,7 +114,6 @@ namespace Roadkill.Core.Database
 
         public static void FromCourse(Course course, explik_course entity)
         {
-            //entity.Id = competition.Id;
             entity.Id = course.Id;
             entity.Title = course.Title;
             entity.CreatedBy = course.CreatedBy;

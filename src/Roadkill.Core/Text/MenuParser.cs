@@ -171,7 +171,7 @@ namespace Roadkill.Core.Text
 
             else // simple visitor
             {
-                categories = ""; 
+                //categories = ""; 
                 allPages = "";
                 allNewPages = "";
                 allNewComments = "";

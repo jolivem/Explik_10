@@ -62,13 +62,14 @@
     <Reference Include="System.Runtime.Caching" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repository\UTCommentRespository.cs" />
+    <Compile Include="Repository\UTAlertRespository.cs" />
     <Compile Include="Repository\UTConversion.cs" />
     <Compile Include="Repository\UTCourseRepository.cs" />
     <Compile Include="Repository\UTCourseService.cs" />
     <Compile Include="Repository\UTPageRepository.cs" />
     <Compile Include="Repository\UTRepository.cs" />
     <Compile Include="Repository\UTUserRepository.cs" />
-    <Compile Include="Services\UTPageService.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -81,6 +82,9 @@
       <Project>{9c86c475-f3bd-44d1-942a-78bf19158c3a}</Project>
       <Name>Roadkill.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

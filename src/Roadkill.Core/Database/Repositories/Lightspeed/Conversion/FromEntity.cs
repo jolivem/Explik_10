@@ -99,7 +99,7 @@ namespace Roadkill.Core.Database
                 return null;
 
             Comment comment = new Comment();
-            comment.Id = new Guid(entity.Id);
+            comment.Id = entity.Id;
             comment.CreatedBy = entity.CreatedBy;
             comment.CreatedOn = entity.CreatedOn;
             comment.PageId = (int)entity.PageId;
@@ -121,9 +121,8 @@ namespace Roadkill.Core.Database
                 return null;
 
             Alert alert = new Alert();
-            alert.Id = new Guid(entity.Id);
+            alert.Id = entity.Id;
             alert.PageId = (int)entity.PageId;
-            alert.CommentId = new Guid(entity.CommentId);
             alert.CreatedBy = entity.CreatedBy;
             alert.CreatedOn = entity.CreatedOn;
             alert.Ilk = entity.Ilk;

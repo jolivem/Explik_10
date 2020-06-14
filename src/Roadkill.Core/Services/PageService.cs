@@ -1336,7 +1336,7 @@ namespace Roadkill.Core.Services
         /// 
         /// </summary>
         /// <param name="commentId"></param>
-        public void DeleteComment(Guid commentId)
+        public void DeleteComment(int commentId)
         {
             try
             {

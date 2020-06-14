@@ -8,10 +8,9 @@
                 <h4 class="default-header">@Model.Title</h4>
             </div>
 
-            @Html.Hidden("id", Model.Id)
-
             @using (Html.BeginForm("PageAlert", "Pages", FormMethod.Post))
             {
+                @Html.Hidden("id", Model.Id)
                 <div class="modal-body">
                     <div>@SiteStrings.Alert_Text</div>
                 </div>

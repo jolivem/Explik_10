@@ -166,7 +166,6 @@ namespace Roadkill.Core.Database.Repositories
         {
             get { return PageContentRepository.GetAll(); }
         }
-
         internal IQueryable<explik_users> Users
         {
             get { return UsersRepository.GetAll(); }
@@ -216,6 +215,8 @@ namespace Roadkill.Core.Database.Repositories
             entityBuilder.Metadata = @"res://*/Database.Repositories.Entities.EntityModel.csdl|res://*/Database.Repositories.Entities.EntityModel.ssdl|res://*/Database.Repositories.Entities.EntityModel.msl";
             //var dbContext = new DbContext(entityBuilder);
             context = new Entities.Entities(entityBuilder.ConnectionString);
+
+            context.Database.Log = delegate (string message) { Console.Write(message); };
         }
 
         public bool ConnectionSuccessful()

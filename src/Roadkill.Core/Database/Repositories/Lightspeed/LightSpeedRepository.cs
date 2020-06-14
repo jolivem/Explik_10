@@ -835,10 +835,10 @@ namespace Roadkill.Core.Database.LightSpeed
 
         #region ICommentRepository
 
-        public void DeleteComment(Guid commentId)
+        public void DeleteComment(int commentId)
         {
             var uow = new UnitOfWork(connectionString);
-            explik_comments entity = uow.Comments.Where(x => x.Id == commentId.ToString()).Single();
+            explik_comments entity = uow.Comments.Where(x => x.Id == commentId).Single();
             uow.CommentsRepository.Delete(entity);
             uow.Save();
         }
@@ -848,10 +848,10 @@ namespace Roadkill.Core.Database.LightSpeed
         /// </summary>
         /// <param name="commentId"></param>
         /// <param name="rating"></param>
-        public void UpdateCommentRating(Guid commentId, int rating)
+        public void UpdateCommentRating(int commentId, int rating)
         {
             var uow = new UnitOfWork(connectionString);
-            explik_comments entity = uow.Comments.Where(x => x.Id == commentId.ToString()).Single();
+            explik_comments entity = uow.Comments.Where(x => x.Id == commentId).Single();
             entity.Rating = rating;
             uow.Save();
         }
@@ -861,10 +861,10 @@ namespace Roadkill.Core.Database.LightSpeed
         /// </summary>
         /// <param name="commentId"></param>
         /// <param name="text"></param>
-        public void UpdateComment(Guid commentId, string text)
+        public void UpdateComment(int commentId, string text)
         {
             var uow = new UnitOfWork(connectionString);
-            explik_comments entity = uow.Comments.Where(x => x.Id == commentId.ToString()).Single();
+            explik_comments entity = uow.Comments.Where(x => x.Id == commentId).Single();
             entity.Text = text;
             entity.IsControlled = false;
             entity.IsRejected = false;
@@ -875,10 +875,10 @@ namespace Roadkill.Core.Database.LightSpeed
         /// 
         /// </summary>
         /// <param name="commentId"></param>
-        public void ValidateComment(Guid commentId)
+        public void ValidateComment(int commentId)
         {
             var uow = new UnitOfWork(connectionString);
-            explik_comments entity = uow.Comments.Where(x => x.Id == commentId.ToString()).Single();
+            explik_comments entity = uow.Comments.Where(x => x.Id == commentId).Single();
             entity.IsControlled = true;
             entity.IsRejected = false;
             uow.Save();
@@ -888,10 +888,10 @@ namespace Roadkill.Core.Database.LightSpeed
         /// 
         /// </summary>
         /// <param name="commentId"></param>
-        public void RejectComment(Guid commentId)
+        public void RejectComment(int commentId)
         {
             var uow = new UnitOfWork(connectionString);
-            explik_comments entity = uow.Comments.Where(x => x.Id == commentId.ToString()).Single();
+            explik_comments entity = uow.Comments.Where(x => x.Id == commentId).Single();
             entity.IsControlled = true;
             entity.IsRejected = true;
             uow.Save();
@@ -992,10 +992,10 @@ namespace Roadkill.Core.Database.LightSpeed
 
         #region IAlertRepository
 
-        public void DeleteAlert(Guid alertId)
+        public void DeleteAlert(int alertId)
         {
             var uow = new UnitOfWork(connectionString);
-            explik_alerts entity = uow.Alerts.Where(x => x.Id == alertId.ToString()).Single();
+            explik_alerts entity = uow.Alerts.Where(x => x.Id == alertId).Single();
             uow.AlertsRepository.Delete(entity);
             uow.Save();
         }
@@ -1031,12 +1031,12 @@ namespace Roadkill.Core.Database.LightSpeed
             return null;
         }
 
-        public IEnumerable<Alert> FindAlertsByComment(Guid commentGuid)
-        {
-            var uow = new UnitOfWork(connectionString);
-            List<explik_alerts> entities = uow.Alerts.Where(x => x.CommentId == commentGuid.ToString()).ToList();
-            return FromEntity.ToAlertList(entities);
-        }
+        //public IEnumerable<Alert> FindAlertsByComment(Guid commentGuid)
+        //{
+        //    var uow = new UnitOfWork(connectionString);
+        //    List<explik_alerts> entities = uow.Alerts.Where(x => x.CommentId == commentGuid.ToString()).ToList();
+        //    return FromEntity.ToAlertList(entities);
+        //}
 
         public void AddAlert(Alert alert)
         {
@@ -1071,17 +1071,17 @@ namespace Roadkill.Core.Database.LightSpeed
             uow.Save();
         }
 
-        public void DeleteCommentAlerts(Guid commentId)
-        {
-            var uow = new UnitOfWork(connectionString);
-            List<explik_alerts> entities = uow.Alerts.Where(x => x.CommentId == commentId.ToString()).ToList();
-            foreach (var entity in entities)
-            {
-                uow.AlertsRepository.Delete(entity);
-            }
+        //public void DeleteCommentAlerts(Guid commentId)
+        //{
+        //    var uow = new UnitOfWork(connectionString);
+        //    List<explik_alerts> entities = uow.Alerts.Where(x => x.CommentId == commentId.ToString()).ToList();
+        //    foreach (var entity in entities)
+        //    {
+        //        uow.AlertsRepository.Delete(entity);
+        //    }
 
-            uow.Save();
-        }
+        //    uow.Save();
+        //}
 
         #endregion
 
