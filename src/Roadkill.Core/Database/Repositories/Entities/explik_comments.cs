@@ -14,7 +14,7 @@ namespace Roadkill.Core.Database.Repositories.Entities
     
     public partial class explik_comments
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public Nullable<int> PageId { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }

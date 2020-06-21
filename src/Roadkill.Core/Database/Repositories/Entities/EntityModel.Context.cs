@@ -25,6 +25,8 @@ namespace Roadkill.Core.Database.Repositories.Entities
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<explik_alerts> explik_alerts { get; set; }
+        public virtual DbSet<explik_comments> explik_comments { get; set; }
         public virtual DbSet<explik_competition> explik_competition { get; set; }
         public virtual DbSet<explik_competitionpage> explik_competitionpage { get; set; }
         public virtual DbSet<explik_course> explik_course { get; set; }
@@ -33,7 +35,5 @@ namespace Roadkill.Core.Database.Repositories.Entities
         public virtual DbSet<explik_pages> explik_pages { get; set; }
         public virtual DbSet<explik_siteconfiguration> explik_siteconfiguration { get; set; }
         public virtual DbSet<explik_users> explik_users { get; set; }
-        public virtual DbSet<explik_alerts> explik_alerts { get; set; }
-        public virtual DbSet<explik_comments> explik_comments { get; set; }
     }
 }

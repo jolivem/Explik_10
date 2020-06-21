@@ -16,20 +16,7 @@ namespace Roadkill.Core.Database.Repositories.Entities
             Id = Guid.NewGuid().ToString();
         }
     }
-    public partial class explik_alerts
-    {
-        public explik_alerts()
-        {
-            Id = Guid.NewGuid().ToString();
-        }
-    }
-    public partial class explik_comments
-    {
-        public explik_comments()
-        {
-            Id = Guid.NewGuid().ToString();
-        }
-    }
+
     public partial class explik_pagecontent
     {
         public explik_pagecontent()
