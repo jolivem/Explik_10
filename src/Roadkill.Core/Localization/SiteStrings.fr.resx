@@ -358,7 +358,7 @@
     <value>Recherche</value>
   </data>
   <data name="Search_Results" xml:space="preserve">
-    <value>Résultat de recherche pour '{0}'</value>
+    <value>Résultat pour : {0}</value>
   </data>
   <data name="Search_NoResults" xml:space="preserve">
     <value>Aucune page trouvée pour '{0}'</value>
@@ -385,7 +385,7 @@
     <value>{0} n'a pas encore créé de d'explications.</value>
   </data>
   <data name="Pages_ForTag" xml:space="preserve">
-    <value>Toutes les explications de la catégorie {0}</value>
+    <value>Explications de la catégorie '{0}'</value>
   </data>
   <data name="Pages_ForTag_NoPages" xml:space="preserve">
     <value>Aucune explication trouvée pour {0}</value>

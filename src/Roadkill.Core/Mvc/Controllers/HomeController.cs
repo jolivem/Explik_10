@@ -17,6 +17,7 @@ using Roadkill.Core.Mvc.ViewModels;
 using Roadkill.Core.Text;
 
 using Page = Roadkill.Core.Database.Page;
+using Roadkill.Core.Cache;
 
 namespace Roadkill.Core.Mvc.Controllers
 {
@@ -51,7 +52,7 @@ namespace Roadkill.Core.Mvc.Controllers
         public ActionResult Index()
         {
             PageViewModel model = null;
-            model = _pageService.FindPageWithTag("__home");
+            model = _pageService.FindPageWithTag(CacheKeys.HOMEPAGE);
             return View(model);
         }
 

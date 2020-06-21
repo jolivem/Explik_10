@@ -421,20 +421,6 @@
     <Compile Include="Database\Model\Course.cs" />
     <Compile Include="Database\Model\CoursePage.cs" />
     <Compile Include="Database\Repositories\BaseRepository.cs" />
-    <Compile Include="Database\Repositories\Entities\Extensions.cs" />
-    <Compile Include="Database\Repositories\IAlertRepository.cs" />
-    <Compile Include="Database\Repositories\ICommentRepository.cs" />
-    <Compile Include="Database\Repositories\ICompetitionRepository.cs" />
-    <Compile Include="Database\Repositories\ICourseRepository.cs" />
-    <Compile Include="Database\Repositories\ISettingsRepository.cs" />
-    <Compile Include="Database\Repositories\UnitOfWork.cs" />
-    <Compile Include="Email\EmailClient.cs" />
-    <Compile Include="Email\EmailTemplate.cs" />
-    <Compile Include="Email\IEmailClient.cs" />
-    <Compile Include="Email\PageEmailInfo.cs" />
-    <Compile Include="Email\PublishPageEmail.cs" />
-    <Compile Include="Email\RejectPageEmail.cs" />
-    <Compile Include="Email\PageEmailTemplate.cs" />
     <Compile Include="Database\Repositories\Entities\EntityModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -480,6 +466,20 @@
     <Compile Include="Database\Repositories\Entities\explik_users.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\Repositories\Entities\Extensions.cs" />
+    <Compile Include="Database\Repositories\IAlertRepository.cs" />
+    <Compile Include="Database\Repositories\ICommentRepository.cs" />
+    <Compile Include="Database\Repositories\ICompetitionRepository.cs" />
+    <Compile Include="Database\Repositories\ICourseRepository.cs" />
+    <Compile Include="Database\Repositories\ISettingsRepository.cs" />
+    <Compile Include="Database\Repositories\UnitOfWork.cs" />
+    <Compile Include="Email\EmailClient.cs" />
+    <Compile Include="Email\EmailTemplate.cs" />
+    <Compile Include="Email\IEmailClient.cs" />
+    <Compile Include="Email\PageEmailInfo.cs" />
+    <Compile Include="Email\PublishPageEmail.cs" />
+    <Compile Include="Email\RejectPageEmail.cs" />
+    <Compile Include="Email\PageEmailTemplate.cs" />
     <Compile Include="Extensions\BootstrapHtmlExtensions.cs" />
     <Compile Include="Configuration\UpgradeChecker.cs" />
     <Compile Include="Configuration\ConfigReaderWriter.cs" />
@@ -703,7 +703,9 @@
     <Compile Include="Plugins\Text\BuiltIn\ToC\TocParser.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="Database\Repositories\Entities\EntityModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>EntityModel.Designer.cs</LastGenOutput>
@@ -767,8 +769,8 @@
   <ItemGroup>
     <Content Include="Database\Repositories\Entities\EntityModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EntityModel.Context.cs</LastGenOutput>
       <DependentUpon>EntityModel.edmx</DependentUpon>
+      <LastGenOutput>EntityModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Database\Repositories\Entities\EntityModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -789,6 +791,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="TODOfix.txt">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TODOAddExplik.txt">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Content>
   </ItemGroup>

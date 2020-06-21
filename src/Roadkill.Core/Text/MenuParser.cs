@@ -139,29 +139,26 @@ namespace Roadkill.Core.Text
                 competitions = CreateAnchorTag(urlHelper.Action( "List", "competitions"), SiteStrings.Navigation_Competitions);
             }
 
-            if (_userContext.IsController)
+            if (_userContext.IsAdmin)
+            {
+                //categories = "";
+                allNewPages = "";
+                allNewComments = "";
+                alerts = "";
+            }
+            else if (_userContext.IsController)
             {
                 // remove some menus
-                //categories = "";
-                allPages = "";
+                categories = "";
                 //myPages = "";
                 mainPage = "";
                 //newpage = "";
                 siteSettings = "";
                 //competitions = "";
             }
-            else if (_userContext.IsAdmin)
-            {
-                //categories = "";
-                allPages = "";
-                allNewPages = "";
-                allNewComments = "";
-                alerts = "";
-            }
             else if (_userContext.IsLoggedIn) // logged but no specific right
             {
                 categories = "";
-                allPages = "";
                 allNewPages = "";
                 allNewComments = "";
                 alerts = "";
@@ -171,8 +168,8 @@ namespace Roadkill.Core.Text
 
             else // simple visitor
             {
-                //categories = ""; 
-                allPages = "";
+                categories = ""; 
+               
                 allNewPages = "";
                 allNewComments = "";
                 myPages = "";
@@ -184,6 +181,8 @@ namespace Roadkill.Core.Text
                 siteSettings = "";
                 //competitions = "";
             }
+
+            allPages = "";
 
             html = html.Replace(CATEGORIES_TOKEN, categories);
             html = html.Replace(ALLPAGES_TOKEN, allPages);

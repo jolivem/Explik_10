@@ -1,0 +1,5 @@
+﻿# Groupe 1
+User-agent: *
+Allow: /
+
+Sitemap: http://www.explik.fr/sitemap.xml
