@@ -1,2 +1,1 @@
-﻿. modification de la page d'accueil --> la page reste en cache
-. recherche sans résultat -> rester dans le champ de recherche
+﻿. recherche sans résultat -> rester dans le champ de recherche
