@@ -500,8 +500,10 @@
     </Compile>
     <Compile Include="Mvc\Controllers\CoursesController.cs" />
     <Compile Include="Mvc\Controllers\CompetitionsController.cs" />
-    <Compile Include="Mvc\ViewModels\CoursePageViewModel.cs" />
     <Compile Include="Mvc\ViewModels\CourseViewModel.cs" />
+    <Compile Include="Mvc\ViewModels\PageWithCoursesViewModel.cs" />
+    <Compile Include="Mvc\ViewModels\CoursePageViewModel.cs" />
+    <Compile Include="Mvc\ViewModels\CourseSelectionViewModel.cs" />
     <Compile Include="Mvc\ViewModels\CompetitionViewModel.cs" />
     <Compile Include="Mvc\ViewModels\GalleryViewModel.cs" />
     <Compile Include="Mvc\ViewModels\PageAndUserRatingViewModel.cs" />

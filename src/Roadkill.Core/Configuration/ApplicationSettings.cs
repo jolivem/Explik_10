@@ -129,10 +129,16 @@ namespace Roadkill.Core.Configuration
 			}
 		}
 
-		/// <summary>
-		/// The connection string to the Roadkill database.
-		/// </summary>
-		public string ConnectionString { get; set; }
+        /// <summary>
+        /// List of fake authors.
+        /// </summary>
+        public string FakeUsers { get; set; }
+
+
+        /// <summary>
+        /// The connection string to the Roadkill database.
+        /// </summary>
+        public string ConnectionString { get; set; }
 
 		/// <summary>
 		/// The connection string name (held in the connection strings section of the config file) for the Roadkill database.
@@ -177,15 +183,15 @@ namespace Roadkill.Core.Configuration
 		/// </summary>
 		public string HtmlElementWhiteListPath { get; set; }
 
-		/// <summary>
-		/// Whether errors in updating the lucene index throw exceptions or are just ignored.
-		/// </summary>
-		public bool IgnoreSearchIndexErrors { get; set; }
+        /// <summary>
+        /// Whether errors in updating the lucene index throw exceptions or are just ignored.
+        /// </summary>
+        public bool IgnoreSearchIndexErrors { get; set; }
 
-		/// <summary>
-		/// Whether the site is public, i.e. all pages are visible by default. This is optional in the web.config and the default is true.
-		/// </summary>
-		public bool IsPublicSite { get; set; }
+        /// <summary>
+        /// Whether the site is public, i.e. all pages are visible by default. This is optional in the web.config and the default is true.
+        /// </summary>
+        public bool IsPublicSite { get; set; }
 
 		/// <summary>
 		/// If this instance is running on the demo site.
@@ -351,6 +357,21 @@ namespace Roadkill.Core.Configuration
 			}
 
 			return attachmentsPath;
-		}
-	}
+        }
+
+        /// <summary>
+        /// return true if the given user is a fake user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public bool IsFakeUser(string user)
+        {
+            List<string> list = new List<string>();
+            foreach (string value in FakeUsers.Split(';'))
+            {
+                list.Add(value.Trim().ToLower());
+            }
+            return list.Contains(user.ToLower());
+        }
+}
 }

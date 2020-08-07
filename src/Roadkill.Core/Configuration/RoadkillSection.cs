@@ -146,6 +146,16 @@ namespace Roadkill.Core
         }
 
         /// <summary>
+        /// The authors that are belong to Explik staff.
+        /// </summary>
+        [ConfigurationProperty("authors", IsRequired = false, DefaultValue = "None")]
+        public string FakeUsers
+        {
+            get { return (string)this["authors"]; }
+            set { this["authors"] = value; }
+        }
+
+        /// <summary>
         /// The level of logging to perform (true by default).
         /// </summary>
         [ConfigurationProperty("logErrorsOnly", IsRequired = false, DefaultValue = true)]
