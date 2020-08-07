@@ -17,6 +17,7 @@
         <thead>
             <tr>
                 <th>@SiteStrings.AllCourses_TitleColumnHeading</th>
+                <th>@SiteStrings.MyCourses_NbPage_Title</th>
                 <th>@SiteStrings.MyCourses_Action_Title</th>
             </tr>
         </thead>
@@ -25,6 +26,9 @@
         <tr>
             <td class="coursename stretch">
                 @Html.ActionLink(courseModel.Title, "MyCourse", "Courses", new { id = courseModel.CourseId, title = courseModel.EncodedTitle }, null)
+            </td>
+            <td>
+                @courseModel.NbPages
             </td>
             <td style="padding:4px;">
                 @Html.ActionLink(SiteStrings.Shared_EditLink, "Edit", new { id = courseModel.CourseId }, new { @class = "btn btn-primary btn-sm", @style = "width:100%;" })

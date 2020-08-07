@@ -61,13 +61,6 @@ namespace Roadkill.Core.Database.Repositories
         IEnumerable<Page> GetPagesByCourseId(int courseId);
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="tag"></param>
-        /// <returns></returns>
-        //Course GetCourseByPage(string tag);
-
-        /// <summary>
         /// Get all pages registered for a given Course
         /// </summary>
         /// <param name="courseId"></param>
@@ -114,6 +107,6 @@ namespace Roadkill.Core.Database.Repositories
         /// </summary>
         /// <param name="pageId"></param>
         /// <returns></returns>
-        Course FindCourseByPageId(int pageId);
+        IEnumerable<Course> FindCoursesByPageId(int pageId);
     }
 }

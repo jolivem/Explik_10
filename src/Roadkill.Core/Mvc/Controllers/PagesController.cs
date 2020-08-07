@@ -598,16 +598,8 @@ namespace Roadkill.Core.Mvc.Controllers
 		[EditorRequired]
 		public ActionResult New(string title = "", string tags = "")
 		{
-            if (Context.CurrentUsername == "Explik" ||
-                Context.CurrentUsername == "Yvan.Monka" ||
-                Context.CurrentUsername == "Yannick.Sayer" ||
-                Context.CurrentUsername == "SchoolMouv" ||
-                Context.CurrentUsername == "digiSchool" ||
-                Context.CurrentUsername == "Mathrix" ||
-                Context.CurrentUsername == "PCCL" ||
-                Context.CurrentUsername == "Paul.Olivier" ||
-                Context.CurrentUsername == "Monsieur.Petit" ||
-                Context.CurrentUsername == "LesBonsProfs")
+            if (ApplicationSettings.IsFakeUser(Context.CurrentUsername))
+
             {
                 // mode for quick edit / submission / control ...
                 return RedirectToAction("QuickEdit");

@@ -1631,4 +1631,13 @@
   <data name="Page_Info_Course" xml:space="preserve">
     <value>See the course</value>
   </data>
+  <data name="MyCourses_NbPage_Title" xml:space="preserve">
+    <value>Nb pages</value>
+  </data>
+  <data name="MyPages_Course_Title" xml:space="preserve">
+    <value>Courses</value>
+  </data>
+  <data name="Page_Info_Courses" xml:space="preserve">
+    <value>Voir les séries</value>
+  </data>
 </root>

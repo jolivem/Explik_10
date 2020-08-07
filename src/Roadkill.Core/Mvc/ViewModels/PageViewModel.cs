@@ -304,7 +304,10 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// Hits of a user, 
         /// Array of 3 values: number of gold medals, then silver, then bronze
         /// </summary>
-        public int[] UserHits;
+        public int[] UserHits { get; set; }
+
+        public List<CourseViewModel> Courses { get; set; }
+
         
         /// <summary>
         /// Retrieves all tags for all pages in the system. This is empty unless filled by the controller.
@@ -324,6 +327,7 @@ namespace Roadkill.Core.Mvc.ViewModels
             PluginPostContainer = "";
             AllTags = new List<TagViewModel>();
             AllComments = new List<Comment>();
+            Courses = new List<CourseViewModel>();
             CompetitionId = -1;
             IsInCompetition = false;
         }
@@ -415,19 +419,6 @@ namespace Roadkill.Core.Mvc.ViewModels
             CreatedOn = DateTime.SpecifyKind(CreatedOn, DateTimeKind.Utc);
             PublishedOn = DateTime.SpecifyKind(PublishedOn, DateTimeKind.Utc);
             AllTags = new List<TagViewModel>();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public string GetCommentsHtml()
-        {
-
-            StringBuilder builder = new StringBuilder();
-                builder.AppendLine("<h4>USE ENCODECOMMENTHTML()</h4>");
-
-            return builder.ToString();
         }
 
         /// <summary>
@@ -797,30 +788,6 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// <param name="model"></param>
         /// <param name="markupConverter"></param>
         /// <returns></returns>
-        //public static string GetContentSummary(PageViewModel model, MarkupConverter markupConverter)
-        //{
-        //    // Turn the contents into HTML, then strip the tags for the mini summary. This needs some works
-        //    string modelHtml = model.Content;
-        //    Regex _removeTagsRegex = new Regex("<(.|\n)*?>");
-        //    modelHtml = markupConverter.ToHtml(modelHtml);
-        //    modelHtml = _removeTagsRegex.Replace(modelHtml, "");
-
-        //    if (modelHtml.Length > 150)
-        //        modelHtml = modelHtml.Substring(0, 149);
-
-        //    if (model.Content.Contains("youtube") && modelHtml.Length <= 3) // 2 is for "\n"
-        //    {
-        //        modelHtml = "Vidéo. " + modelHtml; //TODO english traduction
-        //    }
-        //    return modelHtml;
-        //}
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="markupConverter"></param>
-        /// <returns></returns>
         public string GetContentSummary(MarkupConverter markupConverter)
         {
             // Turn the contents into HTML, then strip the tags for the mini summary. This needs some works
@@ -1005,7 +972,7 @@ namespace Roadkill.Core.Mvc.ViewModels
             return builder.ToString();
         }
 
-        /// <summary>
+         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>

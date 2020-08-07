@@ -934,6 +934,13 @@ namespace Roadkill.Core.Services
                         pageModel.Ranking = Repository.GetPageRanking(id);
                         pageModel.UserHits = Repository.GetUserHits(page.CreatedBy);
 
+                        // get courses of the page
+                        var courses = Repository.FindCoursesByPageId(page.Id);
+                        pageModel.Courses = (from course in courses
+                                            select new CourseViewModel(course)).ToList();
+
+                        //CoursePage coursePage = coursePages.SingleOrDefault(x => x.PageId == page.Id);
+
                         _pageViewModelCache.Add(id, pageModel);
 
                         return pageModel;
@@ -1615,24 +1622,24 @@ namespace Roadkill.Core.Services
         /// <param name="pageId"></param>
         /// <param name="course"></param>
         /// <returns></returns>
-        public CourseViewModel FindCourseByPage(int pageId)
-        {
-            try
-            {
-                Course course = Repository.FindCourseByPageId(pageId);
-                if ( course != null)
-                {
-                    return new CourseViewModel(course);
-                }
-                return null;
-            }
-            catch (DatabaseException ex)
-            {
-                // TODO add log
-                //throw new DatabaseException(ex, "An error occurred while retrieving all new pages from the database");
-                return null;
-            }
+        //public CourseViewModel FindCourseByPage(int pageId)
+        //{
+        //    try
+        //    {
+        //        var list = Repository.FindCoursesByPageId(pageId);
+        //        if ( list != null)
+        //        {
+        //            return new CourseViewModel(list.First());
+        //        }
+        //        return null;
+        //    }
+        //    catch (DatabaseException ex)
+        //    {
+        //        // TODO add log
+        //        //throw new DatabaseException(ex, "An error occurred while retrieving all new pages from the database");
+        //        return null;
+        //    }
             
-        }
+        //}
     }
 }

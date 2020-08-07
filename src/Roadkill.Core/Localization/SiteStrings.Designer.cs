@@ -19,7 +19,7 @@ namespace Roadkill.Core.Localization {
     // à l'aide d'un outil, tel que ResGen ou Visual Studio.
     // Pour ajouter ou supprimer un membre, modifiez votre fichier .ResX, puis réexécutez ResGen
     // avec l'option /str ou régénérez votre projet VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class SiteStrings {
@@ -1771,6 +1771,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nb pages.
+        /// </summary>
+        public static string MyCourses_NbPage_Title {
+            get {
+                return ResourceManager.GetString("MyCourses_NbPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Nombre de pages.
         /// </summary>
         public static string MyCourses_NbPages_Title {
@@ -1911,6 +1920,15 @@ namespace Roadkill.Core.Localization {
         public static string MyPages_Confirm_Unpublish {
             get {
                 return ResourceManager.GetString("MyPages_Confirm_Unpublish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Courses.
+        /// </summary>
+        public static string MyPages_Course_Title {
+            get {
+                return ResourceManager.GetString("MyPages_Course_Title", resourceCulture);
             }
         }
         
@@ -2280,6 +2298,15 @@ namespace Roadkill.Core.Localization {
         public static string Page_Info_Course {
             get {
                 return ResourceManager.GetString("Page_Info_Course", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Voir les séries.
+        /// </summary>
+        public static string Page_Info_Courses {
+            get {
+                return ResourceManager.GetString("Page_Info_Courses", resourceCulture);
             }
         }
         

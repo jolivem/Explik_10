@@ -1598,4 +1598,13 @@
   <data name="Page_Info_Course" xml:space="preserve">
     <value>Voir la série</value>
   </data>
+  <data name="MyCourses_NbPage_Title" xml:space="preserve">
+    <value>Nb expl.</value>
+  </data>
+  <data name="MyPages_Course_Title" xml:space="preserve">
+    <value>Séries</value>
+  </data>
+  <data name="Page_Info_Courses" xml:space="preserve">
+    <value>Voir les séries</value>
+  </data>
 </root>

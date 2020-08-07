@@ -84,19 +84,17 @@ namespace Roadkill.Core.Mvc.Controllers
             string ip = _pageService.GetUserIp();
             ViewBag.useralert = _pageService.GetPageAlertFromUser(model.Id, ip);
 
-            ViewBag.CourseId = _pageService.FindCourseByPage(model.Id);
-
             // handle courses
-            CourseViewModel course = _pageService.FindCourseByPage(model.Id);
-            if (course != null)
-            {
-                ViewBag.CourseTitle = course.EncodedTitle;
-                ViewBag.CourseId = course.CourseId;
-            }
-            else
-            {
-                ViewBag.CourseId = -1;
-            }
+            //CourseViewModel course = _pageService.FindCourseByPage(model.Id);
+            //if (course != null)
+            //{
+            //    ViewBag.CourseTitle = course.EncodedTitle;
+            //    ViewBag.CourseId = course.CourseId;
+            //}
+            //else
+            //{
+            //    ViewBag.CourseId = -1;
+            //}
 
             _pageService.IncrementNbView(model.Id);
 

@@ -1,4 +1,4 @@
-﻿@model CourseViewModel
+﻿@model CourseSelectionViewModel
 @{
     ViewBag.Title = SiteStrings.AllMyPages_Title;
 }
@@ -10,7 +10,7 @@
 </script>
 
 
-@if (Model.CoursePagesModels.Count > 0)
+@if (Model.Pages.Count > 0)
 {
     <form class="form-horizontal" role="form" method="post" id="selectpage-form">
         @Html.HiddenFor(m => m.CourseId)
@@ -21,22 +21,33 @@
                     <th>@SiteStrings.MyPages_Action_Title</th>
                     <th>@SiteStrings.AllPages_TitleColumnHeading</th>
                     <th>@SiteStrings.MyPages_Tags</th>
+                    <th>@SiteStrings.MyPages_Course_Title</th>
                     <th>@SiteStrings.MyPages_Status_Title</th>
                 </tr>
             </thead>
-            @for (var idx = 0; idx < Model.CoursePagesModels.Count; idx++)
+            @for (var idx = 0; idx < Model.Pages.Count; idx++)
             {
-                <tr>
-                    <td>
-                        @Html.HiddenFor(m => m.CoursePagesModels[idx].Page.Title)
-                        @Html.HiddenFor(m => m.CoursePagesModels[idx].Page.Id)
-                        @Html.HiddenFor(m => m.CoursePagesModels[idx].Page.Title)
-                        @Html.CheckBoxFor(m => m.CoursePagesModels[idx].Selected)
-                    </td>
-                    <td class="pagename stretch">@Html.ActionLink(Model.CoursePagesModels[idx].Page.Title, "Index", "Wiki", new { id = Model.CoursePagesModels[idx].Page.Id, title = Model.CoursePagesModels[idx].Page.EncodedTitle }, null)</td>
-                    <td class="pagename">@MvcHtmlString.Create(Model.CoursePagesModels[idx].Page.RawTags)</td>
-                    <td class="pagename">@MvcHtmlString.Create(Model.CoursePagesModels[idx].Page.Status)</td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.HiddenFor(m => m.Pages[idx].Page.Title)
+                    @Html.HiddenFor(m => m.Pages[idx].Page.Id)
+                    @Html.HiddenFor(m => m.Pages[idx].Page.Title)
+                    @Html.CheckBoxFor(m => m.Pages[idx].Selected)
+                </td>
+                <td class="pagename stretch">@Html.ActionLink(Model.Pages[idx].Page.Title, "Index", "Wiki", new { id = Model.Pages[idx].Page.Id, title = Model.Pages[idx].Page.EncodedTitle }, null)</td>
+                <td class="pagename">@MvcHtmlString.Create(Model.Pages[idx].Page.RawTags)</td>
+                <td class="pagename">
+                    @for (var idc = 0; idc < Model.Pages[idx].Courses.Count; idc++)
+                    {
+                        @MvcHtmlString.Create(Model.Pages[idx].Courses[idc].Title)
+                        if(idc< Model.Pages[idx].Courses.Count-1)
+                        {
+                            <br />
+                        }
+                    }
+                </td>
+                <td class="pagename">@MvcHtmlString.Create(Model.Pages[idx].Page.Status)</td>
+            </tr>
             }
         </table>
         <div class="row">

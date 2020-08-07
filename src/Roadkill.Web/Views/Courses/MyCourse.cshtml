@@ -67,13 +67,14 @@
     {
         <p>@SiteStrings.AllCourses_NoPages</p>
     }
-    <div class="row">
-        <div class="col-sm-8">
-            <h5><a href="javascript:history.back()">< @SiteStrings.Shared_Back_Link</a></h5>
-        </div>
-        <div class="col-sm-4">
-            @Html.ActionLink(SiteStrings.Course_BtnChange, "Edit", new { id = Model.CourseId }, new { @class = "btn btn-primary confirm" })
-            <a href="#" onclick="ConfirmDeleteCourse('@Model.CourseId')" style="margin-left:20px;">@SiteStrings.Shared_DeleteLink</a>
-        </div>
+</div>
+<div class="row">
+    <div class="col-sm-8">
+        <h5><a href="javascript:history.back()">< @SiteStrings.Shared_Back_Link</a></h5>
+    </div>
+    <div class="col-sm-4">
+        @Html.ActionLink(SiteStrings.Course_BtnChange, "Edit", new { id = Model.CourseId }, new { @class = "btn btn-primary confirm" })
+        <a href="#" onclick="ConfirmDeleteCourse('@Model.CourseId')" style="margin-left:20px;">@SiteStrings.Shared_DeleteLink</a>
     </div>
 </div>
+

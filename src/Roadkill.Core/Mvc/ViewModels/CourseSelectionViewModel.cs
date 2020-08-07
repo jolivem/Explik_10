@@ -12,37 +12,36 @@ namespace Roadkill.Core.Mvc.ViewModels
     /// <summary>
     /// 
     /// </summary>
-    public class CourseViewModel
+    public class CourseSelectionViewModel
     {
 
         public int CourseId { get; set; }
         public string Title { get; set; }
         public string CreatedBy { get; set; }
-        public string PreviousTitle { get; set; }
-        public List<CoursePageViewModel> CoursePagesModels { get; set; }
-        public int NbPages { get; set; } // if only nb pages is required, don't load CoursePagesModels
-
+        //public string PreviousTitle { get; set; }
+        public List<PageWithCoursesViewModel> Pages { get; set; }
+       
         /// <summary>
         /// 
         /// </summary>
-        public CourseViewModel()
+        public CourseSelectionViewModel()
         {
             CourseId = -1;
             Title = "";
             CreatedBy = "";
-            CoursePagesModels = new List<CoursePageViewModel>();
+            Pages = new List<PageWithCoursesViewModel>();
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="course"></param>
-        public CourseViewModel(Course course)
+        public CourseSelectionViewModel(Course course)
         {
             CourseId = course.Id;
             Title = course.Title;
             CreatedBy = course.CreatedBy;
-            CoursePagesModels = new List<CoursePageViewModel>();
+            Pages = new List<PageWithCoursesViewModel>();
         }
 
         /// <summary>

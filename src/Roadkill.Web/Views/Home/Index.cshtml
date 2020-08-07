@@ -3,34 +3,30 @@
     ViewBag.Title = Model.Title;
 }
 
-<div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-10">
-        <div style="background-color:#91bdf1;padding:6px">
-            <div style="margin:10px;padding:10px;background-color:#f2f8ff;">
-                <div id="viewSection"></div>
-                <textarea id="Content" style="visibility:hidden;">@Model.Content</textarea>
+@using (Html.BeginForm("Search", "Home", FormMethod.Get))
+{
+    <div class="row pull">
 
-                <div class="row">
-
-                    @using (Html.BeginForm("Search", "Home", FormMethod.Get))
-                    {
-                        <div class="col-xs-2"></div>
-                        <div class="col-xs-6">
-                            @Html.TextBox("q", null, new { placeholder = SiteStrings.Search_PlaceHolder, @class = "form-control pull-right", @autofocus = "autofocus" })
-                        </div>
-                        <div class="col-xs-4">
-                            <input type="submit" class="btn btn-primary " value="@SiteStrings.Button_Search" />
-
-                        </div>
-                    }
-                </div>
-                <br /><br />
-            </div>
+        <div class="col-sm-8">
+            @Html.TextBox("q", null, new { placeholder = SiteStrings.Search_PlaceHolder, @class = "form-control" })
+        </div>
+        <div class="col-sm-4">
+            <input type="submit" class="btn btn-primary" value="@SiteStrings.Button_Search" />
         </div>
 
     </div>
-</div>
+    <br />
+    <div class="row">
+        <div class="col-md-10">
+            <div style="background-color:#91bdf1;padding:2px">
+                <div style="margin:2px;padding:10px;background-color:#f2f8ff;">
+                    <div id="viewSection"></div>
+                    <textarea id="Content" style="visibility:hidden;">@Model.Content</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
 
-@Html.Partial("HeadContentTuiEditorView")
+    @Html.Partial("HeadContentTuiEditorView")
 
+}

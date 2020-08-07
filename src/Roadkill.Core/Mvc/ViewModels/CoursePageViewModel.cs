@@ -9,7 +9,7 @@ namespace Roadkill.Core.Mvc.ViewModels
 {
 
     /// <summary>
-    /// 
+    /// One course with its pages model for views
     /// </summary>
     public class CoursePageViewModel
     {
@@ -47,6 +47,34 @@ namespace Roadkill.Core.Mvc.ViewModels
             {
                 Order = coursePage.Order;
                 Selected = true;
+                Id = coursePage.Id;
+                CourseId = coursePage.CourseId;
+            }
+            Page = new PageViewModel(page);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="courseId">the courseId to be displayed</param>
+        /// <param name="coursePage">A potential course page, may be nul</param>
+        /// <param name="page">a page (maybe no selected)</param>
+        public CoursePageViewModel(int courseId, CoursePage coursePage, Page page)
+        {
+            if (coursePage == null)
+            {
+                Order = -1;
+                Selected = false;
+                CourseId = -1;
+            }
+            else
+            {
+                if (courseId == coursePage.CourseId)
+                {
+                    Selected = true;
+                    Order = coursePage.Order;
+                }
+                
                 Id = coursePage.Id;
                 CourseId = coursePage.CourseId;
             }

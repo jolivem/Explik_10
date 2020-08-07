@@ -144,7 +144,7 @@ namespace Roadkill.Core.Mvc.Controllers
 
                 ViewData["Username"] = id;
 
-                models = _courseService.MyCourses(id).ToList();
+                models = _courseService.MyCourses(id);
                 return View(models);
             }
             else
@@ -168,7 +168,7 @@ namespace Roadkill.Core.Mvc.Controllers
                 return null;
             }
 
-            CourseViewModel model;
+            CourseSelectionViewModel model;
             model = _courseService.GetByIdWithAllUserPages(id, Context.CurrentUsername);
             return View(model);
         }
@@ -185,7 +185,7 @@ namespace Roadkill.Core.Mvc.Controllers
 
         [HttpPost]
         [EditorRequired]
-        public ActionResult SelectPages(CourseViewModel model)
+        public ActionResult SelectPages(CourseSelectionViewModel model)
         {
             _courseService.UpdateCourseSelection(model);
             return RedirectToAction("edit", "courses", new { id = model.CourseId });

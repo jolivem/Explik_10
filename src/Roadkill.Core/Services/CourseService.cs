@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Roadkill.Core.Configuration;
@@ -56,7 +57,16 @@ namespace Roadkill.Core.Services
                 // sort by order
                 if (model != null && model.CoursePagesModels != null)
                 {
-                    model.CoursePagesModels.Sort( new ComparerByOrder());
+                    // if has already been ordered
+                    if (model.CoursePagesModels.Exists(cp => cp.Order != 0))
+                    {
+                        model.CoursePagesModels.Sort(new ComparerByOrder());
+                    }
+                    else
+                    {
+                        // order by page id
+                        model.CoursePagesModels.Sort(new ComparerByPageId());
+                    }
                 }
 
                 return model;
@@ -73,7 +83,7 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <param name="courseId"></param>
         /// <returns></returns>
-        public CourseViewModel GetByIdWithAllUserPages(int courseId, string username)
+        public CourseSelectionViewModel GetByIdWithAllUserPages(int courseId, string username)
         {
             try
             {
@@ -85,7 +95,7 @@ namespace Roadkill.Core.Services
                 }
 
                 // Course -> CourseViewModel
-                CourseViewModel model = new CourseViewModel()
+                CourseSelectionViewModel model = new CourseSelectionViewModel()
                 {
                     CourseId = courseId,
                     CreatedBy = course.CreatedBy,
@@ -93,7 +103,7 @@ namespace Roadkill.Core.Services
                 };
 
                 // Get coursePages of the course
-                IEnumerable<CoursePage> coursePages = Repository.GetCoursePages(courseId).ToList();
+                //IEnumerable<CoursePage> coursePages = Repository.GetCoursePages(courseId).ToList();
 
                 // get all the user pages
                 IEnumerable<Page> pages = Repository.MyPages(username);
@@ -101,11 +111,14 @@ namespace Roadkill.Core.Services
                                             select new PageViewModel(page);
 
                 // Add information from coursePage and from page
+                // title, selected or not, ....
                 foreach (Page page in pages)
                 {
-                    CoursePage coursePage = coursePages.SingleOrDefault(x => x.PageId == page.Id);
-                    model.CoursePagesModels.Add(
-                        new CoursePageViewModel(coursePage, page));
+                    // get list of courses containing the page
+                    List<Course> courses = Repository.FindCoursesByPageId(page.Id).ToList();
+                    //CoursePage coursePage = coursePages.SingleOrDefault(x => x.PageId == page.Id);
+                    model.Pages.Add(
+                        new PageWithCoursesViewModel(page, courses, courses.Exists(c => c.Id == courseId)));
                 }
 
                 return model;
@@ -116,60 +129,28 @@ namespace Roadkill.Core.Services
             }
         }
 
-        //public CourseViewModel GetByIdWithAllUserPages(int courseId, string username)
-        //{
-        //    try
-        //    {
-        //        // Get the course
-        //        Course course = Repository.GetCourseById(courseId);
-        //        if (course == null)
-        //        {
-        //            return null;
-        //        }
-
-        //        // Course -> CourseViewModel
-        //        CourseViewModel model = new CourseViewModel(course);
-
-        //        // Get coursePages of the course
-        //        IEnumerable<CoursePage> coursePages = Repository.GetCoursePages(courseId).ToList();
-
-        //        // get all the user pages
-        //        IEnumerable<Page> pages = Repository.MyPages(username);
-        //        IEnumerable<PageViewModel> pageModels = from page in pages
-        //                                                select new PageViewModel(page);
-
-        //        // Add information from coursePage and from page
-        //        foreach (Page page in pages)
-        //        {
-        //            CoursePage coursePage = coursePages.SingleOrDefault(x => x.PageId == page.Id);
-        //            model.CoursePagesModels.Add(
-        //                new CoursePageViewModel(coursePage, page));
-        //        }
-
-        //        return model;
-        //    }
-        //    catch (DatabaseException ex)
-        //    {
-        //        throw new DatabaseException(ex, $"An exception occurred while getting competitions id = {courseId}");
-        //    }
-        //}
-
         /// <summary>
         /// Retrieves a list of all the user courses.
         /// </summary>
         /// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
         /// <exception cref="DatabaseException">An databaseerror occurred while retrieving the list.</exception>
-        public IEnumerable<CourseViewModel> MyCourses(string userId)
+        public List<CourseViewModel> MyCourses(string userId)
         {
             try
             {
-                IEnumerable<CourseViewModel> courseModels;
+                List<CourseViewModel> courseModels;
 
                 IEnumerable<Course> courses = Repository.GetCoursesByUser(userId).OrderByDescending(p => p.Id);
-                courseModels = from course in courses
-                               select new CourseViewModel(course);
+                courseModels = (from course in courses
+                               select new CourseViewModel(course)).ToList();
 
                 // don't fill CoursePageViewModel here
+
+                // but fill nb page foreach course
+                foreach (var model in courseModels)
+                {
+                    model.NbPages = Repository.GetCoursePages(model.CourseId).Count();
+                }
 
                 return courseModels;
             }
@@ -179,22 +160,7 @@ namespace Roadkill.Core.Services
             }
         }
 
-        public List<CoursePageViewModel> GetCoursePages(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<CourseViewModel> GetCourses(bool forAdmin = false)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<CourseViewModel> GetCourses()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateCourseSelection(CourseViewModel model)
+        public void UpdateCourseSelection(CourseSelectionViewModel model)
         {
             if (model != null)
             {
@@ -202,14 +168,14 @@ namespace Roadkill.Core.Services
                 Repository.DeleteCoursePages(model.CourseId);
 
                 // add selected course pages in the course
-                foreach( CoursePageViewModel coursePageModel in model.CoursePagesModels)
+                foreach( PageWithCoursesViewModel page in model.Pages)
                 {
-                    if (coursePageModel.Selected)
+                    if (page.Selected)
                     {
                         CoursePage coursePage = new CoursePage()
                         {
                             CourseId = model.CourseId,
-                            PageId = coursePageModel.Page.Id,
+                            PageId = page.Page.Id,
                             Order = 0, // not ordered yet
                         };
                         Repository.AddCoursePage(coursePage);
@@ -265,4 +231,22 @@ namespace Roadkill.Core.Services
             return x.Order.CompareTo(y.Order);
         }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    internal class ComparerByPageId : IComparer<CoursePageViewModel>
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns>0 if equal ; 1 if x > y ; -1 if y > x</returns>
+        public int Compare(CoursePageViewModel x, CoursePageViewModel y)
+        {
+            return x.Page.Id.CompareTo(y.Page.Id);
+        }
+    }
+
 }
