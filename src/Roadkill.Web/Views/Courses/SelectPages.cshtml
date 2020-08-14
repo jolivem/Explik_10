@@ -34,7 +34,7 @@
                     @Html.HiddenFor(m => m.Pages[idx].Page.Title)
                     @Html.CheckBoxFor(m => m.Pages[idx].Selected)
                 </td>
-                <td class="pagename stretch">@Html.ActionLink(Model.Pages[idx].Page.Title, "Index", "Wiki", new { id = Model.Pages[idx].Page.Id, title = Model.Pages[idx].Page.EncodedTitle }, null)</td>
+                <td class="pagename">@Html.ActionLink(Model.Pages[idx].Page.Title, "Index", "Wiki", new { id = Model.Pages[idx].Page.Id, title = Model.Pages[idx].Page.EncodedTitle }, null)</td>
                 <td class="pagename">@MvcHtmlString.Create(Model.Pages[idx].Page.RawTags)</td>
                 <td class="pagename">
                     @for (var idc = 0; idc < Model.Pages[idx].Courses.Count; idc++)

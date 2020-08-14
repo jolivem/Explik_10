@@ -15,8 +15,10 @@
         if (@ViewBag.userrating == 0) {
             $(".rating.stars").css("background-image", 'url("/Assets/CSS/images/grey-green-24.png")');
             $("#submit-rating").css("display", "none");
+            $("#submit-unrating").css("display", "none");
         }
         else {
+            $("#submit-rating").css("display", "none");
             setRating__(span, @ViewBag.userrating);
         }
     });
@@ -130,15 +132,11 @@
             </div>
             <p>
                 <small>
-                    <a id="submit-rating" href="javascript:;">
-                        @if (@ViewBag.userrating > 0)
-                        {
-                            @SiteStrings.Page_Link_Unrate
-                        }
-                        else
-                        {
-                            @SiteStrings.Page_Link_Rate
-                        }
+                    <a id="submit-rating" href="javascript:;" style="color:red">
+                        @SiteStrings.Page_Link_Rate
+                    </a>
+                    <a id="submit-unrating" href="javascript:;">
+                        @SiteStrings.Page_Link_Unrate
                     </a>
                 </small>
             </p>

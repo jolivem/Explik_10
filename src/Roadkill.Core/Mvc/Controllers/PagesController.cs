@@ -108,32 +108,34 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
         [EditorRequired]
         [BrowserCache]
-        public ActionResult MyPages(string id, bool? encoded)
+        public ActionResult MyPages(string id)
         {
             // after submit, id = null --> leads to an exception
             // when changing the user, the id is the older one
             //ViewBag.IsUserAdmin = Context.IsAdmin;
             string currentUser = Context.CurrentUsername;
             List<PageViewModel> models;
-            if (id == Context.CurrentUsername)
-            {
+            //if (id == Context.CurrentUsername)
+            //{
 
-                // Usernames are base64 encoded by roadkill (to cater for usernames like domain\john).
-                // However the URL also supports humanly-readable format, e.g. /ByUser/chris
-                if (encoded == true)
-                {
-                    id = id.FromBase64();
-                }
+            //    // Usernames are base64 encoded by roadkill (to cater for usernames like domain\john).
+            //    // However the URL also supports humanly-readable format, e.g. /ByUser/chris
+            //    if (encoded == true)
+            //    {
+            //        id = id.FromBase64();
+            //    }
 
-                ViewData["Username"] = id;
+            //    ViewData["Username"] = id;
 
-                models = _pageService.MyPages(id).ToList();
-                
-            }
-            else
-            {
-                models = _pageService.MyPages(currentUser).ToList();
-            }
+            //    models = _pageService.MyPages(id).ToList();
+
+            //}
+            //else
+            //{
+            //models = _pageService.MyPages(currentUser).ToList();
+            //}
+            ViewData["Username"] = currentUser;
+            models = _pageService.MyPages(currentUser).ToList();
 
             // Add competition information to the model
             //for (int ind = 0; ind < models.Count; ind++)

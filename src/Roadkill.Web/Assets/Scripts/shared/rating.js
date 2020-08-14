@@ -104,6 +104,7 @@ $(document).ready(function () {
             $("#srating").val(newRating);
             setRating(span, newRating);
             $("#submit-rating").css("display", "inline");
+            $("#submit-unrating").css("display", "none");
 
         }
         //var pID = $("#page-view").attr("pageid");
@@ -139,18 +140,54 @@ $(document).ready(function () {
             },
             success: function (response) {
 
-                if (previousRating == 0) {
                     toastr.success($("#rating-added").attr("value"));
                     var span = $("#ratings");
                     $("#current-rating").val(newRating);
                     $(".rating.stars").css("background-image", 'url("/Assets/CSS/images/grey-yellow-24.png")');
                     $("#submit-rating").css("display", "none"); //prevents multiple clicks
                     setTimeout(function () {
-                        $("#submit-rating").css("display", "inline");
-                        document.getElementById("submit-rating").text = $("#text-unrate").attr("value");
-                    }, 5000);
-                }
-                else {
+                        $("#submit-unrating").css("display", "inline");
+                    }, 1000);
+            },
+            failure: function (response) {
+                alert("failure");
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+
+        });
+    });
+
+    $("#submit-unrating").click(function () {
+
+        // check login if text-login-rating exists (exists for competition rating, not for usual view)
+        if ($('#text-login-rating').length) {
+            var currentUser = $("#current-user").attr("name");
+            if (currentUser == "") {
+                bootbox.setDefaults({ animate: false });
+                bootbox.alert($("#text-login-rating").attr("value"))
+                return;
+            }
+        }
+
+        var pID = $("#page-view").attr("pageid");
+        //var previousRating = $("#current-rating").val();
+        //var newRating = $("#srating").val();
+        //if (previousRating != 0) {
+        //    // this is "cancel rating"
+        //    newRating = 0;
+        //}
+
+        $.ajax({
+            type: "POST",
+            url: "/Pages/PageRating",
+            data: {
+                id: pID,
+                rating: "0"
+            },
+            success: function (response) {
+
                     toastr.success($("#rating-removed").attr("value"));
                     var span = $("#ratings");
                     setRating(span, 0);
@@ -160,8 +197,9 @@ $(document).ready(function () {
                     $("#rate-info").html("&nbsp;");
                     $(".rating.stars").css("background-image", 'url("/Assets/CSS/images/grey-green-24.png")');
                     $("#submit-rating").css("display", "none");
-                    document.getElementById("submit-rating").text = $("#text-rate").attr("value");
-                }
+                    $("#submit-unrating").css("display", "none");
+                    //document.getElementById("submit-rating").text = $("#text-rate").attr("value");
+                    //document.getElementById("submit-rating").style.color = "red";
             },
             failure: function (response) {
                 alert("failure");

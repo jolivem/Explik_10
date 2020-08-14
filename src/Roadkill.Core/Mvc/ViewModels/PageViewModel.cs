@@ -432,7 +432,12 @@ namespace Roadkill.Core.Mvc.ViewModels
             if (AllComments != null && AllComments.Count != 0)
             {
                 //builder.AppendLine("<p>&nbsp;</p>");
-                builder.AppendLine("<hr size=4 align=left width='100 %' style='border-top-color:#4f8bdf;'/>");
+                builder.AppendLine("<div class='row'>");
+                builder.AppendLine("<div class='col-sm-9'>");
+                builder.AppendLine("<hr align=left style='border-top:3px solid #ddd;' />");
+                builder.AppendLine("</div>");
+                builder.AppendLine("</div>");
+
                 builder.AppendLine("<div class='row col-sm-8'>");
 
                 //builder.AppendLine("<div id='container-comments' class='container'>");
@@ -450,7 +455,7 @@ namespace Roadkill.Core.Mvc.ViewModels
                             // first the user on the left
                             builder.AppendLine("<td style='padding:2px; width:80px; border-top-width:1px; border-top-style:solid; border-color:#dddddd; padding-top:10px' align='center' valign='top'>");
                             {
-                                string src = "/Assets/Images/letters/letter-" + CreatedBy.First().ToString().ToUpper() + ".jpg";
+                                string src = "/Assets/Images/letters/letter-" + comment.CreatedBy.First().ToString().ToUpper() + ".jpg";
 
                                 builder.AppendLine("<img src='" + src + "' border='0' alt='loading' style='width:20px;height:20px;'/>");
                                 builder.AppendLine("<br />");

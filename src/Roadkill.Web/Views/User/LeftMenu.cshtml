@@ -5,7 +5,7 @@
         <li>@Html.ActionLink(SiteStrings.Navigation_AllPages, "AllPages", "Pages")</li>
         <li>@Html.ActionLink(SiteStrings.Navigation_AllNewPages, "AllNewPages", "Pages")</li>
         <li>@Html.ActionLink(SiteStrings.Navigation_AllNewComments, "AllNewComments", "Comments")</li>
-        <li>@Html.ActionLink(RoadkillContext.CurrentUsername, "MyPages", "Pages", new { id = RoadkillContext.CurrentUsername.ToBase64(), encoded = true }, null)</li>
+        <li>@Html.ActionLink(RoadkillContext.CurrentUsername, "MyPages", "Pages")</li>
     </ul>
 
 			

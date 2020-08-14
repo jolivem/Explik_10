@@ -130,8 +130,8 @@ namespace Roadkill.Core.Text
                 allPages = CreateAnchorTag(urlHelper.Action("AllPages", "Pages"), SiteStrings.Navigation_AllPages);
                 allNewPages = CreateAnchorTag(urlHelper.Action("AllNewPages", "Pages"), SiteStrings.Navigation_AllNewPages);
                 allNewComments = CreateAnchorTag(urlHelper.Action("AllNewComments", "Comments"), SiteStrings.Navigation_AllNewComments);
-                myPages = CreateAnchorTag(urlHelper.Action("MyPages", "Pages") + "/" + _userContext.CurrentUsername, SiteStrings.Navigation_MyPages);
-                myCourses = CreateAnchorTag(urlHelper.Action("MyCourses", "Courses") + "/" + _userContext.CurrentUsername, SiteStrings.Navigation_MyCourses);
+                myPages = CreateAnchorTag(urlHelper.Action("MyPages", "Pages"), SiteStrings.Navigation_MyPages);
+                myCourses = CreateAnchorTag(urlHelper.Action("MyCourses", "Courses"), SiteStrings.Navigation_MyCourses);
                 alerts = CreateAnchorTag(urlHelper.Action("ListAlerts", "Alerts"), SiteStrings.Navigation_Alerts);
                 mainPage = CreateAnchorTag(urlHelper.Action("Index", "Home"), SiteStrings.Navigation_MainPage);
 				newpage = CreateAnchorTag(urlHelper.Action("New", "Pages"), SiteStrings.Navigation_NewPage);

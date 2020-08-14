@@ -1,2 +1,0 @@
-﻿Mes séries: ajouter la colonne "nb de pages"
-ajouter la fonction de suppression d'une série

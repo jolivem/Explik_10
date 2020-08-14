@@ -1,1 +1,11 @@
 ﻿. recherche sans résultat -> rester dans le champ de recherche
+. affichage des expl. d'un cours -> ne prendre que ce qui est contrôlé si user différent
+. icone auteur commentaire --> ne pas prendre celui de l'auteur de l'explication
+. noter --> afficher "Valider la note" en rouge
+. ajouter ligne séparation avant les commentaires
+. mail inscription --> problème de police 
+. ajouter une aide / faq en bas
+. ajouter une colonne "Séries" dans "Mes explications"
+. Lister les cours et explications individuelles d'un user
+. clique plusieurs fois sur "mes séries" -> 404 not found
+. tester la notation des compétitions (modif rating.js, ...)
