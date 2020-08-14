@@ -421,7 +421,7 @@
     <value>Le</value>
   </data>
   <data name="Page_Info_ControlledBy" xml:space="preserve">
-    <value>Controllé par:</value>
+    <value>Controlé par:</value>
   </data>
   <data name="Page_Validation_Title" xml:space="preserve">
     <value>Le titre est obligatoire.</value>
@@ -1009,7 +1009,7 @@
     <value>Nombre de notes :</value>
   </data>
   <data name="Navigation_AllNewPages" xml:space="preserve">
-    <value>Controller</value>
+    <value>Controler</value>
     <comment>for pages to be controlled</comment>
   </data>
   <data name="Shared_RejectLink" xml:space="preserve">
@@ -1025,7 +1025,7 @@
     <value>Alertes</value>
   </data>
   <data name="AllNewPages_Title" xml:space="preserve">
-    <value>Explications à controller</value>
+    <value>Explications à controler</value>
   </data>
   <data name="Navigation_MyPages" xml:space="preserve">
     <value>Mes explications</value>
@@ -1118,10 +1118,10 @@
     <value>Rejetée</value>
   </data>
   <data name="Page_Link_Rate" xml:space="preserve">
-    <value>Noter</value>
+    <value>Confirmer ma note</value>
   </data>
   <data name="Page_Link_Unrate" xml:space="preserve">
-    <value>Supprimer</value>
+    <value>Supprimer ma note</value>
   </data>
   <data name="Button_Remove" xml:space="preserve">
     <value>Supprimer</value>
@@ -1521,25 +1521,25 @@
     <value>Catégories</value>
   </data>
   <data name="Navigation_MyCourses" xml:space="preserve">
-    <value>Mes séries</value>
+    <value>Mes cours</value>
   </data>
   <data name="AllCourses_NoCourses" xml:space="preserve">
-    <value>Aucune série n'a été créée</value>
+    <value>Aucun cours n'a été créé</value>
   </data>
   <data name="AllCourses_TitleColumnHeading" xml:space="preserve">
     <value>Titre</value>
   </data>
   <data name="AllMyCourses_Title" xml:space="preserve">
-    <value>Mes séries</value>
+    <value>Mes cours</value>
   </data>
   <data name="Courses_ChangeSelection" xml:space="preserve">
     <value>Modifier la sélection ? </value>
   </data>
   <data name="Courses_CreateNew" xml:space="preserve">
-    <value>Créer une série ?  </value>
+    <value>Créer un cours ?  </value>
   </data>
   <data name="Courses_SelectPages" xml:space="preserve">
-    <value>Sélectionner les explications de cette série : </value>
+    <value>Sélectionner les explications de ce cours : </value>
   </data>
   <data name="Course_BtnCreate" xml:space="preserve">
     <value>Créer</value>
@@ -1548,10 +1548,10 @@
     <value>Sélectionner</value>
   </data>
   <data name="EditCourse_Error" xml:space="preserve">
-    <value>Impossible d'enregistrer la série :</value>
+    <value>Impossible d'enregistrer le cours :</value>
   </data>
   <data name="EditCourse_Title" xml:space="preserve">
-    <value>Modifier une série</value>
+    <value>Modifier un cours</value>
   </data>
   <data name="EditCourse_Title_Label" xml:space="preserve">
     <value>Titre</value>
@@ -1572,39 +1572,39 @@
     <value>Modifier</value>
   </data>
   <data name="Courses_InfoSort" xml:space="preserve">
-    <value>Pour mettre la série dans l'ordre, utiliser les flèches dans la colonne de droite.</value>
+    <value>Pour mettre dans l'ordre, utiliser les flèches dans la colonne de droite.</value>
   </data>
   <data name="MyCourses_Sort_Title" xml:space="preserve">
     <value>Ordonner</value>
   </data>
   <data name="MyCourse_Confirm_Delete" xml:space="preserve">
-    <value>La suppression est définitive. Voulez-vous supprimer cette série ?</value>
+    <value>La suppression est définitive. Voulez-vous supprimer ce cours ?</value>
   </data>
   <data name="MyCourse_DeleteSuccess" xml:space="preserve">
-    <value>La série est supprimée</value>
+    <value>Le cours est supprimé</value>
   </data>
   <data name="NewCourse_CreateTitle" xml:space="preserve">
-    <value>Créer une série</value>
+    <value>Créer un cours</value>
   </data>
   <data name="NewCourse_Title" xml:space="preserve">
-    <value>Nouvelle série</value>
+    <value>Nouveau cours</value>
   </data>
   <data name="NewCourse_Title_Label" xml:space="preserve">
-    <value>Donner un titre à la série</value>
+    <value>Donner un titre au cours</value>
   </data>
   <data name="ViewMyCourse_Title" xml:space="preserve">
-    <value>Ma série</value>
+    <value>Mon cours</value>
   </data>
   <data name="Page_Info_Course" xml:space="preserve">
-    <value>Voir la série</value>
+    <value>Voir le cours</value>
   </data>
   <data name="MyCourses_NbPage_Title" xml:space="preserve">
     <value>Nb expl.</value>
   </data>
   <data name="MyPages_Course_Title" xml:space="preserve">
-    <value>Séries</value>
+    <value>Cours</value>
   </data>
   <data name="Page_Info_Courses" xml:space="preserve">
-    <value>Voir les séries</value>
+    <value>Voir les cours</value>
   </data>
 </root>

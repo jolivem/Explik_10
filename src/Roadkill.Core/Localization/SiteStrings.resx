@@ -1554,10 +1554,10 @@
     <value>My courses</value>
   </data>
   <data name="AllCourses_NoCourses" xml:space="preserve">
-    <value>Aucune série n'a été créée</value>
+    <value>Aucun cours n'a été créé</value>
   </data>
   <data name="AllCourses_NoPages" xml:space="preserve">
-    <value>La série est vide.</value>
+    <value>Le cours est vide.</value>
   </data>
   <data name="AllCourses_TitleColumnHeading" xml:space="preserve">
     <value>Title</value>
@@ -1611,7 +1611,7 @@
     <value>Sort</value>
   </data>
   <data name="MyCourse_Confirm_Delete" xml:space="preserve">
-    <value>La suppression est définitive. Voulez-vous supprimer cette série ?</value>
+    <value>La suppression est définitive. Voulez-vous supprimer ce cours ?</value>
   </data>
   <data name="MyCourse_DeleteSuccess" xml:space="preserve">
     <value>La série est supprimée</value>

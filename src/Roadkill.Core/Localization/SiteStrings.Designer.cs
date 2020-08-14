@@ -223,7 +223,7 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Aucune série n&apos;a été créée.
+        ///   Recherche une chaîne localisée semblable à Aucun cours n&apos;a été créé.
         /// </summary>
         public static string AllCourses_NoCourses {
             get {
@@ -232,7 +232,7 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à La série est vide..
+        ///   Recherche une chaîne localisée semblable à Le cours est vide..
         /// </summary>
         public static string AllCourses_NoPages {
             get {
@@ -1744,7 +1744,7 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à La suppression est définitive. Voulez-vous supprimer cette série ?.
+        ///   Recherche une chaîne localisée semblable à La suppression est définitive. Voulez-vous supprimer ce cours ?.
         /// </summary>
         public static string MyCourse_Confirm_Delete {
             get {
