@@ -428,6 +428,7 @@
     <Content Include="Assets\Scripts\readme.txt" />
     <Content Include="Assets\Scripts\shared\tagmanager.js" />
     <Content Include="robots.txt" />
+    <Content Include="Run\indexsite.php" />
     <Content Include="Run\NoteCompetition.php" />
     <Content Include="sitemap.xml" />
     <Content Include="_README.txt" />
