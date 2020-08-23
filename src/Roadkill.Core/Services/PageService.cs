@@ -936,7 +936,7 @@ namespace Roadkill.Core.Services
 
                         // get courses of the page
                         var courses = Repository.FindCoursesByPageId(page.Id);
-                        pageModel.Courses = (from course in courses
+                        pageModel.AllCourses = (from course in courses
                                             select new CourseViewModel(course)).ToList();
 
                         //CoursePage coursePage = coursePages.SingleOrDefault(x => x.PageId == page.Id);

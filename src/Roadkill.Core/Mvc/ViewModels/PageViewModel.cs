@@ -306,7 +306,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// </summary>
         public int[] UserHits { get; set; }
 
-        public List<CourseViewModel> Courses { get; set; }
+        public List<CourseViewModel> AllCourses { get; set; }
 
         
         /// <summary>
@@ -327,7 +327,7 @@ namespace Roadkill.Core.Mvc.ViewModels
             PluginPostContainer = "";
             AllTags = new List<TagViewModel>();
             AllComments = new List<Comment>();
-            Courses = new List<CourseViewModel>();
+            AllCourses = new List<CourseViewModel>();
             CompetitionId = -1;
             IsInCompetition = false;
         }

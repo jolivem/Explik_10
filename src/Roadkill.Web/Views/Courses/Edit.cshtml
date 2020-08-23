@@ -31,9 +31,9 @@
                 var modelitem = $(this).find(".model-item");
                 var rrr = modelitem.attr("value");
                 var ident = "#CoursePagesModels_" + rrr + "__Order";
-                var val1 = $(ident).attr("value");
+                //var val1 = $(ident).attr("value");
                 $(ident).attr("value", index);
-                var val2 = $(ident).attr("value");
+                //var val2 = $(ident).attr("value");
             });
         }
 
@@ -112,8 +112,8 @@
                                 <td>@MvcHtmlString.Create(Model.CoursePagesModels[item].Page.RawTags)</td>
                                 <td>@MvcHtmlString.Create(Model.CoursePagesModels[item].Page.Status)</td>
                                 <td class="updown">
-                                    <a class="down glyphicon glyphicon-arrow-down" href="#"></a>
-                                    <a class="up glyphicon glyphicon-arrow-up" href="#"></a>
+                                    <a class="down glyphicon glyphicon-arrow-down" href="javascript:void(0)"></a>
+                                    <a class="up glyphicon glyphicon-arrow-up" href="javascript:void(0)"></a>
                                 </td>
                                 <td class="model-item" type="hidden" value="@item"></td>
                             </tr>

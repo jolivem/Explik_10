@@ -80,11 +80,11 @@
         @MvcHtmlString.Create(PageViewModel.EncodeUserHits(Model.UserHits))
     </div>
 </div>
-@if (Model.Courses.Count > 0)
+@if (Model.AllCourses.Count > 0)
 {
 <div class="row">
     <div class="col-sm-9">
-        @if (Model.Courses.Count == 1)
+        @if (Model.AllCourses.Count == 1)
         {
             <span>@SiteStrings.Page_Info_Course&nbsp;</span>
         }
@@ -93,15 +93,15 @@
             <span>@SiteStrings.Page_Info_Courses&nbsp;</span>
         }
 
-        @for (int idc = 0; idc < Model.Courses.Count; idc++)
+        @for (int idc = 0; idc < Model.AllCourses.Count; idc++)
         {
-            if (idc < Model.Courses.Count - 1)
+            if (idc < Model.AllCourses.Count - 1)
             {
-                <span><a href="@Url.Action("Index", "Courses", new { id = Model.Courses[idc].CourseId, title = Model.Courses[idc].EncodedTitle })">@Model.Courses[idc].Title</a>,&nbsp;</span>
+                <span><a href="@Url.Action("Index", "Courses", new { id = Model.AllCourses[idc].CourseId, title = Model.AllCourses[idc].EncodedTitle })">@Model.AllCourses[idc].Title</a>,&nbsp;</span>
             }
             else
             {
-    <a href="@Url.Action("Index", "Courses", new { id = Model.Courses[idc].CourseId, title = Model.Courses[idc].EncodedTitle })">@Model.Courses[idc].Title</a>
+    <a href="@Url.Action("Index", "Courses", new { id = Model.AllCourses[idc].CourseId, title = Model.AllCourses[idc].EncodedTitle })">@Model.AllCourses[idc].Title</a>
             }
         }
     </div>

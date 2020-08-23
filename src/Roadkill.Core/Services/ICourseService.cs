@@ -9,7 +9,7 @@ namespace Roadkill.Core.Services
 {
     public interface ICourseService
     {
-        CourseViewModel GetByIdWithPages(int id);
+        CourseViewModel GetByIdWithPages(int id, bool onlyControlled=false);
 
         int AddCourse(string title, string createdBy);
 

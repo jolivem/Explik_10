@@ -24,28 +24,5 @@ namespace Roadkill.Core.Mvc.ViewModels
             listPages = new List<PageViewModel>();
             //markupConverter = converter;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        //public string GetContentSummary(PageViewModel model)
-        //{
-        //    // Turn the contents into HTML, then strip the tags for the mini summary. This needs some works
-        //    string modelHtml = model.Content;
-        //    Regex _removeTagsRegex = new Regex("<(.|\n)*?>");
-        //    modelHtml = markupConverter.ToHtml(modelHtml);
-        //    modelHtml = _removeTagsRegex.Replace(modelHtml, "");
-
-        //    if (modelHtml.Length > 150)
-        //        modelHtml = modelHtml.Substring(0, 149);
-
-        //    if (model.Content.Contains("youtube") && modelHtml.Length <= 3) // 2 is for "\n"
-        //    {
-        //        modelHtml = "Vidéo. " + modelHtml; //TODO english traduction
-        //    }
-        //    return modelHtml;
-        //}
     }
 }

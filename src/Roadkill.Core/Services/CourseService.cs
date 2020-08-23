@@ -35,7 +35,7 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <param name="courseId"></param>
         /// <returns></returns>
-        public CourseViewModel GetByIdWithPages(int courseId)
+        public CourseViewModel GetByIdWithPages(int courseId, bool onlyControlled = false)
         {
             try
             {
@@ -67,6 +67,12 @@ namespace Roadkill.Core.Services
                         // order by page id
                         model.CoursePagesModels.Sort(new ComparerByPageId());
                     }
+                }
+
+                if (onlyControlled==true)
+                {
+                    // remove pages that are not controlled
+                    model.CoursePagesModels.RemoveAll(p => p.Page.IsControlled == false);
                 }
 
                 return model;
