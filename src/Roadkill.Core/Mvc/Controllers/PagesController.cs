@@ -91,18 +91,6 @@ namespace Roadkill.Core.Mvc.Controllers
         }
 
         /// <summary>
-        /// Displays a list of all alerted page titles and ids in Roadkill.
-        /// </summary>
-        /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
-        //[BrowserCache]
-        //[ControllerRequired]
-        //public ActionResult AllPagesWithAlerts()
-        //{
-        //    var all = _pageService.AllPagesWithAlerts();
-        //    return View(all);
-        //}
-
-        /// <summary>
         /// Displays a list of current user page titles and ids in Roadkill.
         /// </summary>
         /// <returns>An <see cref="IEnumerable{PageViewModel}"/> as the model.</returns>
@@ -115,25 +103,7 @@ namespace Roadkill.Core.Mvc.Controllers
             //ViewBag.IsUserAdmin = Context.IsAdmin;
             string currentUser = Context.CurrentUsername;
             List<PageViewModel> models;
-            //if (id == Context.CurrentUsername)
-            //{
 
-            //    // Usernames are base64 encoded by roadkill (to cater for usernames like domain\john).
-            //    // However the URL also supports humanly-readable format, e.g. /ByUser/chris
-            //    if (encoded == true)
-            //    {
-            //        id = id.FromBase64();
-            //    }
-
-            //    ViewData["Username"] = id;
-
-            //    models = _pageService.MyPages(id).ToList();
-
-            //}
-            //else
-            //{
-            //models = _pageService.MyPages(currentUser).ToList();
-            //}
             ViewData["Username"] = currentUser;
             models = _pageService.MyPages(currentUser).ToList();
 
@@ -529,13 +499,20 @@ namespace Roadkill.Core.Mvc.Controllers
                     }
                 }
 
-                return View("Edit", model);
+                if (ApplicationSettings.IsFakeUser(Context.CurrentUsername))
+                {
+                    // mode for quick edit / submission / control ...
+                    return View("QuickEdit", model);
+                }
+                else
+                {
+                    return View("Edit", model);
+                }
             }
             else
             {
                 return RedirectToAction("New");
             }
-
         }
 
 		/// <summary>
@@ -552,10 +529,17 @@ namespace Roadkill.Core.Mvc.Controllers
 			if (!ModelState.IsValid)
 				return View("Edit", model);
 
-            _pageService.UpdatePage(model);
-
-			return RedirectToAction("Index", "Wiki", new { id = model.Id });
-		}
+            if (ApplicationSettings.IsFakeUser(Context.CurrentUsername))
+            {
+                _pageService.UpdatePage(model);
+                _pageService.ValidatePage(model.Id, Context.CurrentUsername, 4, model.IsInCompetition, model.RawTags);
+            }
+            else
+            {
+                _pageService.UpdatePage(model);
+            }
+            return RedirectToAction("Index", "Wiki", new { id = model.Id });
+        }
 
 		/// <summary>
 		/// This action is for JSON calls only. Displays a HTML preview for the provided 
@@ -601,10 +585,9 @@ namespace Roadkill.Core.Mvc.Controllers
 		public ActionResult New(string title = "", string tags = "")
 		{
             if (ApplicationSettings.IsFakeUser(Context.CurrentUsername))
-
             {
                 // mode for quick edit / submission / control ...
-                return RedirectToAction("QuickEdit");
+                return RedirectToAction("QuickNew");
             }
  
             PageViewModel model = new PageViewModel()
@@ -837,7 +820,7 @@ namespace Roadkill.Core.Mvc.Controllers
         /// <returns>An empty <see cref="PageViewModel"/> as the model.</returns>
         /// <remarks>This action requires editor rights.</remarks>
         [EditorRequired]
-        public ActionResult QuickEdit()
+        public ActionResult QuickNew()
         {
             PageViewModel model = new PageViewModel()
             {
@@ -884,7 +867,6 @@ namespace Roadkill.Core.Mvc.Controllers
                 return View("QuickEdit", model);
 
             model = _pageService.AddPage(model);
-
             _pageService.ValidatePage(model.Id, Context.CurrentUsername, 4, model.IsInCompetition, model.RawTags);
 
             return RedirectToAction("Index", "Wiki", new { id = model.Id });

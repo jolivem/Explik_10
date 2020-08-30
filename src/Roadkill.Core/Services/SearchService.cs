@@ -18,6 +18,7 @@ using Roadkill.Core.Database;
 using Roadkill.Core.Mvc.ViewModels;
 using Roadkill.Core.Plugins;
 using Roadkill.Core.MyLucene;
+using Roadkill.Core.Logging;
 
 namespace Roadkill.Core.Services
 {
@@ -65,7 +66,9 @@ namespace Roadkill.Core.Services
 			if (string.IsNullOrWhiteSpace(searchText))
 				return list;
 
-            MyFrenchAnalyzer analyzer = new MyFrenchAnalyzer(LUCENEVERSION);
+			Log.Information("searchText = {0}", searchText);
+
+			MyFrenchAnalyzer analyzer = new MyFrenchAnalyzer(LUCENEVERSION);
 			MultiFieldQueryParser parser = new MultiFieldQueryParser(LuceneVersion.LUCENE_29, new string[] { "content", "title", "tags", "createdby" }, analyzer);
             parser.DefaultOperator = QueryParser.Operator.AND;
 
