@@ -328,7 +328,7 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
         /// <exception cref="DatabaseException">An databaseerror occurred while retrieving the list.</exception>
-        public IEnumerable<PageViewModel> MyPages(string id)
+        public IEnumerable<PageViewModel> MyPages(string username)
         {
             try
             {
@@ -340,7 +340,7 @@ namespace Roadkill.Core.Services
 
                 if (pageModels == null)
                 {
-                    IEnumerable<Page> pages = Repository.MyPages(id).OrderByDescending(p => p.Id);
+                    IEnumerable<Page> pages = Repository.MyPages(username).OrderByDescending(p => p.Id);
                     pageModels = from page in pages
                                  select new PageViewModel(page);
 

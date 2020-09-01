@@ -95,7 +95,6 @@ namespace Roadkill.Core.Email
             result = result.Replace("{FIRSTNAME}", info.User.Firstname);
             result = result.Replace("{LASTNAME}", info.User.Lastname);
             result = result.Replace("{PAGETITLE}", info.Page.Title);
-            //result = result.Replace("{REJECTREASON}", info.RejectType);
             //result = result.Replace("{ACTIVATIONKEY}", model.ActivationKey);
             //result = result.Replace("{RESETKEY}", model.PasswordResetKey);
             //result = result.Replace("{USERID}", model.Id.ToString());

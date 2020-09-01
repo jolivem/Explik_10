@@ -15,15 +15,6 @@ using System.Web.Mvc;
 
 namespace Roadkill.Core.Mvc.ViewModels
 {
-    //public class Comments
-    //{
-    //    public string CreateBy;
-    //    public DateTime CreatedOn;
-    //    public string Comment;
-    //    public int Rating; //from 1 to 5
-    //}
-
-
     /// <summary>
     /// Provides summary data for a page.
     /// </summary>
@@ -190,19 +181,6 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// 
         /// </summary>
         public long NbRating;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        //public string RejectReason { get; set; }
-
-        public IEnumerable<string> RejectReasonAvailable
-        {
-            get
-            {
-                return new string[] { "Unpolite", "TBC1", "TBC2" }; //TODO
-            }
-        }
 
         /// <summary>
         /// 

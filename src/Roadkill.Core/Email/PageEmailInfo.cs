@@ -6,8 +6,6 @@ namespace Roadkill.Core.Email
     public class PageEmailInfo
     {
         public User User;
-        //public string RejectType; // key word
-        //public string RejectReason; // clear text
         public PageViewModel Page;
 
         public PageEmailInfo(User user, PageViewModel page)

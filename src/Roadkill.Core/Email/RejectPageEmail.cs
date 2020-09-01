@@ -27,13 +27,6 @@ namespace Roadkill.Core.Email
 
 		public void Send(PageEmailInfo info)
 		{
-            //if (info.RejectType == null)
-            //{
-            //    return;
-            //}
-
-            //string rejectReason = SiteStrings.Reject_Reason;
-
             // Thread safety should not be an issue here
             if (string.IsNullOrEmpty(_plainTextContent))
 				_plainTextContent = ReadTemplateFile("RejectPage.txt");
