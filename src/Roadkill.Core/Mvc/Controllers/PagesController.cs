@@ -861,7 +861,7 @@ namespace Roadkill.Core.Mvc.Controllers
         [EditorRequired]
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult QuickEdit(PageViewModel model)
+        public ActionResult QuickNew(PageViewModel model)
         {
             if (!ModelState.IsValid)
                 return View("QuickEdit", model);
