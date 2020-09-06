@@ -108,5 +108,7 @@ namespace Roadkill.Core.Database.Repositories
         /// <param name="pageId"></param>
         /// <returns></returns>
         IEnumerable<Course> FindCoursesByPageId(int pageId);
+
+        List<int> GetPagesIdByCourseId(int courseId);
     }
 }

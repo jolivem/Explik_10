@@ -42,7 +42,7 @@ namespace Roadkill.Core.Mvc.ViewModels
             CourseId = course.Id;
             Title = course.Title;
             CreatedBy = course.CreatedBy;
-            CoursePagesModels = new List<CoursePageViewModel>();
+            CoursePagesModels = new List<CoursePageViewModel>(); // empty
         }
 
         /// <summary>

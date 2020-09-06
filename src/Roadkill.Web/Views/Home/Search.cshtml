@@ -27,7 +27,7 @@
     </div>
     <div class=" row">
         <div class="col-md-10">
-            <table>
+            <table class="table table-striped">
                 @foreach (SearchResultViewModel result in Model)
                 {
                     <tr class="searchresult">
@@ -39,6 +39,7 @@
                             <br />
                             <span class="searchresult-summary">@MvcHtmlString.Create(result.ContentSummary)...</span><br />
                             @MvcHtmlString.Create(result.EncodeTags())
+
                             <span>
                                 @if (@result.CreatedBy.ToLower() == "explik")
                                 {
@@ -50,6 +51,25 @@
                                 }
                                 <span style="display: inline-block;margin-bottom:-2px;">@MvcHtmlString.Create(@result.EncodePageRating(result.Rating))</span>
                             </span>
+                            <!-- Courses -->
+                            @if (result.AllCourses.Count > 0)
+                            {
+                                <br />
+                                <span class="searchresult-summary">@SiteStrings.Page_Info_Course2</span>
+                                for (int idc = 0; idc < result.AllCourses.Count; idc++)
+                                {
+                                    if (idc < result.AllCourses.Count - 1)
+                                    {
+                                        <span class="searchresult-tags"><a href="@Url.Action("Index", "Courses", new { id = result.AllCourses[idc].CourseId, title = result.AllCourses[idc].EncodedTitle })">@result.AllCourses[idc].Title</a>;&nbsp;&nbsp;</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="searchresult-tags"><a href="@Url.Action("Index", "Courses", new { id = result.AllCourses[idc].CourseId, title = result.AllCourses[idc].EncodedTitle })">@result.AllCourses[idc].Title</a></span>
+
+                                    }
+                                }
+                            }
+
                         </td>
                     </tr>
                 }

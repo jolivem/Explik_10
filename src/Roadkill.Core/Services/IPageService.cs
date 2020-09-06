@@ -39,7 +39,7 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
         /// <exception cref="DatabaseException">An database error occurred while retrieving the list.</exception>
-        IEnumerable<PageViewModel> MyPages(string id);
+        List<PageViewModel> MyPages(string id);
 
         /// <summary>
         /// Retrieves the list of pages with alerts.

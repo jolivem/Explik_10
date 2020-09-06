@@ -328,26 +328,26 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <returns>An <see cref="IEnumerable{PageViewModel}"/> of the pages.</returns>
         /// <exception cref="DatabaseException">An databaseerror occurred while retrieving the list.</exception>
-        public IEnumerable<PageViewModel> MyPages(string username)
+        public List<PageViewModel> MyPages(string username)
         {
             try
             {
-                string cacheKey = "";
                 IEnumerable<PageViewModel> pageModels;
 
-                cacheKey = CacheKeys.MyPages();
-                pageModels = _listCache.Get<PageViewModel>(cacheKey);
+                IEnumerable<Page> pages = Repository.MyPages(username).OrderByDescending(p => p.Id);
+                pageModels = from page in pages
+                             select new PageViewModel(page);
 
-                if (pageModels == null)
+                var list = pageModels.ToList();
+                foreach (var page in list)
                 {
-                    IEnumerable<Page> pages = Repository.MyPages(username).OrderByDescending(p => p.Id);
-                    pageModels = from page in pages
-                                 select new PageViewModel(page);
-
-                    _listCache.Add<PageViewModel>(cacheKey, pageModels);
+                    // get courses of the page
+                    var courses = Repository.FindCoursesByPageId(page.Id);
+                    var allCourses = (from course in courses
+                                      select new CourseViewModel(course)).ToList();
+                    page.AllCourses = allCourses;
                 }
-
-                return pageModels;
+                return list;
             }
             catch (DatabaseException ex)
             {
@@ -735,39 +735,6 @@ namespace Roadkill.Core.Services
         /// Finds the first page with the tag 'homepage'. Any pages that are locked by an administrator take precedence.
         /// </summary>
         /// <returns>The homepage.</returns>
-        //public PageViewModel FindHomePage()
-        //{
-        //    try
-        //    {
-        //        PageViewModel pageModel = _pageViewModelCache.GetHomePage();
-        //        if (pageModel == null)
-        //        {
-
-        //            Page page = Repository.FindPagesContainingTag("homepage").FirstOrDefault(x => x.IsLocked == true);
-        //            if (page == null)
-        //            {
-        //                page = Repository.FindPagesContainingTag("homepage").FirstOrDefault();
-        //            }
-
-        //            if (page != null)
-        //            {
-        //                pageModel = new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
-        //                _pageViewModelCache.UpdateHomePage(pageModel);
-        //            }
-        //        }
-
-        //        return pageModel;
-        //    }
-        //    catch (DatabaseException ex)
-        //    {
-        //        throw new DatabaseException(ex, "An error occurred finding the tag 'homepage' in the database");
-        //    }
-        //}
-
-        /// <summary>
-        /// Finds the first page with the tag 'homepage'. Any pages that are locked by an administrator take precedence.
-        /// </summary>
-        /// <returns>The homepage.</returns>
         public PageViewModel FindPageWithTag(string tag)
         {
             try
@@ -939,9 +906,7 @@ namespace Roadkill.Core.Services
                         pageModel.AllCourses = (from course in courses
                                             select new CourseViewModel(course)).ToList();
 
-                        //CoursePage coursePage = coursePages.SingleOrDefault(x => x.PageId == page.Id);
-
-                        _pageViewModelCache.Add(id, pageModel);
+                        //_pageViewModelCache.Add(id, pageModel);
 
                         return pageModel;
                     }
@@ -997,7 +962,7 @@ namespace Roadkill.Core.Services
                         pageModel.Ranking = Repository.GetPageRanking(id);
                         pageModel.UserHits = Repository.GetUserHits(page.CreatedBy);
 
-                        _pageViewModelCache.Add(id, pageModel);
+                        //_pageViewModelCache.Add(id, pageModel);
 
                         return pageModel;
                     }
@@ -1403,18 +1368,18 @@ namespace Roadkill.Core.Services
 
         }
 
-        public Page FindById(int id) //TODO handle cache ???
-        {
-            try
-            {
-                return Repository.GetPageById(id);
-            }
-            catch (DatabaseException ex)
-            {
-                //throw new DatabaseException(ex, "An error occurred getting the page with id '{0}' from the database", id);
-                return null;
-            }
-        }
+        //public Page FindById(int id) //TODO handle cache ???
+        //{
+        //    try
+        //    {
+        //        return Repository.GetPageById(id);
+        //    }
+        //    catch (DatabaseException ex)
+        //    {
+        //        //throw new DatabaseException(ex, "An error occurred getting the page with id '{0}' from the database", id);
+        //        return null;
+        //    }
+        //}
 
         public UserActivity GetUserActivity(string username)
         {

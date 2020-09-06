@@ -2302,6 +2302,15 @@ namespace Roadkill.Core.Localization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Course: .
+        /// </summary>
+        public static string Page_Info_Course2 {
+            get {
+                return ResourceManager.GetString("Page_Info_Course2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Voir les séries.
         /// </summary>
         public static string Page_Info_Courses {

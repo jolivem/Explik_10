@@ -46,19 +46,23 @@
 <div class="row">
     @if (Model.CoursePagesModels.Count() > 0)
     {
-
         <table id="table-page" class="table table-striped">
             <thead>
                 <tr>
                     <th>@SiteStrings.AllCourses_TitleColumnHeading</th>
+                    <th>@SiteStrings.MyPages_Tags</th>
+                    <th>@SiteStrings.MyPages_Status_Title</th>
                 </tr>
             </thead>
             <tbody>
                 @for (int item = 0; item < Model.CoursePagesModels.Count; item++)
                 {
-                    <tr>
-                        <td>@Html.ActionLink(Model.CoursePagesModels[item].Page.Title, "Index", "Wiki", new { id = Model.CoursePagesModels[item].Page.Id, title = Model.CoursePagesModels[item].Page.EncodedTitle }, null)</td>
-                    </tr>
+                <tr>
+                    <td>@Html.ActionLink(Model.CoursePagesModels[item].Page.Title, "Index", "Wiki", new { id = Model.CoursePagesModels[item].Page.Id, title = Model.CoursePagesModels[item].Page.EncodedTitle }, null)</td>
+                    <td class="pagename">@MvcHtmlString.Create(Model.CoursePagesModels[item].Page.RawTags)</td>
+                    <td class="pagename">@MvcHtmlString.Create(Model.CoursePagesModels[item].Page.Status)</td>
+                </tr>
+
                 }
             </tbody>
         </table>

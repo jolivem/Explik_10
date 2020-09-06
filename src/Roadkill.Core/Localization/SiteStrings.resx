@@ -1640,4 +1640,7 @@
   <data name="Page_Info_Courses" xml:space="preserve">
     <value>Voir les séries</value>
   </data>
+  <data name="Page_Info_Course2" xml:space="preserve">
+    <value>Course: </value>
+  </data>
 </root>

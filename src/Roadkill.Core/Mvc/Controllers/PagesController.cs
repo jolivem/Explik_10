@@ -105,11 +105,9 @@ namespace Roadkill.Core.Mvc.Controllers
             List<PageViewModel> models;
 
             ViewData["Username"] = currentUser;
-            models = _pageService.MyPages(currentUser).ToList();
+            models = _pageService.MyPages(currentUser);
 
             // Add competition information to the model
-            //for (int ind = 0; ind < models.Count; ind++)
-
             foreach (PageViewModel model in models)
             {
                 model.CompetitionInfo = "";

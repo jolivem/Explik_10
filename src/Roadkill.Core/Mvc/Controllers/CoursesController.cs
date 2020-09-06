@@ -47,7 +47,7 @@ namespace Roadkill.Core.Mvc.Controllers
         {
             if (id != null)
             {
-                CourseViewModel model = _courseService.GetByIdWithPages((int)id);
+                CourseViewModel model = _courseService.GetByIdWithPages((int)id, false);
                 if (model != null)
                 {
                     model.PreviousTitle = model.Title; // in order to see if it has changed
@@ -73,13 +73,13 @@ namespace Roadkill.Core.Mvc.Controllers
 
 
         /// <summary>
-        /// Edit a course for modifications
+        /// List the pages of a course
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public ActionResult Index(int id, string title)
         {
-            CourseViewModel model = _courseService.GetByIdWithPages((int)id);
+            CourseViewModel model = _courseService.GetByIdWithPages(id, true);
             if (model != null)
             {
                 model.PreviousTitle = model.Title; // in order to see if it has changed
@@ -96,7 +96,7 @@ namespace Roadkill.Core.Mvc.Controllers
         [EditorRequired]
         public ActionResult MyCourse(int id)
         {
-            CourseViewModel model = _courseService.GetByIdWithPages((int)id);
+            CourseViewModel model = _courseService.GetByIdWithPages((int)id, false);
             if (model != null)
             {
                 model.PreviousTitle = model.Title; // in order to see if it has changed

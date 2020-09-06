@@ -1550,6 +1550,15 @@ namespace Roadkill.Core.Database.LightSpeed
             }
         }
 
+        public List<int> GetPagesIdByCourseId(int courseId)
+        {
+            using (var uow = new UnitOfWork(connectionString))
+            {
+                List<int> pageIds = uow.CoursePages.Where(x => x.CourseId == courseId).Select(x => x.PageId).ToList();
+                return pageIds;
+            }
+        }
+
         // Delete a course and its course pages
         public void DeleteCourse(int id)
         {

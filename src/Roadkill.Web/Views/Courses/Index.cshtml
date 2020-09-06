@@ -1,42 +1,44 @@
 ﻿@model CourseViewModel
 @{
-    ViewBag.Title = SiteStrings.EditCourse_Title;
+    ViewBag.Title = @SiteStrings.Page_Info_Course2 + Model.Title;
 }
 
 <div class="row">
     <div class="col-sm-9">
-        <h2>@Model.Title</h2>
+        <h2>@SiteStrings.Page_Info_Course2 @Model.Title</h2>
     </div>
-    <div class="col-sm-3">
-        <h2> </h2>
-        <p>
+</div>
+<div class="row">
+     <div class="col-sm-3">
             <img src="@(Url.Content(@Model.GetPortraitImage()))" border="0" alt="loading" style="float:left;width:40px;height:40px;" />
             @if (Model.CreatedBy.ToLower() != "explik")
             {
                 <span style="color:green;padding-left:15px;">@SiteStrings.Page_Info_CreatedBy2 @Model.CreatedBy</span><br />
             }
-        </p>
     </div>
-</div>
-
+</div><br />
 <div class="row">
 
     @if (Model.CoursePagesModels.Count() > 0)
     {
 
         <table id="table-page" class="table table-striped">
-            <thead>
+            @*<thead>
                 <tr>
                     <th>@SiteStrings.AllCourses_TitleColumnHeading</th>
-                    <th></th>
                 </tr>
-            </thead>
+            </thead>*@
             <tbody>
                 @for (int item = 0; item < Model.CoursePagesModels.Count; item++)
                 {
                     <tr>
-                        <td>@Html.ActionLink(Model.CoursePagesModels[item].Page.Title, "Index", "Wiki", new { id = Model.CoursePagesModels[item].Page.Id, title = Model.CoursePagesModels[item].Page.EncodedTitle }, null)</td>
-                        <td><span style="display: inline-block;margin-bottom:-2px;">@MvcHtmlString.Create(PageViewModel.EncodePageRating(Model.CoursePagesModels[item].Page))</span></td>
+                        <td>
+                            @Html.ActionLink(Model.CoursePagesModels[item].Page.Title, "Index", "Wiki", new { id = Model.CoursePagesModels[item].Page.Id, title = Model.CoursePagesModels[item].Page.EncodedTitle }, null)
+                            <br />
+                            <span class="searchresult-summary">@MvcHtmlString.Create(Model.CoursePagesModels[item].Page.ContentSummary)...</span><br />
+                            <span class="searchresult-date">@Model.CoursePagesModels[item].Page.CreatedOn.ToString("dd/MM/yyyy") - @Model.CoursePagesModels[item].Page.NbView @SiteStrings.Page_Info_NbView</span>
+                            <span style="display: inline-block;margin-bottom:-2px;">@MvcHtmlString.Create(PageViewModel.EncodePageRating(Model.CoursePagesModels[item].Page))</span>
+                        </td>
                     </tr>
                 }
             </tbody>
