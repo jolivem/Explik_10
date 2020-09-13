@@ -284,7 +284,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// </summary>
         public int[] UserHits { get; set; }
 
-        public List<CourseViewModel> AllCourses { get; set; }
+        public List<CourseModel> AllCourses { get; set; }
 
         
         /// <summary>
@@ -305,12 +305,12 @@ namespace Roadkill.Core.Mvc.ViewModels
             PluginPostContainer = "";
             AllTags = new List<TagViewModel>();
             AllComments = new List<Comment>();
-            AllCourses = new List<CourseViewModel>();
+            AllCourses = new List<CourseModel>();
             CompetitionId = -1;
             IsInCompetition = false;
         }
 
-        public PageViewModel(Page page)
+        public PageViewModel(Page page, IEnumerable<Course> courses = null)
         {
             if (page == null)
                 throw new ArgumentNullException("page");
@@ -341,6 +341,14 @@ namespace Roadkill.Core.Mvc.ViewModels
             TotalRating = page.TotalRating;
             CompetitionId = page.CompetitionId;
             IsInCompetition = CompetitionId != -1 ? true : false;
+            if (courses != null)
+            {
+                AllCourses = (from course in courses select new CourseModel(course)).ToList();
+            }
+            else
+            {
+                AllCourses = new List<CourseModel>();
+            }
         }
 
         /// <summary>
@@ -348,7 +356,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// </summary>
         /// <param name="pageContent"></param>
         /// <param name="converter"></param>
-		public PageViewModel(PageContent pageContent, MarkupConverter converter)
+		public PageViewModel(PageContent pageContent, MarkupConverter converter, IEnumerable<Course> courses = null)
         {
             if (pageContent == null)
                 throw new ArgumentNullException("pageContent");
@@ -393,10 +401,18 @@ namespace Roadkill.Core.Mvc.ViewModels
             PluginPreContainer = pageHtml.PreContainerHtml;
             PluginPostContainer = pageHtml.PostContainerHtml;
 
-
             CreatedOn = DateTime.SpecifyKind(CreatedOn, DateTimeKind.Utc);
             PublishedOn = DateTime.SpecifyKind(PublishedOn, DateTimeKind.Utc);
             AllTags = new List<TagViewModel>();
+
+            if (courses != null)
+            {
+                AllCourses = (from course in courses select new CourseModel(course)).ToList();
+            }
+            else
+            {
+                AllCourses = new List<CourseModel>();
+            }
         }
 
         /// <summary>
@@ -886,17 +902,17 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
-        public static string EncodePageRating(PageViewModel model)
+        public  string EncodePageRating()
         {
             double rating;
-            if (model.NbRating == 0)
+            if (NbRating == 0)
             {
                 rating = .0;
             }
             else
             {
                 //long nbController = model.TotalRating / 3;
-                rating = ((double)model.TotalRating / (double)model.NbRating); //TODO take into account Controller rating
+                rating = ((double)TotalRating / (double)NbRating); //TODO take into account Controller rating
             }
 
             return EncodePageRating(rating);
@@ -933,12 +949,12 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
-        public static string EncodeTags(PageViewModel page)
+        public string EncodeTags()
         {
             StringBuilder builder = new StringBuilder();
             string formatStr = "<span class='searchresult-tags'>{0}&nbsp;</span>";
             bool atLeastOne = false;
-            foreach (string tag in page.Tags)
+            foreach (string tag in Tags)
             {
                 if (!string.IsNullOrWhiteSpace(tag))
                 {

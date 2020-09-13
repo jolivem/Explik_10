@@ -51,16 +51,17 @@ namespace Roadkill.Core
 			// Custom view engine registration (to add new search paths)
 			ExtendedRazorViewEngine.Register();
 
-			Log.Information("Application started");
+			//Log.Information("Application started");
 		}
 
 		protected void Application_Error()
 		{
 			// Log ASP.NET errors (404, 500)
 			HttpException exception = new HttpException(null, HttpContext.Current.Server.GetLastError());
-			Log.Error("An ASP.NET based error occurred - ({0}) - {1}", 
-						exception.GetHttpCode(),
-						exception.ToString());
+			//Log.Error("An ASP.NET based error occurred - ({0}) - {1}",
+			//			exception.GetHttpCode(),
+			//			exception.ToString());
+			Log.Error("An ASP.NET based error occurred - ({0})", exception.GetHttpCode());
 		}
 
 		protected void Application_EndRequest(object sender, EventArgs e)

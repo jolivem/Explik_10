@@ -31,7 +31,7 @@ namespace Roadkill.Core.Mvc.Controllers.Api
 		/// Searches the roadkill instance with the text provided.
 		/// </summary>
 		/// <returns></returns>
-		public IEnumerable<SearchResultViewModel> Get(string query)
+		public IEnumerable<PageViewModel> Get(string query)
 		{
 			return _searchService.Search(query);
 		}

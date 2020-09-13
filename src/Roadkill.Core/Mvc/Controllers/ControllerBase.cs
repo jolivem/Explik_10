@@ -41,7 +41,8 @@ namespace Roadkill.Core.Mvc.Controllers
 			}
 
 			string routeInfo = string.Join(", ", routeData);
-			Log.Error("MVC error caught. Route data: [{0}] - {1}\n{2}", routeInfo, filterContext.Exception.Message, filterContext.Exception.ToString());
+			//Log.Error("MVC error caught. Route data: [{0}] - {1}\n{2}", routeInfo, filterContext.Exception.Message, filterContext.Exception.ToString());
+			Log.Error("MVC error caught. Route data: [{0}] - {1}", routeInfo, filterContext.Exception.Message);
 
 			base.OnException(filterContext);
 		}

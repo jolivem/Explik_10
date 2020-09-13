@@ -83,7 +83,7 @@ namespace Roadkill.Core.Mvc.Controllers
 		{
 			ViewData["search"] = q;
 
-			List<SearchResultViewModel> results = _searchService.Search(q).ToList();
+			List<PageViewModel> results = _searchService.Search(q).ToList();
 			return View(results);
 		}
 

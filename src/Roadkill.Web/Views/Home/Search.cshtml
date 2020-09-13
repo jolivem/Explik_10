@@ -1,4 +1,4 @@
-﻿﻿@model IEnumerable<SearchResultViewModel>
+﻿﻿@model IEnumerable<PageViewModel>
 @{
     string title = string.Format(SiteStrings.Search_Results, ViewData["search"]);
     if (Model.Count() == 0)
@@ -28,43 +28,43 @@
     <div class=" row">
         <div class="col-md-10">
             <table class="table table-striped">
-                @foreach (SearchResultViewModel result in Model)
+                @foreach (PageViewModel page in @Model)
                 {
                     <tr class="searchresult">
                         <td class="searchresult-td">
                             <span class="searchresult-title">
-                                @MvcHtmlString.Create(PageViewModel.EncodeImageRanking(result.Ranking))
-                                @Html.ActionLink(result.Title, "Index", "Wiki", new { id = result.Id, title = result.EncodedTitle }, null)
+                                @MvcHtmlString.Create(PageViewModel.EncodeImageRanking(page.Ranking))
+                                @Html.ActionLink(page.Title, "Index", "Wiki", new { id = page.Id, title = page.EncodedTitle }, null)
                             </span>
                             <br />
-                            <span class="searchresult-summary">@MvcHtmlString.Create(result.ContentSummary)...</span><br />
-                            @MvcHtmlString.Create(result.EncodeTags())
+                            <span class="searchresult-summary">@MvcHtmlString.Create(page.ContentSummary)...</span><br />
+                            @MvcHtmlString.Create(page.EncodeTags())
 
                             <span>
-                                @if (@result.CreatedBy.ToLower() == "explik")
+                                @if (page.CreatedBy.ToLower() == "explik")
                                 {
-                                    <span class="searchresult-date">@result.CreatedOn.ToString("dd/MM/yyyy") - @result.NbView @SiteStrings.Page_Info_NbView</span>
+                                    <span class="searchresult-date">@page.CreatedOn.ToString("dd/MM/yyyy") - @page.NbView @SiteStrings.Page_Info_NbView</span>
                                 }
                                 else
                                 {
-                                    <span class="searchresult-date">@result.CreatedBy - @result.CreatedOn.ToString("dd/MM/yyyy") - @result.NbView @SiteStrings.Page_Info_NbView</span>
+                                    <span class="searchresult-date">@page.CreatedBy - @page.CreatedOn.ToString("dd/MM/yyyy") - @page.NbView @SiteStrings.Page_Info_NbView</span>
                                 }
-                                <span style="display: inline-block;margin-bottom:-2px;">@MvcHtmlString.Create(@result.EncodePageRating(result.Rating))</span>
+                                <span style="display: inline-block;margin-bottom:-2px;">@MvcHtmlString.Create(page.EncodePageRating())</span>
                             </span>
                             <!-- Courses -->
-                            @if (result.AllCourses.Count > 0)
+                            @if (page.AllCourses.Count > 0)
                             {
                                 <br />
                                 <span class="searchresult-summary">@SiteStrings.Page_Info_Course2</span>
-                                for (int idc = 0; idc < result.AllCourses.Count; idc++)
+                                for (int idc = 0; idc < page.AllCourses.Count; idc++)
                                 {
-                                    if (idc < result.AllCourses.Count - 1)
+                                    if (idc < page.AllCourses.Count - 1)
                                     {
-                                        <span class="searchresult-tags"><a href="@Url.Action("Index", "Courses", new { id = result.AllCourses[idc].CourseId, title = result.AllCourses[idc].EncodedTitle })">@result.AllCourses[idc].Title</a>;&nbsp;&nbsp;</span>
+                                        <span class="searchresult-tags"><a href="@Url.Action("Index", "Courses", new { id = page.AllCourses[idc].CourseId, title = page.AllCourses[idc].EncodedTitle })">@page.AllCourses[idc].Title</a>;&nbsp;&nbsp;</span>
                                     }
                                     else
                                     {
-                                        <span class="searchresult-tags"><a href="@Url.Action("Index", "Courses", new { id = result.AllCourses[idc].CourseId, title = result.AllCourses[idc].EncodedTitle })">@result.AllCourses[idc].Title</a></span>
+                                        <span class="searchresult-tags"><a href="@Url.Action("Index", "Courses", new { id = page.AllCourses[idc].CourseId, title = page.AllCourses[idc].EncodedTitle })">@page.AllCourses[idc].Title</a></span>
 
                                     }
                                 }

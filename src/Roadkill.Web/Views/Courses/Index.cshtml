@@ -37,7 +37,7 @@
                             <br />
                             <span class="searchresult-summary">@MvcHtmlString.Create(Model.CoursePagesModels[item].Page.ContentSummary)...</span><br />
                             <span class="searchresult-date">@Model.CoursePagesModels[item].Page.CreatedOn.ToString("dd/MM/yyyy") - @Model.CoursePagesModels[item].Page.NbView @SiteStrings.Page_Info_NbView</span>
-                            <span style="display: inline-block;margin-bottom:-2px;">@MvcHtmlString.Create(PageViewModel.EncodePageRating(Model.CoursePagesModels[item].Page))</span>
+                            <span style="display: inline-block;margin-bottom:-2px;">@MvcHtmlString.Create(Model.CoursePagesModels[item].Page.EncodePageRating())</span>
                         </td>
                     </tr>
                 }

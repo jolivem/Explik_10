@@ -1,4 +1,5 @@
-﻿using Roadkill.Core.Database;
+﻿using Roadkill.Core.Converters;
+using Roadkill.Core.Database;
 using Roadkill.Core.Localization;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace Roadkill.Core.Mvc.ViewModels
         /// 
         /// </summary>
         /// <param name="course"></param>
-        public CoursePageViewModel(CoursePage coursePage, Page page)
+        public CoursePageViewModel(CoursePage coursePage, PageContent pageContent, MarkupConverter converter)
         {
             if (coursePage == null)
             {
@@ -50,7 +51,7 @@ namespace Roadkill.Core.Mvc.ViewModels
                 Id = coursePage.Id;
                 CourseId = coursePage.CourseId;
             }
-            Page = new PageViewModel(page);
+            Page = new PageViewModel(pageContent, converter);
         }
 
         /// <summary>

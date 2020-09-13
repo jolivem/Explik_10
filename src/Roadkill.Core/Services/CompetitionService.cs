@@ -415,16 +415,7 @@ namespace Roadkill.Core.Services
                         Repository.ArchiveCompetitionPage(competitionId, page);
 
                         // Add the pages to Lucene search engine
-                        PageViewModel pageModel = _pageService.GetById(page.Id, true);
-                        try
-                        {
-                            _searchService.Add(pageModel);
-                        }
-                        catch (SearchException)
-                        {
-                            // TODO: log
-                        }
-
+                        _searchService.Add(page.Id);
                     }
                 }
                 

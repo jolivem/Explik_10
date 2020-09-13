@@ -109,18 +109,9 @@ namespace Roadkill.Core.Services
                 _listCache.RemoveAll();
                 _pageViewModelCache.RemoveAll(); // completely clear the cache to update any reciprocal links.
 
-                // Update the lucene index
-                PageViewModel savedModel = new PageViewModel(pageContent, _markupConverter);
-
                 //Update Lucene only when controlled
-                //try
-                //{
-                //    _searchService.Add(savedModel);
-                //}
-                //catch (SearchException)
-                //{
-                //    // TODO: log
-                //}
+
+                PageViewModel savedModel = new PageViewModel(pageContent, _markupConverter);
 
                 return savedModel;
             }
@@ -183,15 +174,7 @@ namespace Roadkill.Core.Services
                         _pageViewModelCache.RemoveAll(); // completely clear the cache to update any reciprocal links.
 
                         // Update the lucene index
-                        PageViewModel savedModel = new PageViewModel(pageContent, _markupConverter);
-                        try
-                        {
-                            _searchService.Add(savedModel);
-                        }
-                        catch (SearchException)
-                        {
-                            // TODO: log
-                        }
+                        _searchService.Add(pageContent.Page.Id);
                     }
                 }
 
@@ -224,7 +207,8 @@ namespace Roadkill.Core.Services
                     {
                         IEnumerable<Page> pages = Repository.AllPages().OrderBy(p => p.Title);
                         pageModels = from page in pages
-                                     select new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+                                     select new PageViewModel(Repository.GetLatestPageContent(page.Id), 
+                                     _markupConverter, Repository.FindCoursesByPageId(page.Id));
 
                         _listCache.Add<PageViewModel>(cacheKey, pageModels);
                     }
@@ -344,7 +328,7 @@ namespace Roadkill.Core.Services
                     // get courses of the page
                     var courses = Repository.FindCoursesByPageId(page.Id);
                     var allCourses = (from course in courses
-                                      select new CourseViewModel(course)).ToList();
+                                      select new CourseModel(course)).ToList();
                     page.AllCourses = allCourses;
                 }
                 return list;
@@ -372,7 +356,7 @@ namespace Roadkill.Core.Services
                 {
                     IEnumerable<Page> pages = Repository.FindPagesCreatedBy(userName);
                     models = from page in pages
-                             select new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+                             select new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter, Repository.FindCoursesByPageId(page.Id));
 
                     _listCache.Add<PageViewModel>(cacheKey, models);
                 }
@@ -650,15 +634,7 @@ namespace Roadkill.Core.Services
                 //Update Lucene only when controlled, but not in competition (see CompetitionService.Achieve()
                 if (!isInCompetition)
                 {
-                    PageViewModel model = GetById(pageId, true);
-                    try
-                    {
-                        _searchService.Add(model);
-                    }
-                    catch (SearchException)
-                    {
-                        // TODO: log
-                    }
+                    _searchService.Add(pageId);
                 }
             }
             catch (DatabaseException ex)
@@ -781,7 +757,9 @@ namespace Roadkill.Core.Services
 
                     IEnumerable<Page> pages = Repository.FindPagesContainingTag(tag).OrderBy(p => p.Title);
                     models = from page in pages
-                             select new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+                             select new PageViewModel(Repository.GetLatestPageContent(page.Id), 
+                             _markupConverter, 
+                             Repository.FindCoursesByPageId(page.Id));
 
                     _listCache.Add<PageViewModel>(cacheKey, models);
                 }
@@ -812,7 +790,8 @@ namespace Roadkill.Core.Services
 
                     IEnumerable<Page> pages = Repository.FindControlledPagesByTag(tag).OrderBy(p => p.Title);
                     models = from page in pages
-                             select new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+                             select new PageViewModel(Repository.GetLatestPageContent(page.Id), 
+                             _markupConverter, Repository.FindCoursesByPageId(page.Id));
 
                     _listCache.Add<PageViewModel>(cacheKey, models);
                 }
@@ -842,7 +821,7 @@ namespace Roadkill.Core.Services
                 if (page == null)
                     return null;
                 else
-                    return new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+                    return new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter, Repository.FindCoursesByPageId(page.Id));
             }
             catch (DatabaseException ex)
             {
@@ -882,17 +861,17 @@ namespace Roadkill.Core.Services
                         // used on the second call anyway, so performance isn't an issue.
                         if (ApplicationSettings.UseObjectCache)
                         {
-                            pageModel = new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+                            pageModel = new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter, Repository.FindCoursesByPageId(page.Id));
                         }
                         else
                         {
                             if (loadContent)
                             {
-                                pageModel = new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+                                pageModel = new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter, Repository.FindCoursesByPageId(page.Id));
                             }
                             else
                             {
-                                pageModel = new PageViewModel(page);
+                                pageModel = new PageViewModel(page, Repository.FindCoursesByPageId(page.Id));
                             }
                         }
 
@@ -900,11 +879,6 @@ namespace Roadkill.Core.Services
                         pageModel.AllComments = FindAllCommentByPage(id);
                         pageModel.Ranking = Repository.GetPageRanking(id);
                         pageModel.UserHits = Repository.GetUserHits(page.CreatedBy);
-
-                        // get courses of the page
-                        var courses = Repository.FindCoursesByPageId(page.Id);
-                        pageModel.AllCourses = (from course in courses
-                                            select new CourseViewModel(course)).ToList();
 
                         //_pageViewModelCache.Add(id, pageModel);
 
@@ -1414,6 +1388,8 @@ namespace Roadkill.Core.Services
         /// <param name="rating">if 0, remove rating</param>
         public void SetPageRatingForUser(int pageId, string username, int rating)
         {
+            Log.Information("SetPageRatingForUser, pageId = {0}, pageId, username = {1}, rating = {2}", 
+                pageId, username, rating);
             if (string.IsNullOrEmpty(username))
             {
                 // use the IP address instead of the user

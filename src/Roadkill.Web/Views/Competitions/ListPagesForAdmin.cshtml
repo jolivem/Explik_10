@@ -30,7 +30,7 @@
                         @MvcHtmlString.Create(PageViewModel.EncodeTags(page))
                         <span>
                             <span class="searchresult-date">@page.CreatedBy - @page.PublishedOn.Date.ToString("dd/MM/yyyy") - @page.NbView @SiteStrings.Page_Info_NbView</span>
-                            <span style="display: inline-block;margin-bottom:-2px;">@MvcHtmlString.Create(PageViewModel.EncodePageRating(page))</span>
+                            <span style="display: inline-block;margin-bottom:-2px;">@MvcHtmlString.Create(page.EncodePageRating())</span>
                         </span>
                     </td>
                 </tr>

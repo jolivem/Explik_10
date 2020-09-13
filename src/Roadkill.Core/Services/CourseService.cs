@@ -5,17 +5,23 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Roadkill.Core.Configuration;
+using Roadkill.Core.Converters;
 using Roadkill.Core.Database;
 using Roadkill.Core.Mvc.ViewModels;
+using Roadkill.Core.Plugins;
 
 namespace Roadkill.Core.Services
 {
     public class CourseService : ServiceBase, ICourseService
     {
+        private MarkupConverter _markupConverter;
+        private SearchService _searchService;
 
-        public CourseService(ApplicationSettings settings, IRepository repository)
+        public CourseService(SearchService searchService, ApplicationSettings settings, IRepository repository, IPluginFactory pluginFactory)
             : base(settings, repository)
         {
+            _markupConverter = new MarkupConverter(settings, repository, pluginFactory);
+            _searchService = searchService;
         }
 
         /// <summary>
@@ -35,7 +41,7 @@ namespace Roadkill.Core.Services
         /// </summary>
         /// <param name="courseId"></param>
         /// <returns></returns>
-        public CourseViewModel GetByIdWithPages(int courseId, bool onlyControlled = false)
+        public CourseViewModel GetByIdWithPages(int courseId, bool onlyControlled)
         {
             try
             {
@@ -52,7 +58,8 @@ namespace Roadkill.Core.Services
                 IEnumerable<CoursePage> coursePages = Repository.GetCoursePages(courseId).ToList();
                 model.CoursePagesModels = (from coursePage in coursePages
                                          select new CoursePageViewModel(coursePage, 
-                                         Repository.GetPageById(coursePage.PageId))).ToList();
+                                            Repository.GetLatestPageContent(coursePage.PageId), _markupConverter)
+                                         ).ToList();
 
                 // sort by order
                 if (model != null && model.CoursePagesModels != null)
@@ -170,6 +177,15 @@ namespace Roadkill.Core.Services
         {
             if (model != null)
             {
+                // keep list of pages to be updated in the index
+                var pagesToUpdate = Repository.GetPagesIdByCourseId(model.CourseId);
+                var pagesToUpdate2 = (from page in model.Pages 
+                                      where page.Selected==true
+                                      select page.Page.Id).ToList();
+                pagesToUpdate.AddRange(pagesToUpdate2);
+                var distinct = pagesToUpdate.Distinct().ToList(); // keep one int of each
+                
+
                 // remove all coursepages from course
                 Repository.DeleteCoursePages(model.CourseId);
 
@@ -187,6 +203,11 @@ namespace Roadkill.Core.Services
                         Repository.AddCoursePage(coursePage);
                     }
                 }
+                // can be optimized, if only selection has changed, intersection 
+                // of sets is better than union
+
+                // finally update the index
+                _searchService.Update(distinct);
             }
         }
 
@@ -197,11 +218,16 @@ namespace Roadkill.Core.Services
                 if (model.Title != model.PreviousTitle)
                 {
                     Repository.UpdateCourseTitle(model.CourseId, model.Title);
+
+                    // and update index
+                    var pagesToUpdate = Repository.GetPagesIdByCourseId(model.CourseId);
+                    _searchService.Update(pagesToUpdate);
                 }
 
                 foreach (CoursePageViewModel coursePageModel in model.CoursePagesModels)
                 {
                     Repository.UpdateCoursePageOrder(coursePageModel.Id, coursePageModel.Order);
+
                 }
             }
         }

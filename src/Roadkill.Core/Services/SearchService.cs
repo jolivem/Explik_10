@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Lucene.Net.Documents;
 using System.IO;
 using Lucene.Net.Index;
-using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Search;
 using Lucene.Net.QueryParsers;
 using Roadkill.Core.Converters;
@@ -27,26 +25,22 @@ namespace Roadkill.Core.Services
 	/// </summary>
 	public class SearchService : ServiceBase
 	{
-        //private FrenchAnalyzer tt;
-        //private Lucene.Net.Analysis.Fr.FrenchAnalyzer ana;
        
-        private static Regex _removeTagsRegex = new Regex("<(.|\n)*?>");
+        //private static Regex _removeTagsRegex = new Regex("<(.|\n)*?>");
 		private MarkupConverter _markupConverter;
 		protected virtual string IndexPath { get; set; }
 		//private IPluginFactory _pluginFactory;
 		private static readonly LuceneVersion LUCENEVERSION = LuceneVersion.LUCENE_29;
-	    //private PageService pageService;
-	    private IRepository _repository;
-	    private ApplicationSettings _applicationSettings;
+	    //private IRepository _repository;
+	    //private ApplicationSettings _applicationSettings;
 
 		public SearchService(ApplicationSettings applicationSettings, IRepository repository, IPluginFactory pluginFactory)//, PageService _pageService)
             : base(applicationSettings, repository)
 		{
             _markupConverter = new MarkupConverter(applicationSettings, repository, pluginFactory);
 			IndexPath = applicationSettings.SearchIndexPath;
-		    _repository = repository;
-		    _applicationSettings = applicationSettings;
-		    //  pageService = _pageService; //TODO maybe better to store all fileds in LUCENE ??? No because it is dynamic !!!
+		    //_repository = repository;
+		    //_applicationSettings = applicationSettings;
 		}
 
 		/// <summary>
@@ -55,13 +49,13 @@ namespace Roadkill.Core.Services
 		/// <param name="searchText">The text to search with.</param>
 		/// <remarks>Syntax reference: http://lucene.apache.org/java/2_3_2/queryparsersyntax.html#Wildcard</remarks>
 		/// <exception cref="SearchException">An error occured searching the lucene.net index.</exception>
-		public virtual IEnumerable<SearchResultViewModel> Search(string searchText)
+		public virtual IEnumerable<PageViewModel> Search(string searchText)
 		{
 			// This check is for the benefit of the CI builds
 			if (!Directory.Exists(IndexPath))
 				CreateIndex();
 
-			List<SearchResultViewModel> list = new List<SearchResultViewModel>();
+			List<PageViewModel> list = new List<PageViewModel>();
 
 			if (string.IsNullOrWhiteSpace(searchText))
 				return list;
@@ -97,15 +91,28 @@ namespace Roadkill.Core.Services
 							Document document = searcher.Doc(scoreDoc.Doc);
 
 						    int id = int.Parse(document.GetField("id").StringValue);
-						    // TODO optimyze: use cachebrowser or LUCENE DB
-                            Page page = _repository.GetPageById(id);
-						    if (page != null)
-						    {
-                                //page.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + page.FilePath + "/";
-                                int ranking = _repository.GetPageRanking(id);
-                                var model = new SearchResultViewModel(document, scoreDoc, page, ranking);
-						        list.Add(model);
-						    }
+							// TODO optimyze: use cachebrowser or LUCENE DB
+							PageContent content = Repository.GetLatestPageContent(id);
+							if (content != null)
+							{
+								PageViewModel pageModel = new PageViewModel(content, _markupConverter, Repository.FindCoursesByPageId(id));
+								pageModel.Ranking = Repository.GetPageRanking(id);
+								list.Add(pageModel);
+							}
+
+							//Page page = _repository.GetPageById(id);
+							//   if (page != null)
+							//   {
+							//                         //page.FilePath = _applicationSettings.AttachmentsUrlPath + "/" + page.FilePath + "/";
+							//                         int ranking = _repository.GetPageRanking(id);
+							//	var courses = Repository.FindCoursesByPageId(page.Id);
+							//	List<CourseViewModel> allCourses = (from course in courses
+							//							select new CourseViewModel(course)).ToList();
+
+
+							//	var model = new SearchResultViewModel(document, scoreDoc, page, ranking, allCourses);
+							//       list.Add(pageModel);
+							//   }
 						}
 					}
 				}
@@ -121,6 +128,17 @@ namespace Roadkill.Core.Services
 			}
 
 			return list;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="pageId"></param>
+		public virtual void Add(int pageId)
+		{
+			PageViewModel pageModel = new PageViewModel(Repository.GetLatestPageContent(pageId),
+									 _markupConverter, Repository.FindCoursesByPageId(pageId));
+			Add(pageModel);
 		}
 
 		/// <summary>
@@ -143,14 +161,23 @@ namespace Roadkill.Core.Services
                         Document document = new Document();
                         document.Add(new Field("id", model.Id.ToString(), Field.Store.YES, Field.Index.ANALYZED));
                         document.Add(new Field("content", model.Content, Field.Store.YES, Field.Index.ANALYZED));
-                        document.Add(new Field("contentsummary", GetContentSummary(model), Field.Store.YES, Field.Index.NO));
+                        //document.Add(new Field("contentsummary", GetContentSummary(model), Field.Store.YES, Field.Index.NO));
                         document.Add(new Field("title", model.Title, Field.Store.YES, Field.Index.ANALYZED));
-                        document.Add(new Field("tags", model.SpaceDelimitedTags(), Field.Store.YES, Field.Index.ANALYZED));
-                        document.Add(new Field("createdby", model.CreatedBy, Field.Store.YES, Field.Index.ANALYZED));
-                        document.Add(new Field("createdon", model.CreatedOn.ToShortDateString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-                        document.Add(new Field("contentlength", model.Content.Length.ToString(), Field.Store.YES, Field.Index.NO));
 
-                        writer.AddDocument(document);
+						// add tags, createdby and courses to "tags"
+						string courses = string.Join(" ", (from course in model.AllCourses select course.Title));
+						string misc = model.SpaceDelimitedTags() + " " + courses + " " + model.CreatedBy;
+						document.Add(new Field("tags", misc, Field.Store.YES, Field.Index.ANALYZED));
+
+						//document.Add(new Field("tags", model.SpaceDelimitedTags(), Field.Store.YES, Field.Index.ANALYZED));
+                        //document.Add(new Field("createdby", model.CreatedBy, Field.Store.YES, Field.Index.ANALYZED));
+                        //document.Add(new Field("createdon", model.CreatedOn.ToShortDateString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+                        //document.Add(new Field("contentlength", model.Content.Length.ToString(), Field.Store.YES, Field.Index.NO));
+
+						//string titles = string.Join(" ", (from course in model.AllCourses select course.Title));
+						//document.Add(new Field("coursetitle", titles, Field.Store.YES, Field.Index.ANALYZED));
+
+						writer.AddDocument(document);
                         writer.Optimize();
                     }
                 }
@@ -190,6 +217,36 @@ namespace Roadkill.Core.Services
 		}
 
 		/// <summary>
+		/// Deletes the pages given in the list.
+		/// </summary>
+		/// <param name="model">The list of pages to remove.</param>
+		/// <exception cref="SearchException">An error occured with the lucene.net IndexReader while deleting the page from the index.</exception>
+		public virtual int Delete(List<int> pageIds)
+		{
+			try
+			{
+				MyFrenchAnalyzer analyzer = new MyFrenchAnalyzer(LUCENEVERSION);
+				int count = 0;
+				using (IndexReader reader = IndexReader.Open(FSDirectory.Open(new DirectoryInfo(IndexPath)), false))
+				{
+					foreach (int id in pageIds)
+					{
+						count += reader.DeleteDocuments(new Term("id", id.ToString()));
+					}
+				}
+
+				return count;
+			}
+			catch (Exception ex)
+			{
+				if (!ApplicationSettings.IgnoreSearchIndexErrors)
+					throw new SearchException(ex, "An error occured while deleting pages from the search index");
+				else
+					return 0;
+			}
+		}
+
+		/// <summary>
 		/// Updates the <see cref="Page"/> in the search index, by removing it and re-adding it.
 		/// </summary>
 		/// <param name="model">The page to update</param>
@@ -200,6 +257,69 @@ namespace Roadkill.Core.Services
 			Delete(model);
 			Add(model);
 		}
+
+		/// <summary>
+		/// Updates the <see cref="Page"/> in the search index, by removing it and re-adding it.
+		/// </summary>
+		/// <param name="model">The page to update</param>
+		/// <exception cref="SearchException">An error occured with lucene.net while deleting the page or inserting it back into the index.</exception>
+		public virtual void Update(List<int> pages)
+		{
+			EnsureDirectoryExists();
+
+			Delete(pages);
+			Add(pages);
+		}
+
+		public virtual void Add(List<int> pageIds)
+		{
+			try
+			{
+				MyFrenchAnalyzer analyzer = new MyFrenchAnalyzer(LUCENEVERSION);
+				using (IndexWriter writer = new IndexWriter(FSDirectory.Open(new DirectoryInfo(IndexPath)), analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED))
+				{
+					int competitionId = Repository.GetOnGoingCompetitionId();
+					foreach (int id in pageIds)
+					{
+						PageViewModel pageModel = new PageViewModel(
+							Repository.GetLatestPageContent(id), _markupConverter,
+							Repository.FindCoursesByPageId(id));
+
+						// do not index admin, controlled and competitioning pages
+						if (!pageModel.IsLocked && pageModel.IsControlled &&
+							(competitionId == -1 || pageModel.CompetitionId != competitionId))
+						{
+							Document document = new Document();
+							document.Add(new Field("id", pageModel.Id.ToString(), Field.Store.YES, Field.Index.ANALYZED));
+							document.Add(new Field("content", pageModel.Content, Field.Store.YES, Field.Index.ANALYZED));
+							//document.Add(new Field("contentsummary", GetContentSummary(pageModel), Field.Store.YES, Field.Index.NO));
+							document.Add(new Field("title", pageModel.Title, Field.Store.YES, Field.Index.ANALYZED));
+
+							// add tags, createdby and courses to "tags"
+							string courses = string.Join(" ", (from course in pageModel.AllCourses select course.Title));
+							string misc = pageModel.SpaceDelimitedTags() + " " + courses + " " + pageModel.CreatedBy;
+							document.Add(new Field("tags", misc, Field.Store.YES, Field.Index.ANALYZED));
+							
+							//document.Add(new Field("createdby", pageModel.CreatedBy, Field.Store.YES, Field.Index.ANALYZED));
+							//document.Add(new Field("createdon", pageModel.CreatedOn.ToShortDateString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+							//document.Add(new Field("contentlength", pageModel.Content.Length.ToString(), Field.Store.YES, Field.Index.NO));
+
+							//string titles = string.Join(" ", (from course in pageModel.AllCourses select course.Title));
+							//document.Add(new Field("coursetitle", titles, Field.Store.YES, Field.Index.ANALYZED));
+
+							writer.AddDocument(document);
+						}
+					}
+
+					writer.Optimize();
+				}
+			}
+			catch (Exception ex)
+			{
+				throw new SearchException(ex, "An error occured while creating the search index");
+			}
+		}
+
 
 		/// <summary>
 		/// Creates the initial search index based on all pages in the system.
@@ -222,23 +342,26 @@ namespace Roadkill.Core.Services
                         if (!page.IsLocked && page.IsControlled &&
                             (competitionId == -1 || page.CompetitionId != competitionId)) 
                         {
-                            PageViewModel pageModel = new PageViewModel(Repository.GetLatestPageContent(page.Id), _markupConverter);
+                            PageViewModel pageModel = new PageViewModel(
+								Repository.GetLatestPageContent(page.Id), _markupConverter, 
+								Repository.FindCoursesByPageId(page.Id));
 
                             Document document = new Document();
                             document.Add(new Field("id", pageModel.Id.ToString(), Field.Store.YES, Field.Index.ANALYZED));
                             document.Add(new Field("content", pageModel.Content, Field.Store.YES, Field.Index.ANALYZED));
-                            document.Add(new Field("contentsummary", GetContentSummary(pageModel), Field.Store.YES, Field.Index.NO));
+                            //document.Add(new Field("contentsummary", GetContentSummary(pageModel), Field.Store.YES, Field.Index.NO));
                             document.Add(new Field("title", pageModel.Title, Field.Store.YES, Field.Index.ANALYZED));
-                            document.Add(new Field("tags", pageModel.SpaceDelimitedTags(), Field.Store.YES, Field.Index.ANALYZED));
-                            document.Add(new Field("createdby", pageModel.CreatedBy, Field.Store.YES, Field.Index.ANALYZED));
-                            document.Add(new Field("createdon", pageModel.CreatedOn.ToShortDateString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-                            document.Add(new Field("contentlength", pageModel.Content.Length.ToString(), Field.Store.YES, Field.Index.NO));
-                            //document.Add(new Field("summary", pageModel.Summary.ToString(), Field.Store.YES, Field.Index.ANALYZED));
-                            //document.Add(new Field("nbview", pageModel.NbView.ToString(), Field.Store.YES, Field.Index.NO));
-                            //document.Add(new Field("nbrating", pageModel.NbRating.ToString(), Field.Store.YES, Field.Index.NO));
-                            //document.Add(new Field("totalrating", pageModel.TotalRating.ToString(), Field.Store.YES, Field.Index.NO));
 
-                            writer.AddDocument(document);
+							// add tags, createdby and courses to "tags"
+							string courses = string.Join(" ", (from course in pageModel.AllCourses select course.Title));
+							string misc = pageModel.SpaceDelimitedTags() + " " + courses + " " + pageModel.CreatedBy;
+							document.Add(new Field("tags", misc, Field.Store.YES, Field.Index.ANALYZED));
+                            
+							//document.Add(new Field("createdby", pageModel.CreatedBy, Field.Store.YES, Field.Index.ANALYZED));
+                            //document.Add(new Field("createdon", pageModel.CreatedOn.ToShortDateString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+                            //document.Add(new Field("contentlength", pageModel.Content.Length.ToString(), Field.Store.YES, Field.Index.NO));
+
+							writer.AddDocument(document);
                         }
 					}
 
@@ -270,18 +393,6 @@ namespace Roadkill.Core.Services
 		internal string GetContentSummary(PageViewModel model)
 		{
             return model.GetContentSummary(_markupConverter);
-			//// Turn the contents into HTML, then strip the tags for the mini summary. This needs some works
-			//string modelHtml = model.Content;
-			//modelHtml = _markupConverter.ToHtml(modelHtml);
-   //         modelHtml = ReplaceImgInHtml(modelHtml);
-   //         modelHtml = ReplaceYoutubeInHtml(modelHtml);
-
-   //         modelHtml = _removeTagsRegex.Replace(modelHtml, "");
-
-			//if (modelHtml.Length > 150)
-			//	modelHtml = modelHtml.Substring(0, 149);
-
-			//return modelHtml;
 		}
 	}
 }
