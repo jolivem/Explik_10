@@ -42,7 +42,7 @@ namespace Roadkill.Core.Cache
 			if (!key.StartsWith(CacheKeys.LIST_CACHE_PREFIX))
 				key = CacheKeys.LIST_CACHE_PREFIX + key;
 
-			Log.Information("ListCache: Added {0} to cache", key);
+			//Log.Information("ListCache: Added {0} to cache", key);
 			_cache.Add(key, items.ToList(), new CacheItemPolicy());
 		}
 
@@ -54,7 +54,7 @@ namespace Roadkill.Core.Cache
 		/// <returns>The list from the cache, or null if it doesn't exist</returns>
 		public List<T> Get<T>(string key)
 		{
-			Log.Information("ListCache: Retrieved {0} from cache", key);
+			//Log.Information("ListCache: Retrieved {0} from cache", key);
 			return _cache.Get(CacheKeys.LIST_CACHE_PREFIX + key) as List<T>;
 		}
 
@@ -68,7 +68,7 @@ namespace Roadkill.Core.Cache
 			if (!_applicationSettings.UseObjectCache)
 				return;
 
-			Log.Information("ListCache: Removed {0} from cache", key);
+			//Log.Information("ListCache: Removed {0} from cache", key);
 			_cache.Remove(CacheKeys.LIST_CACHE_PREFIX + key);
 		}
 
@@ -80,7 +80,7 @@ namespace Roadkill.Core.Cache
 			if (!_applicationSettings.UseObjectCache)
 				return;
 
-			Log.Information("ListCache: RemoveAll from cache");
+			//Log.Information("ListCache: RemoveAll from cache");
 
 			// No need to lock the cache as Remove doesn't throw an exception if the key doesn't exist
 			IEnumerable<string> keys = GetAllKeys();

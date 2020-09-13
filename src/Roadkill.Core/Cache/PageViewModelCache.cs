@@ -218,7 +218,7 @@ namespace Roadkill.Core.Cache
 
 		private void Log(string format, params object[] args)
 		{
-			RoadkillLog.Information("PageViewModelCache: " + string.Format(format, args));
+			//RoadkillLog.Information("PageViewModelCache: " + string.Format(format, args));
 		}
 	}
 }
